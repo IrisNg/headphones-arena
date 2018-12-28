@@ -3,17 +3,21 @@ var express = require('express'),
    app = express(),
    mongoose = require('mongoose'),
    bodyParser = require('body-parser'),
-   methodOverride = require('method-override');
+   url = process.env.MONGODB_URI || 'mongodb://localhost:27017/headphones_arena_app',
+   port = process.env.PORT || 5000;
+const path = require('path');
 
 //-- SETUP : APP CONFIG
 mongoose.connect(
-   'mongodb://localhost:27017/headphones_arena_app',
+   url,
    { useNewUrlParser: true }
 );
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(require('dotenv').config());
 
 //-- ROUTES
 
@@ -278,6 +282,9 @@ app.post('/chat', function(req, res) {
 // AUTHENTICATION
 app.post('/register', function(req, res) {});
 
+app.get('*', function(req, res) {
+   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 //-- PORT CONFIG
 app.listen(port, function() {
    console.log('Server started on port ' + port);

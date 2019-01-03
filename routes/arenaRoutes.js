@@ -11,7 +11,7 @@ router.get('/arena', function(req, res) {
       if (err) {
          console.log(err);
       } else {
-         console.log(foundHeadphones);
+         console.log(foundHeadphones.length);
          res.json(foundHeadphones);
       }
    });

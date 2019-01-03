@@ -1,0 +1,68 @@
+.arena {
+    font-family: 'Roboto', sans-serif;
+}
+.navigation-bar{
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 5rem;
+}
+.navigation-bar img{
+    width: 100%;
+}
+
+.headphone-list{
+    border-left: 5px solid black;
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+    color: white;
+    position: fixed;
+    bottom: 7rem;
+    left: 2rem;
+    height: calc(100% - 7rem);
+}
+.headphone {
+    font-weight: 900;
+    
+    
+}
+.headphone-brand{
+    margin-top: .2rem;
+    display: inline-block;
+    padding: .2rem;
+    
+    background: black;
+    padding-left: calc(.2rem - 5px);
+}
+.headphone-model{
+    margin-top: .2rem;
+    display: inline-block;
+    padding: .2rem;
+    background: black;
+    padding-left: calc(.2rem - 5px);
+}
+/* .cover-up{
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 10%;
+    height: 7rem;
+    background: white;
+} */
+
+.selected-list {
+    margin-left: 15%;
+    vertical-align: top;
+    display: inline-block;
+    width: 75%;
+}
+.selected-headphone {
+    vertical-align: top;
+    display: inline-block;
+    margin: 0 1%;
+    width: 30%;
+}
+.selected-headphone img {
+    width:100%;
+}

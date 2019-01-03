@@ -5,7 +5,20 @@ var HeadphoneSchema = new mongoose.Schema({
    model: String,
    officialDescription: String,
    rating: Number,
-   specification: String,
+   specification: {
+      impedance: String,
+      connector: String,
+      portability: String,
+      color: String,
+      cable: String,
+      driver: String,
+      sensitivity: String,
+      frequencyResponse: String,
+      classification: String,
+      maximumPower: String,
+      weight: String,
+      inTheBox: String
+   },
    image: String,
    amazonLink: String,
    topPosts: [

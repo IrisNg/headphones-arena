@@ -8,7 +8,7 @@ const App = () => {
          <BrowserRouter>
             <div>
                <Route path="/" exact component={LandingPage} />
-               <Route path="/arena" component={Arena} />
+               {/* <Route path="/arena" component={Arena} />
                <Route path="/headphones/new" component={HeadphoneCreate} />
                <Route path="/headphones/:id/edit" exact component={HeadphoneEdit} />
                <Route path="/forum" component={Forum} />
@@ -21,7 +21,7 @@ const App = () => {
                <Route path="/marketplace" component={Marketplace} />
                <Route path="/sales/new" component={SaleCreate} />
                <Route path="/sales/:id" exact component={SaleShow} />
-               <Route path="/sales/:id/edit" exact component={SaleEdit} />
+               <Route path="/sales/:id/edit" exact component={SaleEdit} /> */}
             </div>
          </BrowserRouter>
       </div>

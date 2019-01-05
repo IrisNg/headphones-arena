@@ -17,13 +17,19 @@ class HeadphoneList extends React.Component {
          return <div>Loading ... </div>;
       }
       //Turn each headphone data object in the listOfHeadphones into a component
-      return listOfHeadphones.map(headphone => {
-         return <Headphone headphone={headphone} key={headphone._id} />;
-      });
+      return listOfHeadphones
+         .map(headphone => {
+            return <Headphone headphone={headphone} key={headphone._id} />;
+         })
+         .slice(0, 9);
    }
 
    render() {
-      return <div className="headphone-list">{this.renderListOfHeadphones()}</div>;
+      return (
+         <div className="headphone-list">
+            <div className="all-headphones">{this.renderListOfHeadphones()}</div>
+         </div>
+      );
    }
 }
 

@@ -2,6 +2,7 @@ module.exports = [
    {
       brand: 'Sennheiser',
       model: 'HD 660 S',
+      brandAndModel: 'Sennheiser HD 660 S',
       officialDescription:
          'The new HD 660 S is the successor to the legendary HD 650. This open-back, dynamic headphone features new lower (150-ohm) impedance transducers producing reference-class sound when connected to both Hi-Res home or mobile audio systems. An elegantly designed piece of German engineering, the HD 660 S delivers exceptionally accurate and transparent sound, with an expressiveness that immerses the listener in every emotion and nuance of the music.',
       rating: 100,
@@ -26,6 +27,7 @@ module.exports = [
    {
       brand: '1MORE',
       model: 'Triple Driver Over-Ear (Trident)',
+      brandAndModel: '1MORE Triple Driver Over-Ear (Trident)',
       officialDescription:
          '1MORE’s Triple Driver Over-Ear Headphones feature a 40 mm graphene dynamic driver, a ceramic tweeter, and bass reflector to deliver a hyper-realistic detailed soundstage with silky highs, precise mids, and deep bass. Just like a hi-fi sound system, the ceramic tweeter is capable of faster response time for exquisite detail and shimmer, while a bass reflector used in boutique speakers provides extended bass and depth. Close your eyes and you’re standing in front of a stage.',
       rating: 100,
@@ -51,6 +53,7 @@ module.exports = [
    {
       brand: 'Audio-Technica',
       model: 'ATH-M40x',
+      brandAndModel: 'Audio-Technica ATH-M40x',
       officialDescription:
          'The M-Series ATH-M40x professional monitor headphones are tuned flat for incredibly accurate audio monitoring across an extended frequency range. Your studio experience is enhanced with superior sound isolation and swiveling earcups for convenient one-ear monitoring. Engineered with pro-grade materials and robust construction, the M40x excels in professional studio tracking and mixing, as well as DJ monitoring. Collapsible for space-saving portability.',
       rating: 100,
@@ -76,6 +79,7 @@ module.exports = [
    {
       brand: 'Philips',
       model: 'SHP9500',
+      brandAndModel: 'Philips SHP9500',
       officialDescription:
          'Enjoy an authentic listening experience in style. Created to offer outstanding performance through open back architecture and high-precision 50mm speaker drivers.',
       rating: 100,
@@ -100,6 +104,7 @@ module.exports = [
    {
       brand: 'Bang & Olufsen',
       model: 'Beoplay H6',
+      brandAndModel: 'Bang & Olufsen Beoplay H6',
       officialDescription:
          'Beoplay H6 over-ear headphones exude fine craftsmanship with premium materials that are carefully selected for quality and elegance. Durable leather on the headband, soft lambskin on the ear pads and beautiful aluminum construction allow the H6 to age gracefully. Memory foam adapts to your ear, making these headphones a pleasure to wear. On the inside, the H6 headphones are carefully tuned to respect the music, offering a natural and authentic sound performance focusing on a clear midrange with balanced bass and treble. Daisy chain functionality lets you share the listening experience with friends, while an inline remote and microphone allows you to take calls and control music on-the-go.',
       rating: 100,
@@ -125,6 +130,7 @@ module.exports = [
    {
       brand: 'beyerdynamic',
       model: 'DT 1990 PRO',
+      brandAndModel: 'beyerdynamic DT 1990 PRO',
       officialDescription:
          'For decades now, professional users all around the world have placed their trust in beyerdynamic studio headphones. They remain the number one choice for music producers, sound technicians and broadcast users and are a firmly established piece of equipment in studios worldwide. The DT 1990 PRO reference headphones combine these decades of expertise in headphone technology with the latest Tesla driver technology and an open design.',
       rating: 100,
@@ -151,6 +157,7 @@ module.exports = [
    {
       brand: 'Fostex',
       model: 'TH-900mk2',
+      brandAndModel: 'Fostex TH-900mk2',
       officialDescription:
          'Model TH900mk2 is the second generation of the TH900, one of the most renowned premium dynamic headphones in the market, which newly features detachable connectors for replace-ment of the standard unbalanced cable (equivalent to model ET-H3.0N7UB).  The optional balanced cable, model ET-H3.0N7BL will also be sold separately to meet growing demands for balanced connection with various headphone amps offering balanced 4-pin XLR out.',
       rating: 100,
@@ -176,6 +183,7 @@ module.exports = [
    {
       brand: 'Audeze',
       model: 'LCD-X',
+      brandAndModel: 'Audeze LCD-X',
       officialDescription:
          "The LCD-X is incredibly dynamic, nimble, neutral and transparent, accurately revealing everything on the recording. It quickly became the ultimate tool for recording engineers, musicians and audiophiles alike for its clean, accurate sound. The sense of space is enormous, the midrange and high frequencies offer fantastic detail so you can hear further into the recording with more air and separation between performers. 'To call the LCD-Xs good would be an understatement on a par with describing the Beatles as popular, because they’re not good. They’re amazing.'",
       rating: 100,
@@ -200,6 +208,7 @@ module.exports = [
    {
       brand: 'Meze',
       model: '99 Classics',
+      brandAndModel: 'Meze 99 Classics',
       officialDescription:
          'The Meze 99 Classics delivers perfect natural sound even to the pickiest of audio lovers. The walnut wood earcups, soft earpads, and the spring steel headband will make the 99 Classics an heirloom rather than just a pair of headphones.',
       rating: 100,
@@ -225,6 +234,7 @@ module.exports = [
    {
       brand: 'Sony',
       model: 'MDR1A',
+      brandAndModel: 'Sony MDR1A',
       officialDescription:
          'Drawing inspiration from a legacy of personal audio reproduction, Sony engineers have developed the perfect balance of premium style and hi-resolution audio performance. Introducing the MDR-1A Stereo Headphone featuring thoughtful design, lush long-term comfort, and ultra-responsive Hi-Res audio response for a sound experience bar-none.',
       rating: 100,
@@ -251,6 +261,7 @@ module.exports = [
    {
       brand: 'AKG',
       model: 'K553 MKII',
+      brandAndModel: 'AKG K553 MKII',
       officialDescription:
          'AKG K553 MKII is the ideal closed-back, over-ear studio headphone for monitoring, mixing and mastering. Designed for peak performance and maximum comfort, AKG K553 MKII combines the noise-isolating qualities of a closed-back headphone with the spacious, dimensional sound of an open-back design. The 2” (50mm) low-impedance drivers provide strong, accurate, and distinguished bass response, with enough sensitivity for precise sound reproduction on laptops and mobile devices. Extra-large soft ear pads ensure stress-free listening over long sessions. AKG K553 MKII even features a detachable cable and 2D-axis mechanism that enables flat folding for easy storage or handling on the road.',
       rating: 100,
@@ -275,6 +286,7 @@ module.exports = [
    {
       brand: 'Sennheiser',
       model: 'HD 800 S',
+      brandAndModel: 'Sennheiser HD 800 S',
       officialDescription:
          'Sennheiser 800 Series headphones were created with a singular goal: The pursuit of perfect sound. The HD 800 S redefines the audiophile listening experience. It’s capable of breaking down the barrier between audio recording and playback equipment connecting the listener directly to an artist’s original performance. In doing this, the power of emotion is delivered through music. The patented Ring Radiator transducer is central to the exceptional performance of the HD 800 S. This innovative 56 millimeter diameter driver is the largest used in dynamic headphones. The 40 millimeter aluminum voice coil is driven by a 42 millimeter magnet structure. The transducers diaphragm has two contact points (instead of one used in traditional drivers), at the inside and outside of the ring. Greater surface area coupled with enhanced control of two contact points deliver truly exceptional performance.',
       rating: 100,

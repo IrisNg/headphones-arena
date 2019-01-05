@@ -16,12 +16,13 @@ router.get('/forum', function(req, res) {
 
 //create forum-post page
 router.post('/posts', function(req, res) {
-   //!!!xxx req.body?
+
    Post.create(req.body, function(err, createdPost) {
       if (err) {
          console.log(err);
       } else {
          console.log(createdPost);
+         res.json(createdPost);
       }
    });
 });

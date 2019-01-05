@@ -3,8 +3,9 @@ var mongoose = require('mongoose');
 var HeadphoneSchema = new mongoose.Schema({
    brand: String,
    model: String,
+   brandAndModel: String,
    officialDescription: String,
-   rating: Number,
+   rating: { type: Number, default: 100 },
    specification: {
       impedance: String,
       connector: String,

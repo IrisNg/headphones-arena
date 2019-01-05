@@ -22,6 +22,8 @@ mongoose.connect(
 );
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+//NOTE: Required for axios to post form from React
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));

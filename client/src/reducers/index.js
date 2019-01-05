@@ -8,6 +8,16 @@ const headphoneListReducer = (listOfHeadphones = null, action) => {
          return listOfHeadphones;
    }
 };
+const headphoneNamesReducer = (nameList = null, action) => {
+   switch (action.type) {
+      case 'FETCH_LIST_OF_HEADPHONES':
+         return action.payload.data.map(headphone => {
+            return { brand: headphone.brand, model: headphone.model, brandAndModel: headphone.brandAndModel };
+         });
+      default:
+         return nameList;
+   }
+};
 
 const selectedHeadphoneReducer = (listOfSelectedHeadphones = [], action) => {
    if (action.type === 'HEADPHONE_SELECTED' && listOfSelectedHeadphones.includes(action.payload) === false) {
@@ -23,5 +33,6 @@ const selectedHeadphoneReducer = (listOfSelectedHeadphones = [], action) => {
 
 export default combineReducers({
    listOfHeadphones: headphoneListReducer,
+   nameList: headphoneNamesReducer,
    listOfSelectedHeadphones: selectedHeadphoneReducer
 });

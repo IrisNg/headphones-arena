@@ -18,17 +18,17 @@ router.get('/arena', function(req, res) {
 });
 //create headphone page
 router.post('/headphones', function(req, res) {
-   // headphoneSeed.forEach(function(headphone) {
-   // Headphone.create(headphone, function(err, createdHeadphone) {
-   Headphone.create(req.body, function(err, createdHeadphone) {
-      if (err) {
-         console.log(err);
-      } else {
-         console.log(createdHeadphone);
-         res.json(createdHeadphone);
-      }
+   headphoneSeed.forEach(function(headphone) {
+      Headphone.create(headphone, function(err, createdHeadphone) {
+         // Headphone.create(req.body, function(err, createdHeadphone) {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(createdHeadphone);
+            // res.json(createdHeadphone);
+         }
+      });
    });
-   // });
 });
 //edit headphone page
 router.get('/headphones/:id/edit', function(req, res) {

@@ -1,6 +1,7 @@
 var express = require('express'),
    router = express.Router(),
-   Post = require('../models/Post');
+   Post = require('../models/Post'),
+   Headphone = require('../models/Headphone');
 
 // FORUM
 router.get('/forum', function(req, res) {
@@ -16,13 +17,27 @@ router.get('/forum', function(req, res) {
 
 //create forum-post page
 router.post('/posts', function(req, res) {
-
    Post.create(req.body, function(err, createdPost) {
       if (err) {
          console.log(err);
       } else {
          console.log(createdPost);
-         res.json(createdPost);
+         req.body.tag.forEach(function(entry) {
+            Headphone.findOne({ brandAndModel: entry.brandAndModel }, function(err, foundHeadphone) {
+               if (err) {
+                  console.log(err);
+               } else {
+                  foundHeadphone.tags.push(...entry.tags);
+                  foundHeadphone.save(function(err, updatedHeadphone) {
+                     if (err) {
+                        console.log(err);
+                     } else {
+                        console.log(updatedHeadphone);
+                     }
+                  });
+               }
+            });
+         });
       }
    });
 });

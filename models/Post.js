@@ -11,7 +11,7 @@ var PostSchema = new mongoose.Schema({
       // },
       username: String
    },
-   tag: [String],
+   tag: [{ brandAndModel: String, tags: [String] }],
    vote: { type: Number, default: 0 },
    replies: [
       {

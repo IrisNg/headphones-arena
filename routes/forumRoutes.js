@@ -47,7 +47,9 @@ router.get('/posts/:id', function(req, res) {
       if (err) {
          console.log(err);
       } else {
+         // foundPost.created = foundPost.created.toDateString();
          console.log(foundPost);
+         res.json(foundPost);
       }
    });
 });

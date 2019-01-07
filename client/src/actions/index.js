@@ -4,7 +4,7 @@ import axios from 'axios';
 //Makes GET request to /arena for the list of all headphones
 export const fetchListOfHeadphones = () => async dispatch => {
    var response = await axios.get('/arena');
-   dispatch({ type: 'FETCH_LIST_OF_HEADPHONES', payload: response });
+   dispatch({ type: 'FETCH_LIST_OF_HEADPHONES', payload: response.data });
 };
 
 export const selectHeadphone = headphoneSelected => {
@@ -18,4 +18,9 @@ export const removeHeadphone = headphoneRemoved => {
       type: 'HEADPHONE_REMOVED',
       payload: headphoneRemoved
    };
+};
+
+export const fetchPost = id => async dispatch => {
+   const response = await axios.get(`/posts/${id}`);
+   dispatch({ type: 'FETCH_POST', payload: response.data });
 };

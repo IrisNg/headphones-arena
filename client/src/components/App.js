@@ -5,6 +5,7 @@ import LandingPage from './LandingPage';
 import Arena from './Arena/Arena';
 import HeadphoneCreate from './Arena/HeadphoneCreate';
 import Forum from './Forum/Forum';
+import PostShow from './Forum/PostShow';
 import PostCreate from './Forum/PostCreate';
 import Blacksmith from './Blacksmith/Blacksmith';
 import Marketplace from './Marketplace/Marketplace';
@@ -20,7 +21,7 @@ const App = () => {
                {/* <Route path="/headphones/:id/edit" exact component={HeadphoneEdit} /> */}
                <Route path="/forum" component={Forum} />
                <Route path="/posts/new" component={PostCreate} />
-               {/* <Route path="/posts/:id" exact component={PostShow} />  */}
+               <Route path="/posts/:id" exact component={PostShow} />
                <Route path="/blacksmith" component={Blacksmith} />
                {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}

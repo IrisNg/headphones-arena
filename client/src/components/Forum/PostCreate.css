@@ -21,9 +21,16 @@ textarea {
     background-color: grey;
     color: white;
 }
+.tagged-headphone{
+display:inline-block;
+width: 95%;
+}
 
 .tag {
     background: whitesmoke;
     color: black;
     
 }
+/* i.fa-times{
+    float:right;
+} */

@@ -9,8 +9,8 @@ var ReplySchema = new mongoose.Schema({
       },
       username: String
    },
-   tag: [String],
-   vote: Number,
+   tag: [{ brandAndModel: String, tags: [String] }],
+   vote: { type: Number, default: 0 },
    replies: [
       {
          type: mongoose.Schema.Types.ObjectId,

@@ -24,3 +24,17 @@ export const fetchPost = id => async dispatch => {
    const response = await axios.get(`/posts/${id}`);
    dispatch({ type: 'FETCH_POST', payload: response.data });
 };
+
+export const registerUser = (username, password) => async dispatch => {
+   const response = await axios.post('/register', { username, password });
+   dispatch({ type: 'CURRENT_USER', payload: response.data });
+};
+export const loginUser = (username, password) => async dispatch => {
+   const response = await axios.post('/login', { username, password });
+   dispatch({ type: 'CURRENT_USER', payload: response.data });
+};
+
+export const logoutUser = () => async dispatch => {
+   const response = await axios.get('/logout');
+   dispatch({ type: 'CURRENT_USER', payload: response.data });
+};

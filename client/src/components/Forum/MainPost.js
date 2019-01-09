@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'react-moment';
 
 class MainPost extends React.Component {
    renderTags = () => {
@@ -18,14 +19,12 @@ class MainPost extends React.Component {
          return <div>Loading</div>;
       }
       var { title, created, content, vote, author } = this.props.data;
-      console.log(created);
-      created = created
-         .split('')
-         .slice(0, 10)
-         .join('');
       return (
          <div>
-            <h5>{created.toLocaleString()}</h5>
+            <Moment format="D MMM YYYY" withTitle>
+               {created}
+            </Moment>
+            {/* <h5>{created.format("MMM Do YY")}</h5> */}
             <div>
                <div className="main-post-title">{title}</div>
                {this.renderTags()} <p className="main-post-content">{content}</p>

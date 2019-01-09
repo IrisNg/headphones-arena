@@ -1,34 +1,34 @@
 import { combineReducers } from 'redux';
 
-const headphoneListReducer = (listOfHeadphones = null, action) => {
+const headphoneListReducer = (state = [], action) => {
    switch (action.type) {
       case 'FETCH_LIST_OF_HEADPHONES':
          return action.payload;
       default:
-         return listOfHeadphones;
+         return state;
    }
 };
-const headphoneNamesReducer = (nameList = null, action) => {
+const headphoneNamesReducer = (state = [], action) => {
    switch (action.type) {
       case 'FETCH_LIST_OF_HEADPHONES':
          return action.payload.map(headphone => {
             return { brand: headphone.brand, model: headphone.model, brandAndModel: headphone.brandAndModel };
          });
       default:
-         return nameList;
+         return state;
    }
 };
 
-const selectedHeadphoneReducer = (listOfSelectedHeadphones = [], action) => {
-   if (action.type === 'HEADPHONE_SELECTED' && listOfSelectedHeadphones.includes(action.payload) === false) {
-      return [...listOfSelectedHeadphones, action.payload];
+const selectedHeadphoneReducer = (state = [], action) => {
+   if (action.type === 'HEADPHONE_SELECTED' && state.includes(action.payload) === false) {
+      return [...state, action.payload];
    }
    if (action.type === 'HEADPHONE_REMOVED') {
-      return listOfSelectedHeadphones.filter(function(headphone) {
+      return state.filter(function(headphone) {
          return headphone !== action.payload;
       });
    }
-   return listOfSelectedHeadphones;
+   return state;
 };
 
 const postReducer = (state = null, action) => {
@@ -40,9 +40,24 @@ const postReducer = (state = null, action) => {
    }
 };
 
+const currentUserReducer = (state = null, action) => {
+   switch (action.type) {
+      case 'CURRENT_USER':
+         //If user is logged-out
+         if (!action.payload) {
+            return null;
+         }
+         //If user is logged-in
+         return { username: action.payload.username, id: action.payload._id };
+      default:
+         return state;
+   }
+};
+
 export default combineReducers({
    listOfHeadphones: headphoneListReducer,
    nameList: headphoneNamesReducer,
    listOfSelectedHeadphones: selectedHeadphoneReducer,
-   post: postReducer
+   post: postReducer,
+   currentUser: currentUserReducer
 });

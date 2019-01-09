@@ -22,7 +22,6 @@ class PostCreate extends React.Component {
 
    retrieveTagsFromTagSystem = outputTags => {
       this.setState({ outputTags });
-      console.log(outputTags);
    };
    onFormSubmit = event => {
       event.preventDefault();
@@ -31,19 +30,25 @@ class PostCreate extends React.Component {
    };
 
    postToServer = async () => {
-      console.log(this.state.outputTags);
       //Format object to be posted to the database
       const postObj = {
          title: this.state.title,
          content: this.state.content,
-         author: { username: this.state.username },
          tag: this.state.outputTags
       };
       const response = await axios.post('/posts', postObj);
       console.log(response);
+      if (response === 'Please Login') {
+         this.setState({ loginMessage: true });
+      }
       // this.setState({ redirect: true });
    };
 
+   loginMessage() {
+      if (!this.props.currentUser) {
+         return 'Please Login First!';
+      }
+   }
    render() {
       // if (this.state.redirect) {
       //    return <Redirect to="/arena" />;
@@ -51,6 +56,7 @@ class PostCreate extends React.Component {
       return (
          <div>
             <h1>New Post</h1>
+            <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>
                <label>Title Of Post</label>
                <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
@@ -73,7 +79,7 @@ class PostCreate extends React.Component {
 
 //Get the name list of all headphones in the database
 const mapStateToProps = state => {
-   return { nameList: state.nameList };
+   return { nameList: state.nameList, currentUser: state.currentUser };
 };
 
 export default connect(

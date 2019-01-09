@@ -1,7 +1,8 @@
 var express = require('express'),
    router = express.Router(),
    Post = require('../models/Post'),
-   Headphone = require('../models/Headphone');
+   Headphone = require('../models/Headphone'),
+   User = require('../models/User');
 
 // FORUM
 router.get('/forum', function(req, res) {
@@ -16,17 +17,26 @@ router.get('/forum', function(req, res) {
 });
 
 //create forum-post page
-router.post('/posts', function(req, res) {
+router.post('/posts', isLoggedIn, function(req, res) {
+   //Create new post in the database
    Post.create(req.body, function(err, createdPost) {
       if (err) {
          console.log(err);
       } else {
+         //Add in the current user's details
+         createdPost.author.id = req.user._id;
+         createdPost.author.username = req.user.username;
+         //Save the updated post
+         createdPost.save();
          console.log(createdPost);
+         res.json(createdPost);
+         //Find the headphones tagged in the post
          req.body.tag.forEach(function(entry) {
             Headphone.findOne({ brandAndModel: entry.brandAndModel }, function(err, foundHeadphone) {
                if (err) {
                   console.log(err);
                } else {
+                  //Push in the tags related to the headphone
                   foundHeadphone.tags.push(...entry.tags);
                   foundHeadphone.save(function(err, updatedHeadphone) {
                      if (err) {
@@ -85,4 +95,10 @@ router.delete('/posts/:id', function(req, res) {
    });
 });
 
+function isLoggedIn(req, res, next) {
+   if (req.isAuthenticated()) {
+      return next();
+   }
+   res.json('Please Login');
+}
 module.exports = router;

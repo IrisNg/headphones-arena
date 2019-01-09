@@ -1,0 +1,25 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions';
+
+class Logout extends React.Component {
+   onButtonClick = () => {
+      //   e.preventDefault();
+      this.props.logoutUser();
+   };
+   render() {
+      return (
+         <div>
+            <button onClick={this.onButtonClick}>Logout</button>
+         </div>
+      );
+   }
+}
+const mapStateToProps = state => {
+   console.log(state.currentUser);
+   return { currentUser: state.currentUser };
+};
+export default connect(
+   mapStateToProps,
+   { logoutUser }
+)(Logout);

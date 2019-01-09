@@ -14,7 +14,7 @@ class PostShow extends React.Component {
       console.log(this.props.post);
       return (
          <div>
-            POST
+            WHAT IS THIS
             <MainPost data={this.props.post} />
             {this.renderReplies()}
          </div>

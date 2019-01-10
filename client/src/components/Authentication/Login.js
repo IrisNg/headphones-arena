@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { loginUser } from '../../actions';
 
 class Login extends React.Component {
    state = {
       username: '',
-      password: ''
+      password: '',
+      redirect: false
    };
    onSubmitClick = e => {
       e.preventDefault();
       this.props.loginUser(this.state.username, this.state.password);
+      this.setState({ redirect: true });
    };
    render() {
+      if (this.state.redirect) {
+         return <Redirect to="/posts/new" />;
+      }
       return (
          <div>
             LOGIN

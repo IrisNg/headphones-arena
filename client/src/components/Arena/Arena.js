@@ -2,7 +2,7 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import HeadphoneList from './HeadphoneList';
 import SelectedList from './SelectedList';
-import NavigationBar from './NavigationBar';
+import NavigationBar from '../NavigationBar';
 import './Arena.css';
 
 const Arena = () => {

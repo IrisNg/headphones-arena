@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 
 var PostSchema = new mongoose.Schema({
+   isMainPost: Boolean,
    title: String,
+   category: String,
    content: String,
    author: {
       id: {
@@ -15,7 +17,7 @@ var PostSchema = new mongoose.Schema({
    replies: [
       {
          type: mongoose.Schema.Types.ObjectId,
-         ref: 'Reply'
+         ref: 'Post'
       }
    ],
    created: {

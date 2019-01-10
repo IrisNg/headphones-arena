@@ -73,6 +73,10 @@ app.get('/logout', function(req, res) {
    req.logout();
    res.json(req.user);
 });
+//Check User's authentication status
+app.get('/user', function(req,res){
+   res.json(req.user);
+});
 
 app.get('*', function(req, res) {
    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));

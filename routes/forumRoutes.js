@@ -2,7 +2,8 @@ var express = require('express'),
    router = express.Router(),
    Post = require('../models/Post'),
    Headphone = require('../models/Headphone'),
-   User = require('../models/User');
+   // User = require('../models/User');
+   Reply = require('../models/Reply');
 
 // FORUM
 router.get('/forum', function(req, res) {
@@ -51,17 +52,73 @@ router.post('/posts', isLoggedIn, function(req, res) {
       }
    });
 });
-//show forum-post page (Need?)
-router.get('/posts/:id', function(req, res) {
-   Post.findById(req.params.id, function(err, foundPost) {
+
+//create forum-reply page
+router.post('/replies', isLoggedIn, function(req, res) {
+   //Create new post in the database
+   Post.create(req.body.replyBody, function(err, createdReply) {
       if (err) {
          console.log(err);
       } else {
-         // foundPost.created = foundPost.created.toDateString();
-         console.log(foundPost);
-         res.json(foundPost);
+         //Add in the current user's details
+         createdReply.author.id = req.user._id;
+         createdReply.author.username = req.user.username;
+         //Save the updated post
+         createdReply.save();
+         console.log(createdReply);
+         res.json(createdReply);
+         //Find the headphones tagged in the post
+         req.body.replyBody.tag.forEach(function(entry) {
+            Headphone.findOne({ brandAndModel: entry.brandAndModel }, function(err, foundHeadphone) {
+               if (err) {
+                  console.log(err);
+               } else {
+                  //Push in the tags related to the headphone
+                  foundHeadphone.tags.push(...entry.tags);
+                  foundHeadphone.save(function(err, updatedHeadphone) {
+                     if (err) {
+                        console.log(err);
+                     } else {
+                        console.log(updatedHeadphone);
+                     }
+                  });
+               }
+            });
+         });
+         //Find the parent post of this reply
+         Post.findById(req.body.idToReplyTo, function(err, foundPost) {
+            if (err) {
+               console.log(err);
+            } else {
+               //Push the created reply into the parent post
+               foundPost.replies.push(createdReply);
+               foundPost.save(function(err, updatedPost) {
+                  if (err) {
+                     console.log(err);
+                  } else {
+                     console.log(updatedPost);
+                  }
+               });
+            }
+         });
       }
    });
+});
+
+//show forum-post page (Need?)
+router.get('/posts/:id', function(req, res) {
+   //Find the Post with the same Id as the parameter
+   //Populate the object references in the replies of the post
+   Post.findById(req.params.id)
+      .populate('replies')
+      .exec(function(err, foundPost) {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(foundPost);
+            res.json(foundPost);
+         }
+      });
 });
 //edit forum-post page (Need?)
 router.get('/posts/:id/edit', function(req, res) {

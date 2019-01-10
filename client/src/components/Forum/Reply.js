@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-class MainPost extends React.Component {
+class Reply extends React.Component {
    renderTags = () => {
       if (this.props.data.tag.length > 0) {
          this.props.data.tag.map(entry => {
@@ -19,14 +19,13 @@ class MainPost extends React.Component {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, vote, author } = this.props.data;
+      var { created, content, vote, author } = this.props.data;
       return (
          <div>
             <Moment format="D MMM YYYY" withTitle>
                {created}
             </Moment>
             <div>
-               <div className="main-post-title">{title}</div>
                {this.renderTags()} <p className="main-post-content">{content}</p>
                <div className="main-post-metadata">
                   <h4>{author.username}</h4>
@@ -38,4 +37,4 @@ class MainPost extends React.Component {
    }
 }
 
-export default MainPost;
+export default Reply;

@@ -38,3 +38,7 @@ export const logoutUser = () => async dispatch => {
    const response = await axios.get('/logout');
    dispatch({ type: 'CURRENT_USER', payload: response.data });
 };
+export const checkUser = () => async dispatch => {
+   const response = await axios.get('/user');
+   dispatch({ type: 'CURRENT_USER', payload: response.data });
+};

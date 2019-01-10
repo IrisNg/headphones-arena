@@ -6,10 +6,12 @@ import { fetchListOfHeadphones } from '../../actions';
 import TagSystem from './TagSystem';
 import './PostCreate.css';
 
-class PostCreate extends React.Component {
+class ReplyCreate extends React.Component {
    state = {
+      //From Props
+      idToReplyTo: '',
       title: '',
-      category: '',
+      //Not from props - user inputted
       outputTags: [],
       content: 'What do you want to share with your fellow Audiophiles today?'
       // redirect: false,
@@ -20,10 +22,13 @@ class PostCreate extends React.Component {
          this.props.fetchListOfHeadphones();
       }
    }
-   //Store selected category to the state
-   onCategoryClick = category => {
-      this.setState({ category });
-   };
+   componentDidUpdate() {
+      // Store the parent post's details in the state
+      if (!this.state.idToReplyTo) {
+         const { idToReplyTo, title } = this.props;
+         this.setState({ idToReplyTo, title });
+      }
+   }
    //Callback passed as props to child component TagSystem
    retrieveTagsFromTagSystem = outputTags => {
       this.setState({ outputTags });
@@ -36,16 +41,18 @@ class PostCreate extends React.Component {
 
    postToServer = async () => {
       //Format object to be posted to the database
-      var postObj = {
-         isMainPost: true,
-         title: this.state.title,
-         category: this.state.category,
-         tag: this.state.outputTags,
-         content: this.state.content
+      var replyObj = {
+         idToReplyTo: this.state.idToReplyTo,
+         replyBody: {
+            isMainPost: false,
+            title: this.state.title,
+            tag: this.state.outputTags,
+            content: this.state.content
+         }
       };
-      const response = await axios.post('/posts', postObj);
-      console.log(response);
 
+      const response = await axios.post('/replies', replyObj);
+      console.log(response);
       // this.setState({ redirect: true });
    };
    //Display message to remind user to log in before creating a new post
@@ -64,30 +71,9 @@ class PostCreate extends React.Component {
       // }
       return (
          <div>
-            <h1>New Post</h1>
+            <h6>New Reply</h6>
             <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>
-               {/* Post Title */}
-               <label>Title Of Post</label>
-               <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
-               {/* Post Category */}
-               <div className="post-category">
-                  <div className={this.manageClass('Comparison')} onClick={() => this.onCategoryClick('Comparison')}>
-                     Comparison
-                  </div>
-                  <div
-                     className={this.manageClass('Recommendation')}
-                     onClick={() => this.onCategoryClick('Recommendation')}
-                  >
-                     Budget Recommendation
-                  </div>
-                  <div className={this.manageClass('Review')} onClick={() => this.onCategoryClick('Review')}>
-                     Review
-                  </div>
-                  <div className={this.manageClass('General')} onClick={() => this.onCategoryClick('General')}>
-                     General Talk
-                  </div>
-               </div>
                {/* Tagging Mechanism */}
                <TagSystem nameList={this.props.nameList} compileTags={this.retrieveTagsFromTagSystem} />
                {/* Post Contents */}
@@ -107,4 +93,4 @@ const mapStateToProps = state => {
 export default connect(
    mapStateToProps,
    { fetchListOfHeadphones }
-)(PostCreate);
+)(ReplyCreate);

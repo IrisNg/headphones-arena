@@ -1,19 +1,72 @@
 import React from 'react';
 import Moment from 'react-moment';
+import ReplyCreate from './ReplyCreate';
+import './Reply.css';
 
 class Reply extends React.Component {
+   state = {
+      renderReplyCreate: false
+   };
+   //Render tags selected by the author of this reply
    renderTags = () => {
       if (this.props.data.tag.length > 0) {
-         this.props.data.tag.map(entry => {
+         return this.props.data.tag.map(entry => {
             return (
-               <div>
+               <div key={entry.tags}>
                   <h6>{entry.brandAndModel}</h6>
-                  <p>{entry.tags}</p>
+                  <p>
+                     {entry.tags.map(tag => {
+                        return (
+                           <span className="reply__tag" key={tag}>
+                              {tag}
+                           </span>
+                        );
+                     })}
+                  </p>
                </div>
             );
          });
       }
    };
+   //Render replies to this reply
+   renderReplies = () => {
+      if (this.props.data.replies.length > 0) {
+         return this.props.data.replies.map(reply => (
+            <Reply
+               key={reply._id}
+               data={reply}
+               allowReply={this.props.tier < 3 ? true : false}
+               tier={this.props.tier + 1}
+            />
+         ));
+      } else {
+         return null;
+      }
+   };
+
+   //Render the button that triggers the create reply form
+   //Restrict reply creation after a certain nested level
+   //To prevent database from exploding and text from becoming too squashed up
+   allowReplyCreate = () => {
+      if (this.props.allowReply) {
+         return (
+            <div
+               //Make this button disappear after ReplyCreate component appear
+               style={this.state.renderReplyCreate ? { display: 'none' } : null}
+               onClick={() => this.setState({ renderReplyCreate: true })}
+            >
+               +
+            </div>
+         );
+      }
+   };
+   //Render the create reply form
+   renderReplyCreate() {
+      if (this.state.renderReplyCreate) {
+         const { _id, title } = this.props.data;
+         return <ReplyCreate idToReplyTo={_id} title={title} />;
+      }
+   }
 
    render() {
       if (!this.props.data) {
@@ -21,17 +74,28 @@ class Reply extends React.Component {
       }
       var { created, content, vote, author } = this.props.data;
       return (
-         <div>
-            <Moment format="D MMM YYYY" withTitle>
-               {created}
-            </Moment>
-            <div>
-               {this.renderTags()} <p className="main-post-content">{content}</p>
-               <div className="main-post-metadata">
+         <div className="reply-thread">
+            <div className="reply">
+               {/* Date */}
+               <Moment format="D MMM YYYY" withTitle>
+                  {created}
+               </Moment>
+               {/* Tags */}
+               <div>{this.renderTags()}</div>
+               {/* Content */}
+               <p>{content}</p>
+               {/* Metadata */}
+               <div>
                   <h4>{author.username}</h4>
                   <h6>{vote}</h6>
                </div>
             </div>
+            {/* Replies to this reply */}
+            {this.renderReplies()}
+            {/* '+' Button  */}
+            {this.allowReplyCreate()}
+            {/* Create reply form */}
+            {this.renderReplyCreate()}
          </div>
       );
    }

@@ -9,7 +9,7 @@ const Arena = () => {
    return (
       <div className="arena">
          {/* <div className="cover-up" /> */}
-         <div className="continuous-line" />
+         <div className="arena__continuous-line" />
          <NavigationBar />
          <HeadphoneList />
          <SelectedList />

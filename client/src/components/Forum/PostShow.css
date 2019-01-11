@@ -1,3 +1,11 @@
-.hide {
-    display:none;
+.post-show {
+    background-color: black;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.post__tag,
+.reply__tag {
+    margin : 0 .2rem;
+    background: slategray;
 }

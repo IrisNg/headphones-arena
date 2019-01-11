@@ -1,4 +1,4 @@
-body {
+.post-create {
     background-color: black;
     color: white;
     font-family: 'Roboto', sans-serif;
@@ -9,7 +9,7 @@ input {
     width: 50%;
 }
 
-.post-category div {
+.post-create__category div {
     display:inline-block;
     color: white;
     cursor: pointer;
@@ -17,32 +17,10 @@ input {
     border: 1px solid white;
     padding: .1rem .5rem;
 }
-.post-category div.active {
+.post-create__category div.active {
 
     border-color: yellow;
     color: yellow;
-}
-.tag-line {
-    margin: 1rem 0;
-    width: 50%;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-
-.tag-line:hover{
-    background-color: grey;
-    color: white;
-}
-.tagged-headphone{
-display:inline-block;
-width: 95%;
-}
-
-.tag {
-    background: whitesmoke;
-    color: black;
-    
 }
 textarea {
     display: block;

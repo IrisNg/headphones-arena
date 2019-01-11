@@ -1,5 +1,6 @@
 import React from 'react';
 import TagLibrary from './TagLibrary';
+import './TagSystem.css';
 
 class TagSystem extends React.Component {
    state = {
@@ -83,9 +84,9 @@ class TagSystem extends React.Component {
          //Map each taggedHeadphone in a separate tag line
          return this.state.taggedHeadphones.map(taggedHeadphoneName => {
             return (
-               <div className="tag-line" key={taggedHeadphoneName}>
+               <div className="tag-system__tag-line" key={taggedHeadphoneName}>
                   <div
-                     className="tagged-headphone"
+                     className="tag-system__tagged-headphone"
                      //Pass in this headphone name into callback when clicked
                      onClick={() => this.addSelectedTagLineToState(taggedHeadphoneName)}
                   >
@@ -163,7 +164,7 @@ class TagSystem extends React.Component {
       var tagEntry = this.state.outputTags.find(entry => entry.brandAndModel === taggedHeadphoneName);
       return tagEntry
          ? tagEntry.tags.map(tag => (
-              <span className="tag" key={tag}>
+              <span className="tag-system__tag" key={tag}>
                  {' '}
                  {tag}
                  <i className="fas fa-times" onClick={() => this.removeTagFromState(taggedHeadphoneName, tag)} />

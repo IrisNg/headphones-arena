@@ -5,16 +5,7 @@ body {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
 }
-.navigation-bar {
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-    width: 5rem;
-}
-.navigation-bar img {
-    width: 100%;
-}
-.continuous-line {
+.arena__continuous-line {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -34,8 +25,8 @@ body {
     font-size: .9rem;
     padding-top: 5rem;
 }
-.headphone-brand,
-.headphone-model {
+.headphone__brand,
+.headphone__model {
     margin-top: .2rem;
     display: inline-block;
     padding: .2rem .4rem;

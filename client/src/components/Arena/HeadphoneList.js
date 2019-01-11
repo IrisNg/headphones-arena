@@ -25,11 +25,7 @@ class HeadphoneList extends React.Component {
    }
 
    render() {
-      return (
-         <div className="headphone-list">
-            <div className="all-headphones">{this.renderListOfHeadphones()}</div>
-         </div>
-      );
+      return <div className="headphone-list">{this.renderListOfHeadphones()}</div>;
    }
 }
 

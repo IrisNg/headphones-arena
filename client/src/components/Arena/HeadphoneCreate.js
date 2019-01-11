@@ -32,6 +32,7 @@ class HeadphoneCreate extends React.Component {
    };
 
    postToServer = async () => {
+      //Format object to be posted to the server
       const postObj = {
          brand: this.state.brand,
          model: this.state.model,

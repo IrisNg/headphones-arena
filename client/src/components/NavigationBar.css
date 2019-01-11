@@ -1,0 +1,9 @@
+.navigation-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 5rem;
+}
+.navigation-bar img {
+    width: 100%;
+}

@@ -105,12 +105,16 @@ router.post('/replies', isLoggedIn, function(req, res) {
    });
 });
 
-//show forum-post page (Need?)
+//show forum-post page
 router.get('/posts/:id', function(req, res) {
    //Find the Post with the same Id as the parameter
    //Populate the object references in the replies of the post
    Post.findById(req.params.id)
-      .populate('replies')
+      // Deep populate the replies of each reply
+      .populate({
+         path: 'replies',
+         populate: { path: 'replies', populate: { path: 'replies', populate: { path: 'replies' } } }
+      })
       .exec(function(err, foundPost) {
          if (err) {
             console.log(err);

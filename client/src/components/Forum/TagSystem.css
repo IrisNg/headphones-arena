@@ -1,0 +1,18 @@
+.tag-system__tag-line {
+    margin: 1rem 0;
+    width: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.tag-system__tag-line:hover{
+    background-color: grey;
+    color: white;
+}
+.tag-system__tagged-headphone{
+    display:inline-block;
+    width: 95%;
+}
+.tag-system__tag {
+    background: whitesmoke;
+    color: black;
+}

@@ -4,7 +4,7 @@ import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
 import { fetchListOfHeadphones } from '../../actions';
 import TagSystem from './TagSystem';
-import './PostCreate.css';
+import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
    state = {
@@ -70,7 +70,7 @@ class ReplyCreate extends React.Component {
       //    return <Redirect to="/arena" />;
       // }
       return (
-         <div>
+         <div className="reply-create">
             <h6>New Reply</h6>
             <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>

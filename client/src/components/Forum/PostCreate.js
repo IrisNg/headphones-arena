@@ -63,15 +63,17 @@ class PostCreate extends React.Component {
       //    return <Redirect to="/arena" />;
       // }
       return (
-         <div>
+         <div className="post-create">
+            {/* Page Title */}
             <h1>New Post</h1>
+            {/* 'Please Login' Message */}
             <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>
                {/* Post Title */}
                <label>Title Of Post</label>
                <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} />
                {/* Post Category */}
-               <div className="post-category">
+               <div className="post-create__category">
                   <div className={this.manageClass('Comparison')} onClick={() => this.onCategoryClick('Comparison')}>
                      Comparison
                   </div>

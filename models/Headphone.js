@@ -5,7 +5,7 @@ var HeadphoneSchema = new mongoose.Schema({
    model: String,
    brandAndModel: String,
    image: String,
-   tags: [String],
+   tags: [{ postId: String, tags: [String] }],
    rating: { type: Number, default: 100 },
    officialDescription: String,
    specification: {

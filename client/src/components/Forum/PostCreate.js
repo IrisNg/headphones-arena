@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
-import { fetchListOfHeadphones } from '../../actions';
 import TagSystem from './TagSystem';
 import './PostCreate.css';
 
@@ -14,12 +13,7 @@ class PostCreate extends React.Component {
       content: 'What do you want to share with your fellow Audiophiles today?'
       // redirect: false,
    };
-   //Give me the official list of headphones from the database
-   componentDidMount() {
-      if (this.props.nameList.length < 1) {
-         this.props.fetchListOfHeadphones();
-      }
-   }
+
    //Store selected category to the state
    onCategoryClick = category => {
       this.setState({ category });
@@ -37,15 +31,20 @@ class PostCreate extends React.Component {
    postToServer = async () => {
       //Format object to be posted to the database
       var postObj = {
-         isMainPost: true,
-         title: this.state.title,
-         category: this.state.category,
-         tag: this.state.outputTags,
-         content: this.state.content
+         body: {
+            isMainPost: true,
+            title: this.state.title,
+            category: this.state.category,
+            tag: this.state.outputTags,
+            content: this.state.content
+         }
       };
+      //Create post in database
       const response = await axios.post('/posts', postObj);
       console.log(response);
-
+      //Add new tags to newly tagged headphones
+      const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
+      console.log(response2);
       // this.setState({ redirect: true });
    };
    //Display message to remind user to log in before creating a new post
@@ -91,7 +90,7 @@ class PostCreate extends React.Component {
                   </div>
                </div>
                {/* Tagging Mechanism */}
-               <TagSystem nameList={this.props.nameList} compileTags={this.retrieveTagsFromTagSystem} />
+               <TagSystem compileTags={this.retrieveTagsFromTagSystem} />
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
@@ -103,10 +102,7 @@ class PostCreate extends React.Component {
 
 //Get the name list of all headphones in the database
 const mapStateToProps = state => {
-   return { nameList: state.nameList, currentUser: state.currentUser };
+   return { currentUser: state.currentUser };
 };
 
-export default connect(
-   mapStateToProps,
-   { fetchListOfHeadphones }
-)(PostCreate);
+export default connect(mapStateToProps)(PostCreate);

@@ -31,6 +31,30 @@ const selectedHeadphoneReducer = (state = [], action) => {
    return state;
 };
 
+const forumPostsReducer = (state = null, action) => {
+   switch (action.type) {
+      case 'FETCH_FORUM_POSTS':
+         return action.payload;
+      default:
+         return state;
+   }
+};
+const forumSearchTermReducer = (state = '', action) => {
+   switch (action.type) {
+      case 'FORUM_SEARCH_TERM':
+         return action.payload;
+      default:
+         return state;
+   }
+};
+const searchPostsReducer = (state = null, action) => {
+   switch (action.type) {
+      case 'FETCH_SEARCH_POSTS':
+         return action.payload;
+      default:
+         return state;
+   }
+};
 const postReducer = (state = null, action) => {
    switch (action.type) {
       case 'FETCH_POST':
@@ -58,6 +82,9 @@ export default combineReducers({
    listOfHeadphones: headphoneListReducer,
    nameList: headphoneNamesReducer,
    listOfSelectedHeadphones: selectedHeadphoneReducer,
+   forumPosts: forumPostsReducer,
+   forumSearchTerm: forumSearchTermReducer,
+   forumSearchPosts: searchPostsReducer,
    post: postReducer,
    currentUser: currentUserReducer
 });

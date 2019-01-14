@@ -4,10 +4,17 @@ import { removeHeadphone } from '../../actions';
 
 //Destructured selectedHeadphone data object from props
 class SelectedHeadphone extends React.Component {
+   renderTags() {
+      console.log(this.props.headphone);
+      if (this.props.headphone) {
+         return this.props.headphone.tags.map(tag => <p>{tag.tags}</p>);
+      }
+   }
    render() {
       const { headphone } = this.props;
       return (
          <div className="selected-headphone">
+            {this.renderTags()}
             <h3>
                {headphone.brand} {headphone.model}
                <span onClick={() => this.props.removeHeadphone(headphone)}>X</span>

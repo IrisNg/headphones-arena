@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchListOfHeadphones } from '../../actions';
 import TagLibrary from './TagLibrary';
 import './TagSystem.css';
 
@@ -10,8 +12,34 @@ class TagSystem extends React.Component {
       tagLineIsActive: false,
       selectedTagLine: '',
       selectedCriteria: '',
-      outputTags: []
+      outputTags: [],
+      hasLoaded: false
    };
+   componentDidMount() {
+      //Give me the official list of headphones from the database
+      if (this.props.nameList.length < 1) {
+         this.props.fetchListOfHeadphones();
+      }
+   }
+   static getDerivedStateFromProps(nextProps, prevState) {
+      //Load up previous tags if editing and updating post(one time)
+      if (nextProps.previousTags && !prevState.hasLoaded) {
+         if (nextProps.previousTags.length > 0) {
+            //DO NOT REFERENCE ARRAY FROM PROPS
+            var notReferencedArr = nextProps.previousTags.map(entry => {
+               return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
+            });
+            var taggedHeadphones = nextProps.previousTags.map(tag => tag.brandAndModel);
+            return { taggedHeadphones, outputTags: notReferencedArr, hasLoaded: true };
+         }
+         return { hasLoaded: true };
+      }
+      return null;
+   }
+   componentDidUpdate() {
+      //Invoke callback to send all tag entries back to the parent component (PostCreate/ReplyCreate/PostEdit) to be posted to server
+      this.props.compileTags([...this.state.outputTags]);
+   }
    //Invoked as user types in the search box
    onHeadphoneSearchInput = e => {
       this.setState({ searchTerm: e.target.value });
@@ -23,21 +51,21 @@ class TagSystem extends React.Component {
    };
    //Search for headphones using the inputted search term
    searchForHeadphones = searchTerm => {
-      //Remove spaces from search term inputted by the user and change all letters to lowercase for case insensitivity
-      var removeSpace = searchTerm.toLowerCase().replace(/\s/g, '');
+      //Remove spaces from search term inputted by the user
+      var removeSpace = searchTerm.replace(/\s/g, '');
 
       //Preparing the search term to be converted to regular expression
       //Giving allowance for stray spaces and stray letters (i.e just check whether the headphone's name contains every letter from the search term)
-      var regExpPrepare = removeSpace.split('').join('(\\s?\\w?-?)*');
+      var regExpPrepare = removeSpace.split('').join('.*');
       //Giving allowance for stray spaces and stray letters after the last letter in the search term
-      regExpPrepare += '(\\s?\\w?-?)*';
+      // regExpPrepare += '.*';
 
       //Convert to regular expression
-      var regExp = new RegExp(regExpPrepare);
+      var regExp = new RegExp(regExpPrepare, 'i');
 
       //Find headphones whose name contains every letter in the search term
       var searchMatches = this.props.nameList.filter(headphone => {
-         return regExp.test(headphone.brandAndModel.toLowerCase());
+         return regExp.test(headphone.brandAndModel);
       });
 
       //Don't want to show already tagged headphones
@@ -156,8 +184,6 @@ class TagSystem extends React.Component {
       }
       //Save all the entries along with the updated tag back to the state
       this.setState({ outputTags: [...allEntriesExceptCurrent, currentEntry] });
-      //Invoke callback to send all tag entries back to the parent component (PostCreate) to be posted to server
-      this.props.compileTags([...allEntriesExceptCurrent, currentEntry]);
    };
    renderTagsInRespectiveTagLine = taggedHeadphoneName => {
       //Find all tags associated with this tagged headphone
@@ -199,4 +225,11 @@ class TagSystem extends React.Component {
    }
 }
 
-export default TagSystem;
+//Get the name list of all headphones in the database
+const mapStateToProps = state => {
+   return { nameList: state.nameList };
+};
+export default connect(
+   mapStateToProps,
+   { fetchListOfHeadphones }
+)(TagSystem);

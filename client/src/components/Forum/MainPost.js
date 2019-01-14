@@ -45,7 +45,7 @@ class MainPost extends React.Component {
                {/* Metadata */}
                <div className="main-post__metadata">
                   <h4>{author.username}</h4>
-                  <h6>{vote}</h6>
+                  {/* <h6>{vote}</h6> */}
                </div>
             </div>
          </div>

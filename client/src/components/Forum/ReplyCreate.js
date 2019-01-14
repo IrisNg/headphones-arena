@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
-import { fetchListOfHeadphones } from '../../actions';
 import TagSystem from './TagSystem';
 import './ReplyCreate.css';
 
@@ -16,12 +15,7 @@ class ReplyCreate extends React.Component {
       content: 'What do you want to share with your fellow Audiophiles today?'
       // redirect: false,
    };
-   //Give me the official list of headphones from the database
-   componentDidMount() {
-      if (this.props.nameList.length < 1) {
-         this.props.fetchListOfHeadphones();
-      }
-   }
+
    componentDidUpdate() {
       // Store the parent post's details in the state
       if (!this.state.idToReplyTo) {
@@ -43,16 +37,19 @@ class ReplyCreate extends React.Component {
       //Format object to be posted to the database
       var replyObj = {
          idToReplyTo: this.state.idToReplyTo,
-         replyBody: {
+         body: {
             isMainPost: false,
             title: this.state.title,
             tag: this.state.outputTags,
             content: this.state.content
          }
       };
-
+      //Create post in database
       const response = await axios.post('/replies', replyObj);
       console.log(response);
+      //Add new tags to newly tagged headphones
+      const response2 = await axios.put(`/posts/${response.data._id}/addtags`, replyObj);
+      console.log(response2);
       // this.setState({ redirect: true });
    };
    //Display message to remind user to log in before creating a new post
@@ -75,7 +72,7 @@ class ReplyCreate extends React.Component {
             <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>
                {/* Tagging Mechanism */}
-               <TagSystem nameList={this.props.nameList} compileTags={this.retrieveTagsFromTagSystem} />
+               <TagSystem compileTags={this.retrieveTagsFromTagSystem} />
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
@@ -85,12 +82,7 @@ class ReplyCreate extends React.Component {
    }
 }
 
-//Get the name list of all headphones in the database
 const mapStateToProps = state => {
-   return { nameList: state.nameList, currentUser: state.currentUser };
+   return { currentUser: state.currentUser };
 };
-
-export default connect(
-   mapStateToProps,
-   { fetchListOfHeadphones }
-)(ReplyCreate);
+export default connect(mapStateToProps)(ReplyCreate);

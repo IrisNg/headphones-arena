@@ -87,7 +87,7 @@ class Reply extends React.Component {
                {/* Metadata */}
                <div>
                   <h4>{author.username}</h4>
-                  <h6>{vote}</h6>
+                  {/* <h6>{vote}</h6> */}
                </div>
             </div>
             {/* Replies to this reply */}

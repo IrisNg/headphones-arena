@@ -28,7 +28,7 @@ class MainPost extends React.Component {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, vote, author } = this.props.data;
+      var { title, created, content, author } = this.props.data;
       return (
          <div className="main-post">
             {/* Date */}

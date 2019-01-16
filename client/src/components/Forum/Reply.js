@@ -72,7 +72,7 @@ class Reply extends React.Component {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { created, content, vote, author } = this.props.data;
+      var { created, content, author } = this.props.data;
       return (
          <div className="reply-thread">
             <div className="reply">

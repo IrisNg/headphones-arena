@@ -26,13 +26,13 @@ router.get('/forum', function(req, res) {
             console.log(err);
          } else {
             //Take 2 of the latest posts
-            var comparison = foundComparisonPosts.slice(0, 2);
+            var comparison = foundComparisonPosts.splice(0, 2);
             //Resort by vote popularity
             foundComparisonPosts.sort(function(a, b) {
                return b.vote.count - a.vote.count;
             });
             //Combine the latest and hottest posts into one array
-            comparison = comparison.concat(foundComparisonPosts.slice(0, 3));
+            comparison = comparison.concat(foundComparisonPosts.splice(0, 3));
 
             //Do the same for the next category - Recommendation
             Post.find({ category: 'Recommendation' })
@@ -42,11 +42,11 @@ router.get('/forum', function(req, res) {
                   if (err) {
                      console.log(err);
                   } else {
-                     var recommendation = foundRecommendationPosts.slice(0, 2);
+                     var recommendation = foundRecommendationPosts.splice(0, 2);
                      foundRecommendationPosts.sort(function(a, b) {
                         return b.vote.count - a.vote.count;
                      });
-                     recommendation = recommendation.concat(foundRecommendationPosts.slice(0, 3));
+                     recommendation = recommendation.concat(foundRecommendationPosts.splice(0, 3));
                      //Do the same for the next category - Review
                      Post.find({ category: 'Review' })
                         .sort({ created: -1 })
@@ -55,11 +55,11 @@ router.get('/forum', function(req, res) {
                            if (err) {
                               console.log(err);
                            } else {
-                              var review = foundReviewPosts.slice(0, 2);
+                              var review = foundReviewPosts.splice(0, 2);
                               foundReviewPosts.sort(function(a, b) {
                                  return b.vote.count - a.vote.count;
                               });
-                              review = review.concat(foundReviewPosts.slice(0, 3));
+                              review = review.concat(foundReviewPosts.splice(0, 2));
                               //Do the same for the next category - General
                               Post.find({ category: 'General' })
                                  .sort({ created: -1 })
@@ -68,13 +68,11 @@ router.get('/forum', function(req, res) {
                                     if (err) {
                                        console.log(err);
                                     } else {
-                                       var general = foundGeneralPosts.slice(0, 2);
+                                       var general = foundGeneralPosts.splice(0, 2);
                                        foundGeneralPosts.sort(function(a, b) {
                                           return b.vote.count - a.vote.count;
                                        });
-                                       general = general.concat(foundGeneralPosts.slice(0, 3));
-
-                                       //Create a new object based on the 4 arrays from the 4 categories
+                                       general = general.concat(foundGeneralPosts.splice(0, 2));
                                        var response = { comparison, recommendation, review, general };
                                        //Send the object to the client-side
                                        // console.log(response);

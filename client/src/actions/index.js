@@ -27,25 +27,34 @@ export const fetchForumHomePosts = () => async dispatch => {
    const response = await axios.get('/forum');
    dispatch({ type: 'FETCH_FORUM_POSTS', payload: response.data });
 };
-
 export const storeSearchTerm = searchTerm => {
    return {
       type: 'FORUM_SEARCH_TERM',
       payload: searchTerm
    };
 };
+//Search the database for posts using this search term
+export const fetchUnpopulatedSearchPosts = term => async dispatch => {
+   const response = await axios.post('/forum/search', { term });
+   dispatch({ type: 'FETCH_UNPOPULATED_SEARCH_POSTS', payload: response.data });
+};
+//Called by ForumSearch component
 export const fetchSearchPosts = searchTerm => async (dispatch, getState) => {
    //Store the search term inputted by the user on the forum page in the state
    await dispatch(storeSearchTerm(searchTerm));
    const term = getState().forumSearchTerm;
 
-   //Search the database for posts using this search term
-   const response = await axios.post('/forum/search', { term });
+   //Search the database for unpopulated-posts using this search term then store it to the state to be rendered first
+   await dispatch(fetchUnpopulatedSearchPosts(term));
+   const unpopulatedSearchPosts = getState().forumSearchPosts;
+
+   //Then come back and retrieve the populated search posts to find the number of total replies for each search post
+   //Else it takes too long to render the search posts
    var populatedPosts = [];
-   response.data.forEach(async post => {
+   unpopulatedSearchPosts.forEach(async post => {
       var populatedResponse = await axios.get(`/posts/${post._id}`);
       populatedPosts = [...populatedPosts, populatedResponse.data];
-      if (populatedPosts.length === response.data.length) {
+      if (populatedPosts.length === unpopulatedSearchPosts.length) {
          dispatch({ type: 'FETCH_SEARCH_POSTS', payload: populatedPosts });
       }
    });

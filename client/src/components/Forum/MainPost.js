@@ -1,5 +1,6 @@
 import React from 'react';
 import Moment from 'react-moment';
+import Vote from './Vote';
 
 class MainPost extends React.Component {
    //Render tags selected by the author of this post
@@ -25,10 +26,13 @@ class MainPost extends React.Component {
    };
 
    render() {
+      if (this.props) {
+         console.log(this.props.data);
+      }
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, author } = this.props.data;
+      var { title, created, content, author, vote, _id } = this.props.data;
       return (
          <div className="main-post">
             {/* Date */}
@@ -45,7 +49,7 @@ class MainPost extends React.Component {
                {/* Metadata */}
                <div className="main-post__metadata">
                   <h4>{author.username}</h4>
-                  {/* <h6>{vote}</h6> */}
+                  <Vote vote={vote} id={_id} />
                </div>
             </div>
          </div>

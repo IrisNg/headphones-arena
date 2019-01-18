@@ -88,41 +88,44 @@ router.get('/forum', function(req, res) {
 });
 
 router.post('/forum/search', function(req, res) {
-   var term = req.body.term;
-   //Formulating Regular Expression to search for posts (using MongoDB)
-   //Post matches if it contains all of the letters from the search term
-   var removeSpace = term.replace(/\s/g, '');
-   var prepRegExp = removeSpace.split('').join('.*');
-   //Post matches if it contains any word from the search term
-   var termSplit = term.split(' ').join('|');
-   //Post also matches if it contains the entire string from the search term
-   prepRegExp = `(${prepRegExp}|${termSplit}|${term})`;
-   //Escaping all the literal characters in the inputted search term
-   prepRegExp = prepRegExp.replace(/\$/g, '\\$');
-   prepRegExp = prepRegExp.replace(/\?/g, '\\?');
-   prepRegExp = prepRegExp.replace(/\+/g, '\\+');
-   //Churn out the regular expression and flag it to be case insensitive
-   var regExp = new RegExp(prepRegExp, 'i');
-   // console.log(regExp);
+   //Error if not wrapped in if statement (for some weird reason?)
+   if (req.body.term) {
+      var term = req.body.term;
+      //Formulating Regular Expression to search for posts (using MongoDB)
+      //Post matches if it contains all of the letters from the search term
+      var removeSpace = term.replace(/\s/g, '');
+      var prepRegExp = removeSpace.split('').join('.*');
+      //Post matches if it contains any word from the search term
+      var termSplit = term.split(' ').join('|');
+      //Post also matches if it contains the entire string from the search term
+      prepRegExp = `(${prepRegExp}|${termSplit}|${term})`;
+      //Escaping all the literal characters in the inputted search term
+      prepRegExp = prepRegExp.replace(/\$/g, '\\$');
+      prepRegExp = prepRegExp.replace(/\?/g, '\\?');
+      prepRegExp = prepRegExp.replace(/\+/g, '\\+');
+      //Churn out the regular expression and flag it to be case insensitive
+      var regExp = new RegExp(prepRegExp, 'i');
+      // console.log(regExp);
 
-   //Use the regular expression to search for post titles or posts with tagged headphones that matches the search term
-   //Must be main post
-   Post.find({
-      $and: [
-         { isMainPost: true },
-         { $or: [{ title: { $regex: regExp } }, { 'tag.brandAndModel': { $regex: regExp } }] }
-      ]
-   })
-      .sort({ created: -1 })
-      .limit(5)
-      .exec(function(err, foundPosts) {
-         if (err) {
-            console.log(err);
-         } else {
-            console.log(foundPosts);
-            res.json(foundPosts);
-         }
-      });
+      //Use the regular expression to search for post titles or posts with tagged headphones that matches the search term
+      //Must be main post
+      Post.find({
+         $and: [
+            { isMainPost: true },
+            { $or: [{ title: { $regex: regExp } }, { 'tag.brandAndModel': { $regex: regExp } }] }
+         ]
+      })
+         .sort({ created: -1 })
+         .limit(5)
+         .exec(function(err, foundPosts) {
+            if (err) {
+               console.log(err);
+            } else {
+               console.log(foundPosts);
+               res.json(foundPosts);
+            }
+         });
+   }
 });
 
 //create forum-post page
@@ -200,6 +203,40 @@ router.get('/posts/:id', function(req, res) {
       });
 });
 
+// //Update votes in posts
+// router.put('/posts/:id/vote', function(req, res) {
+//    console.log(req.body.voteNature);
+//    if (req.body.voteNature === 'remove') {
+//       Post.updateOne(
+//          { _id: req.params.id },
+//          // { $pull: { vote: { $or: [{ upVote: req.user._id }, { downVote: req.user._id }] } } },
+//          // { $pull: { 'vote.upVote': req.user._id, 'vote.downVote': req.user._id } }
+//          { vote: { $pull: { upVote: req.user._id, downVote: req.user._id } } }
+//       );
+//    }
+//    Post.findById(req.params.id, function(err, foundPost) {
+//       if (err) {
+//          console.log(err);
+//       } else {
+//          if (req.body.voteNature === 'upvote' && req.user) {
+//             foundPost.vote.upVote.push(req.user._id);
+//          }
+//          if (req.body.voteNature === 'downvote' && req.user) {
+//             foundPost.vote.downVote.push(req.user._id);
+//          }
+//          foundPost.vote.count = foundPost.vote.upVote.length - foundPost.vote.downVote.length;
+//          foundPost.save(function(err, updatedPost) {
+//             if (err) {
+//                console.log(err);
+//             } else {
+//                console.log(updatedPost);
+//                res.json(updatedPost);
+//             }
+//          });
+//       }
+//    });
+// });
+
 //update forum-post page
 router.put('/posts/:id', function(req, res) {
    Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, function(err, updatedPost) {
@@ -207,6 +244,7 @@ router.put('/posts/:id', function(req, res) {
          console.log(err);
       } else {
          //Send a response to client side when done so as to trigger the next request to remove the previous tags
+         console.log(updatedPost);
          res.json(updatedPost);
       }
    });

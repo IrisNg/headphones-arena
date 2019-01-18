@@ -13,7 +13,7 @@ var PostSchema = new mongoose.Schema({
       username: String
    },
    tag: [{ brandAndModel: String, tags: [String] }],
-   vote: { count: { type: Number, default: 0 }, upUser: [String], downUser: [String] },
+   vote: { count: { type: Number, default: 0 }, upVote: [String], downVote: [String] },
    replies: [
       {
          type: mongoose.Schema.Types.ObjectId,

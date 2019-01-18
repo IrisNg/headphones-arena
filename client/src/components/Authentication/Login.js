@@ -15,9 +15,9 @@ class Login extends React.Component {
       this.setState({ redirect: true });
    };
    render() {
-      if (this.state.redirect) {
-         return <Redirect to="/posts/new" />;
-      }
+      // if (this.state.redirect) {
+      //    return <Redirect to="/posts/new" />;
+      // }
       return (
          <div>
             LOGIN

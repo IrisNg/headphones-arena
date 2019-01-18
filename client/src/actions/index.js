@@ -64,6 +64,12 @@ export const fetchPost = id => async dispatch => {
    const response = await axios.get(`/posts/${id}`);
    dispatch({ type: 'FETCH_POST', payload: response.data });
 };
+// //Called by Vote component
+// export const updateVote = (id, voteNature) => async dispatch => {
+//    const response = await axios.put(`/posts/${id}/vote`, { voteNature });
+//    console.log(response.data);
+//    dispatch({ type: 'UPDATED_VOTE_POST', payload: response.data });
+// };
 
 //Authentication
 export const registerUser = (username, password) => async dispatch => {

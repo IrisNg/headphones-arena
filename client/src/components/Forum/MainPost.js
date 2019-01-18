@@ -49,7 +49,8 @@ class MainPost extends React.Component {
                {/* Metadata */}
                <div className="main-post__metadata">
                   <h4>{author.username}</h4>
-                  <Vote vote={vote} id={_id} />
+                  <Vote vote={vote} id={_id} mainPostId={_id} />
+                  {/* <Vote data={this.props.data} /> */}
                </div>
             </div>
          </div>

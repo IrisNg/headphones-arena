@@ -12,25 +12,26 @@ body {
     bottom: 7rem; 
     left: 2rem;
     z-index: -1;
-    border-left: 5px solid black;
+    border-left: 5px solid white;
 }
 .headphone-list {
     display: inline-block;
     vertical-align: top;
     width: 10%;
     height: 100%;
-    color: white;
     margin-left: 2rem;
     font-weight: 900;
     font-size: .9rem;
     padding-top: 5rem;
+    color:black;
 }
+
 .headphone__brand,
 .headphone__model {
     margin-top: .2rem;
     display: inline-block;
     padding: .2rem .4rem;
-    background: black;
+    background: white;
     /* padding-left: calc(.4rem - 5px); */
 }
 
@@ -45,6 +46,9 @@ body {
     display: inline-block;
     margin: 0 1%;
     width: 30%;
+    background-color: white;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 .selected-headphone img {
     width:100%;

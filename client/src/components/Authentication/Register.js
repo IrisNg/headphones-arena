@@ -32,7 +32,7 @@ class Register extends React.Component {
                />
                <input type="submit" onClick={this.onSubmitClick} />
             </form>
-            <Login />
+            {!this.props.currentUser ? <Login /> : null}
             LOGOUT
             <Logout />
          </div>

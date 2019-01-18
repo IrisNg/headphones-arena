@@ -20,7 +20,7 @@ class PostShow extends React.Component {
       if (this.props.post) {
          if (this.props.post.replies.length > 0) {
             return this.props.post.replies.map(reply => (
-               <Reply key={reply._id} data={reply} allowReply={true} tier={1} />
+               <Reply key={reply._id} data={reply} allowReply={true} tier={1} mainPostId={this.props.post._id} />
             ));
          }
       }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
 import TagSystem from './TagSystem';
+import Login from '../Authentication/Login';
 import './PostCreate.css';
 
 class PostCreate extends React.Component {
@@ -25,7 +26,9 @@ class PostCreate extends React.Component {
    onFormSubmit = event => {
       event.preventDefault();
       //Post new post form to server
-      this.postToServer();
+      if (this.props.currentUser) {
+         this.postToServer();
+      }
    };
 
    postToServer = async () => {
@@ -47,15 +50,15 @@ class PostCreate extends React.Component {
       console.log(response2);
       // this.setState({ redirect: true });
    };
-   //Display message to remind user to log in before creating a new post
-   loginMessage() {
-      if (!this.props.currentUser) {
-         return 'Please Login First!';
-      }
-   }
    //Add styling only to selected category
    manageClass(category) {
       return this.state.category === category ? 'active' : '';
+   }
+   //Display message to remind user to log in before creating a new post
+   askLogin() {
+      if (!this.props.currentUser) {
+         return <Login />;
+      }
    }
    render() {
       // if (this.state.redirect) {
@@ -65,8 +68,7 @@ class PostCreate extends React.Component {
          <div className="post-create">
             {/* Page Title */}
             <h1>New Post</h1>
-            {/* 'Please Login' Message */}
-            <div>{this.loginMessage()}</div>
+
             <form onSubmit={this.onFormSubmit}>
                {/* Post Title */}
                <label>Title Of Post</label>
@@ -95,6 +97,7 @@ class PostCreate extends React.Component {
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
             </form>
+            {this.askLogin()}
          </div>
       );
    }

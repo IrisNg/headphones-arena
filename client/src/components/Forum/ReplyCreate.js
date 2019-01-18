@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
 import TagSystem from './TagSystem';
+import Login from '../Authentication/Login';
 import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
@@ -30,7 +31,9 @@ class ReplyCreate extends React.Component {
    onFormSubmit = event => {
       event.preventDefault();
       //Post new post form to server
-      this.postToServer();
+      if (this.props.currentUser) {
+         this.postToServer();
+      }
    };
 
    postToServer = async () => {
@@ -52,15 +55,15 @@ class ReplyCreate extends React.Component {
       console.log(response2);
       // this.setState({ redirect: true });
    };
-   //Display message to remind user to log in before creating a new post
-   loginMessage() {
-      if (!this.props.currentUser) {
-         return 'Please Login First!';
-      }
-   }
    //Add styling only to selected category
    manageClass(category) {
       return this.state.category === category ? 'active' : '';
+   }
+   //Display message to remind user to log in before creating a new post
+   askLogin() {
+      if (!this.props.currentUser) {
+         return <Login />;
+      }
    }
    render() {
       // if (this.state.redirect) {
@@ -69,7 +72,6 @@ class ReplyCreate extends React.Component {
       return (
          <div className="reply-create">
             <h6>New Reply</h6>
-            <div>{this.loginMessage()}</div>
             <form onSubmit={this.onFormSubmit}>
                {/* Tagging Mechanism */}
                <TagSystem compileTags={this.retrieveTagsFromTagSystem} />
@@ -77,6 +79,7 @@ class ReplyCreate extends React.Component {
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
             </form>
+            {this.askLogin()}
          </div>
       );
    }

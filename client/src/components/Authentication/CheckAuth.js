@@ -12,7 +12,7 @@ class CheckAuth extends React.Component {
    render() {
       return (
          <div className="check-auth">
-            {this.props.currentUser ? `Log In status ${this.props.currentUser.username}` : 'log in LEH'}
+            {this.props.currentUser ? `Log In status ${this.props.currentUser.username}` : 'MEH'}
          </div>
       );
    }

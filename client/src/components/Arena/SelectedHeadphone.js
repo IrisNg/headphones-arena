@@ -5,22 +5,36 @@ import { removeHeadphone } from '../../actions';
 //Destructured selectedHeadphone data object from props
 class SelectedHeadphone extends React.Component {
    renderTags() {
-      console.log(this.props.headphone);
       if (this.props.headphone) {
-         return this.props.headphone.tags.map(tag => <p>{tag.tags}</p>);
+         var allTags = this.props.headphone.tags.reduce((acc, cur) => [...acc, ...cur.tags]);
+         var uniqueTags = allTags.reduce((array, current) => {
+            if (!array.includes(current)) {
+               return [...array, current];
+            }
+            return array;
+         });
+         var sortedTags = uniqueTags.map(uniqueTag => {
+            return { tagName: uniqueTag, count: allTags.filter(tag => tag === uniqueTag).length };
+         });
+         sortedTags.sort((a, b) => b.count - a.count);
+         var topTags = sortedTags.slice(0, 5);
+         return topTags.map(tag => <p>{tag}</p>);
       }
    }
    render() {
       const { headphone } = this.props;
       return (
          <div className="selected-headphone">
-            {this.renderTags()}
+            <img src={headphone.image} alt={headphone.model} />
             <h3>
                {headphone.brand} {headphone.model}
                <span onClick={() => this.props.removeHeadphone(headphone)}>X</span>
             </h3>
-            <img src={headphone.image} alt={headphone.model} />
+            {/* Tags */}
+            {this.renderTags()}
+            {/* Offical Description */}
             <p>{headphone.officialDescription}</p>
+            {/* Specifications */}
             <h5>Specifications</h5>
             <table>
                <tbody>

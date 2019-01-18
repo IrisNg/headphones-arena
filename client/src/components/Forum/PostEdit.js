@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 // import { Redirect } from 'react-router-dom';
-import { fetchPost } from '../../actions';
+import { fetchPost, updatePost } from '../../actions';
 import TagSystem from './TagSystem';
 
 class PostEdit extends React.Component {
@@ -39,10 +39,6 @@ class PostEdit extends React.Component {
    };
    onFormSubmit = event => {
       event.preventDefault();
-      //Update post in the server database
-      this.updatePostInServer();
-   };
-   updatePostInServer = async () => {
       //Format object to send to the server
       var updateObj = {
          prevTags: this.state.prevTags,
@@ -51,9 +47,12 @@ class PostEdit extends React.Component {
             content: this.state.content
          }
       };
-      //Update post in database
-      const response = await axios.put(`/posts/${this.props.post._id}`, updateObj);
-      console.log(response);
+      //Update post in the server database
+      this.props.updatePost(this.props.post._id, updateObj);
+      //Update tags in the database also
+      this.updateTagsInServer(updateObj);
+   };
+   updateTagsInServer = async updateObj => {
       //Remove previous tags from previously tagged headphones
       //Note: this has to come before adding new tags (because $pull in mongodb will wipe ALL tag objects with the specified post id, not just one)
       //So if you add new tags first, then remove, it will wipe the added new tags too
@@ -92,5 +91,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchPost }
+   { fetchPost, updatePost }
 )(PostEdit);

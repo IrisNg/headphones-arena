@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import ReplyCreate from './ReplyCreate';
+import Vote from './Vote';
 import './Reply.css';
 
 class Reply extends React.Component {
@@ -72,7 +73,7 @@ class Reply extends React.Component {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { created, content, author } = this.props.data;
+      var { created, content, author, vote, _id } = this.props.data;
       return (
          <div className="reply-thread">
             <div className="reply">
@@ -87,7 +88,7 @@ class Reply extends React.Component {
                {/* Metadata */}
                <div>
                   <h4>{author.username}</h4>
-                  {/* <h6>{vote}</h6> */}
+                  <Vote vote={vote} id={_id} mainPostId={this.props.mainPostId} />
                </div>
             </div>
             {/* Replies to this reply */}

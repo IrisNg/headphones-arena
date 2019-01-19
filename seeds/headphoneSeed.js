@@ -22,7 +22,8 @@ module.exports = [
             'HD 660 S / Cable with 6.35 mm Plug / Cable with 4.4 mm Pentaconn Plug (balanced) / Adapter 6.35 to 3.5 mm / User Manual / Storage Box'
       },
       image: 'https://i.imgur.com/k52oOGM.jpg',
-      amazonLink: 'https://www.amazon.com/Sennheiser-HD-660-Audiophile-Headphone/dp/B076HP574T'
+      amazonLink: 'https://www.amazon.com/Sennheiser-HD-660-Audiophile-Headphone/dp/B076HP574T',
+      price: '$449.99'
    },
    {
       brand: '1MORE',
@@ -48,7 +49,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/hgvoPAo.jpg',
       amazonLink:
-         'https://www.amazon.com/1MORE-Headphones-Comfortable-Tangle-Free-Smartphones/dp/B0798TVDVJ/ref=sr_1_fkmr0_1?ie=UTF8&qid=1546234369&sr=8-1-fkmr0&keywords=1more+trident+over-ear'
+         'https://www.amazon.com/1MORE-Headphones-Comfortable-Tangle-Free-Smartphones/dp/B0798TVDVJ/ref=sr_1_fkmr0_1?ie=UTF8&qid=1546234369&sr=8-1-fkmr0&keywords=1more+trident+over-ear',
+      price: '$199.99'
    },
    {
       brand: 'Audio-Technica',
@@ -74,7 +76,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/CuXCQ1T.jpg',
       amazonLink:
-         'https://www.amazon.com/Audio-Technica-ATH-M40x-Professional-Monitor-Headphones/dp/B00HVLUR54/ref=sr_1_3?ie=UTF8&qid=1546236381&sr=8-3&keywords=audio+technica+ath-m40x'
+         'https://www.amazon.com/Audio-Technica-ATH-M40x-Professional-Monitor-Headphones/dp/B00HVLUR54/ref=sr_1_3?ie=UTF8&qid=1546236381&sr=8-3&keywords=audio+technica+ath-m40x',
+      price: '$99'
    },
    {
       brand: 'Philips',
@@ -99,7 +102,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/9kSnlNy.jpg',
       amazonLink:
-         'https://www.amazon.com/Philips-SHP9500S-Precision-Over-ear-Headphones/dp/B00ENMK1DW/ref=sr_1_6?ie=UTF8&qid=1546238310&sr=8-6&keywords=shp9500'
+         'https://www.amazon.com/Philips-SHP9500S-Precision-Over-ear-Headphones/dp/B00ENMK1DW/ref=sr_1_6?ie=UTF8&qid=1546238310&sr=8-6&keywords=shp9500',
+      price: '$329.99'
    },
    {
       brand: 'Bang & Olufsen',
@@ -125,7 +129,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/8e5FXcM.jpg',
       amazonLink:
-         'https://www.amazon.com/PLAY-Bang-Olufsen-Headphone-Generation/dp/B01B45RTSK/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1492874128&sr=1-3&keywords=b&O+h6&linkCode=sl1&tag=zeos-20&linkId=f9d7e5b9b3034a91d9e8c3d2db21b425'
+         'https://www.amazon.com/PLAY-Bang-Olufsen-Headphone-Generation/dp/B01B45RTSK/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1492874128&sr=1-3&keywords=b&O+h6&linkCode=sl1&tag=zeos-20&linkId=f9d7e5b9b3034a91d9e8c3d2db21b425',
+      price: '$299.99'
    },
    {
       brand: 'beyerdynamic',
@@ -152,7 +157,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/XLtCcTx.jpg',
       amazonLink:
-         'https://www.amazon.com/beyerdynamic-1990-Pro-Professional-Headphones/dp/B01KM9EJ7I/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1492875706&sr=1-1&keywords=beyer+dt1990&linkCode=sl1&tag=zeos-20&linkId=2e49522f796131da64048d494ea51683'
+         'https://www.amazon.com/beyerdynamic-1990-Pro-Professional-Headphones/dp/B01KM9EJ7I/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1492875706&sr=1-1&keywords=beyer+dt1990&linkCode=sl1&tag=zeos-20&linkId=2e49522f796131da64048d494ea51683',
+      price: '$598.87'
    },
    {
       brand: 'Fostex',
@@ -178,7 +184,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/sklCxce.jpg',
       amazonLink:
-         'https://www.amazon.com/Fostex-TH-900mk2-Premium-Stereo-Headphones/dp/B019X89A7S/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125742&sr=1-3&keywords=th900&linkCode=sl1&tag=zeos-20&linkId=2a4f9a3d894e0d9949611473bfd280c7&language=en_US'
+         'https://www.amazon.com/Fostex-TH-900mk2-Premium-Stereo-Headphones/dp/B019X89A7S/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125742&sr=1-3&keywords=th900&linkCode=sl1&tag=zeos-20&linkId=2a4f9a3d894e0d9949611473bfd280c7&language=en_US',
+      price: '$1,279'
    },
    {
       brand: 'Audeze',
@@ -203,7 +210,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/DQ6td2H.jpg',
       amazonLink:
-         'https://www.amazon.com/Audeze-Headphone-Creator-Package-Travel/dp/B0765KJ5CB/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125536&sr=1-3&keywords=audeze+lcd-x&linkCode=sl1&tag=zeos-20&linkId=77675fbb7afebd557724ad066bed4204&language=en_US'
+         'https://www.amazon.com/Audeze-Headphone-Creator-Package-Travel/dp/B0765KJ5CB/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125536&sr=1-3&keywords=audeze+lcd-x&linkCode=sl1&tag=zeos-20&linkId=77675fbb7afebd557724ad066bed4204&language=en_US',
+      price: '$1,199'
    },
    {
       brand: 'Meze',
@@ -229,7 +237,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/6SCA42r.jpg',
       amazonLink:
-         'https://www.amazon.com/Meze-Classics-Walnut-Silver-Headphones/dp/B01EJMYOHO/ref=as_li_ss_tl?ie=UTF8&qid=1478232531&sr=8-1&keywords=meze+99&linkCode=sl1&tag=zeos-20&linkId=0a6682fb0fa77e42350e921b25bc2c55'
+         'https://www.amazon.com/Meze-Classics-Walnut-Silver-Headphones/dp/B01EJMYOHO/ref=as_li_ss_tl?ie=UTF8&qid=1478232531&sr=8-1&keywords=meze+99&linkCode=sl1&tag=zeos-20&linkId=0a6682fb0fa77e42350e921b25bc2c55',
+      price: '$270.22'
    },
    {
       brand: 'Sony',
@@ -256,7 +265,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/aUIbJMQ.jpg',
       amazonLink:
-         'https://www.amazon.com/Sony-MDR1A-Premium-Hi-Res-Headphones/dp/B00NBMHY58/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125159&sr=1-3&keywords=Sony+MDR-1A&linkCode=sl1&tag=zeos-20&linkId=a9067b4486bc60d525c38d2d2e7f8d05&language=en_US'
+         'https://www.amazon.com/Sony-MDR1A-Premium-Hi-Res-Headphones/dp/B00NBMHY58/ref=as_li_ss_tl?s=electronics&ie=UTF8&qid=1534125159&sr=1-3&keywords=Sony+MDR-1A&linkCode=sl1&tag=zeos-20&linkId=a9067b4486bc60d525c38d2d2e7f8d05&language=en_US',
+      price: '299.99'
    },
    {
       brand: 'AKG',
@@ -281,7 +291,8 @@ module.exports = [
       },
       image: 'https://i.imgur.com/80Um3eL.jpg',
       amazonLink:
-         'https://www.amazon.com/AKG-3280H00100-K-553-Pro/dp/B00X3MT7F6/ref=as_li_ss_tl?ie=UTF8&qid=1478234101&sr=8-1&keywords=akg+k553&linkCode=sl1&tag=zeos-20&linkId=c19ce9005db138af3edb72f0c45ad6fd'
+         'https://www.amazon.com/AKG-3280H00100-K-553-Pro/dp/B00X3MT7F6/ref=as_li_ss_tl?ie=UTF8&qid=1478234101&sr=8-1&keywords=akg+k553&linkCode=sl1&tag=zeos-20&linkId=c19ce9005db138af3edb72f0c45ad6fd',
+      price: '$199'
    },
    {
       brand: 'Sennheiser',
@@ -307,6 +318,7 @@ module.exports = [
       },
       image: 'https://i.imgur.com/f9fO14m.jpg',
       amazonLink:
-         'https://www.amazon.com/Sennheiser-HD-800-Reference-Headphone/dp/B00PXLX2TC/ref=as_li_ss_tl?ie=UTF8&qid=1483192807&sr=8-2&keywords=hd800&linkCode=sl1&tag=zeos-20&linkId=7788587995156a0ab75f18d0e0dd8a81'
+         'https://www.amazon.com/Sennheiser-HD-800-Reference-Headphone/dp/B00PXLX2TC/ref=as_li_ss_tl?ie=UTF8&qid=1483192807&sr=8-2&keywords=hd800&linkCode=sl1&tag=zeos-20&linkId=7788587995156a0ab75f18d0e0dd8a81',
+      price: '$1,582.43'
    }
 ];

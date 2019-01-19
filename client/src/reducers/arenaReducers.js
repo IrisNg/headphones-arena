@@ -28,3 +28,15 @@ export const selectedHeadphoneReducer = (state = [], action) => {
    }
    return state;
 };
+
+export const topPostsReducer = (state = [], action) => {
+   switch (action.type) {
+      case 'FETCH_TOP_POSTS':
+         if (!state.some(entry => entry.headphone === action.payload.headphone)) {
+            return [...state, action.payload];
+         }
+         return state;
+      default:
+         return state;
+   }
+};

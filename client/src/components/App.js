@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from '../history';
 
 import LandingPage from './LandingPage';
 import Arena from './Arena/Arena';
@@ -18,7 +19,7 @@ import CheckAuth from './Authentication/CheckAuth';
 const App = () => {
    return (
       <div>
-         <BrowserRouter>
+         <Router history={history}>
             <div>
                <CheckAuth />
                <Switch>
@@ -41,7 +42,7 @@ const App = () => {
                   <Route path="/register" component={Register} />
                </Switch>
             </div>
-         </BrowserRouter>
+         </Router>
       </div>
    );
 };

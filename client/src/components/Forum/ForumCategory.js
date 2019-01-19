@@ -1,11 +1,12 @@
 import React from 'react';
 import Moment from 'react-moment';
+import history from '../../history';
 
 class ForumCategory extends React.Component {
    renderCategoryPosts = posts => {
       return posts.map(post => (
          <div key={post._id} className="forum-category__post">
-            <h4 className="forum-category__post-title" onClick={() => this.props.redirect(`/posts/${post._id}`)}>
+            <h4 className="forum-category__post-title" onClick={() => history.push(`/posts/${post._id}`)}>
                {post.title}
             </h4>
             <p className="forum-category__post-content">{`${post.content.substring(0, 100)}...`}</p>

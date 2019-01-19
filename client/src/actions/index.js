@@ -21,6 +21,11 @@ export const removeHeadphone = headphoneRemoved => {
       payload: headphoneRemoved
    };
 };
+//Called by SelectedHeadphone component - to fetch highest voted posts related to the selected headphone
+export const fetchTopPosts = headphoneName => async dispatch => {
+   const response = await axios.post('/forum/topposts', headphoneName);
+   dispatch({ type: 'FETCH_TOP_POSTS', payload: response.data });
+};
 
 //Forum
 export const fetchForumHomePosts = () => async dispatch => {
@@ -64,13 +69,7 @@ export const fetchPost = id => async dispatch => {
    const response = await axios.get(`/posts/${id}`);
    dispatch({ type: 'FETCH_POST', payload: response.data });
 };
-// //Called by Vote component
-// export const updateVote = (id, voteNature) => async dispatch => {
-//    const response = await axios.put(`/posts/${id}/vote`, { voteNature });
-//    console.log(response.data);
-//    dispatch({ type: 'UPDATED_VOTE_POST', payload: response.data });
-// };
-
+//Called by PostEdit and Vote components
 export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
    const response = await axios.put(`/posts/${id}`, updateObj);
    console.log(response);

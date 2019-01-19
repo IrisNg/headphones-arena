@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-// import { Redirect } from 'react-router-dom';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
+import { fetchPost } from '../../actions';
 import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
@@ -14,7 +14,6 @@ class ReplyCreate extends React.Component {
       //Not from props - user inputted
       outputTags: [],
       content: 'What do you want to share with your fellow Audiophiles today?'
-      // redirect: false,
    };
 
    componentDidUpdate() {
@@ -51,9 +50,12 @@ class ReplyCreate extends React.Component {
       const response = await axios.post('/replies', replyObj);
       console.log(response);
       //Add new tags to newly tagged headphones
-      const response2 = await axios.put(`/posts/${response.data._id}/addtags`, replyObj);
-      console.log(response2);
-      // this.setState({ redirect: true });
+      if (replyObj.body.tag.length > 0) {
+         const response2 = await axios.put(`/posts/${response.data._id}/addtags`, replyObj);
+         console.log(response2);
+      }
+      this.props.fetchPost(this.props.mainPostId);
+      this.props.turnOffReplyCreate();
    };
    //Add styling only to selected category
    manageClass(category) {
@@ -66,9 +68,6 @@ class ReplyCreate extends React.Component {
       }
    }
    render() {
-      // if (this.state.redirect) {
-      //    return <Redirect to="/arena" />;
-      // }
       return (
          <div className="reply-create">
             <h6>New Reply</h6>
@@ -88,4 +87,7 @@ class ReplyCreate extends React.Component {
 const mapStateToProps = state => {
    return { currentUser: state.currentUser };
 };
-export default connect(mapStateToProps)(ReplyCreate);
+export default connect(
+   mapStateToProps,
+   { fetchPost }
+)(ReplyCreate);

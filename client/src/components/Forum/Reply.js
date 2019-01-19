@@ -38,6 +38,7 @@ class Reply extends React.Component {
                data={reply}
                allowReply={this.props.tier < 3 ? true : false}
                tier={this.props.tier + 1}
+               mainPostId={this.props.mainPostId}
             />
          ));
       } else {
@@ -65,9 +66,20 @@ class Reply extends React.Component {
    renderReplyCreate() {
       if (this.state.renderReplyCreate) {
          const { _id, title } = this.props.data;
-         return <ReplyCreate idToReplyTo={_id} title={title} />;
+         return (
+            <ReplyCreate
+               idToReplyTo={_id}
+               title={title}
+               mainPostId={this.props.mainPostId}
+               turnOffReplyCreate={this.turnOffReplyCreate}
+            />
+         );
       }
    }
+   turnOffReplyCreate = () => {
+      //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
+      this.setState({ renderReplyCreate: false });
+   };
 
    render() {
       if (!this.props.data) {

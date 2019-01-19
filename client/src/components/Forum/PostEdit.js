@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-// import { Redirect } from 'react-router-dom';
 import { fetchPost, updatePost } from '../../actions';
 import TagSystem from './TagSystem';
 
@@ -11,8 +10,6 @@ class PostEdit extends React.Component {
       content: '',
       prevTags: [],
       hasLoaded: false
-
-      // redirect: false,
    };
    //Fetch post's existing data from server
    componentDidMount() {
@@ -58,16 +55,14 @@ class PostEdit extends React.Component {
       //So if you add new tags first, then remove, it will wipe the added new tags too
       const response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
       console.log(response1);
-      //Add new tags to newly tagged headphones
-      const response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
-      console.log(response2);
-      // this.setState({ redirect: true });
+      if (updateObj.body.tag.length > 0) {
+         //Add new tags to newly tagged headphones
+         const response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
+         console.log(response2);
+      }
    };
 
    render() {
-      // if (this.state.redirect) {
-      //    return <Redirect to="/arena" />;
-      // }
       return (
          <div className="post-edit">
             <h6>Edit Post</h6>

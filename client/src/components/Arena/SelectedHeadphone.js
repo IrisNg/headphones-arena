@@ -1,27 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeHeadphone } from '../../actions';
+import { removeHeadphone, fetchTopPosts } from '../../actions';
 
 //Destructured selectedHeadphone data object from props
 class SelectedHeadphone extends React.Component {
+   componentDidMount() {
+      this.props.fetchTopPosts({ term: this.props.headphone.brandAndModel });
+   }
    renderTags() {
+      //Find the top 9 most chosen tags for this selected headphone
       if (this.props.headphone) {
-         var allTags = this.props.headphone.tags.reduce((acc, cur) => [...acc, ...cur.tags]);
-         var uniqueTags = allTags.reduce((array, current) => {
-            if (!array.includes(current)) {
-               return [...array, current];
+         //Make a new array by extracting all tags from each tag entry
+         var allTags = this.props.headphone.tags.reduce((array, currentEntry) => {
+            return [...array, ...currentEntry.tags];
+         }, []);
+         //Make an array containing only unique tags
+         var uniqueTags = allTags.reduce((array, currentTag) => {
+            if (!array.includes(currentTag)) {
+               return [...array, currentTag];
             }
             return array;
-         });
+         }, []);
+         //Find out the number of times each tag appears
          var sortedTags = uniqueTags.map(uniqueTag => {
             return { tagName: uniqueTag, count: allTags.filter(tag => tag === uniqueTag).length };
          });
+         //Sort tags in descending frequency - tags that appear the most come first
          sortedTags.sort((a, b) => b.count - a.count);
-         var topTags = sortedTags.slice(0, 5);
-         return topTags.map(tag => <p>{tag}</p>);
+         //Only want the top 9 most chosen tags
+         var topTags = sortedTags.slice(0, 9);
+         //Render the top 9 most chosen tags for this selected headphone
+         return topTags.map(tag => <span key={tag.tagName}>{tag.tagName}</span>);
       }
    }
    render() {
+      console.log(this.props.topPosts);
       const { headphone } = this.props;
       return (
          <div className="selected-headphone">
@@ -30,8 +43,12 @@ class SelectedHeadphone extends React.Component {
                {headphone.brand} {headphone.model}
                <span onClick={() => this.props.removeHeadphone(headphone)}>X</span>
             </h3>
-            {/* Tags */}
-            {this.renderTags()}
+            <div className="selected-headphone__amazon" onClick={() => window.open(headphone.amazonLink)}>
+               <i className="fab fa-amazon" />
+               {headphone.price}
+            </div>
+            {/* Tags - Render the top 9 most chosen tags for this selected headphone */}
+            <div>{this.renderTags()}</div>
             {/* Offical Description */}
             <p>{headphone.officialDescription}</p>
             {/* Specifications */}
@@ -92,8 +109,10 @@ class SelectedHeadphone extends React.Component {
       );
    }
 }
-
+const mapStateToProps = state => {
+   return { topPosts: state.topPosts };
+};
 export default connect(
-   null,
-   { removeHeadphone }
+   mapStateToProps,
+   { removeHeadphone, fetchTopPosts }
 )(SelectedHeadphone);

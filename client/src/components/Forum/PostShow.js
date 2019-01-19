@@ -29,9 +29,20 @@ class PostShow extends React.Component {
    renderReplyCreate() {
       if (this.state.renderReplyCreate) {
          const { _id, title } = this.props.post;
-         return <ReplyCreate idToReplyTo={_id} title={title} />;
+         return (
+            <ReplyCreate
+               idToReplyTo={_id}
+               title={title}
+               turnOffReplyCreate={this.turnOffReplyCreate}
+               mainPostId={this.props.post._id}
+            />
+         );
       }
    }
+   turnOffReplyCreate = () => {
+      //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
+      this.setState({ renderReplyCreate: false });
+   };
    render() {
       return (
          <div className="post-show">

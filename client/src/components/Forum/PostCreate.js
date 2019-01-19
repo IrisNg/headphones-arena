@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-// import { Redirect } from 'react-router-dom';
+import history from '../../history';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
 import './PostCreate.css';
@@ -12,7 +12,6 @@ class PostCreate extends React.Component {
       category: '',
       outputTags: [],
       content: 'What do you want to share with your fellow Audiophiles today?'
-      // redirect: false,
    };
 
    //Store selected category to the state
@@ -45,10 +44,12 @@ class PostCreate extends React.Component {
       //Create post in database
       const response = await axios.post('/posts', postObj);
       console.log(response);
-      //Add new tags to newly tagged headphones
-      const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
-      console.log(response2);
-      // this.setState({ redirect: true });
+      if (postObj.body.tag.length > 0) {
+         //Add new tags to newly tagged headphones
+         const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
+         console.log(response2);
+      }
+      history.push('/forum');
    };
    //Add styling only to selected category
    manageClass(category) {
@@ -61,9 +62,6 @@ class PostCreate extends React.Component {
       }
    }
    render() {
-      // if (this.state.redirect) {
-      //    return <Redirect to="/arena" />;
-      // }
       return (
          <div className="post-create">
             {/* Page Title */}

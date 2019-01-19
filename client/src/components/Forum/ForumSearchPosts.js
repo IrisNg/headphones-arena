@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
+import history from '../../history';
 
 class ForumSearchPosts extends React.Component {
    renderSearchPosts(posts) {
       return posts.map(post => (
          <div key={post._id} className="forum-search__post">
-            <h4 className="forum-search__post-title" onClick={() => this.props.redirect(`/posts/${post._id}`)}>
+            <h4 className="forum-search__post-title" onClick={() => history.push(`/posts/${post._id}`)}>
                {post.title}
             </h4>
             <p className="forum-search__post-content">{`${post.content.substring(0, 100)}...`}</p>

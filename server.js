@@ -74,7 +74,7 @@ app.get('/logout', function(req, res) {
    res.json(req.user);
 });
 //Check User's authentication status
-app.get('/user', function(req,res){
+app.get('/user', function(req, res) {
    res.json(req.user);
 });
 

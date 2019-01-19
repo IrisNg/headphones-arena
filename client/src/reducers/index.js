@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
-import { headphoneListReducer, headphoneNamesReducer, selectedHeadphoneReducer } from './arenaReducers';
+import {
+   headphoneListReducer,
+   headphoneNamesReducer,
+   selectedHeadphoneReducer,
+   topPostsReducer
+} from './arenaReducers';
 import {
    forumPostsReducer,
    forumSearchTermReducer,
@@ -13,6 +18,7 @@ export default combineReducers({
    listOfHeadphones: headphoneListReducer,
    nameList: headphoneNamesReducer,
    listOfSelectedHeadphones: selectedHeadphoneReducer,
+   topPosts: topPostsReducer,
    forumPosts: forumPostsReducer,
    forumSearchTerm: forumSearchTermReducer,
    forumSearchPosts: searchPostsReducer,

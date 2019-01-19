@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import './HeadphoneCreate.css';
 
 class HeadphoneCreate extends React.Component {
@@ -21,8 +20,7 @@ class HeadphoneCreate extends React.Component {
       weight: '',
       inTheBox: '',
       image: '',
-      amazonLink: '',
-      redirect: false
+      amazonLink: ''
    };
 
    onFormSubmit = event => {
@@ -57,34 +55,28 @@ class HeadphoneCreate extends React.Component {
       };
       const response = await axios.post('/headphones', postObj);
       console.log(response);
-      this.setState({ redirect: true });
    };
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
    //Not sure about the performance though...
    mapStateKeysToJSX() {
       var allInputs = [];
       for (var key in this.state) {
-         if (key !== 'redirect') {
-            allInputs.push(
-               <div key={key}>
-                  <label>{key}</label>
-                  <input
-                     type="text"
-                     name={key}
-                     value={this.state[key]}
-                     onChange={e => this.setState({ [e.target.name]: e.target.value })}
-                  />
-               </div>
-            );
-         }
+         allInputs.push(
+            <div key={key}>
+               <label>{key}</label>
+               <input
+                  type="text"
+                  name={key}
+                  value={this.state[key]}
+                  onChange={e => this.setState({ [e.target.name]: e.target.value })}
+               />
+            </div>
+         );
       }
       return allInputs;
    }
 
    render() {
-      if (this.state.redirect) {
-         return <Redirect to="/arena" />;
-      }
       return (
          <div>
             <h1>New Headphone Creation Form</h1>

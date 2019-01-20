@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { fetchPost, updatePost } from '../../actions';
 import TagSystem from './TagSystem';
+import './PostEdit.css';
 
 class PostEdit extends React.Component {
    state = {
@@ -53,8 +54,10 @@ class PostEdit extends React.Component {
       //Remove previous tags from previously tagged headphones
       //Note: this has to come before adding new tags (because $pull in mongodb will wipe ALL tag objects with the specified post id, not just one)
       //So if you add new tags first, then remove, it will wipe the added new tags too
-      const response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
-      console.log(response1);
+      if (updateObj.prevTags.length > 0) {
+         const response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
+         console.log(response1);
+      }
       if (updateObj.body.tag.length > 0) {
          //Add new tags to newly tagged headphones
          const response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);

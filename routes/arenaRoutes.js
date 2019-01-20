@@ -12,7 +12,25 @@ router.get('/arena', function(req, res) {
       if (err) {
          console.log(err);
       } else {
-         res.json(foundHeadphones);
+         var foundHeadphonesNames = foundHeadphones.map(headphone => {
+            return {
+               brand: headphone.brand,
+               model: headphone.model,
+               brandAndModel: headphone.brandAndModel,
+               _id: headphone._id
+            };
+         });
+         res.json(foundHeadphonesNames);
+      }
+   });
+});
+//show headphone page
+router.get('/headphones/:id', function(req, res) {
+   Headphone.findById(req.params.id, function(err, foundHeadphone) {
+      if (err) {
+         console.log(err);
+      } else {
+         res.json(foundHeadphone);
       }
    });
 });
@@ -82,24 +100,24 @@ router.post('/headphones', function(req, res) {
       });
    });
 });
-//edit headphone page
-router.get('/headphones/:id/edit', function(req, res) {
-   Headphone.findById(req.params.id, function(err, foundHeadphone) {
-      if (err) {
-         console.log(err);
-      } else {
-         console.log(foundHeadphone);
-      }
-   });
-});
+// //edit headphone page
+// router.get('/headphones/:id/edit', function(req, res) {
+//    Headphone.findById(req.params.id, function(err, foundHeadphone) {
+//       if (err) {
+//          console.log(err);
+//       } else {
+//          console.log(foundHeadphone);
+//       }
+//    });
+// });
 //update headphone page
 router.put('/headphones/:id', function(req, res) {
-   //!!!xxx req.body?
-   Headphone.findByIdAndUpdate(req.params.id, req.body, function(err, updatedHeadphone) {
+   Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, updatedHeadphone) {
       if (err) {
          console.log(err);
       } else {
          console.log(updatedHeadphone);
+         res.json(updatedHeadphone);
       }
    });
 });

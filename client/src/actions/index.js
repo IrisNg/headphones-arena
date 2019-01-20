@@ -1,11 +1,15 @@
 import axios from 'axios';
 
 //Action Creators
-
 //Arena
 export const fetchListOfHeadphones = () => async dispatch => {
    var response = await axios.get('/arena');
    dispatch({ type: 'FETCH_LIST_OF_HEADPHONES', payload: response.data });
+};
+//Called by SelectedHeadphone component
+export const fetchFullHeadphone = id => async dispatch => {
+   var response = await axios.get(`/headphones/${id}`);
+   dispatch({ type: 'FETCH_FULL_HEADPHONE', payload: response.data });
 };
 //Called by Headphone component
 export const selectHeadphone = headphoneSelected => {

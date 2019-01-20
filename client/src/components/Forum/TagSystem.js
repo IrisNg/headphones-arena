@@ -17,9 +17,7 @@ class TagSystem extends React.Component {
    };
    componentDidMount() {
       //Give me the official list of headphones from the database
-      if (this.props.nameList.length < 1) {
-         this.props.fetchListOfHeadphones();
-      }
+      this.props.fetchListOfHeadphones();
    }
    static getDerivedStateFromProps(nextProps, prevState) {
       //Load up previous tags if editing and updating post(one time)
@@ -43,7 +41,7 @@ class TagSystem extends React.Component {
    //Invoked as user types in the search box
    onHeadphoneSearchInput = e => {
       this.setState({ searchTerm: e.target.value });
-      if (e.target.value.length > 0 && this.props.nameList) {
+      if (e.target.value.length > 0 && this.props.listOfHeadphones) {
          this.searchForHeadphones(e.target.value);
       } else {
          this.setState({ searchMatches: [] });
@@ -64,7 +62,7 @@ class TagSystem extends React.Component {
       var regExp = new RegExp(regExpPrepare, 'i');
 
       //Find headphones whose name contains every letter in the search term
-      var searchMatches = this.props.nameList.filter(headphone => {
+      var searchMatches = this.props.listOfHeadphones.filter(headphone => {
          return regExp.test(headphone.brandAndModel);
       });
 
@@ -227,7 +225,7 @@ class TagSystem extends React.Component {
 
 //Get the name list of all headphones in the database
 const mapStateToProps = state => {
-   return { nameList: state.nameList };
+   return { listOfHeadphones: state.listOfHeadphones };
 };
 export default connect(
    mapStateToProps,

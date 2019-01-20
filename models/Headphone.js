@@ -23,8 +23,7 @@ var HeadphoneSchema = new mongoose.Schema({
       inTheBox: String
    },
    amazonLink: String,
-   price: String,
-   topPosts: [String]
+   price: String
 });
 
 var Headphone = mongoose.model('Headphone', HeadphoneSchema);

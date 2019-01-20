@@ -20,7 +20,8 @@ class HeadphoneCreate extends React.Component {
       weight: '',
       inTheBox: '',
       image: '',
-      amazonLink: ''
+      amazonLink: '',
+      price: ''
    };
 
    onFormSubmit = event => {
@@ -51,7 +52,8 @@ class HeadphoneCreate extends React.Component {
             inTheBox: this.state.inTheBox
          },
          image: this.state.image,
-         amazonLink: this.state.amazonLink
+         amazonLink: this.state.amazonLink,
+         price: this.state.price
       };
       const response = await axios.post('/headphones', postObj);
       console.log(response);
@@ -61,28 +63,43 @@ class HeadphoneCreate extends React.Component {
    mapStateKeysToJSX() {
       var allInputs = [];
       for (var key in this.state) {
-         allInputs.push(
-            <div key={key}>
-               <label>{key}</label>
-               <input
-                  type="text"
-                  name={key}
-                  value={this.state[key]}
-                  onChange={e => this.setState({ [e.target.name]: e.target.value })}
-               />
-            </div>
-         );
+         if (key !== 'officialDescription') {
+            allInputs.push(
+               <div key={key}>
+                  <label>{key}</label>
+                  <input
+                     type="text"
+                     name={key}
+                     value={this.state[key]}
+                     onChange={e => this.setState({ [e.target.name]: e.target.value })}
+                  />
+               </div>
+            );
+         } else {
+            allInputs.push(
+               <div key={key}>
+                  <label>{key}</label>
+                  <textarea
+                     name={key}
+                     value={this.state[key]}
+                     onChange={e => this.setState({ [e.target.name]: e.target.value })}
+                  />
+                  />
+               </div>
+            );
+         }
       }
       return allInputs;
    }
 
    render() {
       return (
-         <div>
+         <div className="headphone-create">
             <h1>New Headphone Creation Form</h1>
             <form onSubmit={this.onFormSubmit}>
                {/* All the input fields */}
                {this.mapStateKeysToJSX()}
+               {/* Submit button */}
                <input type="submit" />
             </form>
          </div>

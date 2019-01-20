@@ -1,0 +1,9 @@
+.headphone-edit{
+    color:white;
+}
+
+.headphone-edit__existing-name{
+    background-color: darkcyan;
+    margin-left: .5rem;
+    cursor: pointer;
+}

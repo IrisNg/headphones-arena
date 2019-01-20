@@ -5,6 +5,7 @@ import history from '../history';
 import LandingPage from './LandingPage';
 import Arena from './Arena/Arena';
 import HeadphoneCreate from './Arena/HeadphoneCreate';
+import HeadphoneEdit from './Arena/HeadphoneEdit';
 import Forum from './Forum/Forum';
 import PostShow from './Forum/PostShow';
 import PostCreate from './Forum/PostCreate';
@@ -26,11 +27,11 @@ const App = () => {
                   <Route path="/" exact component={LandingPage} />
                   <Route path="/arena" component={Arena} />
                   <Route path="/headphones/new" component={HeadphoneCreate} />
-                  {/* <Route path="/headphones/:id/edit" exact component={HeadphoneEdit} /> */}
+                  <Route path="/headphones/edit" component={HeadphoneEdit} />
                   <Route path="/forum" component={Forum} />
                   <Route path="/posts/new" component={PostCreate} />
                   <Route exact path="/posts/:id" component={PostShow} />
-                  <Route exact path="/posts/:id/edit" component={PostEdit} />
+                  <Route path="/posts/:id/edit" component={PostEdit} />
                   <Route path="/blacksmith" component={Blacksmith} />
                   {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}

@@ -30,21 +30,28 @@ router.get('/arena', function(req, res) {
 //    });
 // });
 router.post('/forum/topposts', function(req, res) {
-   console.log(req.body.term);
-   var term = req.body.term;
+   var brandAndModel = req.body.brandAndModel;
+   var model = req.body.model;
+   //Separate the alternative naming from the brandAndModel and model
+   var alternative = /\((.*)\)/.exec(model);
+   brandAndModel = brandAndModel.replace(/\s\(.*\)/g, '');
+   model = model.replace(/\s\(.*\)/g, '');
    //Formulating Regular Expression to search for posts (using MongoDB)
-   //Post matches if it contains all of the words from the search term
-   var prepRegExp = term.split(' ').join('.*');
-   //Escaping all the literal characters in the inputted search term
-   prepRegExp = prepRegExp.replace(/\(/g, '\\(');
-   prepRegExp = prepRegExp.replace(/\)/g, '\\)');
-   term = term.replace(/\(/g, '\\(');
-   term = term.replace(/\)/g, '\\)');
-   //Post also matches if it contains the entire string from the search term
-   prepRegExp = `(${prepRegExp}|${term})`;
+   //Post matches if it contains all of the words from the brandAndModel, regardless of the letters/words in between
+   var allWords = brandAndModel.split(' ').join('.*');
+   //Post matches if it contains all of the words from the model, regardless of the whitespaces in between
+   var allModelWords = model.split(' ').join('\\s*');
+   // model = model.replace(/\(/g, '\\(');
+   // model = model.replace(/\)/g, '\\)');
+   //Post also matches if it contains the entire string from the brandAndModel or model
+   if (alternative) {
+      var requirements = `(${allWords}|${brandAndModel}|${model}|${allModelWords}|${alternative[1]})`;
+   } else {
+      var requirements = `(${allWords}|${brandAndModel}|${model}|${allModelWords})`;
+   }
    //Churn out the regular expression and flag it to be case insensitive
-   var regExp = new RegExp(prepRegExp, 'i');
-   // console.log(regExp);
+   var regExp = new RegExp(requirements, 'i');
+   console.log(regExp);
 
    //Use the regular expression to search for post titles/content or posts with tagged headphones that matches the search term
    Post.find({
@@ -57,7 +64,7 @@ router.post('/forum/topposts', function(req, res) {
             console.log(err);
          } else {
             console.log(foundPosts);
-            res.json({ headphone: req.body.term, topPosts: foundPosts });
+            res.json({ headphone: req.body.brandAndModel, topPosts: foundPosts });
          }
       });
 });

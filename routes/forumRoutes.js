@@ -4,89 +4,52 @@ var express = require('express'),
    Headphone = require('../models/Headphone');
 
 // FORUM
-// router.get('/forum', function(req, res) {
-//    Post.find({}, function(err, foundPosts) {
-//       if (err) {
-//          console.log(err);
-//       } else {
-//          console.log(foundPosts);
-//          res.json(foundPosts);
-//       }
-//    });
-// });
-router.get('/forum', function(req, res) {
-   //Find a mixture of both latest posts and hottest posts (posts with highest votes)
-   //for each of the 4 categories - Comparison, Recommendation, Review, General
-   Post.find({ category: 'Comparison' })
-      //Latest post comes first
-      .sort({ created: -1 })
-      .limit(20)
-      .exec(function(err, foundComparisonPosts) {
-         if (err) {
-            console.log(err);
-         } else {
-            //Take 2 of the latest posts
-            var comparison = foundComparisonPosts.splice(0, 2);
-            //Resort by vote popularity
-            foundComparisonPosts.sort(function(a, b) {
-               return b.vote.count - a.vote.count;
-            });
-            //Combine the latest and hottest posts into one array
-            comparison = comparison.concat(foundComparisonPosts.splice(0, 3));
-
-            //Do the same for the next category - Recommendation
-            Post.find({ category: 'Recommendation' })
-               .sort({ created: -1 })
-               .limit(20)
-               .exec(function(err, foundRecommendationPosts) {
-                  if (err) {
-                     console.log(err);
-                  } else {
-                     var recommendation = foundRecommendationPosts.splice(0, 2);
-                     foundRecommendationPosts.sort(function(a, b) {
-                        return b.vote.count - a.vote.count;
-                     });
-                     recommendation = recommendation.concat(foundRecommendationPosts.splice(0, 3));
-                     //Do the same for the next category - Review
-                     Post.find({ category: 'Review' })
-                        .sort({ created: -1 })
-                        .limit(20)
-                        .exec(function(err, foundReviewPosts) {
-                           if (err) {
-                              console.log(err);
-                           } else {
-                              var review = foundReviewPosts.splice(0, 2);
-                              foundReviewPosts.sort(function(a, b) {
-                                 return b.vote.count - a.vote.count;
-                              });
-                              review = review.concat(foundReviewPosts.splice(0, 2));
-                              //Do the same for the next category - General
-                              Post.find({ category: 'General' })
-                                 .sort({ created: -1 })
-                                 .limit(20)
-                                 .exec(function(err, foundGeneralPosts) {
-                                    if (err) {
-                                       console.log(err);
-                                    } else {
-                                       var general = foundGeneralPosts.splice(0, 2);
-                                       foundGeneralPosts.sort(function(a, b) {
-                                          return b.vote.count - a.vote.count;
-                                       });
-                                       general = general.concat(foundGeneralPosts.splice(0, 2));
-                                       var response = { comparison, recommendation, review, general };
-                                       //Send the object to the client-side
-                                       // console.log(response);
-                                       res.json(response);
-                                    }
-                                 });
-                           }
-                        });
-                  }
+function findCategoryPosts(category) {
+   return new Promise(function(resolve, reject) {
+      Post.find({ category: category })
+         //Latest post comes first
+         .sort({ created: -1 })
+         .limit(20)
+         .exec(function(err, foundPosts) {
+            if (err) {
+               reject(err);
+            } else {
+               //Take 2 of the latest posts
+               var results = foundPosts.splice(0, 2);
+               //Resort remaining posts by vote popularity
+               foundPosts.sort(function(a, b) {
+                  return b.vote.count - a.vote.count;
                });
-         }
+               //Combine the latest and hottest posts into one array
+               results = results.concat(foundPosts.splice(0, 3));
+               // console.log(results);
+               resolve(results);
+            }
+         });
+   });
+}
+//Find categories posts upon forum page's initial loadup
+router.get('/forum', function(req, res) {
+   (async function() {
+      //Find a mixture of both latest posts and hottest posts (posts with highest votes)
+      //for each of the 4 categories - Comparison, Recommendation, Review, General
+      const comparison = await findCategoryPosts('Comparison');
+      const recommendation = await findCategoryPosts('Recommendation');
+      const review = await findCategoryPosts('Review');
+      const general = await findCategoryPosts('General');
+      var response = { comparison, recommendation, review, general };
+      return response;
+   })()
+      .then(function(response) {
+         //Send the object to the client-side
+         console.log(response);
+         res.json(response);
+      })
+      .catch(function(err) {
+         console.log(err);
       });
 });
-
+//Find search posts when user enters search term in forum page
 router.post('/forum/search', function(req, res) {
    var term = req.body.term;
    //Formulating Regular Expression to search for posts (using MongoDB)
@@ -243,18 +206,6 @@ router.put('/posts/:id/addtags', function(req, res) {
 });
 //Remove previous tags from edited post in the respective headphones
 router.put('/posts/:id/removetags', function(req, res) {
-   // req.body.prevTags.forEach(function(entry) {
-   //    Headphone.update({ brandAndModel: entry.brandAndModel }, { $pull: { tags: { postId: req.params.id } } }, function(
-   //       err,
-   //       updatedHeadphone
-   //    ) {
-   //       if (err) {
-   //          console.log(err);
-   //       } else {
-   //          console.log(updatedHeadphone);
-   //       }
-   //    });
-   // });
    //Find the headphones tagged previously and remove the previous tags
    for (var i = 0; i < req.body.prevTags.length; i++) {
       //Remove the object with the previous tags that can be identified with the post's id
@@ -276,13 +227,29 @@ router.put('/posts/:id/removetags', function(req, res) {
    }
 });
 
-//delete forum-post page
+//delete content from post
 router.delete('/posts/:id', function(req, res) {
-   Post.findByIdAndRemove(req.params.id, function(err) {
-      if (err) {
-         console.log(err);
+   console.log(req.params.id);
+   Post.findByIdAndUpdate(
+      req.params.id,
+      {
+         $set: {
+            content: '~Content has been removed~',
+            'author.username': '-',
+            tag: [],
+            vote: { count: 0, upVote: [], downVote: [] }
+         }
+      },
+      function(err, updatedPost) {
+         if (err) {
+            console.log(err);
+         } else {
+            //Send a response to client side when done
+            console.log(updatedPost);
+            res.json(updatedPost);
+         }
       }
-   });
+   );
 });
 
 function isLoggedIn(req, res, next) {

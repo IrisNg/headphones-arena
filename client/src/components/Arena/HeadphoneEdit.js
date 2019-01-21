@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { fetchListOfHeadphones } from '../../actions';
+import HeadphoneDelete from './HeadphoneDelete';
 import './HeadphoneEdit.css';
 
 class HeadphoneEdit extends React.Component {
@@ -28,9 +29,7 @@ class HeadphoneEdit extends React.Component {
    };
    //Fetch the name list of all headphones
    componentDidMount() {
-      if (this.props.listOfHeadphones.length === 0) {
-         this.props.fetchListOfHeadphones();
-      }
+      this.props.fetchListOfHeadphones();
    }
    //Render a list of existing headphones' names to select which headphone needs updating
    renderExistingNames() {
@@ -176,6 +175,7 @@ class HeadphoneEdit extends React.Component {
                {this.mapStateKeysToJSX()}
                {/* Submit button */}
                <input type="submit" />
+               {this.state._id ? <HeadphoneDelete id={this.state._id} /> : null}
             </form>
          </div>
       );

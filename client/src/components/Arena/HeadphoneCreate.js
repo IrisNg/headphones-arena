@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import history from '../../history';
 import './HeadphoneCreate.css';
 
 class HeadphoneCreate extends React.Component {
@@ -96,6 +97,7 @@ class HeadphoneCreate extends React.Component {
       return (
          <div className="headphone-create">
             <h1>New Headphone Creation Form</h1>
+            <button onClick={() => history.push('/headphones/edit')}>Edit</button>
             <form onSubmit={this.onFormSubmit}>
                {/* All the input fields */}
                {this.mapStateKeysToJSX()}

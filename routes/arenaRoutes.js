@@ -2,6 +2,8 @@ var express = require('express'),
    router = express.Router(),
    Headphone = require('../models/Headphone'),
    Post = require('../models/Post'),
+   request = require('request'),
+   iconv = require('iconv-lite'),
    //SEED. PLEASE REMOVE
    headphoneSeed = require('../seeds/headphoneSeed.js');
 
@@ -36,17 +38,23 @@ router.get('/headphones/:id', function(req, res) {
 });
 // router.post('/arena/pricefind', function(req, res) {
 //    // var url = req.body.amazonLink;
-//    var url =
-//       'https://www.amazon.com/dp/B01A8NU5GM/ref=sr_1_1_twi_col_2?s=electronics&ie=UTF8&qid=1546661236&sr=1-1&keywords=cowon+plenue+d';
-//    request({ encoding: null, method: 'GET', uri: url }, function(error, response, body) {
+//    var url = 'https://www.amazon.com/dp/B0798TVDVJ';
+//    request({ url: url, encoding: null }, function(error, response, body) {
 //       if (!error && response.statusCode == 200) {
-//          // console.log(body);
-//          // const regex = /<span id="priceblock_ourprice" .*>.*<\/span>/;
-//          // var match = regex.exec(body);
-//          // console.log(match);
+//          var encoding = 'ISO-8859-1';
+//          var content = iconv.decode(body, encoding);
+//          // content2 = iconv.encode(content, 'utf-8');
+//          console.log(content);
 //       }
 //    });
+//    // console.log(body);
+//    // const regex = /<span id="priceblock_ourprice" .*>.*<\/span>/;
+//    // var match = regex.exec(body);
+//    // console.log(match);
+//    // }
+//    // });
 // });
+//Find the top posts related to the selected headphone
 router.post('/forum/topposts', function(req, res) {
    var brandAndModel = req.body.brandAndModel;
    var model = req.body.model;
@@ -59,8 +67,6 @@ router.post('/forum/topposts', function(req, res) {
    var allWords = brandAndModel.split(' ').join('.*');
    //Post matches if it contains all of the words from the model, regardless of the whitespaces in between
    var allModelWords = model.split(' ').join('\\s*');
-   // model = model.replace(/\(/g, '\\(');
-   // model = model.replace(/\)/g, '\\)');
    //Post also matches if it contains the entire string from the brandAndModel or model
    if (alternative) {
       var requirements = `(${allWords}|${brandAndModel}|${model}|${allModelWords}|${alternative[1]})`;

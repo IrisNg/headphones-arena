@@ -10,6 +10,7 @@ import Forum from './Forum/Forum';
 import PostShow from './Forum/PostShow';
 import PostCreate from './Forum/PostCreate';
 import PostEdit from './Forum/PostEdit';
+import PostDelete from './Forum/PostDelete';
 import Blacksmith from './Blacksmith/Blacksmith';
 import Marketplace from './Marketplace/Marketplace';
 
@@ -32,6 +33,7 @@ const App = () => {
                   <Route path="/posts/new" component={PostCreate} />
                   <Route exact path="/posts/:id" component={PostShow} />
                   <Route path="/posts/:id/edit" component={PostEdit} />
+                  <Route path="/posts/:id/delete" component={PostDelete} />
                   <Route path="/blacksmith" component={Blacksmith} />
                   {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}

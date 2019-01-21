@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { fetchPost, updatePost } from '../../actions';
+import history from '../../history';
 import TagSystem from './TagSystem';
 import './PostEdit.css';
 
@@ -78,6 +79,7 @@ class PostEdit extends React.Component {
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
+               <button onClick={() => history.push(`/posts/${this.props.match.params.id}/delete`)}>Delete</button>
             </form>
          </div>
       );

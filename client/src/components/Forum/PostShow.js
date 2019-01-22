@@ -28,11 +28,12 @@ class PostShow extends React.Component {
    //Render the create reply form
    renderReplyCreate() {
       if (this.state.renderReplyCreate) {
-         const { _id, title } = this.props.post;
+         const { _id, title, category } = this.props.post;
          return (
             <ReplyCreate
                idToReplyTo={_id}
                title={title}
+               category={category}
                turnOffReplyCreate={this.turnOffReplyCreate}
                mainPostId={this.props.post._id}
             />

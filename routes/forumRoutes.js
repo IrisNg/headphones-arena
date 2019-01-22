@@ -118,6 +118,7 @@ router.post('/replies', isLoggedIn, function(req, res) {
          //Add in the current user's details
          createdReply.author.id = req.user._id;
          createdReply.author.username = req.user.username;
+         createdReply.vote.count = 100;
          //Save the updated post
          createdReply.save();
          console.log(createdReply);
@@ -143,7 +144,7 @@ router.post('/replies', isLoggedIn, function(req, res) {
    });
 });
 
-//show forum-post page
+//Show forum-post page
 router.get('/posts/:id', function(req, res) {
    //Find the Post with the same Id as the parameter
    //Populate the object references in the replies of the post
@@ -172,6 +173,43 @@ router.put('/posts/:id', function(req, res) {
          //Send a response to client side when done so as to trigger the next request to remove the previous tags
          console.log(updatedPost);
          res.json(updatedPost);
+      }
+   });
+});
+
+//Delete content from post
+router.delete('/posts/:id', function(req, res) {
+   console.log(req.params.id);
+   Post.findByIdAndUpdate(
+      req.params.id,
+      {
+         $set: {
+            content: '~Content has been removed~',
+            'author.username': '-',
+            tag: [],
+            vote: { count: 0, upVote: [], downVote: [] }
+         }
+      },
+      function(err, updatedPost) {
+         if (err) {
+            console.log(err);
+         } else {
+            //Send a response to client side when done
+            console.log(updatedPost);
+            res.json(updatedPost);
+         }
+      }
+   );
+});
+
+//Find the main post of a reply
+router.post('/posts/find-main', function(req, res) {
+   Post.findOne({ title: req.body.title, isMainPost: true }, function(err, foundPost) {
+      if (err) {
+         console.log(err);
+      } else {
+         console.log(foundPost);
+         res.json(foundPost);
       }
    });
 });
@@ -225,31 +263,6 @@ router.put('/posts/:id/removetags', function(req, res) {
          res.json('Removal Done!');
       }
    }
-});
-
-//delete content from post
-router.delete('/posts/:id', function(req, res) {
-   console.log(req.params.id);
-   Post.findByIdAndUpdate(
-      req.params.id,
-      {
-         $set: {
-            content: '~Content has been removed~',
-            'author.username': '-',
-            tag: [],
-            vote: { count: 0, upVote: [], downVote: [] }
-         }
-      },
-      function(err, updatedPost) {
-         if (err) {
-            console.log(err);
-         } else {
-            //Send a response to client side when done
-            console.log(updatedPost);
-            res.json(updatedPost);
-         }
-      }
-   );
 });
 
 function isLoggedIn(req, res, next) {

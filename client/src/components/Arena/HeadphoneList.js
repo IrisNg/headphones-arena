@@ -31,7 +31,6 @@ class HeadphoneList extends React.Component {
 
 //Retrieve headphone list from Store after API request completes
 const mapStateToProps = state => {
-   console.log(state.listOfHeadphones.length);
    return { listOfHeadphones: state.listOfHeadphones };
 };
 

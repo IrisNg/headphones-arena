@@ -69,9 +69,9 @@ router.post('/forum/topposts', function(req, res) {
    var allModelWords = model.split(' ').join('\\s*');
    //Post also matches if it contains the entire string from the brandAndModel or model
    if (alternative) {
-      var requirements = `(${allWords}|${brandAndModel}|${model}|${allModelWords}|${alternative[1]})`;
+      var requirements = `(${allWords}|${brandAndModel}|${allModelWords}|${alternative[1]})`;
    } else {
-      var requirements = `(${allWords}|${brandAndModel}|${model}|${allModelWords})`;
+      var requirements = `(${allWords}|${brandAndModel}|${allModelWords})`;
    }
    //Churn out the regular expression and flag it to be case insensitive
    var regExp = new RegExp(requirements, 'i');
@@ -106,16 +106,6 @@ router.post('/headphones', function(req, res) {
       });
    });
 });
-// //edit headphone page
-// router.get('/headphones/:id/edit', function(req, res) {
-//    Headphone.findById(req.params.id, function(err, foundHeadphone) {
-//       if (err) {
-//          console.log(err);
-//       } else {
-//          console.log(foundHeadphone);
-//       }
-//    });
-// });
 //update headphone page
 router.put('/headphones/:id', function(req, res) {
    Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, updatedHeadphone) {

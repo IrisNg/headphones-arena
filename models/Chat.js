@@ -1,14 +1,8 @@
 var mongoose = require('mongoose');
 
 var ChatSchema = new mongoose.Schema({
-   author: {
-      id: {
-         type: mongoose.Schema.Types.ObjectId,
-         ref: 'User'
-      },
-      username: String
-   },
-   content: String,
+   author: String,
+   message: String,
    created: {
       type: Date,
       default: Date.now

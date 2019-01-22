@@ -80,7 +80,6 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
    await dispatch(fetchPost(mainPostId));
    dispatch({ type: 'UPDATED_POST' });
 };
-
 //Authentication
 export const registerUser = (username, password) => async dispatch => {
    const response = await axios.post('/register', { username, password });

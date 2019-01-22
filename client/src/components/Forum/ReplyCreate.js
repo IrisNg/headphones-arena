@@ -13,14 +13,15 @@ class ReplyCreate extends React.Component {
       title: '',
       //Not from props - user inputted
       outputTags: [],
-      content: 'What do you want to share with your fellow Audiophiles today?'
+      content: 'What do you want to share with your fellow Audiophiles today?',
+      category: ''
    };
 
    componentDidUpdate() {
       // Store the parent post's details in the state
       if (!this.state.idToReplyTo) {
-         const { idToReplyTo, title } = this.props;
-         this.setState({ idToReplyTo, title });
+         const { idToReplyTo, title, category } = this.props;
+         this.setState({ idToReplyTo, title, category });
       }
    }
    //Callback passed as props to child component TagSystem
@@ -43,7 +44,8 @@ class ReplyCreate extends React.Component {
             isMainPost: false,
             title: this.state.title,
             tag: this.state.outputTags,
-            content: this.state.content
+            content: this.state.content,
+            category: this.state.category
          }
       };
       //Create post in database

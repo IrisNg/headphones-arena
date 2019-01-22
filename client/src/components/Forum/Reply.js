@@ -65,11 +65,12 @@ class Reply extends React.Component {
    //Render the create reply form
    renderReplyCreate() {
       if (this.state.renderReplyCreate) {
-         const { _id, title } = this.props.data;
+         const { _id, title, category } = this.props.data;
          return (
             <ReplyCreate
                idToReplyTo={_id}
                title={title}
+               category={category}
                mainPostId={this.props.mainPostId}
                turnOffReplyCreate={this.turnOffReplyCreate}
             />

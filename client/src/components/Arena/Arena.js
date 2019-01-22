@@ -3,6 +3,7 @@ import React from 'react';
 import HeadphoneList from './HeadphoneList';
 import SelectedList from './SelectedList';
 import NavigationBar from '../NavigationBar';
+import LiveChat from '../LiveChat/LiveChat';
 import './Arena.css';
 
 const Arena = () => {
@@ -13,6 +14,7 @@ const Arena = () => {
          <NavigationBar />
          <HeadphoneList />
          <SelectedList />
+         <LiveChat />
          {/* <Link to="/headphones/new">Add New Headphones</Link> */}
       </div>
    );

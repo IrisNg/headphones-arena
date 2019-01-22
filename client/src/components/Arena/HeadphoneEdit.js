@@ -46,7 +46,6 @@ class HeadphoneEdit extends React.Component {
    //Fetch the full headphone entry based on the headphone name clicked
    fetchHeadphoneEntry = async id => {
       const response = await axios.get(`/headphones/${id}`);
-      console.log(response);
       //Destructuring from fetched entry
       const {
          _id,

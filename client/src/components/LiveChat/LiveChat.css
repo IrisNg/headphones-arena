@@ -1,0 +1,8 @@
+.live-chat {
+    position: fixed;
+    right:0;
+    top: 0;
+    height: 100vh;
+    width:12%;
+    background-color: darkgreen;
+}

@@ -55,8 +55,6 @@ class TagSystem extends React.Component {
       //Preparing the search term to be converted to regular expression
       //Giving allowance for stray spaces and stray letters (i.e just check whether the headphone's name contains every letter from the search term)
       var regExpPrepare = removeSpace.split('').join('.*');
-      //Giving allowance for stray spaces and stray letters after the last letter in the search term
-      // regExpPrepare += '.*';
 
       //Convert to regular expression
       var regExp = new RegExp(regExpPrepare, 'i');
@@ -67,27 +65,22 @@ class TagSystem extends React.Component {
       });
 
       //Don't want to show already tagged headphones
-      if (this.state.taggedHeadphones.length > 0) {
-         searchMatches = searchMatches.filter(headphone => {
-            return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
-         });
-      }
+      searchMatches = searchMatches.filter(headphone => {
+         return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
+      });
       searchMatches = searchMatches.slice(0, 4);
-
       //Store the successful matches in the component's state
       this.setState({ searchMatches });
    };
    renderSuggestionsFromMatches = () => {
       //Render headphone suggestion buttons only if there are matches
-      if (this.state.searchMatches.length > 0) {
-         return this.state.searchMatches.map(match => {
-            return (
-               <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphoneToState(match.brandAndModel)}>
-                  {match.brandAndModel}
-               </button>
-            );
-         });
-      }
+      return this.state.searchMatches.map(match => {
+         return (
+            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphoneToState(match.brandAndModel)}>
+               {match.brandAndModel}
+            </button>
+         );
+      });
    };
    addTaggedHeadphoneToState = headphoneName => {
       this.setState({
@@ -106,27 +99,22 @@ class TagSystem extends React.Component {
    };
    renderTagLineFromTaggedHeadphones = () => {
       //Display Tag Line only if there are tagged headphones
-      if (this.state.taggedHeadphones.length > 0) {
-         //Map each taggedHeadphone in a separate tag line
-         return this.state.taggedHeadphones.map(taggedHeadphoneName => {
-            return (
-               <div className="tag-system__tag-line" key={taggedHeadphoneName}>
-                  <div
-                     className="tag-system__tagged-headphone"
-                     //Pass in this headphone name into callback when clicked
-                     onClick={() => this.addSelectedTagLineToState(taggedHeadphoneName)}
-                  >
-                     {taggedHeadphoneName} :{/* Display the tags */}
-                     <span>{this.renderTagsInRespectiveTagLine(taggedHeadphoneName)}</span>
-                  </div>
-                  <i
-                     className="fas fa-times"
-                     onClick={() => this.removeTaggedHeadphoneFromState(taggedHeadphoneName)}
-                  />
+      //Map each taggedHeadphone in a separate tag line
+      return this.state.taggedHeadphones.map(taggedHeadphoneName => {
+         return (
+            <div className="tag-system__tag-line" key={taggedHeadphoneName}>
+               <div
+                  className="tag-system__tagged-headphone"
+                  //Pass in this headphone name into callback when clicked
+                  onClick={() => this.addSelectedTagLineToState(taggedHeadphoneName)}
+               >
+                  {taggedHeadphoneName} :{/* Display the tags */}
+                  <span>{this.renderTagsInRespectiveTagLine(taggedHeadphoneName)}</span>
                </div>
-            );
-         });
-      }
+               <i className="fas fa-times" onClick={() => this.removeTaggedHeadphoneFromState(taggedHeadphoneName)} />
+            </div>
+         );
+      });
    };
    addSelectedTagLineToState = taggedHeadphoneName => {
       this.setState({ selectedTagLine: taggedHeadphoneName, tagLineIsActive: true });

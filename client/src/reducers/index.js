@@ -7,6 +7,7 @@ import {
    postReducer,
    updateVoteReducer
 } from './forumReducers';
+import { userProfileReducer } from './userProfileReducers';
 import { currentUserReducer } from './authenticationReducers';
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
    forumSearchPosts: searchPostsReducer,
    post: postReducer,
    updatedVotePosts: updateVoteReducer,
+   userProfile: userProfileReducer,
    currentUser: currentUserReducer
 });

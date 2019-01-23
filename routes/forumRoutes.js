@@ -1,36 +1,13 @@
 var express = require('express'),
    router = express.Router(),
    Post = require('../models/Post'),
+   UserProfile = require('../models/UserProfile'),
    Headphone = require('../models/Headphone');
 
 // FORUM
-function findCategoryPosts(category) {
-   return new Promise(function(resolve, reject) {
-      Post.find({ category: category })
-         //Latest post comes first
-         .sort({ created: -1 })
-         .limit(20)
-         .exec(function(err, foundPosts) {
-            if (err) {
-               reject(err);
-            } else {
-               //Take 2 of the latest posts
-               var results = foundPosts.splice(0, 2);
-               //Resort remaining posts by vote popularity
-               foundPosts.sort(function(a, b) {
-                  return b.vote.count - a.vote.count;
-               });
-               //Combine the latest and hottest posts into one array
-               results = results.concat(foundPosts.splice(0, 3));
-               // console.log(results);
-               resolve(results);
-            }
-         });
-   });
-}
 //Find categories posts upon forum page's initial loadup
-router.get('/forum', function(req, res) {
-   (async function() {
+router.get('/forum', (req, res) => {
+   (async () => {
       //Find a mixture of both latest posts and hottest posts (posts with highest votes)
       //for each of the 4 categories - Comparison, Recommendation, Review, General
       const comparison = await findCategoryPosts('Comparison');
@@ -40,17 +17,40 @@ router.get('/forum', function(req, res) {
       var response = { comparison, recommendation, review, general };
       return response;
    })()
-      .then(function(response) {
+      .then(response => {
          //Send the object to the client-side
-         console.log(response);
          res.json(response);
       })
-      .catch(function(err) {
+      .catch(err => {
          console.log(err);
       });
 });
+const findCategoryPosts = category => {
+   return new Promise((resolve, reject) => {
+      Post.find({ category: category })
+         //Latest post comes first
+         .sort({ created: -1 })
+         .limit(20)
+         .exec((err, foundPosts) => {
+            if (err) {
+               reject(err);
+            } else {
+               //Take 2 of the latest posts
+               var results = foundPosts.splice(0, 2);
+               //Resort remaining posts by vote popularity
+               foundPosts.sort((a, b) => {
+                  return b.vote.count - a.vote.count;
+               });
+               //Combine the latest and hottest posts into one array
+               results = results.concat(foundPosts.splice(0, 3));
+               // console.log(results);
+               resolve(results);
+            }
+         });
+   });
+};
 //Find search posts when user enters search term in forum page
-router.post('/forum/search', function(req, res) {
+router.post('/forum/search', (req, res) => {
    var term = req.body.term;
    //Formulating Regular Expression to search for posts (using MongoDB)
    //Post matches if it contains all of the letters from the search term
@@ -78,7 +78,7 @@ router.post('/forum/search', function(req, res) {
    })
       .sort({ created: -1 })
       .limit(5)
-      .exec(function(err, foundPosts) {
+      .exec((err, foundPosts) => {
          if (err) {
             console.log(err);
          } else {
@@ -89,63 +89,78 @@ router.post('/forum/search', function(req, res) {
 });
 
 //create forum-post page
-router.post('/posts', isLoggedIn, function(req, res) {
-   //Create new post in the database
-   Post.create(req.body.body, function(err, createdPost) {
-      if (err) {
-         console.log(err);
-      } else {
-         //Add in the current user's details
-         createdPost.author.id = req.user._id;
-         createdPost.author.username = req.user.username;
-         createdPost.vote.count = 100;
-         //Save the updated post
-         createdPost.save();
-         console.log(createdPost);
-         //Send a response to client side when done so as to trigger the next request to add in the new tags
-         res.json(createdPost);
+router.post('/posts', isLoggedIn, (req, res) => {
+   (async () => {
+      //Create new post in the database
+      const createdPost = await createPost(req);
+      //Push created post into the current user's profile
+      const updatedProfile = await pushPostIntoUserProfile(createdPost, req);
+      //If this is a reply, push this reply into its parent reply/post
+      if (req.body.idToReplyTo) {
+         var updatedPost = await pushReplyIntoParent(createdPost, req);
       }
-   });
-});
-
-//create forum-reply page
-router.post('/replies', isLoggedIn, function(req, res) {
-   //Create new post in the database
-   Post.create(req.body.body, function(err, createdReply) {
-      if (err) {
-         console.log(err);
-      } else {
-         //Add in the current user's details
-         createdReply.author.id = req.user._id;
-         createdReply.author.username = req.user.username;
-         createdReply.vote.count = 100;
-         //Save the updated post
-         createdReply.save();
-         console.log(createdReply);
-         //Find the parent post of this reply
-         Post.findById(req.body.idToReplyTo, function(err, foundPost) {
-            if (err) {
-               console.log(err);
-            } else {
-               //Push the created reply into the parent post
-               foundPost.replies.push(createdReply);
-               foundPost.save(function(err, updatedPost) {
-                  if (err) {
-                     console.log(err);
-                  } else {
-                     console.log(updatedPost);
-                  }
-               });
-            }
-         });
+      return { createdPost, updatedProfile, updatedPost: updatedPost ? updatedPost : 'not reply' };
+   })()
+      .then(response => {
+         console.log(response);
          //Send a response to client side when done so as to trigger the next request to add in the new tags
-         res.json(createdReply);
-      }
-   });
+         res.json(response.createdPost);
+      })
+      .catch(err => {
+         console.log(err);
+      });
 });
+//Create new post in the database
+const createPost = req => {
+   return new Promise((resolve, reject) => {
+      Post.create(req.body.body, (err, createdPost) => {
+         if (err) {
+            reject(err);
+         } else {
+            //Add in the current user's details
+            createdPost.author.id = req.user._id;
+            createdPost.author.username = req.user.username;
+            createdPost.vote.count = 100;
+            //Save the updated post
+            createdPost.save();
+            resolve(createdPost);
+         }
+      });
+   });
+};
+// Push created post into the current user's profile
+const pushPostIntoUserProfile = (createdPost, req) => {
+   return new Promise((resolve, reject) => {
+      UserProfile.findOne({ userId: req.user._id }, (err, foundProfile) => {
+         if (err) {
+            reject(err);
+         } else {
+            foundProfile.posts.push(createdPost);
+            foundProfile.save();
+            resolve(foundProfile);
+         }
+      });
+   });
+};
+// push this reply into its parent reply/post
+const pushReplyIntoParent = (createdPost, req) => {
+   return new Promise((resolve, reject) => {
+      //Find the parent post/reply of this reply
+      Post.findById(req.body.idToReplyTo, (err, foundPost) => {
+         if (err) {
+            reject(err);
+         } else {
+            //Push the created reply into the parent post/reply
+            foundPost.replies.push(createdPost);
+            foundPost.save();
+            resolve(foundPost);
+         }
+      });
+   });
+};
 
 //Show forum-post page
-router.get('/posts/:id', function(req, res) {
+router.get('/posts/:id', (req, res) => {
    //Find the Post with the same Id as the parameter
    //Populate the object references in the replies of the post
    Post.findById(req.params.id)
@@ -154,7 +169,7 @@ router.get('/posts/:id', function(req, res) {
          path: 'replies',
          populate: { path: 'replies', populate: { path: 'replies', populate: { path: 'replies' } } }
       })
-      .exec(function(err, foundPost) {
+      .exec((err, foundPost) => {
          if (err) {
             console.log(err);
          } else {
@@ -165,8 +180,8 @@ router.get('/posts/:id', function(req, res) {
 });
 
 //update forum-post page
-router.put('/posts/:id', function(req, res) {
-   Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, function(err, updatedPost) {
+router.put('/posts/:id', (req, res) => {
+   Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, (err, updatedPost) => {
       if (err) {
          console.log(err);
       } else {
@@ -178,7 +193,7 @@ router.put('/posts/:id', function(req, res) {
 });
 
 //Delete content from post
-router.delete('/posts/:id', function(req, res) {
+router.delete('/posts/:id', (req, res) => {
    console.log(req.params.id);
    Post.findByIdAndUpdate(
       req.params.id,
@@ -190,7 +205,7 @@ router.delete('/posts/:id', function(req, res) {
             vote: { count: 0, upVote: [], downVote: [] }
          }
       },
-      function(err, updatedPost) {
+      (err, updatedPost) => {
          if (err) {
             console.log(err);
          } else {
@@ -203,8 +218,8 @@ router.delete('/posts/:id', function(req, res) {
 });
 
 //Find the main post of a reply
-router.post('/posts/find-main', function(req, res) {
-   Post.findOne({ title: req.body.title, isMainPost: true }, function(err, foundPost) {
+router.post('/posts/find-main', (req, res) => {
+   Post.findOne({ title: req.body.title, isMainPost: true }, (err, foundPost) => {
       if (err) {
          console.log(err);
       } else {
@@ -215,18 +230,18 @@ router.post('/posts/find-main', function(req, res) {
 });
 
 //Add tags from post to the respective headphones
-router.put('/posts/:id/addtags', function(req, res) {
+router.put('/posts/:id/addtags', (req, res) => {
    var count = 0;
    // Find the newly tagged headphones and add in the new tags
-   req.body.body.tag.forEach(function(entry) {
-      Headphone.findOne({ brandAndModel: entry.brandAndModel }, function(err, foundHeadphone) {
+   req.body.body.tag.forEach(entry => {
+      Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
          if (err) {
             console.log(err);
          } else {
             if (entry.tags.length > 0) {
                //Push in the tags related to the headphone
                foundHeadphone.tags.push({ postId: req.params.id, tags: entry.tags });
-               foundHeadphone.save(function(err, updatedHeadphone) {
+               foundHeadphone.save((err, updatedHeadphone) => {
                   if (err) {
                      console.log(err);
                   } else {
@@ -243,14 +258,14 @@ router.put('/posts/:id/addtags', function(req, res) {
    });
 });
 //Remove previous tags from edited post in the respective headphones
-router.put('/posts/:id/removetags', function(req, res) {
+router.put('/posts/:id/removetags', (req, res) => {
    //Find the headphones tagged previously and remove the previous tags
    for (var i = 0; i < req.body.prevTags.length; i++) {
       //Remove the object with the previous tags that can be identified with the post's id
       Headphone.update(
          { brandAndModel: req.body.prevTags[i].brandAndModel },
          { $pull: { tags: { postId: req.params.id } } },
-         function(err, updatedHeadphone) {
+         (err, updatedHeadphone) => {
             if (err) {
                console.log(err);
             } else {

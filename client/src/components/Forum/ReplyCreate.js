@@ -49,7 +49,7 @@ class ReplyCreate extends React.Component {
          }
       };
       //Create post in database
-      const response = await axios.post('/replies', replyObj);
+      const response = await axios.post('/posts', replyObj);
       console.log(response);
       //Add new tags to newly tagged headphones
       if (replyObj.body.tag.length > 0) {

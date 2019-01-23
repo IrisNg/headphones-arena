@@ -13,6 +13,7 @@ import PostEdit from './Forum/PostEdit';
 import PostDelete from './Forum/PostDelete';
 import Blacksmith from './Blacksmith/Blacksmith';
 import Marketplace from './Marketplace/Marketplace';
+import Dashboard from './UserProfile/Dashboard';
 
 // delete
 import Register from './Authentication/Register';
@@ -43,6 +44,7 @@ const App = () => {
                <Route path="/sales/:id" exact component={SaleShow} />
                <Route path="/sales/:id/edit" exact component={SaleEdit} /> */}
                   <Route path="/register" component={Register} />
+                  <Route path="/user/:id" component={Dashboard} />
                </Switch>
             </div>
          </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions';
 import Logout from './Logout';
-import Login from './Login';
+// import Login from './Login';
 
 class Register extends React.Component {
    state = {
@@ -32,7 +32,7 @@ class Register extends React.Component {
                />
                <input type="submit" onClick={this.onSubmitClick} />
             </form>
-            {!this.props.currentUser ? <Login /> : null}
+            {/* {!this.props.currentUser ? <Login /> : null} */}
             LOGOUT
             <Logout />
          </div>

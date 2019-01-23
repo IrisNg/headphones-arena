@@ -9,8 +9,8 @@ var express = require('express'),
 
 // ARENA
 //index page
-router.get('/arena', function(req, res) {
-   Headphone.find({}, function(err, foundHeadphones) {
+router.get('/arena', (req, res) => {
+   Headphone.find({}, (err, foundHeadphones) => {
       if (err) {
          console.log(err);
       } else {
@@ -27,8 +27,8 @@ router.get('/arena', function(req, res) {
    });
 });
 //show headphone page
-router.get('/headphones/:id', function(req, res) {
-   Headphone.findById(req.params.id, function(err, foundHeadphone) {
+router.get('/headphones/:id', (req, res) => {
+   Headphone.findById(req.params.id, (err, foundHeadphone) => {
       if (err) {
          console.log(err);
       } else {
@@ -55,7 +55,7 @@ router.get('/headphones/:id', function(req, res) {
 //    // });
 // });
 //Find the top posts related to the selected headphone
-router.post('/forum/topposts', function(req, res) {
+router.post('/forum/topposts', (req, res) => {
    var brandAndModel = req.body.brandAndModel;
    var model = req.body.model;
    //Separate the alternative naming from the brandAndModel and model
@@ -83,7 +83,7 @@ router.post('/forum/topposts', function(req, res) {
    })
       .sort({ 'vote.count': -1 })
       .limit(5)
-      .exec(function(err, foundPosts) {
+      .exec((err, foundPosts) => {
          if (err) {
             console.log(err);
          } else {
@@ -93,9 +93,9 @@ router.post('/forum/topposts', function(req, res) {
       });
 });
 //create headphone page
-router.post('/headphones', function(req, res) {
-   headphoneSeed.forEach(function(headphone) {
-      Headphone.create(headphone, function(err, createdHeadphone) {
+router.post('/headphones', (req, res) => {
+   headphoneSeed.forEach(headphone => {
+      Headphone.create(headphone, (err, createdHeadphone) => {
          // Headphone.create(req.body, function(err, createdHeadphone) {
          if (err) {
             console.log(err);
@@ -107,8 +107,8 @@ router.post('/headphones', function(req, res) {
    });
 });
 //update headphone page
-router.put('/headphones/:id', function(req, res) {
-   Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, function(err, updatedHeadphone) {
+router.put('/headphones/:id', (req, res) => {
+   Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, updatedHeadphone) => {
       if (err) {
          console.log(err);
       } else {
@@ -118,8 +118,8 @@ router.put('/headphones/:id', function(req, res) {
    });
 });
 //delete headphone page
-router.delete('/headphones/:id', function(req, res) {
-   Headphone.findByIdAndRemove(req.params.id, function(err) {
+router.delete('/headphones/:id', (req, res) => {
+   Headphone.findByIdAndRemove(req.params.id, err => {
       if (err) {
          console.log(err);
       }

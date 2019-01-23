@@ -25,23 +25,27 @@ export const removeHeadphone = headphoneRemoved => {
       payload: headphoneRemoved
    };
 };
-//Called by SelectedHeadphone component - to fetch highest voted posts related to the selected headphone
+//Called by SelectedHeadphone component
+//Fetch highest voted posts related to the selected headphone
 export const fetchTopPosts = headphoneName => async dispatch => {
    const response = await axios.post('/forum/topposts', headphoneName);
    dispatch({ type: 'FETCH_TOP_POSTS', payload: response.data });
 };
 
 //Forum
+//Called by Forum component
 export const fetchForumHomePosts = () => async dispatch => {
    const response = await axios.get('/forum');
    dispatch({ type: 'FETCH_FORUM_POSTS', payload: response.data });
 };
+//Called by fetchSearchPosts action creator
 export const storeSearchTerm = searchTerm => {
    return {
       type: 'FORUM_SEARCH_TERM',
       payload: searchTerm
    };
 };
+//Called by fetchSearchPosts action creator
 //Search the database for posts using this search term
 export const fetchUnpopulatedSearchPosts = term => async dispatch => {
    const response = await axios.post('/forum/search', { term });
@@ -79,6 +83,11 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
    console.log(response);
    await dispatch(fetchPost(mainPostId));
    dispatch({ type: 'UPDATED_POST' });
+};
+//UserProfile
+export const fetchUserProfile = id => async dispatch => {
+   const response = await axios.get(`/user/${id}`);
+   dispatch({ type: 'FETCH_USER_PROFILE', payload: response.data });
 };
 //Authentication
 export const registerUser = (username, password) => async dispatch => {

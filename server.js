@@ -15,10 +15,12 @@ var arenaRoutes = require('./routes/arenaRoutes'),
    forumRoutes = require('./routes/forumRoutes'),
    blacksmithRoutes = require('./routes/blacksmithRoutes'),
    marketplaceRoutes = require('./routes/marketplaceRoutes'),
-   chatRoutes = require('./routes/chatRoutes');
+   chatRoutes = require('./routes/chatRoutes'),
+   userProfileRoutes = require('./routes/userProfileRoutes');
 
 //-- SETUP : REQUIRING MODELS
 var User = require('./models/User');
+var UserProfile = require('./models/UserProfile');
 
 const path = require('path');
 
@@ -46,6 +48,7 @@ app.use(forumRoutes);
 app.use(blacksmithRoutes);
 app.use(marketplaceRoutes);
 app.use(chatRoutes);
+app.use(userProfileRoutes);
 
 //-- ROUTES
 
@@ -57,6 +60,13 @@ app.post('/register', function(req, res) {
       if (err) {
          console.log(err);
       }
+      UserProfile.create({ username: createdUser.username, userId: createdUser._id }, function(err, createdProfile) {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(createdProfile);
+         }
+      });
       //If registration successful, log the user in automatically
       passport.authenticate('local')(req, res, function() {
          res.json(req.user);

@@ -11,7 +11,7 @@ class UploadPicture extends React.Component {
       });
       console.log(response);
       //Turn off this component
-      this.props.turnOffEdit();
+      this.props.turnOff();
    };
 
    render() {

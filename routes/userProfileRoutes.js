@@ -21,7 +21,23 @@ router.put('/user-profile/:id', (req, res) => {
       if (err) {
          console.log(err);
       } else {
-         res.json('updated!');
+         res.json(updatedProfile);
+      }
+   });
+});
+router.post('/user-profile/message', (req, res) => {
+   UserProfile.findOne({ userId: req.body.toUserId }, (err, foundProfile) => {
+      if (err) {
+         console.log(err);
+      } else {
+         foundProfile.privateMessages.push(req.body.body);
+         foundProfile.save(err => {
+            if (err) {
+               console.log(err);
+            } else {
+               res.json('Private message sent!');
+            }
+         });
       }
    });
 });

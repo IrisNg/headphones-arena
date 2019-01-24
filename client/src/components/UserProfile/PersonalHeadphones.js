@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { fetchListOfHeadphones } from '../../actions';
+import { fetchListOfHeadphones, updateHeadphoneRating } from '../../actions';
 
 class PersonalHeadphones extends React.Component {
    state = {
@@ -44,38 +43,52 @@ class PersonalHeadphones extends React.Component {
       var searchMatches = this.props.listOfHeadphones.filter(headphone => {
          return regExp.test(headphone.brandAndModel);
       });
-
       //Don't want to show already tagged headphones
-      searchMatches = searchMatches.filter(headphone => {
-         return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
-      });
+      if (this.state.taggedHeadphones.length > 0) {
+         searchMatches = searchMatches.filter(headphone => {
+            return this.state.taggedHeadphones.some(entry => entry.brandAndModel !== headphone.brandAndModel);
+         });
+      }
       searchMatches = searchMatches.slice(0, 4);
 
       //Store the successful matches in the component's state
-      this.setState({ searchMatches });
+      this.setState({ searchMatches }, () => console.log(this.state));
    };
    renderSuggestionsFromMatches = () => {
       //Render headphone suggestion buttons
       return this.state.searchMatches.map(match => {
          return (
-            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphoneToState(match.brandAndModel)}>
+            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphone(match.brandAndModel)}>
                {match.brandAndModel}
             </button>
          );
       });
    };
-   addTaggedHeadphoneToState = headphoneName => {
-      this.setState({
-         taggedHeadphones: [...this.state.taggedHeadphones, { brandAndModel: headphoneName, rating: 0 }],
-         searchTerm: '',
-         searchMatches: []
-      });
+   addTaggedHeadphone = headphoneName => {
+      this.setState(
+         {
+            taggedHeadphones: [...this.state.taggedHeadphones, { brandAndModel: headphoneName, rating: 0 }],
+            searchTerm: '',
+            searchMatches: []
+         },
+         // Update tagged headphone to server
+         () => {
+            this.props.updateHeadphoneRating(this.props.profileId, {
+               headphones: this.state.taggedHeadphones
+            });
+         }
+      );
    };
-   removeTaggedHeadphoneFromState = headphoneName => {
+   removeTaggedHeadphone = headphoneName => {
       var remainingTaggedHeadphones = this.state.taggedHeadphones.filter(
          headphone => headphone.brandAndModel !== headphoneName
       );
-      this.setState({ taggedHeadphones: remainingTaggedHeadphones });
+      this.setState({ taggedHeadphones: remainingTaggedHeadphones }, () => {
+         //Update removal of tagged headphone to server
+         this.props.updateHeadphoneRating(this.props.profileId, {
+            headphones: this.state.taggedHeadphones
+         });
+      });
    };
    renderTaggedHeadphones = () => {
       //Display tagged headphones
@@ -83,7 +96,6 @@ class PersonalHeadphones extends React.Component {
       var sortedTaggedHeadphones = [...this.state.taggedHeadphones].sort((a, b) =>
          a.brandAndModel < b.brandAndModel ? -1 : 1
       );
-      console.log(sortedTaggedHeadphones);
       return sortedTaggedHeadphones.map(taggedHeadphone => {
          return (
             <div className="personal-headphones__tagged-headphone" key={taggedHeadphone.brandAndModel}>
@@ -114,39 +126,42 @@ class PersonalHeadphones extends React.Component {
                   onClick={() => this.onHeartClick(taggedHeadphone.brandAndModel, 5)}
                />
                {/* Button to untag headphone */}
-               <i
-                  className="fas fa-times"
-                  onClick={() => this.removeTaggedHeadphoneFromState(taggedHeadphone.brandAndModel)}
-               />
+               {this.props.isOwner ? (
+                  <i
+                     className="fas fa-times"
+                     onClick={() => this.removeTaggedHeadphone(taggedHeadphone.brandAndModel)}
+                  />
+               ) : null}
             </div>
          );
       });
    };
    //Update the rating for this headphone based on the number of hearts clicked by the user
    onHeartClick = (headphoneName, rating) => {
-      //Find this headphone's entry
-      var currentEntry = this.state.taggedHeadphones.find(entry => entry.brandAndModel === headphoneName);
-      //Find the remaining non-relevant headphone entries
-      var allEntriesExceptCurrent = this.state.taggedHeadphones.filter(entry => entry.brandAndModel !== headphoneName);
-      //Modify the rating for this headphone
-      currentEntry.rating = rating;
-      //Update state
-      this.setState({ taggedHeadphones: [...allEntriesExceptCurrent, currentEntry] });
-      this.updateRatingToServer([...allEntriesExceptCurrent, currentEntry]);
-   };
-
-   updateRatingToServer = async headphones => {
-      const response = await axios.put(`/user-profile/${this.props.profileId}`, {
-         headphones
-      });
-      console.log(response);
-      this.props.turnOffEdit();
+      if (this.props.isOwner) {
+         //Find this headphone's entry
+         var currentEntry = this.state.taggedHeadphones.find(entry => entry.brandAndModel === headphoneName);
+         //Find the remaining non-relevant headphone entries
+         var allEntriesExceptCurrent = this.state.taggedHeadphones.filter(
+            entry => entry.brandAndModel !== headphoneName
+         );
+         //Modify the rating for this headphone
+         currentEntry.rating = rating;
+         //Update state then callback and update rating to server
+         this.setState({ taggedHeadphones: [...allEntriesExceptCurrent, currentEntry] }, () => {
+            this.props.updateHeadphoneRating(this.props.profileId, {
+               headphones: this.state.taggedHeadphones
+            });
+         });
+      }
    };
    render() {
       return (
          <div className="personal-headphones">
             {/* Searchbox for headphones names */}
-            <input type="text" value={this.state.searchTerm} onChange={this.onHeadphoneSearchInput} />
+            {this.props.isOwner ? (
+               <input type="text" value={this.state.searchTerm} onChange={this.onHeadphoneSearchInput} />
+            ) : null}
             {/* Buttons representing successful search matches */}
             {this.renderSuggestionsFromMatches()}
             {/* Tagged headphones */}
@@ -158,9 +173,9 @@ class PersonalHeadphones extends React.Component {
 
 //Get the name list of all headphones in the database
 const mapStateToProps = state => {
-   return { listOfHeadphones: state.listOfHeadphones };
+   return { listOfHeadphones: state.listOfHeadphones, currentUser: state.currentUser };
 };
 export default connect(
    mapStateToProps,
-   { fetchListOfHeadphones }
+   { fetchListOfHeadphones, updateHeadphoneRating }
 )(PersonalHeadphones);

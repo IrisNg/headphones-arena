@@ -4,12 +4,12 @@ import axios from 'axios';
 //Arena
 export const fetchListOfHeadphones = () => async dispatch => {
    var response = await axios.get('/arena');
-   dispatch({ type: 'FETCH_LIST_OF_HEADPHONES', payload: response.data });
+   dispatch({ type: 'FETCHED_LIST_OF_HEADPHONES', payload: response.data });
 };
 //Called by SelectedHeadphone component
 export const fetchFullHeadphone = id => async dispatch => {
    var response = await axios.get(`/headphones/${id}`);
-   dispatch({ type: 'FETCH_FULL_HEADPHONE', payload: response.data });
+   dispatch({ type: 'FETCHED_FULL_HEADPHONE', payload: response.data });
 };
 //Called by Headphone component
 export const selectHeadphone = headphoneSelected => {
@@ -29,14 +29,14 @@ export const removeHeadphone = headphoneRemoved => {
 //Fetch highest voted posts related to the selected headphone
 export const fetchTopPosts = headphoneName => async dispatch => {
    const response = await axios.post('/forum/topposts', headphoneName);
-   dispatch({ type: 'FETCH_TOP_POSTS', payload: response.data });
+   dispatch({ type: 'FETCHED_TOP_POSTS', payload: response.data });
 };
 
 //Forum
 //Called by Forum component
 export const fetchForumHomePosts = () => async dispatch => {
    const response = await axios.get('/forum');
-   dispatch({ type: 'FETCH_FORUM_POSTS', payload: response.data });
+   dispatch({ type: 'FETCHED_FORUM_POSTS', payload: response.data });
 };
 //Called by fetchSearchPosts action creator
 export const storeSearchTerm = searchTerm => {
@@ -49,7 +49,7 @@ export const storeSearchTerm = searchTerm => {
 //Search the database for posts using this search term
 export const fetchUnpopulatedSearchPosts = term => async dispatch => {
    const response = await axios.post('/forum/search', { term });
-   dispatch({ type: 'FETCH_UNPOPULATED_SEARCH_POSTS', payload: response.data });
+   dispatch({ type: 'FETCHED_UNPOPULATED_SEARCH_POSTS', payload: response.data });
 };
 //Called by ForumSearch component
 export const fetchSearchPosts = searchTerm => async (dispatch, getState) => {
@@ -68,14 +68,14 @@ export const fetchSearchPosts = searchTerm => async (dispatch, getState) => {
       var populatedResponse = await axios.get(`/posts/${post._id}`);
       populatedPosts = [...populatedPosts, populatedResponse.data];
       if (populatedPosts.length === unpopulatedSearchPosts.length) {
-         dispatch({ type: 'FETCH_SEARCH_POSTS', payload: populatedPosts });
+         dispatch({ type: 'FETCHED_SEARCH_POSTS', payload: populatedPosts });
       }
    });
 };
 //Called by PostShow component
 export const fetchPost = id => async dispatch => {
    const response = await axios.get(`/posts/${id}`);
-   dispatch({ type: 'FETCH_POST', payload: response.data });
+   dispatch({ type: 'FETCHED_POST', payload: response.data });
 };
 //Called by PostEdit and Vote components
 export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
@@ -85,9 +85,14 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
    dispatch({ type: 'UPDATED_POST' });
 };
 //UserProfile
-export const fetchUserProfile = id => async dispatch => {
-   const response = await axios.get(`/user/${id}`);
-   dispatch({ type: 'FETCH_USER_PROFILE', payload: response.data });
+export const fetchUserProfile = userId => async dispatch => {
+   const response = await axios.get(`/user/${userId}`);
+   dispatch({ type: 'FETCHED_USER_PROFILE', payload: response.data });
+};
+export const updateHeadphoneRating = (profileId, updateObj) => async dispatch => {
+   const response = await axios.put(`/user-profile/${profileId}`, updateObj);
+   await dispatch(fetchUserProfile(response.data.userId));
+   dispatch({ type: 'UPDATED_USER_PROFILE' });
 };
 //Authentication
 export const registerUser = (username, password) => async dispatch => {

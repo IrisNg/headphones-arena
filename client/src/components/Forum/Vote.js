@@ -61,8 +61,7 @@ class Vote extends React.Component {
    askLogin() {
       if (this.state.askLogin && this.props.currentUser) {
          this.setState({ askLogin: false });
-      }
-      if (this.state.askLogin) {
+      } else if (this.state.askLogin) {
          return <Login />;
       }
    }

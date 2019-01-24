@@ -17,6 +17,7 @@ import Dashboard from './UserProfile/Dashboard';
 
 // delete
 import Register from './Authentication/Register';
+import Login from './Authentication/Login';
 import CheckAuth from './Authentication/CheckAuth';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
                <Route path="/sales/:id" exact component={SaleShow} />
                <Route path="/sales/:id/edit" exact component={SaleEdit} /> */}
                   <Route path="/register" component={Register} />
+                  <Route path="/login" component={Login} />
                   <Route path="/user/:id" component={Dashboard} />
                </Switch>
             </div>

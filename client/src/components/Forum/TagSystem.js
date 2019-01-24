@@ -65,9 +65,11 @@ class TagSystem extends React.Component {
       });
 
       //Don't want to show already tagged headphones
-      searchMatches = searchMatches.filter(headphone => {
-         return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
-      });
+      if (this.state.taggedHeadphones.length > 0) {
+         searchMatches = searchMatches.filter(headphone => {
+            return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
+         });
+      }
       searchMatches = searchMatches.slice(0, 4);
       //Store the successful matches in the component's state
       this.setState({ searchMatches });

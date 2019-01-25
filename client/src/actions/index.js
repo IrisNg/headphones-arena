@@ -92,6 +92,7 @@ export const fetchUserProfile = userId => async dispatch => {
 export const updateHeadphoneRating = (profileId, updateObj) => async dispatch => {
    const response = await axios.put(`/user-profile/${profileId}`, updateObj);
    await dispatch(fetchUserProfile(response.data.userId));
+   console.log(response.data);
    dispatch({ type: 'UPDATED_USER_PROFILE' });
 };
 //Authentication

@@ -22,6 +22,16 @@ class Dashboard extends React.Component {
    componentDidMount() {
       this.props.fetchUserProfile(this.props.match.params.id);
    }
+
+   componentDidUpdate() {
+      if (this.props.profile) {
+         this.checkAuthorization();
+         this.askLogin();
+         if (this.props.match.params.id !== this.props.profile.userId) {
+            this.props.fetchUserProfile(this.props.match.params.id);
+         }
+      }
+   }
    //Render posts created by this User
    renderPosts(posts) {
       return posts.map(post => (
@@ -49,24 +59,35 @@ class Dashboard extends React.Component {
       }
    };
    //Render private messages sent to this user
+   //Current user can only see this if he is the owner of this profile
    renderPrivateMessages = privateMessages => {
-      return privateMessages.map(message => (
-         <div key={message._id}>
-            <h3>{message.subject}</h3>
-            <h6>from {message.fromUsername}</h6>
-            {/* Clicking on this reply icon will allow user to send a private message back to the sender */}
-            <i
-               className="fas fa-reply"
-               onClick={() =>
-                  this.setState({
-                     replyTo: { ...message },
-                     privateMessageActive: true
-                  })
-               }
-            />
-            <p>{message.message}</p>
-         </div>
-      ));
+      return privateMessages.map(message => {
+         console.log(message.fromUserId);
+         return (
+            <div key={message._id}>
+               <h3>{message.subject}</h3>
+               <h6
+                  onClick={() => {
+                     history.push(`/user/${message.fromUserId}`);
+                     // history.go(0);
+                  }}
+               >
+                  From {message.fromUsername}
+               </h6>
+               {/* Clicking on this reply icon will allow user to send a private message back to the sender */}
+               <i
+                  className="fas fa-reply"
+                  onClick={() =>
+                     this.setState({
+                        replyTo: { ...message },
+                        privateMessageActive: true
+                     })
+                  }
+               />
+               <p>{message.message}</p>
+            </div>
+         );
+      });
    };
    //Activate the interface that will allow current user to send a private message to the owner of this profile
    activatePrivateMessage = () => {
@@ -74,7 +95,7 @@ class Dashboard extends React.Component {
       if (!this.props.currentUser) {
          this.setState({ askLogin: true });
          //Activate interface if user is logged in and he is not the owner of this profile
-      } else if (this.props.currentUser.id !== this.props.profile.userId) {
+      } else if (this.state.isOwner === false) {
          this.setState({ privateMessageActive: true });
       }
    };
@@ -105,10 +126,9 @@ class Dashboard extends React.Component {
       if (!this.props.profile) {
          return <div>Loading</div>;
       }
-      const { username, posts, picture, _id, headphones, created, userId, privateMessages } = this.props.profile;
+      var { username, posts, picture, _id, headphones, created, userId, privateMessages } = this.props.profile;
       return (
          <div className="dashboard">
-            {this.checkAuthorization()}
             {/* Username */}
             <h1>{username}</h1>
             {/* Date since user joined the forum */}
@@ -120,7 +140,7 @@ class Dashboard extends React.Component {
             {/* Show private messages */}
             {this.renderPrivateMessages(privateMessages)}
             {/* Private message the owner of this profile */}
-            <i className="fas fa-envelope" onClick={this.activatePrivateMessage} />
+            {!this.state.isOwner ? <i className="fas fa-envelope" onClick={this.activatePrivateMessage} /> : null}
             {/* Interface to send private message */}
             {this.state.privateMessageActive ? (
                <SendPrivateMessage
@@ -135,10 +155,7 @@ class Dashboard extends React.Component {
             {this.state.isOwner ? (
                <button onClick={() => this.setState({ editActive: true })}>Upload Avatar</button>
             ) : null}
-
             {this.state.editActive ? <UploadPicture profileId={_id} turnOff={this.turnOffInterfaces} /> : null}
-            {/* Login */}
-            {this.askLogin()}
          </div>
       );
    }

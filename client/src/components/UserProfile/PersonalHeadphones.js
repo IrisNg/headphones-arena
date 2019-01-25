@@ -52,7 +52,7 @@ class PersonalHeadphones extends React.Component {
       searchMatches = searchMatches.slice(0, 4);
 
       //Store the successful matches in the component's state
-      this.setState({ searchMatches }, () => console.log(this.state));
+      this.setState({ searchMatches });
    };
    renderSuggestionsFromMatches = () => {
       //Render headphone suggestion buttons
@@ -97,40 +97,36 @@ class PersonalHeadphones extends React.Component {
          a.brandAndModel < b.brandAndModel ? -1 : 1
       );
       return sortedTaggedHeadphones.map(taggedHeadphone => {
+         var { brandAndModel, rating } = taggedHeadphone;
          return (
-            <div className="personal-headphones__tagged-headphone" key={taggedHeadphone.brandAndModel}>
-               {taggedHeadphone.brandAndModel}
+            <div className="personal-headphones__tagged-headphone" key={brandAndModel}>
+               {brandAndModel}
                {/* 5 Hearts rating system for each headphone */}
                <i
-                  className={taggedHeadphone.rating > 0 ? 'fas fa-heart' : 'far fa-heart'}
+                  className={rating > 0 ? 'fas fa-heart' : 'far fa-heart'}
                   onClick={() =>
-                     taggedHeadphone.rating === 1
-                        ? this.onHeartClick(taggedHeadphone.brandAndModel, 0)
-                        : this.onHeartClick(taggedHeadphone.brandAndModel, 1)
+                     rating === 1 ? this.onHeartClick(brandAndModel, 0) : this.onHeartClick(brandAndModel, 1)
                   }
                />
                <i
-                  className={taggedHeadphone.rating > 1 ? 'fas fa-heart' : 'far fa-heart'}
-                  onClick={() => this.onHeartClick(taggedHeadphone.brandAndModel, 2)}
+                  className={rating > 1 ? 'fas fa-heart' : 'far fa-heart'}
+                  onClick={() => this.onHeartClick(brandAndModel, 2)}
                />
                <i
-                  className={taggedHeadphone.rating > 2 ? 'fas fa-heart' : 'far fa-heart'}
-                  onClick={() => this.onHeartClick(taggedHeadphone.brandAndModel, 3)}
+                  className={rating > 2 ? 'fas fa-heart' : 'far fa-heart'}
+                  onClick={() => this.onHeartClick(brandAndModel, 3)}
                />
                <i
-                  className={taggedHeadphone.rating > 3 ? 'fas fa-heart' : 'far fa-heart'}
-                  onClick={() => this.onHeartClick(taggedHeadphone.brandAndModel, 4)}
+                  className={rating > 3 ? 'fas fa-heart' : 'far fa-heart'}
+                  onClick={() => this.onHeartClick(brandAndModel, 4)}
                />
                <i
-                  className={taggedHeadphone.rating > 4 ? 'fas fa-heart' : 'far fa-heart'}
-                  onClick={() => this.onHeartClick(taggedHeadphone.brandAndModel, 5)}
+                  className={rating > 4 ? 'fas fa-heart' : 'far fa-heart'}
+                  onClick={() => this.onHeartClick(brandAndModel, 5)}
                />
                {/* Button to untag headphone */}
                {this.props.isOwner ? (
-                  <i
-                     className="fas fa-times"
-                     onClick={() => this.removeTaggedHeadphone(taggedHeadphone.brandAndModel)}
-                  />
+                  <i className="fas fa-times" onClick={() => this.removeTaggedHeadphone(brandAndModel)} />
                ) : null}
             </div>
          );

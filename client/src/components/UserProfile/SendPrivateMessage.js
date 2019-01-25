@@ -22,7 +22,7 @@ class SendPrivateMessage extends React.Component {
       return null;
    }
    //Render sender's username if this is the owner replying
-   renderReplyDetails = () => {
+   renderReplyUsername = () => {
       const { fromUsername } = this.state.replyTo;
       return (
          <div>
@@ -53,7 +53,7 @@ class SendPrivateMessage extends React.Component {
             {/* Make user log in if he is not */}
             {!this.props.currentUser ? <Login /> : null}
             {/* Render sender's username if this is a reply */}
-            {this.state.replyTo ? this.renderReplyDetails() : null}
+            {this.state.replyTo ? this.renderReplyUsername() : null}
             {/* Subject */}
             <input type="text" value={this.state.subject} onChange={e => this.setState({ subject: e.target.value })} />
             {/* Message content */}

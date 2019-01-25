@@ -22,35 +22,34 @@ import CheckAuth from './Authentication/CheckAuth';
 
 const App = () => {
    return (
-      <div>
-         <Router history={history}>
-            <div>
-               <CheckAuth />
-               <Switch>
-                  <Route path="/" exact component={LandingPage} />
-                  <Route path="/arena" component={Arena} />
-                  <Route path="/headphones/new" component={HeadphoneCreate} />
-                  <Route path="/headphones/edit" component={HeadphoneEdit} />
-                  <Route path="/forum" component={Forum} />
-                  <Route path="/posts/new" component={PostCreate} />
-                  <Route exact path="/posts/:id" component={PostShow} />
-                  <Route path="/posts/:id/edit" component={PostEdit} />
-                  <Route path="/posts/:id/delete" component={PostDelete} />
-                  <Route path="/blacksmith" component={Blacksmith} />
-                  {/* <Route path="/mods/new" component={ModCreate} />
+      <Router history={history}>
+         <div>
+            <CheckAuth />
+            <Switch>
+               <Route path="/" exact component={LandingPage} />
+               <Route path="/arena" component={Arena} />
+               <Route path="/headphones/new" component={HeadphoneCreate} />
+               <Route path="/headphones/edit" component={HeadphoneEdit} />
+               <Route path="/forum" component={Forum} />
+               <Route path="/posts/new" component={PostCreate} />
+               <Route exact path="/posts/:id" component={PostShow} />
+               <Route path="/posts/:id/edit" component={PostEdit} />
+               <Route path="/posts/:id/delete" component={PostDelete} />
+               <Route path="/blacksmith" component={Blacksmith} />
+               {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}
-                  {/* <Route path="/mods/:id/edit" exact component={ModEdit} /> */}
-                  <Route path="/marketplace" component={Marketplace} />
-                  {/* <Route path="/sales/new" component={SaleCreate} />
+               {/* <Route path="/mods/:id/edit" exact component={ModEdit} /> */}
+               <Route path="/marketplace" component={Marketplace} />
+               {/* <Route path="/sales/new" component={SaleCreate} />
                <Route path="/sales/:id" exact component={SaleShow} />
                <Route path="/sales/:id/edit" exact component={SaleEdit} /> */}
-                  <Route path="/register" component={Register} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/user/:id" component={Dashboard} />
-               </Switch>
-            </div>
-         </Router>
-      </div>
+               <Route path="/register" component={Register} />
+               <Route path="/login" component={Login} />
+               {/* <Route path="user/:id" render={props => <Dashboard key={props.match.params.id} />} /> */}
+               <Route path="/user/:id" component={Dashboard} />
+            </Switch>
+         </div>
+      </Router>
    );
 };
 export default App;

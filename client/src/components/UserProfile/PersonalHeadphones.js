@@ -7,7 +7,7 @@ class PersonalHeadphones extends React.Component {
       searchTerm: '',
       searchMatches: [],
       taggedHeadphones: [],
-      hasLoaded: false
+      profileId: ''
    };
    componentDidMount() {
       //Give me the official list of headphones from the database
@@ -15,8 +15,8 @@ class PersonalHeadphones extends React.Component {
    }
    //Load up previous headphones preferences already existing in the user's profile
    static getDerivedStateFromProps(nextProps, prevState) {
-      if (!prevState.hasLoaded && nextProps.headphones) {
-         return { taggedHeadphones: nextProps.headphones, hasLoaded: true };
+      if (prevState.profileId !== nextProps.profileId && nextProps.headphones) {
+         return { taggedHeadphones: nextProps.headphones, profileId: nextProps.profileId };
       }
       return null;
    }

@@ -20,10 +20,8 @@ var PostSchema = new mongoose.Schema({
          ref: 'Post'
       }
    ],
-   created: {
-      type: Date,
-      default: Date.now
-   }
+   
+
 });
 
 var Post = mongoose.model('Post', PostSchema);

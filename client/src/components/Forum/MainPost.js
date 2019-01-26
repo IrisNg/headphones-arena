@@ -1,5 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
+import { connect } from 'react-redux';
+import { selectHeadphoneUsingNameOnly } from '../../actions';
+import history from '../../history';
 import Vote from './Vote';
 
 class MainPost extends React.Component {
@@ -9,7 +12,13 @@ class MainPost extends React.Component {
          return this.props.data.tag.map(entry => {
             return (
                <div key={entry.tags}>
-                  <h6>{entry.brandAndModel}</h6>
+                  <h6
+                     onClick={() => {
+                        this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
+                     }}
+                  >
+                     {entry.brandAndModel}
+                  </h6>
                   <p>
                      {entry.tags.map(tag => {
                         return (
@@ -26,9 +35,6 @@ class MainPost extends React.Component {
    };
 
    render() {
-      if (this.props) {
-         console.log(this.props.data);
-      }
       if (!this.props.data) {
          return <div>Loading</div>;
       }
@@ -48,13 +54,20 @@ class MainPost extends React.Component {
                <p className="main-post__content">{content}</p>
                {/* Metadata */}
                <div className="main-post__metadata">
-                  <h4>{author.username}</h4>
+                  <h4 onClick={() => history.push(`/user/${author.id}`)}>{author.username}</h4>
                   <Vote vote={vote} id={_id} mainPostId={_id} />
                </div>
+               {/* Edit button (If current user is the author of this post) */}
+               {this.props.currentUser && author.id === this.props.currentUser.id ? (
+                  <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
+               ) : null}
             </div>
          </div>
       );
    }
 }
 
-export default MainPost;
+export default connect(
+   null,
+   { selectHeadphoneUsingNameOnly }
+)(MainPost);

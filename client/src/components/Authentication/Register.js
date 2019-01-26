@@ -12,6 +12,9 @@ class Register extends React.Component {
    onSubmitClick = e => {
       e.preventDefault();
       this.props.registerUser(this.state.username, this.state.password);
+      if (this.props.redirectIfDone) {
+         this.props.redirectIfDone();
+      }
    };
    render() {
       return (
@@ -40,7 +43,6 @@ class Register extends React.Component {
    }
 }
 const mapStateToProps = state => {
-   console.log(state.currentUser);
    return { currentUser: state.currentUser };
 };
 export default connect(

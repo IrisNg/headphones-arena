@@ -11,7 +11,7 @@ class PostEdit extends React.Component {
       outputTags: [],
       content: '',
       prevTags: [],
-      hasLoaded: false
+      postId: ''
    };
    //Fetch post's existing data from server
    componentDidMount() {
@@ -19,7 +19,7 @@ class PostEdit extends React.Component {
    }
    //Load existing data one time
    static getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps.post && !prevState.hasLoaded) {
+      if (nextProps.post && (!prevState.postId || nextProps.post._id !== prevState.postId)) {
          //DO NOT REFERENCE ARRAY FROM PROPS
          var notReferencedArr = nextProps.post.tag.map(entry => {
             return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
@@ -27,9 +27,12 @@ class PostEdit extends React.Component {
          return {
             content: nextProps.post.content,
             prevTags: notReferencedArr,
-            hasLoaded: true
+            postId: nextProps.post._id
          };
+      } else if (nextProps.match.params.id !== prevState.postId) {
+         nextProps.fetchPost(nextProps.match.params.id);
       }
+
       return null;
    }
    //Callback passed as props to child component TagSystem
@@ -56,14 +59,15 @@ class PostEdit extends React.Component {
       //Note: this has to come before adding new tags (because $pull in mongodb will wipe ALL tag objects with the specified post id, not just one)
       //So if you add new tags first, then remove, it will wipe the added new tags too
       if (updateObj.prevTags.length > 0) {
-         const response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
+         var response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
          console.log(response1);
       }
       if (updateObj.body.tag.length > 0) {
          //Add new tags to newly tagged headphones
-         const response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
+         var response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
          console.log(response2);
       }
+      history.goBack();
    };
 
    render() {
@@ -75,6 +79,7 @@ class PostEdit extends React.Component {
                <TagSystem
                   previousTags={this.props.post ? this.props.post.tag : null}
                   compileTags={this.retrieveTagsFromTagSystem}
+                  id={this.props.post ? this.props.post._id : null}
                />
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />

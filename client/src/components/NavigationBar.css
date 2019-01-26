@@ -1,9 +1,21 @@
 .navigation-bar {
     position: fixed;
+    z-index: 5;
     bottom: 2rem;
     left: 2rem;
-    width: 5rem;
+    width: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .navigation-bar img {
+    margin-top: 1rem;
     width: 100%;
+}
+.active {
+    
+    order: 1;
+}
+.inactive {
+    width: 3rem;
 }

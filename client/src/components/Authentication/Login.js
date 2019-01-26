@@ -11,6 +11,9 @@ class Login extends React.Component {
    onSubmitClick = e => {
       e.preventDefault();
       this.props.loginUser(this.state.username, this.state.password);
+      if (this.props.redirectIfDone) {
+         this.props.redirectIfDone();
+      }
    };
    render() {
       return (
@@ -38,7 +41,6 @@ class Login extends React.Component {
    }
 }
 const mapStateToProps = state => {
-   console.log(state.currentUser);
    return { currentUser: state.currentUser };
 };
 export default connect(

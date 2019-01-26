@@ -15,6 +15,9 @@ class ForumCategory extends React.Component {
       }
    };
    renderCategoryPosts = posts => {
+      if (this.props.category === 'review' || 'general') {
+         posts.splice(4, 1);
+      }
       return posts.map(post => (
          <div key={post._id} className="forum-category__post">
             <h4 className="forum-category__post-title" onClick={() => this.redirectToMainPost(post)}>

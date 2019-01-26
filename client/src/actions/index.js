@@ -2,11 +2,13 @@ import axios from 'axios';
 
 //Action Creators
 //Arena
+//Each headphone entry is a partial object containing only {brand, model, brandAndModel, _id}
 export const fetchListOfHeadphones = () => async dispatch => {
    var response = await axios.get('/arena');
    dispatch({ type: 'FETCHED_LIST_OF_HEADPHONES', payload: response.data });
 };
 //Called by SelectedHeadphone component
+//Fetch full headphone entry
 export const fetchFullHeadphone = id => async dispatch => {
    var response = await axios.get(`/headphones/${id}`);
    dispatch({ type: 'FETCHED_FULL_HEADPHONE', payload: response.data });
@@ -24,6 +26,14 @@ export const removeHeadphone = headphoneRemoved => {
       type: 'HEADPHONE_REMOVED',
       payload: headphoneRemoved
    };
+};
+//Called by MainPost and Reply component
+export const selectHeadphoneUsingNameOnly = headphoneName => (dispatch, getState) => {
+   //Look for the headphone entry from redux state using the headphone name
+   const headphoneEntry = getState().listOfHeadphones.find(headphone => headphone.brandAndModel === headphoneName);
+   //Then call action creator selectHeadphone using the found headphone entry
+   dispatch(selectHeadphone(headphoneEntry));
+   dispatch({ type: 'HEADPHONE_SELECTED_USING_NAME_ONLY' });
 };
 //Called by SelectedHeadphone component
 //Fetch highest voted posts related to the selected headphone

@@ -16,20 +16,43 @@ class Dashboard extends React.Component {
       privateMessageActive: false,
       askLogin: false,
       replyTo: null,
-      isOwner: null
+      isOwner: null,
+      userId: ''
    };
    //Fetch this user profile data
    componentDidMount() {
-      this.props.fetchUserProfile(this.props.match.params.id);
+      this.setState({ userId: this.props.match.params.id }, () =>
+         this.props.fetchUserProfile(this.props.match.params.id)
+      );
    }
-
+   //If current user owner clicks on a sender's username it will cause params in url to change but page does not reload cause it is technically showing the same component
+   //So have to manually refresh, refetch profile data and reset state
+   static getDerivedStateFromProps(nextProps, prevState) {
+      //This checks if the currently displayed profile data's id is the same as the id in the url params
+      if (prevState.userId !== nextProps.match.params.id) {
+         nextProps.fetchUserProfile(nextProps.match.params.id);
+         return { isOwner: null };
+      }
+      return null;
+   }
    componentDidUpdate() {
-      if (this.props.profile) {
-         this.checkAuthorization();
-         this.askLogin();
-         if (this.props.match.params.id !== this.props.profile.userId) {
-            this.props.fetchUserProfile(this.props.match.params.id);
-         }
+      this.checkAuthorization();
+      this.askLogin();
+   }
+   //Check if user is logged in, and if user is the owner of this profile
+   checkAuthorization = () => {
+      if (this.state.isOwner === null && this.props.currentUser) {
+         this.props.currentUser.id === this.props.match.params.id
+            ? this.setState({ isOwner: true, userId: this.props.match.params.id })
+            : this.setState({ isOwner: false, userId: this.props.match.params.id });
+      }
+   };
+   //Make user log in
+   askLogin() {
+      if (this.state.askLogin && this.props.currentUser) {
+         this.setState({ askLogin: false });
+      } else if (this.state.askLogin) {
+         return <Login />;
       }
    }
    //Render posts created by this User
@@ -44,6 +67,10 @@ class Dashboard extends React.Component {
                {/* Date */}
                <Moment fromNow>{post.created}</Moment>
             </div>
+            {/* Edit button (If current user is the owner) */}
+            {this.props.currentUser && post.author.id === this.props.currentUser.id ? (
+               <i className="fas fa-edit" onClick={() => history.push(`/posts/${post._id}/edit`)} />
+            ) : null}
          </div>
       ));
    }
@@ -62,14 +89,13 @@ class Dashboard extends React.Component {
    //Current user can only see this if he is the owner of this profile
    renderPrivateMessages = privateMessages => {
       return privateMessages.map(message => {
-         console.log(message.fromUserId);
          return (
             <div key={message._id}>
                <h3>{message.subject}</h3>
+               {/* Redirects to sender's profile page if user clicks on the sender's username */}
                <h6
                   onClick={() => {
                      history.push(`/user/${message.fromUserId}`);
-                     // history.go(0);
                   }}
                >
                   From {message.fromUsername}
@@ -99,29 +125,12 @@ class Dashboard extends React.Component {
          this.setState({ privateMessageActive: true });
       }
    };
-   //Make user log in
-   askLogin() {
-      if (this.state.askLogin && this.props.currentUser) {
-         this.setState({ askLogin: false });
-      } else if (this.state.askLogin) {
-         return <Login />;
-      }
-   }
    //Turn off the interfaces to re-upload avatar picture and send private message
    turnOffInterfaces = () => {
       this.setState({ editActive: false, privateMessageActive: false, replyTo: null });
       this.props.fetchUserProfile(this.props.match.params.id);
    };
-   //Check if user is logged in, and if user is the owner of this profile
-   checkAuthorization = () => {
-      if (this.state.isOwner === null) {
-         if (this.props.currentUser && this.props.currentUser.id === this.props.profile.userId) {
-            this.setState({ isOwner: true });
-         } else {
-            this.setState({ isOwner: false });
-         }
-      }
-   };
+
    render() {
       if (!this.props.profile) {
          return <div>Loading</div>;

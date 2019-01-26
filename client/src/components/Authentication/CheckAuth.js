@@ -5,21 +5,19 @@ import './CheckAuth.css';
 
 class CheckAuth extends React.Component {
    componentDidMount() {
-      if (!this.props.currentUser) {
+      if (!this.props.current) {
          this.props.checkUser();
       }
    }
    render() {
       return (
-         <div className="check-auth">
-            {this.props.currentUser ? `Log In status ${this.props.currentUser.username}` : 'MEH'}
-         </div>
+         <div className="check-auth">{this.props.current ? `Log In status ${this.props.current.username}` : 'MEH'}</div>
       );
    }
 }
 
 const mapStateToProps = state => {
-   return { currentUser: state.currentUser };
+   return { current: state.currentUser };
 };
 
 export default connect(

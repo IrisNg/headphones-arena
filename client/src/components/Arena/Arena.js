@@ -2,7 +2,6 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import HeadphoneList from './HeadphoneList';
 import SelectedList from './SelectedList';
-import NavigationBar from '../NavigationBar';
 import LiveChat from '../LiveChat/LiveChat';
 import './Arena.css';
 
@@ -11,7 +10,6 @@ const Arena = () => {
       <div className="arena">
          {/* <div className="cover-up" /> */}
          <div className="arena__continuous-line" />
-         <NavigationBar />
          <HeadphoneList />
          <SelectedList />
          <LiveChat />

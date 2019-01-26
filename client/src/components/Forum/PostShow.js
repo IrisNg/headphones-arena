@@ -20,7 +20,14 @@ class PostShow extends React.Component {
       if (this.props.post) {
          if (this.props.post.replies.length > 0) {
             return this.props.post.replies.map(reply => (
-               <Reply key={reply._id} data={reply} allowReply={true} tier={1} mainPostId={this.props.post._id} />
+               <Reply
+                  key={reply._id}
+                  data={reply}
+                  allowReply={true}
+                  tier={1}
+                  mainPostId={this.props.post._id}
+                  currentUser={this.props.currentUser}
+               />
             ));
          }
       }
@@ -48,7 +55,7 @@ class PostShow extends React.Component {
       return (
          <div className="post-show">
             {/* Main Post */}
-            <MainPost data={this.props.post} />
+            <MainPost data={this.props.post} currentUser={this.props.currentUser} />
             {/* Direct Replies */}
             {this.renderReplies()}
             {/* '+' Button  */}
@@ -66,7 +73,7 @@ class PostShow extends React.Component {
    }
 }
 const mapStateToProps = state => {
-   return { post: state.post };
+   return { post: state.post, currentUser: state.currentUser };
 };
 
 export default connect(

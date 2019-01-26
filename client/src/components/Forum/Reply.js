@@ -1,5 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
+import { connect } from 'react-redux';
+import { selectHeadphoneUsingNameOnly } from '../../actions';
+import history from '../../history';
 import ReplyCreate from './ReplyCreate';
 import Vote from './Vote';
 import './Reply.css';
@@ -14,7 +17,13 @@ class Reply extends React.Component {
          return this.props.data.tag.map(entry => {
             return (
                <div key={entry.tags}>
-                  <h6>{entry.brandAndModel}</h6>
+                  <h6
+                     onClick={() => {
+                        this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
+                     }}
+                  >
+                     {entry.brandAndModel}
+                  </h6>
                   <p>
                      {entry.tags.map(tag => {
                         return (
@@ -39,6 +48,7 @@ class Reply extends React.Component {
                allowReply={this.props.tier < 3 ? true : false}
                tier={this.props.tier + 1}
                mainPostId={this.props.mainPostId}
+               currentUser={this.props.currentUser}
             />
          ));
       } else {
@@ -81,12 +91,19 @@ class Reply extends React.Component {
       //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
       this.setState({ renderReplyCreate: false });
    };
+   renderEditButton = (currentUser, author, _id) => {
+      if (currentUser && author.id === currentUser.id) {
+         return <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />;
+      }
+      return null;
+   };
 
    render() {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { created, content, author, vote, _id } = this.props.data;
+      const { created, content, author, vote, _id } = this.props.data;
+
       return (
          <div className="reply-thread">
             <div className="reply">
@@ -100,9 +117,11 @@ class Reply extends React.Component {
                <p>{content}</p>
                {/* Metadata */}
                <div>
-                  <h4>{author.username}</h4>
+                  <h4 onClick={() => history.push(`/user/${author.id}`)}>{author.username}</h4>
                   <Vote vote={vote} id={_id} mainPostId={this.props.mainPostId} />
                </div>
+               {/* Edit button (If current user is the author of this reply) */}
+               {this.renderEditButton(this.props.currentUser, author, _id)}
             </div>
             {/* Replies to this reply */}
             {this.renderReplies()}
@@ -115,4 +134,7 @@ class Reply extends React.Component {
    }
 }
 
-export default Reply;
+export default connect(
+   null,
+   { selectHeadphoneUsingNameOnly }
+)(Reply);

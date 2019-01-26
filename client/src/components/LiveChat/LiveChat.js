@@ -17,7 +17,10 @@ class LiveChat extends React.Component {
       }
       this.fetchChatMessages();
       //Automatically refresh the livechat every 5 seconds
-      setInterval(() => this.fetchChatMessages(), 5000);
+      this.intervalId = setInterval(() => this.fetchChatMessages(), 5000);
+   }
+   componentWillUnmount() {
+      clearInterval(this.intervalId);
    }
    //Fetch the latest chat messages from the database
    fetchChatMessages = async () => {

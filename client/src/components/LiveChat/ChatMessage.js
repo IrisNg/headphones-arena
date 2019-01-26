@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
+import history from '../../history';
 import { selectHeadphone } from '../../actions';
 
 class ChatMessage extends React.Component {
@@ -43,7 +44,7 @@ class ChatMessage extends React.Component {
       return (
          <div>
             {/* Author */}
-            <h6>{author}</h6>
+            <h6 onClick={() => (author.id ? history.push(`/user/${author.id}`) : null)}>{author.username}</h6>
             {/* Message */}
             <div>{message}</div>
             {/* Tags of headphones mentioned in the message */}

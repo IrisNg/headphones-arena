@@ -13,7 +13,7 @@ class TagSystem extends React.Component {
       selectedTagLine: '',
       selectedCriteria: '',
       outputTags: [],
-      hasLoaded: false
+      id: ''
    };
    componentDidMount() {
       //Give me the official list of headphones from the database
@@ -21,16 +21,16 @@ class TagSystem extends React.Component {
    }
    static getDerivedStateFromProps(nextProps, prevState) {
       //Load up previous tags if editing and updating post(one time)
-      if (nextProps.previousTags && !prevState.hasLoaded) {
+      if (nextProps.previousTags && (!prevState.id || nextProps.id !== prevState.id)) {
          if (nextProps.previousTags.length > 0) {
             //DO NOT REFERENCE ARRAY FROM PROPS
             var notReferencedArr = nextProps.previousTags.map(entry => {
                return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
             });
             var taggedHeadphones = nextProps.previousTags.map(tag => tag.brandAndModel);
-            return { taggedHeadphones, outputTags: notReferencedArr, hasLoaded: true };
+            return { taggedHeadphones, outputTags: notReferencedArr, id: nextProps.id };
          }
-         return { hasLoaded: true };
+         return { id: nextProps.id, taggedHeadphones: [], outputTags: [] };
       }
       return null;
    }

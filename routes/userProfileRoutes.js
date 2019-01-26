@@ -70,7 +70,7 @@ function addNewRatingsToHeadphones(req) {
                reject(err);
             } else {
                foundHeadphone.ratings.push({ profileId: req.params.id, rating: entry.rating });
-               foundHeadphone.save((err, updatedHeadphone) => {
+               foundHeadphone.save(err => {
                   if (err) {
                      reject(err);
                   }

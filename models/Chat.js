@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var ChatSchema = new mongoose.Schema({
-   author: String,
+   author: { username: String, id: String },
    message: String,
    created: {
       type: Date,

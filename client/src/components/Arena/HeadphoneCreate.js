@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addGlobalError } from '../../actions';
+
 import history from '../../history';
 import './HeadphoneCreate.css';
 
@@ -56,8 +59,12 @@ class HeadphoneCreate extends React.Component {
          amazonLink: this.state.amazonLink,
          price: this.state.price
       };
-      const response = await axios.post('/headphones', postObj);
-      console.log(response);
+      try {
+         const response = await axios.post('/headphones', postObj);
+         console.log(response);
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
    //Not sure about the performance though...
@@ -109,4 +116,7 @@ class HeadphoneCreate extends React.Component {
    }
 }
 
-export default HeadphoneCreate;
+export default connect(
+   null,
+   { addGlobalError }
+)(HeadphoneCreate);

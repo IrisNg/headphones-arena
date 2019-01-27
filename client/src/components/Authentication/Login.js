@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions';
+import { loginUser, addGlobalError } from '../../actions';
 import './Login.css';
 
 class Login extends React.Component {
@@ -10,9 +10,13 @@ class Login extends React.Component {
    };
    onSubmitClick = e => {
       e.preventDefault();
-      this.props.loginUser(this.state.username, this.state.password);
-      if (this.props.redirectIfDone) {
-         this.props.redirectIfDone();
+      if (!this.state.username || !this.state.password) {
+         this.props.addGlobalError('Both username and password are required!');
+      } else {
+         this.props.loginUser(this.state.username, this.state.password);
+         if (this.props.redirectIfDone) {
+            this.props.redirectIfDone();
+         }
       }
    };
    render() {
@@ -45,5 +49,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { loginUser }
+   { loginUser, addGlobalError }
 )(Login);

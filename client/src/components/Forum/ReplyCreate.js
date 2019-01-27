@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
-import { fetchPost } from '../../actions';
+import { fetchPost, addGlobalError } from '../../actions';
 import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
@@ -30,9 +30,15 @@ class ReplyCreate extends React.Component {
    };
    onFormSubmit = event => {
       event.preventDefault();
-      //Post new post form to server
+      //Check authentication
       if (this.props.currentUser) {
-         this.postToServer();
+         //Check for required fields
+         if (!this.state.content) {
+            this.props.addGlobalError('Please fill in some content for your reply at least...');
+         } else {
+            //Post new post form to server
+            this.postToServer();
+         }
       }
    };
 
@@ -48,16 +54,22 @@ class ReplyCreate extends React.Component {
             category: this.state.category
          }
       };
-      //Create post in database
-      const response = await axios.post('/posts', replyObj);
-      console.log(response);
-      //Add new tags to newly tagged headphones
-      if (replyObj.body.tag.length > 0) {
-         const response2 = await axios.put(`/posts/${response.data._id}/addtags`, replyObj);
-         console.log(response2);
+      try {
+         //Create post in database
+         const response = await axios.post('/posts', replyObj);
+         console.log(response);
+         //Add new tags to newly tagged headphones
+         if (replyObj.body.tag.length > 0) {
+            const response2 = await axios.put(`/posts/${response.data._id}/addtags`, replyObj);
+            console.log(response2);
+         }
+         //Refetch post thread data
+         this.props.fetchPost(this.props.mainPostId);
+         //Turn off this interface afterwards
+         this.props.turnOffReplyCreate();
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
       }
-      this.props.fetchPost(this.props.mainPostId);
-      this.props.turnOffReplyCreate();
    };
    //Add styling only to selected category
    manageClass(category) {
@@ -91,5 +103,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { fetchPost }
+   { fetchPost, addGlobalError }
 )(ReplyCreate);

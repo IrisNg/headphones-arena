@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { fetchListOfHeadphones } from '../../actions';
+import { fetchListOfHeadphones, addGlobalError } from '../../actions';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import './LiveChat.css';
@@ -24,8 +24,12 @@ class LiveChat extends React.Component {
    }
    //Fetch the latest chat messages from the database
    fetchChatMessages = async () => {
-      const response = await axios.get('/chat');
-      this.setState({ messages: response.data });
+      try {
+         const response = await axios.get('/chat');
+         this.setState({ messages: response.data });
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
    renderChatMessages(messages) {
       //Reverse the array order such that the newest message is at the bottom
@@ -77,5 +81,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { fetchListOfHeadphones }
+   { fetchListOfHeadphones, addGlobalError }
 )(LiveChat);

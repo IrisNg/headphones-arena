@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addGlobalError } from '../../actions';
 import history from '../../history';
 import './HeadphoneDelete.css';
 
@@ -8,9 +10,14 @@ class HeadphoneDelete extends React.Component {
       isActive: false
    };
 
-   delete = () => {
-      axios.delete(`/headphones/${this.props.id}`);
-      history.push('/headphones/new');
+   delete = async () => {
+      try {
+         const response = await axios.delete(`/headphones/${this.props.id}`);
+         console.log(response.data);
+         history.push('/headphones/new');
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
 
    confirmation() {
@@ -35,4 +42,7 @@ class HeadphoneDelete extends React.Component {
       );
    }
 }
-export default HeadphoneDelete;
+export default connect(
+   null,
+   { addGlobalError }
+)(HeadphoneDelete);

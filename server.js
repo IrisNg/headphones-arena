@@ -5,17 +5,17 @@ var express = require('express'),
    mongoose = require('mongoose'),
    passport = require('passport'),
    LocalStrategy = require('passport-local'),
-   passportLocalMongoose = require('passport-local-mongoose'),
    session = require('express-session'),
    port = process.env.PORT || 5000;
 url = process.env.MONGODB_URI || 'mongodb://localhost:27017/headphones_arena_app';
 
 //-- SETUP : REQUIRING ROUTES
-var arenaRoutes = require('./routes/arenaRoutes'),
+var userRoutes = require('./routes/userRoutes'),
+   chatRoutes = require('./routes/chatRoutes'),
+   arenaRoutes = require('./routes/arenaRoutes'),
    forumRoutes = require('./routes/forumRoutes'),
    blacksmithRoutes = require('./routes/blacksmithRoutes'),
    marketplaceRoutes = require('./routes/marketplaceRoutes'),
-   chatRoutes = require('./routes/chatRoutes'),
    userProfileRoutes = require('./routes/userProfileRoutes');
 
 //-- SETUP : REQUIRING MODELS
@@ -43,50 +43,14 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
+//-- ROUTES
+app.use(userRoutes);
+app.use(chatRoutes);
 app.use(arenaRoutes);
 app.use(forumRoutes);
 app.use(blacksmithRoutes);
 app.use(marketplaceRoutes);
-app.use(chatRoutes);
 app.use(userProfileRoutes);
-
-//-- ROUTES
-
-// // AUTHENTICATION
-//Handling User Sign up
-app.post('/register', function(req, res) {
-   //Register the new user into the database
-   User.register(new User({ username: req.body.username }), req.body.password, function(err, createdUser) {
-      if (err) {
-         console.log(err);
-      }
-      UserProfile.create({ username: createdUser.username, userId: createdUser._id }, function(err, createdProfile) {
-         if (err) {
-            console.log(err);
-         } else {
-            console.log(createdProfile);
-         }
-      });
-      //If registration successful, log the user in automatically
-      passport.authenticate('local')(req, res, function() {
-         res.json(req.user);
-      });
-   });
-});
-//Handling User Login
-app.post('/login', passport.authenticate('local'), function(req, res) {
-   res.json(req.user);
-});
-
-//Handling User Logout
-app.get('/logout', function(req, res) {
-   req.logout();
-   res.json(req.user);
-});
-//Check User's authentication status
-app.get('/user', function(req, res) {
-   res.json(req.user);
-});
 
 app.get('*', function(req, res) {
    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));

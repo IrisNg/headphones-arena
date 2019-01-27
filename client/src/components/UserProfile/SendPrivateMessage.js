@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Login from '../Authentication/Login';
 import axios from 'axios';
+import { addGlobalError } from '../../actions';
+import Login from '../Authentication/Login';
 
 class SendPrivateMessage extends React.Component {
    state = {
@@ -42,10 +43,22 @@ class SendPrivateMessage extends React.Component {
             fromUserId: this.props.currentUser.id
          }
       };
-      const response = await axios.post(`/user-profile/message`, postObj);
-      console.log(response);
-      //Then turn off this interface
-      this.props.turnOff();
+      //Check for required fields
+      if (!this.state.subject || !this.state.message) {
+         this.props.addGlobalError(
+            'Your message needs a subject and some content... Do not become a spammer...Or Else.'
+         );
+      } else {
+         try {
+            //Post private message
+            const response = await axios.post(`/user-profile/${this.props.profileId}/message`, postObj);
+            console.log(response);
+            //Then turn off this interface when done
+            this.props.turnOff();
+         } catch (err) {
+            this.props.addGlobalError(err.response.data);
+         }
+      }
    };
    render() {
       return (
@@ -68,4 +81,7 @@ const mapStateToProps = state => {
    return { currentUser: state.currentUser };
 };
 
-export default connect(mapStateToProps)(SendPrivateMessage);
+export default connect(
+   mapStateToProps,
+   { addGlobalError }
+)(SendPrivateMessage);

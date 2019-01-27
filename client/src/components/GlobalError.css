@@ -1,0 +1,13 @@
+.global-error {
+    background-color: lightcoral;
+    color: black;
+    position: fixed;
+    top: 1rem;
+    width: 50vw;
+    height: 5vh;
+    left: 25vw;
+    line-height: 5vh;
+    text-align: center;
+    border: 2px solid coral;
+    z-index: 10;
+}

@@ -3,6 +3,7 @@ import { headphoneListReducer, selectedHeadphoneReducer, topPostsReducer, fullHe
 import { forumPostsReducer, forumSearchTermReducer, searchPostsReducer, postReducer } from './forumReducers';
 import { userProfileReducer } from './userProfileReducers';
 import { currentUserReducer } from './authenticationReducers';
+import { globalErrorReducer } from './errorReducers';
 
 export default combineReducers({
    listOfHeadphones: headphoneListReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
    forumSearchPosts: searchPostsReducer,
    post: postReducer,
    userProfile: userProfileReducer,
-   currentUser: currentUserReducer
+   currentUser: currentUserReducer,
+   globalError: globalErrorReducer
 });

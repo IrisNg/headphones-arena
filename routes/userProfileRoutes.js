@@ -1,7 +1,8 @@
 var express = require('express'),
    router = express.Router(),
    UserProfile = require('../models/UserProfile'),
-   Headphone = require('../models/Headphone');
+   Headphone = require('../models/Headphone'),
+   middleware = require('../middleware');
 
 // USER PROFILE
 //Show a specific user's profile
@@ -10,14 +11,14 @@ router.get('/user/:id', (req, res) => {
       .populate('posts')
       .exec((err, foundProfile) => {
          if (err) {
-            console.log(err);
+            res.status(400).json('Could not find the profile of the User you are looking for!');
          } else {
             res.json(foundProfile);
          }
       });
 });
 //Update user profile if a request is made to re-upload avatar picture or update user's headphone ratings
-router.put('/user-profile/:id', (req, res) => {
+router.put('/user-profile/:id', middleware.checkUserProfileOwnership, (req, res) => {
    (async function() {
       //Update user profile
       const updatedProfile = await updateProfile(req);
@@ -36,13 +37,13 @@ router.put('/user-profile/:id', (req, res) => {
    })()
       //Send a response containing the updated profile back
       .then(response => res.json(response))
-      .catch(err => console.log(err));
+      .catch(err => res.status(400).json(err));
 });
 //Update user profile if a request is made to re-upload avatar picture or update user's headphone ratings
 function updateProfile(req) {
    return new Promise((resolve, reject) => {
       UserProfile.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, updatedProfile) => {
-         err ? reject(err) : resolve(updatedProfile);
+         err ? reject('Sorry, your user preferences could not be updated') : resolve(updatedProfile);
       });
    });
 }
@@ -54,7 +55,7 @@ function removePreviousRatingsFromHeadphones(req) {
          { $pull: { ratings: { profileId: req.params.id } } },
          { multi: true },
          (err, updatedHeadphone) => {
-            err ? reject(err) : resolve(updatedHeadphone);
+            err ? reject('Failed to update your headphone ratings') : resolve(updatedHeadphone);
          }
       );
    });
@@ -67,14 +68,10 @@ function addNewRatingsToHeadphones(req) {
       req.body.headphones.forEach(entry => {
          Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
             if (err) {
-               reject(err);
+               reject('Failed to update your headphone ratings');
             } else {
                foundHeadphone.ratings.push({ profileId: req.params.id, rating: entry.rating });
-               foundHeadphone.save(err => {
-                  if (err) {
-                     reject(err);
-                  }
-               });
+               foundHeadphone.save();
             }
          });
          //Give a heads up only after the forEach loop runs finish
@@ -86,7 +83,7 @@ function addNewRatingsToHeadphones(req) {
    });
 }
 //Post a private message to a specific user's profile
-router.post('/user-profile/message', (req, res) => {
+router.post('/user-profile/:id/message', middleware.isLoggedIn, (req, res) => {
    UserProfile.findOne({ userId: req.body.toUserId }, (err, foundProfile) => {
       if (err) {
          console.log(err);
@@ -94,7 +91,7 @@ router.post('/user-profile/message', (req, res) => {
          foundProfile.privateMessages.push(req.body.body);
          foundProfile.save(err => {
             if (err) {
-               console.log(err);
+               res.status(400).json('Something went wrong, your private message could not be sent to the user');
             } else {
                res.json('Private message sent!');
             }

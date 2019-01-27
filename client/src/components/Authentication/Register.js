@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { registerUser } from '../../actions';
+import { registerUser, addGlobalError } from '../../actions';
 import Logout from './Logout';
-// import Login from './Login';
 
 class Register extends React.Component {
    state = {
@@ -11,9 +10,13 @@ class Register extends React.Component {
    };
    onSubmitClick = e => {
       e.preventDefault();
-      this.props.registerUser(this.state.username, this.state.password);
-      if (this.props.redirectIfDone) {
-         this.props.redirectIfDone();
+      if (!this.state.username || !this.state.password) {
+         this.props.addGlobalError('Both username and password are required');
+      } else {
+         this.props.registerUser(this.state.username, this.state.password);
+         if (this.props.redirectIfDone) {
+            this.props.redirectIfDone();
+         }
       }
    };
    render() {
@@ -47,5 +50,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { registerUser }
+   { registerUser, addGlobalError }
 )(Register);

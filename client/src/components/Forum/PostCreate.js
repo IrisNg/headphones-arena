@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { addGlobalError } from '../../actions';
 import history from '../../history';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
@@ -24,9 +25,15 @@ class PostCreate extends React.Component {
    };
    onFormSubmit = event => {
       event.preventDefault();
-      //Post new post form to server
+      //Check authentication
       if (this.props.currentUser) {
-         this.postToServer();
+         //Check for required fields
+         if (!this.state.title || !this.state.category || !this.state.content) {
+            this.props.addGlobalError('Do you have 1 category selected, title and content filled in?');
+         } else {
+            //Post new post form to server
+            this.postToServer();
+         }
       }
    };
 
@@ -41,15 +48,19 @@ class PostCreate extends React.Component {
             content: this.state.content
          }
       };
-      //Create post in database
-      const response = await axios.post('/posts', postObj);
-      console.log(response);
-      if (postObj.body.tag.length > 0) {
-         //Add new tags to newly tagged headphones
-         const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
-         console.log(response2);
+      try {
+         //Create post in database
+         const response = await axios.post('/posts', postObj);
+         console.log(response);
+         if (postObj.body.tag.length > 0) {
+            //Add new tags to newly tagged headphones
+            const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
+            console.log(response2);
+         }
+         history.push('/forum');
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
       }
-      history.push('/forum');
    };
    //Add styling only to selected category
    manageClass(category) {
@@ -106,4 +117,7 @@ const mapStateToProps = state => {
    return { currentUser: state.currentUser };
 };
 
-export default connect(mapStateToProps)(PostCreate);
+export default connect(
+   mapStateToProps,
+   { addGlobalError }
+)(PostCreate);

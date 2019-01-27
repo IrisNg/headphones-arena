@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { addGlobalError } from '../../actions';
 
 class ChatInput extends React.Component {
    state = {
@@ -18,11 +19,18 @@ class ChatInput extends React.Component {
    }
    postMessage = async () => {
       //Format object to be posted to server
-      const postObj = { message: this.state.message, author: { username: this.state.author, id: this.state.authorId } };
-      //Post message to server
-      const response = await axios.post('/chat', postObj);
-      console.log(response.data);
-      this.props.fetchChatMessages();
+      const postObj = {
+         message: this.state.message,
+         author: { username: this.state.author, id: this.state.authorId }
+      };
+      try {
+         //Post message to server
+         const response = await axios.post('/chat', postObj);
+         console.log(response.data);
+         this.props.fetchChatMessages();
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
    render() {
       return (
@@ -39,4 +47,7 @@ class ChatInput extends React.Component {
 const mapStateToProps = state => {
    return { currentUser: state.currentUser };
 };
-export default connect(mapStateToProps)(ChatInput);
+export default connect(
+   mapStateToProps,
+   { addGlobalError }
+)(ChatInput);

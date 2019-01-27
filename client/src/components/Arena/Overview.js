@@ -1,4 +1,5 @@
 import React from 'react';
+
 const renderRatings = headphone => {
    if (headphone.ratings.length > 0) {
       var average =
@@ -9,6 +10,7 @@ const renderRatings = headphone => {
    }
    return 'no ratings';
 };
+
 const renderTags = headphone => {
    //Find the top 9 most chosen tags for this selected headphone
    if (headphone) {
@@ -35,6 +37,7 @@ const renderTags = headphone => {
       return topTags.map(tag => <span key={tag.tagName}>{tag.tagName}</span>);
    }
 };
+
 const Overview = ({ headphone }) => {
    return (
       <div>

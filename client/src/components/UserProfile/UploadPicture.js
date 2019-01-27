@@ -1,17 +1,23 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addGlobalError } from '../../actions';
 class UploadPicture extends React.Component {
    state = {
       imageUrl: ''
    };
    //Upload image url to the database
    onUploadClick = async () => {
-      const response = await axios.put(`/user-profile/${this.props.profileId}`, {
-         picture: this.state.imageUrl
-      });
-      console.log(response);
-      //Turn off this component
-      this.props.turnOff();
+      try {
+         const response = await axios.put(`/user-profile/${this.props.profileId}`, {
+            picture: this.state.imageUrl
+         });
+         console.log(response);
+         //Turn off this component
+         this.props.turnOff();
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
 
    render() {
@@ -29,4 +35,7 @@ class UploadPicture extends React.Component {
    }
 }
 
-export default UploadPicture;
+export default connect(
+   null,
+   { addGlobalError }
+)(UploadPicture);

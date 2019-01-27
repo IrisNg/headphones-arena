@@ -4,6 +4,7 @@ var express = require('express'),
    Post = require('../models/Post'),
    request = require('request'),
    iconv = require('iconv-lite'),
+   middleware = require('../middleware'),
    //SEED. PLEASE REMOVE
    headphoneSeed = require('../seeds/headphoneSeed.js');
 
@@ -12,7 +13,9 @@ var express = require('express'),
 router.get('/arena', (req, res) => {
    Headphone.find({}, (err, foundHeadphones) => {
       if (err) {
-         console.log(err);
+         res.status(400).json(
+            'Essential list of headphones is missing, something is wrong with the server, please try again later.'
+         );
       } else {
          var foundHeadphonesNames = foundHeadphones.map(headphone => {
             return {
@@ -30,7 +33,7 @@ router.get('/arena', (req, res) => {
 router.get('/headphones/:id', (req, res) => {
    Headphone.findById(req.params.id, (err, foundHeadphone) => {
       if (err) {
-         console.log(err);
+         res.status(400).json('Could not find details for this specific headphone, please try something else?');
       } else {
          res.json(foundHeadphone);
       }
@@ -75,7 +78,6 @@ router.post('/forum/topposts', (req, res) => {
    }
    //Churn out the regular expression and flag it to be case insensitive
    var regExp = new RegExp(requirements, 'i');
-   console.log(regExp);
 
    //Use the regular expression to search for post titles/content or posts with tagged headphones that matches the search term
    Post.find({
@@ -85,43 +87,51 @@ router.post('/forum/topposts', (req, res) => {
       .limit(5)
       .exec((err, foundPosts) => {
          if (err) {
-            console.log(err);
+            res.status(400).json('There is no post talking about this headphone, you have bad tastes, my friend');
          } else {
-            console.log(foundPosts);
             res.json({ headphone: req.body.brandAndModel, topPosts: foundPosts });
          }
       });
 });
-//create headphone page
+// //Create headphone page
+// router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
+//    Headphone.create(req.body, function(err, createdHeadphone) {
+//       if (err) {
+//          res.status(400).json('Failed to create new headphone entry in the database');
+//       } else {
+//          res.json(createdHeadphone);
+//       }
+//    });
+// });
+//Or seed headphone entries from file
 router.post('/headphones', (req, res) => {
    headphoneSeed.forEach(headphone => {
       Headphone.create(headphone, (err, createdHeadphone) => {
-         // Headphone.create(req.body, function(err, createdHeadphone) {
          if (err) {
             console.log(err);
          } else {
             console.log(createdHeadphone);
-            // res.json(createdHeadphone);
          }
       });
    });
 });
 //update headphone page
-router.put('/headphones/:id', (req, res) => {
+router.put('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, updatedHeadphone) => {
       if (err) {
-         console.log(err);
+         res.status(400).json("Failed to update this headphone's entry in the database");
       } else {
-         console.log(updatedHeadphone);
          res.json(updatedHeadphone);
       }
    });
 });
 //delete headphone page
-router.delete('/headphones/:id', (req, res) => {
+router.delete('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.findByIdAndRemove(req.params.id, err => {
       if (err) {
-         console.log(err);
+         res.status(400).json("Failed to remove this headphone's entry from the database");
+      } else {
+         res.json('headphone deleted!');
       }
    });
 });

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { fetchListOfHeadphones } from '../actions';
 import LandingPage from './LandingPage';
 import NavigationBar from './NavigationBar';
+import GlobalError from './GlobalError';
 import Arena from './Arena/Arena';
 import HeadphoneCreate from './Arena/HeadphoneCreate';
 import HeadphoneEdit from './Arena/HeadphoneEdit';
@@ -32,6 +33,7 @@ class App extends React.Component {
             <div>
                <CheckAuth />
                <NavigationBar />
+               <GlobalError />
                <Switch>
                   <Route path="/" exact component={LandingPage} />
                   <Route path="/arena" component={Arena} />

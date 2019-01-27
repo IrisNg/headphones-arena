@@ -2,7 +2,8 @@ var express = require('express'),
    router = express.Router(),
    Post = require('../models/Post'),
    UserProfile = require('../models/UserProfile'),
-   Headphone = require('../models/Headphone');
+   Headphone = require('../models/Headphone'),
+   middleware = require('../middleware');
 
 // FORUM
 //Find categories posts upon forum page's initial loadup
@@ -22,10 +23,10 @@ router.get('/forum', (req, res) => {
          res.json(response);
       })
       .catch(err => {
-         console.log(err);
+         res.status(400).json(err);
       });
 });
-const findCategoryPosts = category => {
+function findCategoryPosts(category) {
    return new Promise((resolve, reject) => {
       Post.find({ category: category })
          //Latest post comes first
@@ -33,7 +34,7 @@ const findCategoryPosts = category => {
          .limit(20)
          .exec((err, foundPosts) => {
             if (err) {
-               reject(err);
+               reject('Top categorized posts are not found');
             } else {
                //Take 2 of the latest posts
                var results = foundPosts.splice(0, 2);
@@ -48,7 +49,7 @@ const findCategoryPosts = category => {
             }
          });
    });
-};
+}
 //Find search posts when user enters search term in forum page
 router.post('/forum/search', (req, res) => {
    var term = req.body.term;
@@ -80,16 +81,15 @@ router.post('/forum/search', (req, res) => {
       .limit(5)
       .exec((err, foundPosts) => {
          if (err) {
-            console.log(err);
+            res.status(400).json('Could not find any post related to your search term');
          } else {
-            // console.log(foundPosts);
             res.json(foundPosts);
          }
       });
 });
 
 //create forum-post page
-router.post('/posts', isLoggedIn, (req, res) => {
+router.post('/posts', middleware.isLoggedIn, (req, res) => {
    (async () => {
       //Create new post in the database
       const createdPost = await createPost(req);
@@ -102,20 +102,19 @@ router.post('/posts', isLoggedIn, (req, res) => {
       return { createdPost, updatedProfile, updatedPost: updatedPost ? updatedPost : 'not reply' };
    })()
       .then(response => {
-         console.log(response);
          //Send a response to client side when done so as to trigger the next request to add in the new tags
          res.json(response.createdPost);
       })
       .catch(err => {
-         console.log(err);
+         res.status(400).json(err);
       });
 });
 //Create new post in the database
-const createPost = req => {
+function createPost(req) {
    return new Promise((resolve, reject) => {
       Post.create(req.body.body, (err, createdPost) => {
          if (err) {
-            reject(err);
+            reject('Failed to create new post, did you input something you should not have?');
          } else {
             //Add in the current user's details
             createdPost.author.id = req.user._id;
@@ -127,13 +126,13 @@ const createPost = req => {
          }
       });
    });
-};
-// Push created post into the current user's profile
-const pushPostIntoUserProfile = (createdPost, req) => {
+}
+//Push created post into the current user's profile
+function pushPostIntoUserProfile(createdPost, req) {
    return new Promise((resolve, reject) => {
       UserProfile.findOne({ userId: req.user._id }, (err, foundProfile) => {
          if (err) {
-            reject(err);
+            reject('Failed to add this created post to your user profile');
          } else {
             foundProfile.posts.push(createdPost);
             foundProfile.save();
@@ -141,14 +140,16 @@ const pushPostIntoUserProfile = (createdPost, req) => {
          }
       });
    });
-};
-// push this reply into its parent reply/post
-const pushReplyIntoParent = (createdPost, req) => {
+}
+//Push this reply into its parent reply/post
+function pushReplyIntoParent(createdPost, req) {
    return new Promise((resolve, reject) => {
       //Find the parent post/reply of this reply
       Post.findById(req.body.idToReplyTo, (err, foundPost) => {
          if (err) {
-            reject(err);
+            reject(
+               'The parent of your newly created post could not be found, please report to your nearest information counter for assistance'
+            );
          } else {
             //Push the created reply into the parent post/reply
             foundPost.replies.push(createdPost);
@@ -157,7 +158,7 @@ const pushReplyIntoParent = (createdPost, req) => {
          }
       });
    });
-};
+}
 
 //Show forum-post page
 router.get('/posts/:id', (req, res) => {
@@ -171,30 +172,30 @@ router.get('/posts/:id', (req, res) => {
       })
       .exec((err, foundPost) => {
          if (err) {
-            console.log(err);
+            res.status(400).json(
+               'Could not find the post thread you are looking for. Please go back to the Forum page and look at something else instead :)'
+            );
          } else {
-            console.log(foundPost);
             res.json(foundPost);
          }
       });
 });
 
 //update forum-post page
-router.put('/posts/:id', (req, res) => {
+router.put('/posts/:id', middleware.checkPostOwnership, (req, res) => {
    Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, (err, updatedPost) => {
       if (err) {
-         console.log(err);
+         res.status(400).json('Something went wrong while trying to update your post. Are you sure your post exists?');
       } else {
          //Send a response to client side when done so as to trigger the next request to remove the previous tags
-         console.log(updatedPost);
          res.json(updatedPost);
       }
    });
 });
 
 //Delete content from post
-router.delete('/posts/:id', (req, res) => {
-   console.log(req.params.id);
+//But not delete the post entirely
+router.delete('/posts/:id', middleware.checkPostOwnership, (req, res) => {
    Post.findByIdAndUpdate(
       req.params.id,
       {
@@ -207,10 +208,9 @@ router.delete('/posts/:id', (req, res) => {
       },
       (err, updatedPost) => {
          if (err) {
-            console.log(err);
+            res.status(400).json('Something went wrong while trying to delete your post. Too bad.');
          } else {
             //Send a response to client side when done
-            console.log(updatedPost);
             res.json(updatedPost);
          }
       }
@@ -221,33 +221,28 @@ router.delete('/posts/:id', (req, res) => {
 router.post('/posts/find-main', (req, res) => {
    Post.findOne({ title: req.body.title, isMainPost: true }, (err, foundPost) => {
       if (err) {
-         console.log(err);
+         res.status(400).json('Could not find the main thread of the post you are looking for');
       } else {
-         console.log(foundPost);
          res.json(foundPost);
       }
    });
 });
 
 //Add tags from post to the respective headphones
-router.put('/posts/:id/addtags', (req, res) => {
+router.put('/posts/:id/addtags', middleware.isLoggedIn, (req, res) => {
    var count = 0;
    // Find the newly tagged headphones and add in the new tags
    req.body.body.tag.forEach(entry => {
       Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
          if (err) {
-            console.log(err);
+            res.status(400).json(
+               'Failed to find the headphone you have tagged, please refrain from tagging obsolete headphones'
+            );
          } else {
             if (entry.tags.length > 0) {
                //Push in the tags related to the headphone
                foundHeadphone.tags.push({ postId: req.params.id, tags: entry.tags });
-               foundHeadphone.save((err, updatedHeadphone) => {
-                  if (err) {
-                     console.log(err);
-                  } else {
-                     console.log(updatedHeadphone);
-                  }
-               });
+               foundHeadphone.save();
             }
          }
       });
@@ -258,7 +253,7 @@ router.put('/posts/:id/addtags', (req, res) => {
    });
 });
 //Remove previous tags from edited post in the respective headphones
-router.put('/posts/:id/removetags', (req, res) => {
+router.put('/posts/:id/removetags', middleware.isLoggedIn, (req, res) => {
    //Find the headphones tagged previously and remove the previous tags
    for (var i = 0; i < req.body.prevTags.length; i++) {
       //Remove the object with the previous tags that can be identified with the post's id
@@ -267,9 +262,7 @@ router.put('/posts/:id/removetags', (req, res) => {
          { $pull: { tags: { postId: req.params.id } } },
          (err, updatedHeadphone) => {
             if (err) {
-               console.log(err);
-            } else {
-               console.log(updatedHeadphone);
+               res.status(400).json('Could not remove records of your previous tags from this post');
             }
          }
       );
@@ -280,10 +273,4 @@ router.put('/posts/:id/removetags', (req, res) => {
    }
 });
 
-function isLoggedIn(req, res, next) {
-   if (req.isAuthenticated()) {
-      return next();
-   }
-   res.json('Please Login');
-}
 module.exports = router;

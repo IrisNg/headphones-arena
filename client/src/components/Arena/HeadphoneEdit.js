@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchListOfHeadphones } from '../../actions';
+import { fetchListOfHeadphones, addGlobalError } from '../../actions';
 import HeadphoneDelete from './HeadphoneDelete';
 import './HeadphoneEdit.css';
 
@@ -45,17 +45,38 @@ class HeadphoneEdit extends React.Component {
    }
    //Fetch the full headphone entry based on the headphone name clicked
    fetchHeadphoneEntry = async id => {
-      const response = await axios.get(`/headphones/${id}`);
-      //Destructuring from fetched entry
-      const {
-         _id,
-         brand,
-         model,
-         image,
-         officialDescription,
-         amazonLink,
-         price,
-         specification: {
+      try {
+         const response = await axios.get(`/headphones/${id}`);
+         //Destructuring from fetched entry
+         const {
+            _id,
+            brand,
+            model,
+            image,
+            officialDescription,
+            amazonLink,
+            price,
+            specification: {
+               impedance,
+               connector,
+               portability,
+               color,
+               cable,
+               driver,
+               sensitivity,
+               frequencyResponse,
+               classification,
+               maximumPower,
+               weight,
+               inTheBox
+            }
+         } = response.data;
+         //Update state with the existing headphone data
+         this.setState({
+            _id,
+            brand,
+            model,
+            officialDescription,
             impedance,
             connector,
             portability,
@@ -67,31 +88,14 @@ class HeadphoneEdit extends React.Component {
             classification,
             maximumPower,
             weight,
-            inTheBox
-         }
-      } = response.data;
-      //Update state with the existing headphone data
-      this.setState({
-         _id,
-         brand,
-         model,
-         officialDescription,
-         impedance,
-         connector,
-         portability,
-         color,
-         cable,
-         driver,
-         sensitivity,
-         frequencyResponse,
-         classification,
-         maximumPower,
-         weight,
-         inTheBox,
-         image,
-         amazonLink,
-         price
-      });
+            inTheBox,
+            image,
+            amazonLink,
+            price
+         });
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
    //Not sure about the performance though...
@@ -159,8 +163,12 @@ class HeadphoneEdit extends React.Component {
          price: this.state.price
       };
       //Update form to database
-      const response = await axios.put(`/headphones/${this.state._id}`, updateObj);
-      console.log(response.data);
+      try {
+         const response = await axios.put(`/headphones/${this.state._id}`, updateObj);
+         console.log(response.data);
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
 
    render() {
@@ -187,5 +195,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchListOfHeadphones }
+   { fetchListOfHeadphones, addGlobalError }
 )(HeadphoneEdit);

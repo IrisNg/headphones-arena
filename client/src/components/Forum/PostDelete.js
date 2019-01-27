@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addGlobalError } from '../../actions';
 import history from '../../history';
 import './PostDelete.css';
 
@@ -9,9 +11,13 @@ class PostDelete extends React.Component {
    };
 
    delete = async () => {
-      const response = await axios.delete(`/posts/${this.props.match.params.id}`);
-      console.log(response);
-      history.push(`/posts/${this.props.match.params.id}`);
+      try {
+         const response = await axios.delete(`/posts/${this.props.match.params.id}`);
+         console.log(response);
+         history.push(`/posts/${this.props.match.params.id}`);
+      } catch (err) {
+         this.props.addGlobalError(err.response.data);
+      }
    };
 
    render() {
@@ -28,4 +34,7 @@ class PostDelete extends React.Component {
       );
    }
 }
-export default PostDelete;
+export default connect(
+   null,
+   { addGlobalError }
+)(PostDelete);

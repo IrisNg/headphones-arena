@@ -1,20 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import axios from 'axios';
-import { fetchUserProfile } from '../../actions';
+import { fetchUserProfile, redirectToMainPost } from '../../actions';
 import history from '../../history';
 import UploadPicture from './UploadPicture';
 import PersonalHeadphones from './PersonalHeadphones';
 import SendPrivateMessage from './SendPrivateMessage';
-import Login from '../Authentication/Login';
 import './Dashboard.css';
 
 class Dashboard extends React.Component {
    state = {
       editActive: false,
       privateMessageActive: false,
-      askLogin: false,
       replyTo: null,
       isOwner: null,
       userId: ''
@@ -37,7 +34,6 @@ class Dashboard extends React.Component {
    }
    componentDidUpdate() {
       this.checkAuthorization();
-      this.askLogin();
    }
    //Check if user is logged in, and if user is the owner of this profile
    checkAuthorization = () => {
@@ -47,20 +43,14 @@ class Dashboard extends React.Component {
             : this.setState({ isOwner: false, userId: this.props.match.params.id });
       }
    };
-   //Make user log in
-   askLogin() {
-      if (this.state.askLogin && this.props.currentUser) {
-         this.setState({ askLogin: false });
-      } else if (this.state.askLogin) {
-         return <Login />;
-      }
-   }
+
    //Render posts created by this User
    renderPosts(posts) {
       return posts.map(post => (
          <div key={post._id}>
             POSTS
-            <h3 onClick={() => this.redirectToMainPost(post)}>{post.title}</h3>
+            {/* If user clicks on the title of this post, redirect to this post's show page */}
+            <h3 onClick={() => this.props.redirectToMainPost(post)}>{post.title}</h3>
             <p>{post.content.substring(0, 100)}</p>
             <div>
                <span>Votes {post.vote.count} </span>
@@ -75,16 +65,6 @@ class Dashboard extends React.Component {
       ));
    }
 
-   //If user clicks on the title of this post, redirect to this post's show page
-   redirectToMainPost = async post => {
-      if (post.isMainPost) {
-         history.push(`/posts/${post._id}`);
-      } else {
-         //If this post is a reply, find the main post and then redirect the user
-         const response = await axios.post('/posts/find-main', { title: post.title });
-         history.push(`/posts/${response.data._id}`);
-      }
-   };
    //Render private messages sent to this user
    //Current user can only see this if he is the owner of this profile
    renderPrivateMessages = privateMessages => {
@@ -119,7 +99,7 @@ class Dashboard extends React.Component {
    activatePrivateMessage = () => {
       //Ask user to log in if he is not
       if (!this.props.currentUser) {
-         this.setState({ askLogin: true });
+         history.push('/login');
          //Activate interface if user is logged in and he is not the owner of this profile
       } else if (this.state.isOwner === false) {
          this.setState({ privateMessageActive: true });
@@ -154,6 +134,7 @@ class Dashboard extends React.Component {
             {this.state.privateMessageActive ? (
                <SendPrivateMessage
                   userId={userId}
+                  profileId={_id}
                   turnOff={this.turnOffInterfaces}
                   replyTo={this.state.replyTo ? this.state.replyTo : null}
                />
@@ -183,5 +164,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchUserProfile }
+   { fetchUserProfile, redirectToMainPost }
 )(Dashboard);

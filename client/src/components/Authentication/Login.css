@@ -1,4 +1,4 @@
-.login{
+/* .login{
     position:fixed;
     z-index: 1;
     top: 0%;
@@ -6,7 +6,7 @@
     width: 100vw;
     height: 100vh;
     background-color: black;
-}
+} */
 .login-form{
     position: fixed;
     top: 30%;

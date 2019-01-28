@@ -7,7 +7,7 @@ import './HeadphoneDelete.css';
 
 class HeadphoneDelete extends React.Component {
    state = {
-      isActive: false
+      confirmationIsActive: false
    };
 
    delete = async () => {
@@ -21,23 +21,25 @@ class HeadphoneDelete extends React.Component {
    };
 
    confirmation() {
-      return (
-         <div className="delete-confirmation">
-            <div className="delete-confirmation__box">
-               <h5>Are you sure you want to delete this Headphone Entry?</h5>
-               <div className="delete-confirmation__box-buttons">
-                  <button onClick={this.delete}>Accept</button>
-                  <button onClick={() => this.setState({ isActive: false })}>Oopsie, go back</button>
+      if (this.state.confirmationIsActive) {
+         return (
+            <div className="delete-confirmation">
+               <div className="delete-confirmation__box">
+                  <h5>Are you sure you want to delete this Headphone Entry?</h5>
+                  <div className="delete-confirmation__box-buttons">
+                     <button onClick={this.delete}>Accept</button>
+                     <button onClick={() => this.setState({ confirmationIsActive: false })}>Oopsie, go back</button>
+                  </div>
                </div>
             </div>
-         </div>
-      );
+         );
+      }
    }
    render() {
       return (
          <div>
-            <button onClick={() => this.setState({ isActive: true })}>Delete</button>
-            {this.state.isActive ? this.confirmation() : null}
+            <button onClick={() => this.setState({ confirmationIsActive: true })}>Delete</button>
+            {this.confirmation()}
          </div>
       );
    }

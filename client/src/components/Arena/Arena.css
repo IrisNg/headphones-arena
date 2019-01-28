@@ -1,55 +1,259 @@
 body {
     margin: 0;
 }
+
 .arena {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
 }
-.arena__continuous-line {
+
+.arena__background {
+    position: absolute;
+    height: 50vh;
     width: 100%;
-    height: 100%;
-    position: fixed;
-    bottom: 7rem; 
-    left: 2rem;
-    z-index: -1;
-    border-left: 5px solid white;
-}
-.headphone-list {
-    display: inline-block;
-    vertical-align: top;
-    width: 10%;
-    height: 100%;
-    margin-left: 2rem;
-    font-weight: 900;
-    font-size: .9rem;
-    padding-top: 5rem;
-    color:black;
+    border-bottom: 2px solid black;
+    z-index: -2;
 }
 
-.headphone__brand,
-.headphone__model {
-    margin-top: .2rem;
-    display: inline-block;
-    padding: .2rem .4rem;
-    background: white;
-    /* padding-left: calc(.4rem - 5px); */
+.arena__content {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 100vh;
+    grid-template-areas: "headphone-list selected-list live-chat";
+}
+
+.headphone-list {
+    grid-area: headphone-list;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-weight: 900;
+    padding: 3.5rem 0 0 2.5rem;
+}
+
+.arena__continuous-line {
+    position: fixed;
+    width: 3.5rem;
+    height: 100%;
+    z-index: -5;
+    box-sizing: border-box;
+    border-right: 3px solid black;
+}
+
+.headphone {
+    margin: .2rem 0 .2rem 0;
+    background-color: white;
+}
+
+.headphone:hover {
+    transform: translateX(1rem);
+    text-align: right;
+    padding-right: .3rem;
+    background-color: #164499;
+    color: white;
+}
+
+
+
+.headphone__brand, .headphone__model {
+    cursor: pointer;
 }
 
 .selected-list {
-    margin-left: 2%;
-    vertical-align: top;
-    display: inline-block;
-    width: 75%;
+    display: grid;
+    grid-area: selected-list;
+    grid-template-columns: repeat(auto-fit, 20%);
+    justify-content: center;
+    grid-column-gap: 5%;
+    text-align: center;
 }
+
 .selected-headphone {
-    vertical-align: top;
+    margin-top: 3.5rem;
+    border: 2px solid black;
+ 
+}
+
+.selected-headphone__essential {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(50vh - 3.5rem - 1.6rem - 1.5px);
+    padding: .8rem;
+}
+
+.selected-headphone__thumbnail{
+    padding:.8rem 3%;
+}
+
+.selected-headphone img {
+    width: 100%;
+}
+.selected-headphone__page {
+    width: .45rem;
+    height: 1rem;
+    margin: 0 .3rem;
     display: inline-block;
-    margin: 0 1%;
-    width: 30%;
-    background-color: white;
-    padding: 1rem;
+    box-sizing: border-box;
+border: 1.2px solid black;
+cursor: pointer;
+vertical-align: middle;
+}
+.selected-headphone__page:hover {
+background-color: #f6cb01;
+border: none;
+}
+.selected-headphone__page.--active-page{
+    width: .45rem;
+    height: 1.3rem;
+    background-color: black;
+}
+.selected-headphone__rating{
+   margin: auto;
+    width: calc(100% - 2rem);
+    height: .4rem;
+    border: 1px solid black;
+    transform: skew(-25deg);
+}
+.selected-headphone__amazon{
+    border: 1px solid black;
+}
+.selected-headphone__name {
+    padding: .4rem .8rem;
+    background-color: black;
+    color: white;
+    margin: 0;
+}
+
+.overview, .specification {
+    padding: .9rem 1.2rem;
+    font-size: .85rem;
+    line-height: 1.3rem;
+}
+
+.overview__description {
+    margin: 0;
+    text-align: justify;
+}
+.specification {
+    padding: .9rem .6rem;
+display: grid;
+grid-template-columns: auto auto;
+
+}
+.specification div:nth-child(odd){
+    text-align: right;
+    padding-right: .5rem;
+    font-weight: 700;
+}
+.specification div:nth-child(even){
+    text-align: left;
+}
+
+
+.live-chat {
+    position: fixed;
+    right: 0;
+    height: 100vh;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-left: 2px solid black;
+   
     box-sizing: border-box;
 }
-.selected-headphone img {
-    width:100%;
+
+/* ChatMessage */
+
+.chat-message {
+    padding: 0 .8rem;
+    font-size: .8rem;
+    text-align: right;
+}
+
+.chat-message__author {
+    font-weight: 700;
+    font-size: .7rem;
+    margin: .8rem 0 0 0;
+    cursor: pointer;
+}
+
+.chat-message__message {
+    text-align: justify;
+    direction: rtl;
+}
+
+.chat-message__date {
+    font-weight: 300;
+    font-size: .65rem;
+    color: #4d4d4d;
+}
+
+.chat-message__tag {
+    background-color: black;
+    color: white;
+    display: inline-block;
+    padding: 0 .2rem;
+    box-shadow: 1px 1px black;
+    cursor: pointer;
+}
+
+.chat-message__tag:hover {
+    background-color: #c00603;
+    transform: translateX(-.2rem);
+}
+
+/* ChatInput */
+
+.chat-input {
+    margin-top: .8rem;
+    padding: .7rem;
+    border-top: 2px solid black;
+    
+}
+
+.chat-input:hover {
+    
+    background-color: #f6cb01;
+}
+
+.chat-input__fields {
+    display: grid;
+    grid-template-rows: 4rem 1rem;
+    grid-template-columns: auto auto;
+    grid-template-areas: "message message" "author button";
+}
+
+.chat-input__message::selection, .chat-input__author::selection {
+    background-color: #f6cb01;
+}
+
+.chat-input__message {
+    grid-area: message;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    resize: none;
+    background: none;
+    cursor: pointer;
+}
+
+.chat-input__author {
+    grid-area: author;
+    outline: none;
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background: none;
+    font-weight: 700;
+    font-size: .7rem;
+}
+
+.chat-input__button {
+    grid-area: button;
+    font-size: 1rem;
+    cursor: pointer;
 }

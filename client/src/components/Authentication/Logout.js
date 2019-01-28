@@ -4,7 +4,7 @@ import { logoutUser } from '../../actions';
 
 class Logout extends React.Component {
    onButtonClick = () => {
-      //   e.preventDefault();
+      //Log out user
       this.props.logoutUser();
    };
    render() {

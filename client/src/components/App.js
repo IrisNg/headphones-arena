@@ -23,6 +23,8 @@ import Dashboard from './UserProfile/Dashboard';
 import Authentication from './Authentication/Authentication';
 import CheckAuth from './Authentication/CheckAuth';
 
+import './App.css';
+
 class App extends React.Component {
    componentDidMount() {
       this.props.fetchListOfHeadphones();

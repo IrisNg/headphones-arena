@@ -10,11 +10,14 @@ class Login extends React.Component {
    };
    onSubmitClick = e => {
       e.preventDefault();
+      //Check required fields
       if (!this.state.username || !this.state.password) {
          this.props.addGlobalError('Both username and password are required!');
       } else {
+         //Log user in
          this.props.loginUser(this.state.username, this.state.password);
          if (this.props.redirectIfDone) {
+            //Redirect back when done
             this.props.redirectIfDone();
          }
       }

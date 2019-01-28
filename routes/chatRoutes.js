@@ -1,14 +1,13 @@
 var express = require('express'),
    router = express.Router(),
    Chat = require('../models/Chat');
-   
 
 // LIVE-CHAT
 //get all chat messages
 router.get('/chat', function(req, res) {
    Chat.find({})
       .sort({ created: -1 })
-      .limit(4)
+      .limit(10)
       .exec(function(err, foundMessages) {
          if (err) {
             res.status(400).json("Could not find recent chat messages, it's okay, just be forever alone.");

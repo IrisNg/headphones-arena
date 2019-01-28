@@ -36,10 +36,21 @@ class ChatInput extends React.Component {
       return (
          <div className="chat-input">
             {/* Message */}
-            <textarea value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
-            {/* Author */}
-            <input type="text" value={this.state.author} onChange={e => this.setState({ author: e.target.value })} />
-            <button onClick={this.postMessage}>Send</button>
+            <div className="chat-input__fields">
+               <textarea
+                  className="chat-input__message"
+                  value={this.state.message}
+                  onChange={e => this.setState({ message: e.target.value })}
+               />
+               {/* Author */}
+               <input
+                  className="chat-input__author"
+                  type="text"
+                  value={this.state.author}
+                  onChange={e => this.setState({ author: e.target.value })}
+               />
+               <i className="far fa-caret-square-right chat-input__button" onClick={this.postMessage} />
+            </div>
          </div>
       );
    }

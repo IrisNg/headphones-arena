@@ -22,7 +22,7 @@ class NavigationBar extends React.Component {
             {current ? <Logout /> : null}
             {/* To Arena page */}
             <div className={this.state.currentLocation === '/arena' ? 'active' : 'inactive'}>
-               <img src="https://i.imgur.com/qgL4m65.png" alt="To Arena Page" onClick={() => history.push('/arena')} />
+               <img src="https://i.imgur.com/Urok6wJ.png" alt="To Arena Page" onClick={() => history.push('/arena')} />
             </div>
             {/* To Forum page */}
             <div
@@ -30,7 +30,7 @@ class NavigationBar extends React.Component {
                   ['/forum', '/posts'].some(path => this.state.currentLocation.includes(path)) ? 'active' : 'inactive'
                }
             >
-               <img src="https://i.imgur.com/JbS5mrY.png" alt="To Arena Page" onClick={() => history.push('/forum')} />
+               <img src="https://i.imgur.com/Iv5jEih.png" alt="To Arena Page" onClick={() => history.push('/forum')} />
             </div>
             {/* To Login page or user's dashboard */}
             <div
@@ -39,7 +39,7 @@ class NavigationBar extends React.Component {
                }
             >
                <img
-                  src="https://i.imgur.com/xuTkrzn.png"
+                  src="https://i.imgur.com/Spthb5x.png"
                   alt="To Arena Page"
                   onClick={() => history.push(current ? `/user/${current.id}` : `/login`)}
                />

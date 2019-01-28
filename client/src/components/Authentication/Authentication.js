@@ -9,12 +9,13 @@ const redirectIfDone = () => {
 };
 
 const Authentication = ({ currentUser }) => {
+   //If user is already logged in then redirect to user's profile page
    if (currentUser) {
       history.push(`/user/${currentUser.id}`);
    }
    return (
       <div>
-         Are you a new here?
+         Are you new here?
          <Register redirectIfDone={redirectIfDone} />
          Or do you have an existing account?
          <Login redirectIfDone={redirectIfDone} />

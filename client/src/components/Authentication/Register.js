@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { registerUser, addGlobalError } from '../../actions';
-import Logout from './Logout';
 
 class Register extends React.Component {
    state = {
@@ -10,11 +9,14 @@ class Register extends React.Component {
    };
    onSubmitClick = e => {
       e.preventDefault();
+      //Check required fields
       if (!this.state.username || !this.state.password) {
          this.props.addGlobalError('Both username and password are required');
       } else {
+         //Register user
          this.props.registerUser(this.state.username, this.state.password);
          if (this.props.redirectIfDone) {
+            //Redirect back when done
             this.props.redirectIfDone();
          }
       }
@@ -38,9 +40,6 @@ class Register extends React.Component {
                />
                <input type="submit" onClick={this.onSubmitClick} />
             </form>
-            {/* {!this.props.currentUser ? <Login /> : null} */}
-            LOGOUT
-            <Logout />
          </div>
       );
    }

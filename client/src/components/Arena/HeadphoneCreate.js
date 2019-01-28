@@ -36,28 +36,48 @@ class HeadphoneCreate extends React.Component {
 
    postToServer = async () => {
       //Format object to be posted to the server
+      var {
+         brand,
+         model,
+         officialDescription,
+         impedance,
+         connector,
+         portability,
+         color,
+         cable,
+         driver,
+         sensitivity,
+         frequencyResponse,
+         classification,
+         maximumPower,
+         weight,
+         inTheBox,
+         image,
+         amazonLink,
+         price
+      } = this.state;
       const postObj = {
-         brand: this.state.brand,
-         model: this.state.model,
-         brandAndModel: `${this.state.brand} ${this.state.model}`,
-         officialDescription: this.state.officialDescription,
+         brand,
+         model,
+         brandAndModel: `${brand} ${model}`,
+         officialDescription,
          specification: {
-            impedance: this.state.impedance,
-            connector: this.state.connector,
-            portability: this.state.portability,
-            color: this.state.color,
-            cable: this.state.cable,
-            driver: this.state.driver,
-            sensitivity: this.state.sensitivity,
-            frequencyResponse: this.state.frequencyResponse,
-            classification: this.state.classification,
-            maximumPower: this.state.maximumPower,
-            weight: this.state.weight,
-            inTheBox: this.state.inTheBox
+            impedance,
+            connector,
+            portability,
+            color,
+            cable,
+            driver,
+            sensitivity,
+            frequencyResponse,
+            classification,
+            maximumPower,
+            weight,
+            inTheBox
          },
-         image: this.state.image,
-         amazonLink: this.state.amazonLink,
-         price: this.state.price
+         image,
+         amazonLink,
+         price
       };
       try {
          const response = await axios.post('/headphones', postObj);

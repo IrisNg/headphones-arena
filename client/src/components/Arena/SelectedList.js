@@ -5,7 +5,7 @@ import SelectedHeadphone from './SelectedHeadphone';
 class SelectedList extends React.Component {
    renderListOfSelectedHeadphones() {
       //Destructuring list of selected headphones from props
-      const { selectedList } = this.props;
+      var { selectedList } = this.props;
       //Turn each selected headphone data object in the selectedList into a component
       return selectedList
          .map(selectedHeadphone => {

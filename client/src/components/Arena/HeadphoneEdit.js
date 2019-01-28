@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchListOfHeadphones, addGlobalError } from '../../actions';
+import { addGlobalError } from '../../actions';
 import HeadphoneDelete from './HeadphoneDelete';
 import './HeadphoneEdit.css';
 
@@ -27,21 +27,19 @@ class HeadphoneEdit extends React.Component {
       amazonLink: '',
       price: ''
    };
-   //Fetch the name list of all headphones
-   componentDidMount() {
-      this.props.fetchListOfHeadphones();
-   }
    //Render a list of existing headphones' names to select which headphone needs updating
    renderExistingNames() {
-      return this.props.listOfHeadphones.map(headphone => (
-         <span
-            key={headphone._id}
-            className="headphone-edit__existing-name"
-            onClick={() => this.fetchHeadphoneEntry(headphone._id)}
-         >
-            {headphone.brandAndModel}
-         </span>
-      ));
+      if (this.props.listOfHeadphones) {
+         return this.props.listOfHeadphones.map(headphone => (
+            <span
+               key={headphone._id}
+               className="headphone-edit__existing-name"
+               onClick={() => this.fetchHeadphoneEntry(headphone._id)}
+            >
+               {headphone.brandAndModel}
+            </span>
+         ));
+      }
    }
    //Fetch the full headphone entry based on the headphone name clicked
    fetchHeadphoneEntry = async id => {
@@ -176,7 +174,7 @@ class HeadphoneEdit extends React.Component {
          <div className="headphone-edit">
             <h1>Headphone Edit Form</h1>
             {/* List of Existing Headphones */}
-            <div>{this.props.listOfHeadphones.length > 0 ? this.renderExistingNames() : null}</div>
+            <div>{this.renderExistingNames()}</div>
             <form onSubmit={this.onFormSubmit}>
                {/* All the input fields */}
                {this.mapStateKeysToJSX()}
@@ -195,5 +193,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchListOfHeadphones, addGlobalError }
+   { addGlobalError }
 )(HeadphoneEdit);

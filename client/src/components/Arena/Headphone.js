@@ -7,10 +7,10 @@ const Headphone = ({ headphone, selectHeadphone }) => {
    return (
       <div className="headphone" onClick={() => selectHeadphone(headphone)}>
          <div>
-            <div className="headphone__brand">{headphone.brand}</div>
+            <div className="headphone__brand">{headphone.brand.toUpperCase()}</div>
          </div>
          <div>
-            <div className="headphone__model">{headphone.model}</div>
+            <div className="headphone__model">{headphone.model.toUpperCase()}</div>
          </div>
       </div>
    );

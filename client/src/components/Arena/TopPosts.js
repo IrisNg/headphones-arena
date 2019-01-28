@@ -4,10 +4,8 @@ import { fetchTopPosts, redirectToMainPost } from '../../actions';
 
 class TopPosts extends React.Component {
    componentDidMount() {
-      this.props.fetchTopPosts({
-         brandAndModel: this.props.headphone.brandAndModel,
-         model: this.props.headphone.model
-      });
+      var { brandAndModel, model } = this.props.headphone;
+      this.props.fetchTopPosts({ brandAndModel, model });
    }
    renderTopPosts(posts) {
       return posts.map(post => (
@@ -20,8 +18,11 @@ class TopPosts extends React.Component {
    }
 
    render() {
-      const { topPosts } = this.props;
-      return <div>{topPosts && topPosts.length > 0 ? this.renderTopPosts(topPosts) : null}</div>;
+      var { topPosts } = this.props;
+      if (!topPosts) {
+         return <div>Loading</div>;
+      }
+      return <div className="top-posts">{this.renderTopPosts(topPosts)}</div>;
    }
 }
 const mapStateToProps = (state, ownProps) => {

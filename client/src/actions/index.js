@@ -54,6 +54,24 @@ export const fetchTopPosts = headphoneName => async dispatch => {
       dispatch(addGlobalError(err.response.data));
    }
 };
+//Called by Dashboard, TopPosts, ForumCategory components
+//Redirect User to the post's show page
+export const redirectToMainPost = post => async dispatch => {
+   if (post.isMainPost) {
+      history.push(`/posts/${post._id}`);
+   } else {
+      try {
+         //If this post is a reply, find the main post and then redirect the user
+         const response = await axios.post('/posts/find-main', { title: post.title });
+         console.log(response);
+         history.push(`/posts/${response.data._id}`);
+      } catch (err) {
+         dispatch(addGlobalError(err.response.data));
+      }
+   }
+   console.log('dispatched!');
+   dispatch({ type: 'REDIRECTED_TO_MAIN_POST' });
+};
 
 //Forum
 //Called by Forum component
@@ -115,24 +133,6 @@ export const fetchPost = id => async dispatch => {
    } catch (err) {
       dispatch(addGlobalError(err.response.data));
    }
-};
-//Called by Dashboard, TopPosts, ForumCategory components
-//Redirect User to the post's show page
-export const redirectToMainPost = post => async dispatch => {
-   if (post.isMainPost) {
-      history.push(`/posts/${post._id}`);
-   } else {
-      try {
-         //If this post is a reply, find the main post and then redirect the user
-         const response = await axios.post('/posts/find-main', { title: post.title });
-         console.log(response);
-         history.push(`/posts/${response.data._id}`);
-      } catch (err) {
-         dispatch(addGlobalError(err.response.data));
-      }
-   }
-   console.log('dispatched!');
-   dispatch({ type: 'REDIRECTED_TO_MAIN_POST' });
 };
 //Called by PostEdit and Vote components
 export const updatePost = (id, updateObj, mainPostId) => async dispatch => {

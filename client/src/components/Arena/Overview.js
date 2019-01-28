@@ -1,16 +1,5 @@
 import React from 'react';
 
-const renderRatings = headphone => {
-   if (headphone.ratings.length > 0) {
-      var average =
-         headphone.ratings.reduce((acc, curr) => {
-            return acc + curr.rating;
-         }, 0) / headphone.ratings.length;
-      return (average * 2).toFixed(1) + '/10';
-   }
-   return 'no ratings';
-};
-
 const renderTags = headphone => {
    //Find the top 9 most chosen tags for this selected headphone
    if (headphone) {
@@ -40,18 +29,11 @@ const renderTags = headphone => {
 
 const Overview = ({ headphone }) => {
    return (
-      <div>
-         {/* User ratings */}
-         <div>{renderRatings(headphone)}</div>
-         {/* Amazon Button */}
-         <div className="selected-headphone__amazon" onClick={() => window.open(headphone.amazonLink)}>
-            <i className="fab fa-amazon" />
-            {headphone.price}
-         </div>
-         {/* Tags - Render the top 9 most chosen tags for this selected headphone */}
+      <div className="overview">
+         {/* Tags */}
          <div>{renderTags(headphone)}</div>
          {/* Offical Description */}
-         <p>{headphone.officialDescription}</p>
+         <p className="overview__description">{headphone.officialDescription}</p>
       </div>
    );
 };

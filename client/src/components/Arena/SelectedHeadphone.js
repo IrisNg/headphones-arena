@@ -28,25 +28,38 @@ class SelectedHeadphone extends React.Component {
    }
 
    renderRatings(headphone) {
-      //Find the average rating for this headphone
-      if (headphone.ratings.length > 0) {
-         var average =
-            headphone.ratings.reduce((acc, curr) => {
-               return acc + curr.rating;
-            }, 0) / headphone.ratings.length;
-         return (average * 2).toFixed(1) + '/10';
+      var average;
+      if (headphone.ratings.length === 0) {
+         average = 10;
       }
-      return 9;
+      //Find the average rating for this headphone
+      else {
+         average =
+            (headphone.ratings.reduce((acc, curr) => {
+               return acc + curr.rating;
+            }, 0) /
+               headphone.ratings.length) *
+            2;
+      }
+      return `linear-gradient(to right, black ${average * 10}%, white ${100 - average * 10}%)`;
    }
    render() {
       if (!this.props.fullHeadphone) {
-         return <div>Loading ...</div>;
+         return (
+            <div className="selected-headphone__loading">
+               <img className="loading-image" src="https://i.imgur.com/75tvQck.gif" alt="pikachu loading" />
+            </div>
+         );
       }
       var { fullHeadphone, headphone, removeHeadphone } = this.props;
       return (
          <div className="selected-headphone">
-            {/* Image */}
+            {/* Closing button */}
+            <div className="selected-headphone__close-button" onClick={() => removeHeadphone(headphone)}>
+               X
+            </div>
             <div className="selected-headphone__essential">
+               {/* Image */}
                <div className="selected-headphone__thumbnail">
                   <img src={fullHeadphone.image} alt={fullHeadphone.model} />
                </div>
@@ -65,26 +78,22 @@ class SelectedHeadphone extends React.Component {
                      onClick={() => this.setState({ page: 3 })}
                   />
                </div>
-
                {/* User ratings */}
                <div
                   className="selected-headphone__rating"
                   style={{
-                     background: `linear-gradient(to right, black ${this.renderRatings(fullHeadphone) *
-                        10}%, white ${100 - this.renderRatings(fullHeadphone) * 10}%)`
+                     background: this.renderRatings(fullHeadphone)
                   }}
                />
                {/* Amazon Button */}
                <div className="selected-headphone__amazon" onClick={() => window.open(fullHeadphone.amazonLink)}>
                   <i className="fab fa-amazon" />
-                  {fullHeadphone.price}
+                  <span>{fullHeadphone.price}</span>
                </div>
             </div>
+            {/* Name */}
             <h3 className="selected-headphone__name">
-               {/* Name */}
                {fullHeadphone.brand} {fullHeadphone.model}
-               {/* Closing button */}
-               <span onClick={() => removeHeadphone(headphone)}>X</span>
             </h3>
 
             {/* Current Page */}

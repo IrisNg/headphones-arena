@@ -27,6 +27,7 @@ class ChatInput extends React.Component {
          //Post message to server
          const response = await axios.post('/chat', postObj);
          console.log(response.data);
+         //Invoke callback to refetch chat messages from server
          this.props.fetchChatMessages();
       } catch (err) {
          this.props.addGlobalError(err.response.data);

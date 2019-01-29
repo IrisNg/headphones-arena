@@ -28,17 +28,20 @@ class ChatMessage extends React.Component {
    }
 
    renderTags = () => {
+      if (!this.state.tags) {
+         return null;
+      }
       return this.state.tags.map(tag => {
          return (
             //Add this headphone in the tag into the list of selected headphones when user clicks it
-            <div  className="chat-message__tag" key={tag.term} onClick={() => this.props.selectHeadphone(tag.entry)}>
+            <div className="chat-message__tag" key={tag.term} onClick={() => this.props.selectHeadphone(tag.entry)}>
                {tag.term}
             </div>
          );
       });
    };
    render() {
-      const {
+      var {
          message: { author, message, created }
       } = this.props;
       return (
@@ -57,7 +60,7 @@ class ChatMessage extends React.Component {
             {/* Message */}
             <div className="chat-message__message">{message}</div>
             {/* Tags of headphones mentioned in the message */}
-            {this.state.tags ? this.renderTags() : null}
+            {this.renderTags()}
          </div>
       );
    }

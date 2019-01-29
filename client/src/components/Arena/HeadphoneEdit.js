@@ -29,17 +29,18 @@ class HeadphoneEdit extends React.Component {
    };
    //Render a list of existing headphones' names to select which headphone needs updating
    renderExistingNames() {
-      if (this.props.listOfHeadphones) {
-         return this.props.listOfHeadphones.map(headphone => (
-            <span
-               key={headphone._id}
-               className="headphone-edit__existing-name"
-               onClick={() => this.fetchHeadphoneEntry(headphone._id)}
-            >
-               {headphone.brandAndModel}
-            </span>
-         ));
+      if (!this.props.listOfHeadphones) {
+         return null;
       }
+      return this.props.listOfHeadphones.map(headphone => (
+         <span
+            key={headphone._id}
+            className="headphone-edit__existing-name"
+            onClick={() => this.fetchHeadphoneEntry(headphone._id)}
+         >
+            {headphone.brandAndModel}
+         </span>
+      ));
    }
    //Fetch the full headphone entry based on the headphone name clicked
    fetchHeadphoneEntry = async id => {

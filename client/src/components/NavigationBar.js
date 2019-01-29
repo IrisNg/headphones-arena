@@ -18,31 +18,42 @@ class NavigationBar extends React.Component {
       const { current } = this.props;
       return (
          <div className="navigation-bar">
+            {/* <div className="navigation-bar__website-title"> HEADPHONES ARENA</div> */}
             {/* Logout button */}
             {current ? <Logout /> : null}
             {/* To Arena page */}
-            <div className={this.state.currentLocation === '/arena' ? 'active' : 'inactive'}>
-               <img src="https://i.imgur.com/Urok6wJ.png" alt="To Arena Page" onClick={() => history.push('/arena')} />
+            <div
+               className={`navigation-bar-icon ${
+                  this.state.currentLocation === '/arena' ? 'navigation-bar--active' : 'navigation-bar--inactive'
+               }`}
+               onClick={() => history.push('/arena')}
+            >
+               <img src="https://i.imgur.com/Urok6wJ.png" alt="To Arena Page" />
+               <div className="navigation-bar--page-name">ARENA</div>
             </div>
             {/* To Forum page */}
             <div
-               className={
-                  ['/forum', '/posts'].some(path => this.state.currentLocation.includes(path)) ? 'active' : 'inactive'
-               }
+               className={`navigation-bar-icon ${
+                  ['/forum', '/posts'].some(path => this.state.currentLocation.includes(path))
+                     ? 'navigation-bar--active'
+                     : 'navigation-bar--inactive'
+               }`}
+               onClick={() => history.push('/forum')}
             >
-               <img src="https://i.imgur.com/Iv5jEih.png" alt="To Arena Page" onClick={() => history.push('/forum')} />
+               <img src="https://i.imgur.com/Spthb5x.png" alt="To Forum Page" />
+               <div className="navigation-bar--page-name">FORUM</div>
             </div>
             {/* To Login page or user's dashboard */}
             <div
-               className={
-                  ['/user', '/login'].some(path => this.state.currentLocation.includes(path)) ? 'active' : 'inactive'
-               }
+               className={`navigation-bar-icon ${
+                  ['/user', '/login'].some(path => this.state.currentLocation.includes(path))
+                     ? 'navigation-bar--active'
+                     : 'navigation-bar--inactive'
+               }`}
+               onClick={() => history.push(current ? `/user/${current.id}` : `/login`)}
             >
-               <img
-                  src="https://i.imgur.com/Spthb5x.png"
-                  alt="To Arena Page"
-                  onClick={() => history.push(current ? `/user/${current.id}` : `/login`)}
-               />
+               <img src="https://i.imgur.com/Iv5jEih.png" alt="To Login Page or Dashboard" />
+               <div className="navigation-bar--page-name">PROFILE</div>
             </div>
          </div>
       );

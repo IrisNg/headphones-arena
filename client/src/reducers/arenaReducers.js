@@ -1,4 +1,4 @@
-export const headphoneListReducer = (state = [], action) => {
+export const headphoneListReducer = (state = null, action) => {
    switch (action.type) {
       case 'FETCHED_LIST_OF_HEADPHONES':
          return action.payload;
@@ -18,10 +18,12 @@ export const fullHeadphoneReducer = (state = [], action) => {
    }
 };
 export const selectedHeadphoneReducer = (state = [], action) => {
-   if (action.type === 'HEADPHONE_SELECTED' && state.includes(action.payload) === false) {
+   if (
+      action.type === 'HEADPHONE_SELECTED' &&
+      state.every(headphone => headphone.brandAndModel !== action.payload.brandAndModel)
+   ) {
       return [...state, action.payload];
-   }
-   if (action.type === 'HEADPHONE_REMOVED') {
+   } else if (action.type === 'HEADPHONE_REMOVED') {
       return state.filter(function(headphone) {
          return headphone !== action.payload;
       });

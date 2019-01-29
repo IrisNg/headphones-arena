@@ -84,7 +84,7 @@ router.post('/forum/topposts', (req, res) => {
       $or: [{ title: { $regex: regExp } }, { 'tag.brandAndModel': { $regex: regExp } }, { content: { $regex: regExp } }]
    })
       .sort({ 'vote.count': -1 })
-      .limit(5)
+      .limit(7)
       .exec((err, foundPosts) => {
          if (err) {
             res.status(400).json('There is no post talking about this headphone, you have bad tastes, my friend');

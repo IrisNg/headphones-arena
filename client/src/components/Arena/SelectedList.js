@@ -11,10 +11,13 @@ class SelectedList extends React.Component {
          .map(selectedHeadphone => {
             return <SelectedHeadphone headphone={selectedHeadphone} key={selectedHeadphone._id} />;
          })
-         .slice(0, 3);
+         .slice(0, 4);
    }
 
    render() {
+      if (this.props.selectedList.length === 0) {
+         return <div className="selected-list__empty">{'HEADPHONES ARENA'}</div>;
+      }
       return <div className="selected-list">{this.renderListOfSelectedHeadphones()}</div>;
    }
 }

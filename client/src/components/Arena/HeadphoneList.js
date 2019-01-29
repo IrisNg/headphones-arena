@@ -8,13 +8,16 @@ class HeadphoneList extends React.Component {
       return list.map(headphone => {
          return <Headphone headphone={headphone} key={headphone._id} />;
       });
-      // .slice(0, 9);
    }
 
    render() {
       var { listOfHeadphones } = this.props;
       if (!listOfHeadphones) {
-         return <div>Loading ... </div>;
+         return (
+            <div className="headphone-list__loading">
+               <img className="loading-image" src="https://cdn.dribbble.com/users/924068/screenshots/3757746/dribbble.gif" alt="loading" />
+            </div>
+         );
       }
       return <div className="headphone-list">{this.renderListOfHeadphones(listOfHeadphones)}</div>;
    }

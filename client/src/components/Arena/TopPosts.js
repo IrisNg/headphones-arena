@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Moment from 'react-moment';
 import { fetchTopPosts, redirectToMainPost } from '../../actions';
 
 class TopPosts extends React.Component {
@@ -9,10 +10,18 @@ class TopPosts extends React.Component {
    }
    renderTopPosts(posts) {
       return posts.map(post => (
-         <div key={post._id}>
+         <div key={post._id} className="top-posts__post" onClick={() => this.props.redirectToMainPost(post)}>
             {/* If user clicks on the title of this post, redirect to this post's show page */}
-            <div onClick={() => this.props.redirectToMainPost(post)}>{post.title}</div>
-            <div>{post.content.substring(0, 100)}</div>
+            <div className="top-posts__title">{post.title}</div>
+            <div className="top-posts__content">{`${post.content}`}</div>
+            {/* Date */}
+            <div className="top-posts__date">
+               <div>
+                  {post.vote.count > 0 ? <i className="fas fa-angle-up" /> : <i className="fas fa-angle-down" />}
+                  {post.vote.count}
+               </div>
+               <Moment fromNow>{post.created}</Moment>
+            </div>
          </div>
       ));
    }
@@ -20,9 +29,13 @@ class TopPosts extends React.Component {
    render() {
       var { topPosts } = this.props;
       if (!topPosts) {
-         return <div>Loading</div>;
+         return <div />;
       }
-      return <div className="top-posts">{this.renderTopPosts(topPosts)}</div>;
+      return (
+         <div className="top-posts">
+            <h4>RELATED POSTS</h4> {this.renderTopPosts(topPosts)}
+         </div>
+      );
    }
 }
 const mapStateToProps = (state, ownProps) => {

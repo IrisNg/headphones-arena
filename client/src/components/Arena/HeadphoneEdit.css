@@ -1,9 +1,166 @@
-.headphone-edit{
-    color:white;
+.headphone-edit~.navigation-bar .navigation-bar--inactive {
+    transform: translateX(0);
 }
 
-.headphone-edit__existing-name{
-    background-color: darkcyan;
-    margin-left: .5rem;
+.headphone-edit {
+    display: grid;
+    grid-template-columns: 50%;
+    justify-content: center;
+    font-size: .85rem;
+}
+
+.headphone-edit__background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, transparent 25%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% right/cover no-repeat local;
+}
+
+.headphone-edit__content {
+    margin-top: 3.5rem;
+    padding: 2.5rem;
+    background-color: rgba(255, 255, 255, .95);
+    border: 3px solid black;
+}
+
+.headphone-edit__page-name {
+    margin-top: .2rem;
+    margin-bottom: 1.5rem;
+    padding: .5rem 3rem;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 3px 3px black;
+    font-size: 1.5rem;
+}
+
+.headphone-edit__existing-headphones {
+    margin: 1.5rem 0 3rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.headphone-edit__existing-name {
+    margin-bottom: .5rem;
+    padding: .2rem .5rem;
+    background-color: #164499;
+    box-shadow: 3px 3px black;
+    color: white;
     cursor: pointer;
+}
+
+.headphone-edit__existing-name:hover {
+    text-decoration: underline;
+    animation: wiggle .3s 1;
+}
+
+@keyframes wiggle {
+    0%, 50%, 100% {
+        transform: rotateZ(0deg);
+    }
+    25% {
+        transform: rotateZ(5deg);
+    }
+    70% {
+        transform: rotateZ(-5deg);
+    }
+}
+
+.headphone-edit__field {
+    margin: 1rem 0 3.5rem 0;
+    display: flex;
+    align-items: flex-end;
+}
+
+.headphone-edit__label {
+    padding: .3rem 1rem;
+    background-color: black;
+    color: white;
+}
+
+.headphone-edit__input {
+    font-family: 'Roboto', sans-serif;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+    border: none;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    background: none;
+}
+
+.headphone-edit__full-stop {
+    width: .6rem;
+    height: 1.2rem;
+    background-color: black;
+}
+
+.headphone-edit__buttons {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.headphone-delete__button, .headphone-edit__submit-button {
+    padding: .3rem 1.5rem;
+    background-color: #c00603;
+    border: 1px solid black;
+    color: white;
+    cursor: pointer;
+}
+.headphone-edit__submit-button{
+    background-color: #f6cb01;
+}
+.headphone-delete__button:hover, .headphone-edit__submit-button:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+.delete-confirmation {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,.5);
+    font-size: 1rem;
+}
+
+.delete-confirmation__box {
+    padding: 1rem;
+    flex-basis: 20%;
+    height: 20%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.delete-confirmation__box-buttons {
+    width: 100%;
+    display:flex;
+    justify-content: space-evenly;
+}
+.delete-confirmation__box-buttons div {
+    padding: .2rem .4rem;
+    background-color: #c00603;
+    border: 1px solid black;
+    color: white;
+    cursor: pointer;
+} 
+.delete-confirmation__box-buttons div:nth-of-type(2){
+    background-color: #f6cb01;
+
+}
+.delete-confirmation__box-buttons div:hover {
+    text-decoration: underline;
 }

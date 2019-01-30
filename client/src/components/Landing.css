@@ -1,0 +1,112 @@
+.check-auth {
+    display: none;
+}
+
+.landing~.navigation-bar {
+    width: 9rem;
+    height: 11.5rem;
+    bottom: -.3rem;
+    left: 2.5rem;
+    flex-direction: column;
+    filter: brightness(90%);
+}
+
+.landing~.navigation-bar .navigation-bar-icon {
+    margin-bottom: 1rem;
+}
+
+.landing~.navigation-bar .navigation-bar-icon, .landing~.navigation-bar .navigation-bar-icon img, .landing~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
+    height: 3rem;
+    width: 3rem;
+    line-height: 3rem;
+}
+
+.landing~.navigation-bar:hover .navigation-bar-icon {
+    box-shadow: none;
+}
+
+.landing~.navigation-bar .navigation-bar--page-name {
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.landing~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+    transform: translateX(3.5rem);
+}
+
+.landing {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, transparent 40%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% right/cover no-repeat;
+    filter: brightness(80%);
+}
+
+.landing__website-title {
+    margin: 0;
+    padding-top: 3.1rem;
+    padding-right: 1.5rem;
+    font-family: 'bebas_neuebold';
+    text-align: right;
+    letter-spacing: .5rem;
+    font-size: 9.5rem;
+    line-height: 8.3rem;
+    color: white;
+    opacity: .23;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    .landing {
+        background: radial-gradient(ellipse at center, transparent 30%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 70%/cover no-repeat;
+    }
+    .landing__website-title {
+        padding-top: 2.5rem;
+        letter-spacing: .35rem;
+        font-size: 8rem;
+        line-height: 7rem;
+        opacity: .3;
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    .landing {
+        background: radial-gradient(ellipse at center, transparent 30%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 30%/cover no-repeat;
+    }
+}
+
+/* Tablet */
+
+@media screen and (max-width: 767px) {
+    .landing~.navigation-bar {
+        bottom: 1rem;
+        left: 1rem;
+        height: 12.5rem;
+    }
+    .landing~.navigation-bar .navigation-bar-icon, .landing~.navigation-bar .navigation-bar-icon img, .landing~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
+        height: 3.5rem;
+        width: 3.5rem;
+        line-height: 3.5rem;
+    }
+    .landing {
+        background: radial-gradient(ellipse at center, transparent 22%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 27%/cover no-repeat;
+    }
+    .landing__website-title {
+        padding-top: 1.5rem;
+        font-size: 7rem;
+        line-height: 6.5rem;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .landing {
+        background: radial-gradient(ellipse at center, transparent 22%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 16%/cover no-repeat;
+    }
+    .landing__website-title {
+        font-size: 6.5rem;
+    }
+}

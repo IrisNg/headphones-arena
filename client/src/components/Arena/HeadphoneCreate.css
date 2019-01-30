@@ -1,7 +1,90 @@
+.headphone-create~.navigation-bar .navigation-bar--inactive {
+    transform: translateX(0);
+}
+
 .headphone-create {
+    display: grid;
+    grid-template-columns: 50%;
+    justify-content: center;
+    font-size: .85rem;
+    
+}
+.headphone-create__background{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index:-1;
+    background: radial-gradient(ellipse at center, transparent 25%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% right/cover no-repeat local;
+    
+}
+.headphone-create__content {
+    margin-top:3.5rem;
+    padding: 2.5rem;
+    background-color: rgba(255,255,255,.95);
+    border: 3px solid black;
+}
+.headphone-create__page-name {
+    margin-top: .2rem;
+    margin-bottom: 1.5rem;
+    padding: .5rem 3rem;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 3px 3px black;
+    font-size: 1.5rem;
+}
+
+
+.headphone-create__buttons{
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}   
+.headphone-create__edit-button,
+.headphone-create__submit-button{
+    display: inline-block;
+    padding: .2rem 1.5rem;
+    background-color: #f6cb01;
+    border: 1px solid black;
+    color: white;
+cursor: pointer;
+}
+.headphone-create__edit-button{
+    background-color: #164499;
+
+}
+.headphone-create__edit-button:hover,
+.headphone-create__submit-button:hover{
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+.headphone-create__field {
+    margin: 1rem 0 3.5rem 0;
+    display: flex;
+    align-items: flex-end;
+}
+.headphone-create__label {
+    padding: .3rem 1rem;
+    background-color: black;
     color: white;
 }
-input {
+
+.headphone-create__input {
+    font-family: 'Roboto', sans-serif;
     display: block;
-    
+    width:100%;
+    margin:0;
+    padding: 0 1rem;
+    border: none;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    background: none;
+}
+.headphone-create__full-stop{
+    width: .6rem;
+    height: 1.2rem;
+    background-color: black;
 }

@@ -104,25 +104,29 @@ class HeadphoneEdit extends React.Component {
          if (key !== '_id') {
             if (key !== 'officialDescription') {
                allInputs.push(
-                  <div key={key}>
-                     <label>{key}</label>
+                  <div key={key} className="headphone-edit__field">
+                     <label className="headphone-edit__label">{key}</label>
                      <input
+                        className="headphone-edit__input"
                         type="text"
                         name={key}
                         value={this.state[key]}
                         onChange={e => this.setState({ [e.target.name]: e.target.value })}
                      />
+                     <div className="headphone-edit__full-stop" />
                   </div>
                );
             } else {
                allInputs.push(
-                  <div key={key}>
-                     <label>{key}</label>
+                  <div key={key} className="headphone-edit__field">
+                     <label className="headphone-edit__label">{key}</label>
                      <textarea
+                        className="headphone-edit__input"
                         name={key}
                         value={this.state[key]}
                         onChange={e => this.setState({ [e.target.name]: e.target.value })}
                      />
+                     <div className="headphone-edit__full-stop" />
                   </div>
                );
             }
@@ -173,16 +177,23 @@ class HeadphoneEdit extends React.Component {
    render() {
       return (
          <div className="headphone-edit">
-            <h1>Headphone Edit Form</h1>
-            {/* List of Existing Headphones */}
-            <div>{this.renderExistingNames()}</div>
-            <form onSubmit={this.onFormSubmit}>
-               {/* All the input fields */}
-               {this.mapStateKeysToJSX()}
-               {/* Submit button */}
-               <input type="submit" />
-               {this.state._id ? <HeadphoneDelete id={this.state._id} /> : null}
-            </form>
+            <div className="headphone-edit__background" />
+            <div className="headphone-edit__content">
+               <h1 className="headphone-edit__page-name">EDIT HEADPHONE</h1>
+               {/* List of Existing Headphones */}
+               <div className="headphone-edit__existing-headphones">{this.renderExistingNames()}</div>
+               <form>
+                  {/* All the input fields */}
+                  {this.mapStateKeysToJSX()}
+                  <div className="headphone-edit__buttons">
+                     {/* Submit button */}
+                     {this.state._id ? <HeadphoneDelete id={this.state._id} /> : null}
+                     <div className="headphone-edit__submit-button" onClick={this.onFormSubmit}>
+                        UPDATE HEADPHONE
+                     </div>
+                  </div>
+               </form>
+            </div>
          </div>
       );
    }

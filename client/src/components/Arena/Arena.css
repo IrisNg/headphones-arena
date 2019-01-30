@@ -1,6 +1,7 @@
 html {
     font-size: 1.05vw;
     overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -16,7 +17,6 @@ body {
 /* Arena */
 
 .arena {
-    font-family: 'Roboto', sans-serif;
     height: 100vh;
     display: grid;
     grid-template-columns: 11% 78% 11%;
@@ -474,7 +474,6 @@ body {
     .arena {
         grid-template-columns: 12% 76% 12%;
     }
-    
     .selected-list {
         grid-template-columns: repeat(auto-fit, 26%);
         grid-column-gap: 3%;
@@ -493,7 +492,6 @@ body {
     .arena {
         grid-template-columns: 17% 66% 17%;
     }
-    
     .selected-list {
         grid-template-columns: repeat(auto-fit, 38%);
         grid-column-gap: 6%;
@@ -512,7 +510,7 @@ body {
     html {
         font-size: 2.5vw;
     }
-    .navigation-bar {
+    .arena ~ .navigation-bar {
         height: 3.5rem;
         width: 100vw;
         top: 0;
@@ -521,13 +519,13 @@ body {
         border-bottom: 4px solid black;
         box-sizing: border-box;
     }
-    .navigation-bar-icon {
+    .arena ~ .navigation-bar-icon {
         margin-right: 8rem;
     }
-    .navigation-bar--page-name {
+    .arena ~ .navigation-bar--page-name {
         border: none;
     }
-    .navigation-bar-icon:hover .navigation-bar--page-name {
+    .arena ~ .navigation-bar-icon:hover .navigation-bar--page-name {
         transform: translateX(5.8rem);
     }
     .arena {
@@ -626,4 +624,3 @@ body {
         width: 75%;
     }
 }
-

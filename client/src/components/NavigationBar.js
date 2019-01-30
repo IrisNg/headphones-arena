@@ -24,7 +24,9 @@ class NavigationBar extends React.Component {
             {/* To Arena page */}
             <div
                className={`navigation-bar-icon ${
-                  this.state.currentLocation === '/arena' ? 'navigation-bar--active' : 'navigation-bar--inactive'
+                  this.state.currentLocation === '/arena' || this.state.currentLocation === '/'
+                     ? 'navigation-bar--active'
+                     : 'navigation-bar--inactive'
                }`}
                onClick={() => history.push('/arena')}
             >
@@ -34,7 +36,9 @@ class NavigationBar extends React.Component {
             {/* To Forum page */}
             <div
                className={`navigation-bar-icon ${
-                  ['/forum', '/posts'].some(path => this.state.currentLocation.includes(path))
+                  ['/forum', '/posts'].some(
+                     path => this.state.currentLocation.includes(path) || this.state.currentLocation === '/'
+                  )
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
@@ -46,14 +50,16 @@ class NavigationBar extends React.Component {
             {/* To Login page or user's dashboard */}
             <div
                className={`navigation-bar-icon ${
-                  ['/user', '/login'].some(path => this.state.currentLocation.includes(path))
+                  ['/user', '/login'].some(
+                     path => this.state.currentLocation.includes(path) || this.state.currentLocation === '/'
+                  )
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
                onClick={() => history.push(current ? `/user/${current.id}` : `/login`)}
             >
                <img src="https://i.imgur.com/Iv5jEih.png" alt="To Login Page or Dashboard" />
-               <div className="navigation-bar--page-name">PROFILE</div>
+               <div className="navigation-bar--page-name">ACCOUNT</div>
             </div>
          </div>
       );

@@ -4,7 +4,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 
 import { fetchListOfHeadphones } from '../actions';
-import LandingPage from './LandingPage';
+import Landing from './Landing';
 import NavigationBar from './NavigationBar';
 import GlobalError from './GlobalError';
 import Arena from './Arena/Arena';
@@ -16,7 +16,6 @@ import PostCreate from './Forum/PostCreate';
 import PostEdit from './Forum/PostEdit';
 import PostDelete from './Forum/PostDelete';
 import Blacksmith from './Blacksmith/Blacksmith';
-import Marketplace from './Marketplace/Marketplace';
 import Dashboard from './UserProfile/Dashboard';
 
 // delete
@@ -33,11 +32,8 @@ class App extends React.Component {
       return (
          <Router history={history}>
             <div>
-               <CheckAuth />
-               <NavigationBar />
-               <GlobalError />
                <Switch>
-                  <Route path="/" exact component={LandingPage} />
+                  <Route path="/" exact component={Landing} />
                   <Route path="/arena" component={Arena} />
                   <Route path="/headphones/new" component={HeadphoneCreate} />
                   <Route path="/headphones/edit" component={HeadphoneEdit} />
@@ -50,14 +46,12 @@ class App extends React.Component {
                   {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}
                   {/* <Route path="/mods/:id/edit" exact component={ModEdit} /> */}
-                  <Route path="/marketplace" component={Marketplace} />
-                  {/* <Route path="/sales/new" component={SaleCreate} />
-               <Route path="/sales/:id" exact component={SaleShow} />
-               <Route path="/sales/:id/edit" exact component={SaleEdit} /> */}
                   <Route path="/login" component={Authentication} />
-                  {/* <Route path="user/:id" render={props => <Dashboard key={props.match.params.id} />} /> */}
                   <Route path="/user/:id" component={Dashboard} />
                </Switch>
+               <CheckAuth />
+               <NavigationBar />
+               <GlobalError />
             </div>
          </Router>
       );

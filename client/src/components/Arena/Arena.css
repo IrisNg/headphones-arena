@@ -1,16 +1,6 @@
-html {
-    font-size: 1.05vw;
-    overflow-x: hidden;
-    font-family: 'Roboto', sans-serif;
-}
-
-body {
-    margin: 0;
-}
-
 /* NavigationBar */
 
-.navigation-bar {
+.arena~.navigation-bar {
     bottom: -2px;
 }
 
@@ -334,143 +324,10 @@ body {
     color: #4d4d4d;
 }
 
-/* LiveChat */
-
-.live-chat {
-    position: fixed;
-    height: 100vh;
-    width: 11%;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    overflow: hidden;
-    border-left: 2px solid black;
-    box-sizing: border-box;
-}
-
-.live-chat__title {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    padding: .4rem 0;
-    visibility: hidden;
-    text-align: center;
-    font-weight: 900;
-    font-size: 1.1rem;
-    background-color: black;
-    color: white;
-}
-
-/* ChatMessage */
-
-.chat-message {
-    padding: 0 .8rem;
-    text-align: right;
-    font-size: .8rem;
-}
-
-.chat-message__author {
-    margin: .8rem 0 0 0;
-    font-weight: 700;
-    font-size: .7rem;
-    cursor: pointer;
-}
-
-.chat-message__message {
-    text-align: justify;
-    direction: rtl;
-    line-height: 1.1rem;
-}
-
-.chat-message__date {
-    font-weight: 300;
-    font-size: .65rem;
-    color: #4d4d4d;
-}
-
-.chat-message__tag {
-    display: inline-block;
-    padding: 0 .2rem;
-    background-color: black;
-    color: white;
-    box-shadow: 1px 1px black;
-    cursor: pointer;
-}
-
-.chat-message__tag:hover {
-    background-color: #c00603;
-    transform: translateX(-.2rem);
-}
-
-/* ChatInput */
-
-.chat-input {
-    margin-top: .8rem;
-    padding: .7rem;
-    border-top: 2px solid black;
-}
-
-.chat-input:hover {
-    background-color: #f6cb01;
-}
-
-.chat-input__fields {
-    display: grid;
-    grid-template-rows: 4rem 1rem;
-    grid-template-columns: auto auto;
-    grid-template-areas: "message message" "author button";
-    align-items: center;
-    /* justify-items: center; */
-}
-
-.chat-input__message::selection, .chat-input__author::selection {
-    background-color: #f6cb01;
-}
-
-.chat-input__message {
-    grid-area: message;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    resize: none;
-    border: none;
-    background: none;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.chat-input__author {
-    grid-area: author;
-    width: 100%;
-    outline: none;
-    border: none;
-    box-sizing: border-box;
-    background: none;
-    font-weight: 700;
-    font-size: .7rem;
-}
-
-.chat-input__author:hover {
-    background-color: lightgrey;
-}
-
-.chat-input__button {
-    grid-area: button;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.chat-input__button:hover {
-    transform: scale(1.2);
-}
 
 /* Normal Laptops */
 
 @media screen and (max-width: 1280px) {
-    html {
-        font-size: 1.4vw;
-    }
     .arena {
         grid-template-columns: 12% 76% 12%;
     }
@@ -486,9 +343,6 @@ body {
 /* Small Laptops */
 
 @media screen and (max-width: 1024px) {
-    html {
-        font-size: 1.8vw;
-    }
     .arena {
         grid-template-columns: 17% 66% 17%;
     }
@@ -506,26 +360,23 @@ body {
 
 /* Tablet */
 
-@media screen and (max-width: 767px) {
-    html {
-        font-size: 2.5vw;
-    }
-    .arena ~ .navigation-bar {
+@media only screen and (max-width: 767px) {
+    .arena~.navigation-bar {
         height: 3.5rem;
         width: 100vw;
         top: 0;
         left: 0;
-        background-color: white;
+        background-color: black;
         border-bottom: 4px solid black;
         box-sizing: border-box;
     }
-    .arena ~ .navigation-bar-icon {
+    .arena~.navigation-bar-icon {
         margin-right: 8rem;
     }
-    .arena ~ .navigation-bar--page-name {
+    .arena~.navigation-bar--page-name {
         border: none;
     }
-    .arena ~ .navigation-bar-icon:hover .navigation-bar--page-name {
+    .arena~.navigation-bar-icon:hover .navigation-bar--page-name {
         transform: translateX(5.8rem);
     }
     .arena {
@@ -553,6 +404,9 @@ body {
     }
     .selected-headphone img {
         width: 66%;
+    }
+    .overview {
+        font-size: .88rem;
     }
     .live-chat {
         position: static;
@@ -585,25 +439,25 @@ body {
 /* Phones */
 
 @media only screen and (max-width: 481px) {
-    html {
-        font-size: 3.1vw;
-    }
-    .navigation-bar {
+    .arena~.navigation-bar {
         height: 4.6rem;
     }
-    .navigation-bar-icon, .navigation-bar-icon img, .navigation-bar-icon .navigation-bar--page-name {
+    .arena~.navigation-bar .navigation-bar-icon, .arena~.navigation-bar .navigation-bar-icon img, .arena~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
         height: 4.5rem;
         width: 4.5rem;
         line-height: 4.5rem;
     }
-    .navigation-bar-icon {
+    .arena~.navigation-bar .navigation-bar-icon {
         margin-right: 6rem;
     }
-    .navigation-bar-icon:hover .navigation-bar--page-name {
+    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
         transform: translateX(5.3rem);
     }
     .arena {
         grid-template-columns: 23% 77%;
+    }
+    .arena__background {
+        height: 45vh;
     }
     .arena__continuous-line {
         width: 2.4rem;
@@ -616,6 +470,9 @@ body {
     }
     .selected-list {
         grid-template-columns: repeat(auto-fit, 75%);
+    }
+    .selected-headphone__essential {
+        height: calc(45vh - 3.5rem - 1.6rem - 1.5px);
     }
     .selected-headphone img {
         width: 85%;

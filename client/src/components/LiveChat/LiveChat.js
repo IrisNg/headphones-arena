@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addGlobalError } from '../../actions';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
+import './LiveChat.css';
 
 class LiveChat extends React.Component {
    state = {

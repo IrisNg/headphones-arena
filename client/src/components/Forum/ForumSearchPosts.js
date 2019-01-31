@@ -4,9 +4,11 @@ import Moment from 'react-moment';
 import history from '../../history';
 
 class ForumSearchPosts extends React.Component {
-   renderSearchPosts(posts) {
-      return posts.map(post => (
+   renderSearchPosts() {
+      var { searchPosts } = this.props;
+      return searchPosts.map(post => (
          <div key={post._id} className="forum-search__post">
+            {/* If user clicks on the title of this post, redirect to this post's show page */}
             <h4 className="forum-search__post-title" onClick={() => history.push(`/posts/${post._id}`)}>
                {post.title}
             </h4>
@@ -27,7 +29,7 @@ class ForumSearchPosts extends React.Component {
       if (!this.props.searchActive || !this.props.searchPosts) {
          return <div />;
       }
-      return <div className="forum-search-posts">{this.renderSearchPosts(this.props.searchPosts)}</div>;
+      return <div className="forum-search-posts">{this.renderSearchPosts()}</div>;
    }
 }
 

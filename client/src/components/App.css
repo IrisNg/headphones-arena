@@ -1,3 +1,41 @@
+html {
+    font-size: 1.05vw;
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
 body {
     margin: 0;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    html {
+        font-size: 1.4vw;
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    html {
+        font-size: 1.8vw;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    html {
+        font-size: 2.6vw;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    html {
+        font-size: 3.3vw;
+    }
 }

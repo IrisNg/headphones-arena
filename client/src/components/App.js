@@ -52,6 +52,12 @@ class App extends React.Component {
                <CheckAuth />
                <NavigationBar />
                <GlobalError />
+               {/* <div className="forum-lines">
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+               </div> */}
             </div>
          </Router>
       );

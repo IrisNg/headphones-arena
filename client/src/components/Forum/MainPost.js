@@ -8,37 +8,45 @@ import Vote from './Vote';
 class MainPost extends React.Component {
    //Render tags selected by the author of this post
    renderTags = () => {
-      if (this.props.data.tag.length > 0) {
-         return this.props.data.tag.map(entry => {
-            return (
-               <div key={entry.tags}>
-                  <h6
-                     onClick={() => {
-                        this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
-                     }}
-                  >
-                     {entry.brandAndModel}
-                  </h6>
-                  <p>
-                     {entry.tags.map(tag => {
-                        return (
-                           <span className="post__tag" key={tag}>
-                              {tag}
-                           </span>
-                        );
-                     })}
-                  </p>
-               </div>
-            );
-         });
+      var {
+         data: { tag }
+      } = this.props;
+      if (tag.length === 0) {
+         return null;
       }
+      return tag.map(entry => {
+         return (
+            <div key={entry.tags}>
+               {/* Tagged headphone's name */}
+               {/* If user clicks on the name of this tagged headphone, add this headphone to the list of selected headphones in /arena page */}
+               <h6
+                  onClick={() => {
+                     this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
+                  }}
+               >
+                  {entry.brandAndModel}
+               </h6>
+               {/* List of tags associated with this headphone */}
+               <p>
+                  {entry.tags.map(tag => (
+                     <span className="post__tag" key={tag}>
+                        {tag}
+                     </span>
+                  ))}
+               </p>
+            </div>
+         );
+      });
    };
 
    render() {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, author, vote, _id } = this.props.data;
+      var {
+         data: { title, created, content, author, vote, _id },
+         currentUser
+      } = this.props;
       return (
          <div className="main-post">
             {/* Date */}
@@ -58,7 +66,7 @@ class MainPost extends React.Component {
                   <Vote vote={vote} id={_id} mainPostId={_id} />
                </div>
                {/* Edit button (If current user is the author of this post) */}
-               {this.props.currentUser && author.id === this.props.currentUser.id ? (
+               {currentUser && author.id === currentUser.id ? (
                   <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
                ) : null}
             </div>

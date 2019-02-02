@@ -6,21 +6,36 @@ class ForumSearch extends React.Component {
    onSearchInputChange = e => {
       this.props.fetchSearchPosts(e.target.value);
    };
-
+   manageSearchStyle(element) {
+      const { searchTerm } = this.props;
+      if (!searchTerm) {
+         return null;
+      }
+      switch (element) {
+         case 'box':
+            return { backgroundColor: '#c00603' };
+         case 'icon':
+            return { display: 'none' };
+         case 'input':
+            return { borderColor: '#c00603' };
+         default:
+            return null;
+      }
+   }
    render() {
       var { searchTerm } = this.props;
       return (
          <div className="forum-search">
-            <i className="fas fa-search forum-search__icon" style={searchTerm ? { display: 'none' } : null} />
+            <i className="fas fa-search forum-search__icon" style={this.manageSearchStyle('icon')} />
             <input
                type="text"
                className="forum-search__input"
                value={searchTerm}
                onChange={this.onSearchInputChange}
-               style={searchTerm ? { borderColor: '#c00603' } : null}
+               style={this.manageSearchStyle('input')}
             />
-            <div className="forum-search__box" style={searchTerm ? { backgroundColor: '#c00603' } : null} />
-            <div className="forum-search__box" style={searchTerm ? { backgroundColor: '#c00603' } : null} />
+            <div className="forum-search__box" style={this.manageSearchStyle('box')} />
+            <div className="forum-search__box" style={this.manageSearchStyle('box')} />
          </div>
       );
    }

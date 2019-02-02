@@ -25,10 +25,11 @@ class PostCreate extends React.Component {
    };
    onFormSubmit = event => {
       event.preventDefault();
+      const { title, category, content } = this.state;
       //Check authentication
       if (this.props.currentUser) {
          //Check for required fields
-         if (!this.state.title || !this.state.category || !this.state.content) {
+         if (!title || !category || !content) {
             this.props.addGlobalError('Do you have 1 category selected, title and content filled in?');
          } else {
             //Post new post form to server
@@ -103,7 +104,7 @@ class PostCreate extends React.Component {
                {/* Tagging Mechanism */}
                <TagSystem compileTags={this.retrieveTagsFromTagSystem} />
                {/* Post Contents */}
-               <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
+               <textarea value={this.state.content} onChange={e => this.setState({ content: e.target.value })} />
                <input type="submit" />
             </form>
             {this.askLogin()}

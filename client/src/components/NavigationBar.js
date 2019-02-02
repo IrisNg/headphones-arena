@@ -15,16 +15,16 @@ class NavigationBar extends React.Component {
       });
    }
    render() {
-      const { current } = this.props;
+      var { user } = this.props;
+      var { currentLocation } = this.state;
       return (
          <div className="navigation-bar">
-            {/* <div className="navigation-bar__website-title"> HEADPHONES ARENA</div> */}
             {/* Logout button */}
-            {current ? <Logout /> : null}
+            {user ? <Logout /> : null}
             {/* To Arena page */}
             <div
                className={`navigation-bar-icon ${
-                  this.state.currentLocation === '/arena' || this.state.currentLocation === '/'
+                  currentLocation === '/arena' || currentLocation === '/'
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
@@ -36,9 +36,7 @@ class NavigationBar extends React.Component {
             {/* To Forum page */}
             <div
                className={`navigation-bar-icon ${
-                  ['/forum', '/posts'].some(
-                     path => this.state.currentLocation.includes(path) || this.state.currentLocation === '/'
-                  )
+                  ['/forum', '/posts'].some(path => currentLocation.includes(path) || currentLocation === '/')
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
@@ -50,13 +48,11 @@ class NavigationBar extends React.Component {
             {/* To Login page or user's dashboard */}
             <div
                className={`navigation-bar-icon ${
-                  ['/user', '/login'].some(
-                     path => this.state.currentLocation.includes(path) || this.state.currentLocation === '/'
-                  )
+                  ['/user', '/login'].some(path => currentLocation.includes(path) || currentLocation === '/')
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
-               onClick={() => history.push(current ? `/user/${current.id}` : `/login`)}
+               onClick={() => history.push(user ? `/user/${user.id}` : `/login`)}
             >
                <img src="https://i.imgur.com/Iv5jEih.png" alt="To Login Page or Dashboard" />
                <div className="navigation-bar--page-name">ACCOUNT</div>
@@ -67,6 +63,6 @@ class NavigationBar extends React.Component {
 }
 
 const mapStateToProps = state => {
-   return { current: state.currentUser };
+   return { user: state.currentUser };
 };
 export default connect(mapStateToProps)(NavigationBar);

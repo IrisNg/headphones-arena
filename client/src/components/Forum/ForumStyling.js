@@ -1,5 +1,8 @@
 import React from 'react';
 
+const manageNameDisplay = searchTerm => {
+   return searchTerm ? { display: 'none' } : null;
+};
 const ForumStyling = ({ searchTerm }) => {
    return (
       <div className="forum-styling">
@@ -11,16 +14,16 @@ const ForumStyling = ({ searchTerm }) => {
          </div>
          <div className="forum__nav-bar-line" />
          <div className="forum__horizontal-lines" />
-         <div className="forum__name forum__name--comparison" style={searchTerm ? { display: 'none' } : null}>
+         <div className="forum__name forum__name--comparison" style={manageNameDisplay(searchTerm)}>
             <h5>COMPARISON</h5>
          </div>
-         <div className="forum__name forum__name--recommendation" style={searchTerm ? { display: 'none' } : null}>
+         <div className="forum__name forum__name--recommendation" style={manageNameDisplay(searchTerm)}>
             <h5>RECOMMENDATION</h5>
          </div>
-         <div className="forum__name forum__name--review" style={searchTerm ? { display: 'none' } : null}>
+         <div className="forum__name forum__name--review" style={manageNameDisplay(searchTerm)}>
             <h5>REVIEW</h5>
          </div>
-         <div className="forum__name forum__name--general" style={searchTerm ? { display: 'none' } : null}>
+         <div className="forum__name forum__name--general" style={manageNameDisplay(searchTerm)}>
             <h5>GENERAL</h5>
          </div>
       </div>

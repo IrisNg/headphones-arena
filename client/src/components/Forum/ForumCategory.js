@@ -27,13 +27,20 @@ class ForumCategory extends React.Component {
                   {post.created}
                </Moment>
                <div className="forum-category__post-vote">
-                  {post.vote.count >= 0 ? <i className="fas fa-angle-up" /> : <i className="fas fa-angle-down" />}
+                  {this.manageVoteIcon(post)}
                   {post.vote.count}
                </div>
             </div>
          </div>
       ));
    };
+   manageVoteIcon(post) {
+      return post.vote.count >= 0 ? (
+         <i className="fas fa-angle-up forum-category__post-vote-icon" />
+      ) : (
+         <i className="fas fa-angle-down forum-category__post-vote-icon" />
+      );
+   }
    render() {
       var { category, searchActive } = this.props;
       if (searchActive) {

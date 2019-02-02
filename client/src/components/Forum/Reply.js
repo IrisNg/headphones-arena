@@ -68,13 +68,16 @@ class Reply extends React.Component {
       return (
          <div
             //Make this button disappear after ReplyCreate component appear
-            style={this.state.renderReplyCreate ? { display: 'none' } : null}
+            style={this.manageReplyCreateButton()}
             onClick={() => this.setState({ renderReplyCreate: true })}
          >
             +
          </div>
       );
    };
+   manageReplyCreateButton() {
+      return this.state.renderReplyCreate ? { display: 'none' } : null;
+   }
    //Render the create reply form
    renderReplyCreate() {
       if (!this.state.renderReplyCreate) {

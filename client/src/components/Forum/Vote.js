@@ -71,21 +71,25 @@ class Vote extends React.Component {
          return <Login />;
       }
    }
-   render() {
+   manageUpVoteIconStyle() {
       var { vote, currentUser } = this.props;
+      return currentUser && vote.upVote.includes(currentUser.id) ? 'vote--active' : null;
+   }
+   manageDownVoteIconStyle() {
+      var { vote, currentUser } = this.props;
+      return currentUser && vote.downVote.includes(currentUser.id) ? 'vote--active' : null;
+   }
+   render() {
+      var { vote } = this.props;
       return (
          <div>
             <i
-               className={`fas fa-angle-up ${
-                  currentUser && vote.upVote.includes(currentUser.id) ? 'vote--active' : ''
-               }`}
+               className={`fas fa-angle-up ${this.manageUpVoteIconStyle()}`}
                onClick={() => this.onVoteClick('upvote')}
             />
             {vote.count}
             <i
-               className={`fas fa-angle-down ${
-                  currentUser && vote.downVote.includes(currentUser.id) ? 'vote--active' : ''
-               }`}
+               className={`fas fa-angle-down ${this.manageDownVoteIconStyle()}`}
                onClick={() => this.onVoteClick('downvote')}
             />
             {this.askLogin()}

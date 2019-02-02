@@ -95,8 +95,16 @@
     }
     .landing__website-title {
         padding-top: 1.5rem;
-        font-size: 7rem;
-        line-height: 6.5rem;
+        font-size: 6.5rem;
+        line-height: 6rem;
+    }
+}
+@media only screen and (max-width: 581px) {
+    .landing__website-title {
+        padding-right: 1rem;
+        font-size: 5.5rem;
+        line-height: 5rem;
+        letter-spacing: .25rem;
     }
 }
 
@@ -107,6 +115,8 @@
         background: radial-gradient(ellipse at center, transparent 22%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 16%/cover no-repeat;
     }
     .landing__website-title {
-        font-size: 6.5rem;
-    }
+        padding-right: .6rem;
+        font-size: 4.5rem;
+        line-height: 4rem;
+        letter-spacing: .25rem;    }
 }

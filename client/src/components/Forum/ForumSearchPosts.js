@@ -23,11 +23,7 @@ class ForumSearchPosts extends React.Component {
                <div>
                   {/* Number of votes */}
                   <span className="forum-search__post-vote">
-                     {post.vote.count >= 0 ? (
-                        <i className="fas fa-angle-up forum-search__post-vote-icon" />
-                     ) : (
-                        <i className="fas fa-angle-down" />
-                     )}
+                     {this.manageVoteIcon(post)}
                      {post.vote.count}
                   </span>
                   {/* Number of replies */}
@@ -39,6 +35,13 @@ class ForumSearchPosts extends React.Component {
             </div>
          </div>
       ));
+   }
+   manageVoteIcon(post) {
+      return post.vote.count >= 0 ? (
+         <i className="fas fa-angle-up forum-search__post-vote-icon" />
+      ) : (
+         <i className="fas fa-angle-down forum-search__post-vote-icon" />
+      );
    }
    render() {
       var { searchPosts, searchActive } = this.props;

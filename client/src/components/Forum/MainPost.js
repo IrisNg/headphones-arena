@@ -38,15 +38,19 @@ class MainPost extends React.Component {
          );
       });
    };
+   renderEditButton() {
+      var { author, _id } = this.props.data;
+      var { currentUser } = this.props;
+      return currentUser && author.id === currentUser.id ? (
+         <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
+      ) : null;
+   }
 
    render() {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var {
-         data: { title, created, content, author, vote, _id },
-         currentUser
-      } = this.props;
+      var { title, created, content, author, vote, _id } = this.props.data;
       return (
          <div className="main-post">
             {/* Date */}
@@ -66,9 +70,7 @@ class MainPost extends React.Component {
                   <Vote vote={vote} id={_id} mainPostId={_id} />
                </div>
                {/* Edit button (If current user is the author of this post) */}
-               {currentUser && author.id === currentUser.id ? (
-                  <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
-               ) : null}
+               {this.renderEditButton()}
             </div>
          </div>
       );

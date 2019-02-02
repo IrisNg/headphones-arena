@@ -11,10 +11,11 @@ class PostDelete extends React.Component {
    };
 
    delete = async () => {
+      var postId = this.props.match.params.id;
       try {
-         const response = await axios.delete(`/posts/${this.props.match.params.id}`);
+         const response = await axios.delete(`/posts/${postId}`);
          console.log(response);
-         history.push(`/posts/${this.props.match.params.id}`);
+         history.push(`/posts/${postId}`);
       } catch (err) {
          this.props.addGlobalError(err.response.data);
       }

@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginUser, addGlobalError } from '../../actions';
+import Register from './Register';
 import './Login.css';
+import { isNull } from 'util';
 
 class Login extends React.Component {
    state = {
       username: '',
-      password: ''
+      password: '',
+      registerIsActive: false
    };
    onSubmitClick = e => {
       e.preventDefault();
@@ -22,27 +25,55 @@ class Login extends React.Component {
          }
       }
    };
+   renderRegister = () => {
+      if (!this.state.registerIsActive) {
+         return isNull;
+      }
+      return <Register />;
+   };
+   turnOffRegister = () => {
+      this.setState({ registerIsActive: true });
+   };
    render() {
       return (
          <div className="login">
-            <form className="login-form">
-               <div>LOGIN</div>
-               <label>Username</label>
-               <input
-                  type="text"
-                  className="login-form__input"
-                  value={this.state.username}
-                  onChange={e => this.setState({ username: e.target.value })}
-               />
-               <label>Password</label>
-               <input
-                  type="text"
-                  className="login-form__input"
-                  value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
-               />
-               <input type="submit" className="login-form__input" onClick={this.onSubmitClick} />
-            </form>
+            <div className="login__contents">
+               <form className="login__form">
+                  <div className="login__form-page-title"> LOG IN</div>
+                  <label className="login__form-label">USERNAME</label>
+                  <input
+                     type="text"
+                     className="login__form-input"
+                     value={this.state.username}
+                     onChange={e => this.setState({ username: e.target.value })}
+                  />
+                  <label className="login__form-label">PASSWORD</label>
+                  <input
+                     type="password"
+                     className="login__form-input"
+                     value={this.state.password}
+                     onChange={e => this.setState({ password: e.target.value })}
+                  />
+                  <div className="login__form-button" onClick={this.onSubmitClick}>
+                     LOG ME IN!
+                  </div>
+               </form>
+               <div className="login__alternatives">
+                  <h6
+                     className="login__alternatives-register"
+                     onClick={() => this.setState({ registerIsActive: true })}
+                  >
+                     But, I am not registered!
+                  </h6>
+                  <h6 className="login__alternatives-refuse" onClick={this.props.turnOffLogin}>
+                     No Way! You can't make me!
+                  </h6>
+               </div>
+               <div className="login__continuous-line" />
+               <div className="login__vertical-line" />
+               <div className="login__vertical-line-2" />
+            </div>
+            {this.renderRegister()}
          </div>
       );
    }

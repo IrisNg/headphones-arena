@@ -20,7 +20,7 @@ class PostEdit extends React.Component {
    }
    //Load existing data one time
    static getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps.post && (!prevState.postId || nextProps.post._id !== prevState.postId)) {
+      if (nextProps.post && nextProps.post._id !== prevState.postId) {
          //DO NOT REFERENCE ARRAY FROM PROPS
          var notReferencedArr = nextProps.post.tag.map(entry => {
             return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
@@ -42,7 +42,13 @@ class PostEdit extends React.Component {
    };
    onFormSubmit = event => {
       event.preventDefault();
-      if (this.props.currentUser.id === this.props.post.author.id) {
+      var { currentUser, post, addGlobalError, updatePost } = this.props;
+      if (currentUser.id !== post.author.id) {
+         //Display this message if current user is NOT the owner of this post
+         addGlobalError(
+            "I mean, you wish you were the author of this post, but you are not. So you can't edit this post."
+         );
+      } else {
          //Format object to send to the server
          var updateObj = {
             prevTags: this.state.prevTags,
@@ -53,18 +59,13 @@ class PostEdit extends React.Component {
          };
          //Check for required fields
          if (!this.state.content) {
-            this.props.addGlobalError('Please fill in some content at least...GEEZ...');
+            addGlobalError('Please fill in some content at least...GEEZ...');
          } else {
             //Update post in the server database
-            this.props.updatePost(this.props.post._id, updateObj);
+            updatePost(post._id, updateObj);
             //Update tags in the database also
             this.updateTagsInServer(updateObj);
          }
-      } else {
-         //Display this message if current user is NOT the owner of this post
-         this.props.addGlobalError(
-            "I mean, you wish you were the author of this post, but you are not. So you can't edit this post."
-         );
       }
    };
    updateTagsInServer = async updateObj => {
@@ -92,15 +93,16 @@ class PostEdit extends React.Component {
       }
    }
    render() {
+      var { post } = this.props;
       return (
          <div className="post-edit">
             <h6>Edit Post</h6>
             <form onSubmit={this.onFormSubmit}>
                {/* Tagging Mechanism */}
                <TagSystem
-                  previousTags={this.props.post ? this.props.post.tag : null}
+                  previousTags={post ? post.tag : null}
                   compileTags={this.retrieveTagsFromTagSystem}
-                  id={this.props.post ? this.props.post._id : null}
+                  id={post ? post._id : null}
                />
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />

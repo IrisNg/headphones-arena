@@ -141,7 +141,8 @@
     margin: 0 .5rem;
 }
 
-.forum-search__post-vote-icon {
+.forum-search__post-vote-icon,
+.forum-category__post-vote-icon {
     margin-right: .15rem;
 }
 

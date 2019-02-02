@@ -324,7 +324,6 @@
     color: #4d4d4d;
 }
 
-
 /* Normal Laptops */
 
 @media screen and (max-width: 1280px) {
@@ -335,7 +334,7 @@
         grid-template-columns: repeat(auto-fit, 26%);
         grid-column-gap: 3%;
     }
-    .live-chat {
+    .arena .live-chat {
         width: 12%;
     }
 }
@@ -353,7 +352,7 @@
     .selected-headphone:nth-of-type(4) {
         display: block;
     }
-    .live-chat {
+    .arena .live-chat {
         width: 17%;
     }
 }
@@ -362,22 +361,24 @@
 
 @media only screen and (max-width: 767px) {
     .arena~.navigation-bar {
-        height: 3.5rem;
-        width: 100vw;
+        height: calc(3.5rem + 4px);
+        width: 100%;
         top: 0;
         left: 0;
+        justify-content: space-between;
         background-color: black;
-        border-bottom: 4px solid black;
+        border: 2px solid black;
         box-sizing: border-box;
     }
-    .arena~.navigation-bar-icon {
-        margin-right: 8rem;
+    .arena~.navigation-bar:hover {
+        border-color: #c00603;
     }
-    .arena~.navigation-bar--page-name {
-        border: none;
+    .arena~.navigation-bar .navigation-bar-icon {
+        margin-right: 3.5rem;
+        box-shadow: none;
     }
-    .arena~.navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(5.8rem);
+    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+        transform: translateX(3.5rem);
     }
     .arena {
         padding-top: 3.5rem;
@@ -385,6 +386,9 @@
         grid-template-rows: 100vh auto auto;
         grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
         justify-items: center;
+    }
+    .arena__background {
+        height: 55vh;
     }
     .arena__continuous-line {
         width: 1.9rem;
@@ -396,62 +400,44 @@
         grid-template-columns: repeat(auto-fit, 67%);
         grid-column-gap: 0;
     }
+    .selected-list__empty {
+        margin-top: calc(10vh + 1px);
+    }
     .selected-headphone:nth-of-type(4) {
         display: none;
     }
+    .selected-headphone__essential {
+        height: calc(55vh - 3.5rem - 1.6rem - 1.5px);
+    }
     .selected-headphone__close-button {
         opacity: 1;
+        height: 1.5rem;
+        top: calc(-1.5rem - .4rem);
+        line-height: 1.5rem;
+        font-size: .9rem;
     }
     .selected-headphone img {
-        width: 66%;
+        width: 100%;
+        max-height: 200px;
+        max-width: 200px;
     }
     .overview {
         font-size: .88rem;
     }
-    .live-chat {
-        position: static;
+    .arena .live-chat {
         width: 67%;
-        margin: 3.5rem 0;
         grid-area: live-chat;
-        border: 2px solid black;
-    }
-    .live-chat__title {
-        visibility: visible;
-    }
-    .chat-message {
-        font-size: .9rem;
-    }
-    .chat-message__author, .chat-input__author {
-        font-size: .85rem;
-    }
-    .chat-message__date, {
-        font-size: .8rem;
-    }
-    .chat-input__fields {
-        grid-template-rows: 4rem 1.5rem;
-    }
-    .chat-input__button {
-        justify-self: end;
-        font-size: 1.3rem;
     }
 }
 
 /* Phones */
 
 @media only screen and (max-width: 481px) {
-    .arena~.navigation-bar {
-        height: 4.6rem;
-    }
-    .arena~.navigation-bar .navigation-bar-icon, .arena~.navigation-bar .navigation-bar-icon img, .arena~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
-        height: 4.5rem;
-        width: 4.5rem;
-        line-height: 4.5rem;
-    }
     .arena~.navigation-bar .navigation-bar-icon {
-        margin-right: 6rem;
+        margin-right: 0;
     }
     .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(5.3rem);
+        transform: translateX(0);
     }
     .arena {
         grid-template-columns: 23% 77%;
@@ -465,11 +451,13 @@
     .headphone-list {
         padding-left: 3.7rem;
     }
-    .headphone {
-        font-size: small;
-    }
     .selected-list {
         grid-template-columns: repeat(auto-fit, 75%);
+    }
+    .selected-list__empty {
+        margin-top: calc(-10vh + 1px);
+        padding: .05rem .5rem;
+        text-align: center;
     }
     .selected-headphone__essential {
         height: calc(45vh - 3.5rem - 1.6rem - 1.5px);
@@ -477,7 +465,7 @@
     .selected-headphone img {
         width: 85%;
     }
-    .live-chat {
+    .arena .live-chat {
         width: 75%;
     }
 }

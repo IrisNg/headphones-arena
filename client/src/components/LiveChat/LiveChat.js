@@ -61,8 +61,9 @@ class LiveChat extends React.Component {
          //Separate the alternative naming from model
          var alternative = /\((.*)\)/.exec(model);
          model = model.replace(/\s\(.*\)/g, '');
+         model = model.replace(/(-|\s)/g, '');
          //Phrase matches if it contains all of the words from the model, regardless of the whitespaces in between
-         var allModelWords = model.split(' ').join('\\s*');
+         var allModelWords = model.split('').join('.?');
          //Phrase also matches if it contains the exact string from the model or alternative naming
          if (alternative) {
             var requirement = `(${allModelWords}|${alternative[1]})`;
@@ -73,6 +74,7 @@ class LiveChat extends React.Component {
          var regExp = new RegExp(requirement ? requirement : requirement2, 'i');
          return { regex: regExp, entry: headphone };
       });
+      console.log(headphoneNamesWithRegex);
       this.setState({ headphoneNamesWithRegex });
    }
    render() {

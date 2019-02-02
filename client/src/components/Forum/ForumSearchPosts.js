@@ -7,26 +7,42 @@ class ForumSearchPosts extends React.Component {
    renderSearchPosts() {
       var { searchPosts } = this.props;
       return searchPosts.map(post => (
-         <div key={post._id} className="forum-search__post">
-            {/* If user clicks on the title of this post, redirect to this post's show page */}
-            <h4 className="forum-search__post-title" onClick={() => history.push(`/posts/${post._id}`)}>
-               {post.title}
-            </h4>
-            <p className="forum-search__post-content">{`${post.content.substring(0, 100)}...`}</p>
+         // If user clicks on this post, redirect to this post's show page
+         <div key={post._id} className="forum-search__post" onClick={() => history.push(`/posts/${post._id}`)}>
+            <div className="forum-search__post-container">
+               {/* Title */}
+               <h4 className="forum-search__post-title">{post.title}</h4>
+               {/* Content */}
+               <p className="forum-search__post-content">{`${post.content.substring(0, 100)}...`}</p>
+            </div>
             <div className="forum-search__post-metadata">
+               {/* Date */}
                <Moment fromNow className="forum-search__post-date">
                   {post.created}
                </Moment>
                <div>
-                  <span className="forum-search__post-vote">{post.vote.count}</span>
-                  <span className="forum-search__post-replies">{post.totalReplies}</span>
+                  {/* Number of votes */}
+                  <span className="forum-search__post-vote">
+                     {post.vote.count >= 0 ? (
+                        <i className="fas fa-angle-up forum-search__post-vote-icon" />
+                     ) : (
+                        <i className="fas fa-angle-down" />
+                     )}
+                     {post.vote.count}
+                  </span>
+                  {/* Number of replies */}
+                  <span>
+                     <i className="far fa-comment-alt forum-search__post-reply-icon" />
+                     {post.totalReplies}
+                  </span>
                </div>
             </div>
          </div>
       ));
    }
    render() {
-      if (!this.props.searchActive || !this.props.searchPosts) {
+      var { searchPosts, searchActive } = this.props;
+      if (!searchActive || !searchPosts) {
          return <div />;
       }
       return <div className="forum-search-posts">{this.renderSearchPosts()}</div>;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchListOfHeadphones } from '../../actions';
 import TagLibrary from './TagLibrary';
 import './TagSystem.css';
 
@@ -9,42 +8,39 @@ class TagSystem extends React.Component {
       searchTerm: '',
       searchMatches: [],
       taggedHeadphones: [],
-      tagLineIsActive: false,
       selectedTagLine: '',
       selectedCriteria: '',
       outputTags: [],
       id: ''
    };
-   componentDidMount() {
-      //Give me the official list of headphones from the database
-      this.props.fetchListOfHeadphones();
-   }
    static getDerivedStateFromProps(nextProps, prevState) {
-      //Load up previous tags if editing and updating post(one time)
-      if (nextProps.previousTags && (!prevState.id || nextProps.id !== prevState.id)) {
-         if (nextProps.previousTags.length > 0) {
-            //DO NOT REFERENCE ARRAY FROM PROPS
-            var notReferencedArr = nextProps.previousTags.map(entry => {
-               return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
-            });
-            var taggedHeadphones = nextProps.previousTags.map(tag => tag.brandAndModel);
-            return { taggedHeadphones, outputTags: notReferencedArr, id: nextProps.id };
-         }
-         return { id: nextProps.id, taggedHeadphones: [], outputTags: [] };
+      if (!nextProps.previousTags || nextProps.id === prevState.id) {
+         return null;
       }
-      return null;
+      //Load up previous tags (one time) if editing and updating post
+      //If there is zero previous tags
+      if (nextProps.previousTags.length === 0) {
+         return { id: nextProps.id, taggedHeadphones: [], outputTags: [], selectedTagLine: '' };
+      }
+      //If there are previous tags
+      //DO NOT REFERENCE ARRAY FROM PROPS
+      var notReferencedArr = nextProps.previousTags.map(entry => {
+         return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
+      });
+      var taggedHeadphones = nextProps.previousTags.map(entry => entry.brandAndModel);
+      return { taggedHeadphones, outputTags: notReferencedArr, id: nextProps.id, selectedTagLine: '' };
    }
    componentDidUpdate() {
       //Invoke callback to send all tag entries back to the parent component (PostCreate/ReplyCreate/PostEdit) to be posted to server
-      this.props.compileTags([...this.state.outputTags]);
+      this.props.compileTags(this.state.outputTags);
    }
    //Invoked as user types in the search box
    onHeadphoneSearchInput = e => {
       this.setState({ searchTerm: e.target.value });
-      if (e.target.value.length > 0 && this.props.listOfHeadphones) {
-         this.searchForHeadphones(e.target.value);
-      } else {
+      if (e.target.value.length === 0) {
          this.setState({ searchMatches: [] });
+      } else {
+         this.searchForHeadphones(e.target.value);
       }
    };
    //Search for headphones using the inputted search term
@@ -66,8 +62,8 @@ class TagSystem extends React.Component {
 
       //Don't want to show already tagged headphones
       if (this.state.taggedHeadphones.length > 0) {
-         searchMatches = searchMatches.filter(headphone => {
-            return !this.state.taggedHeadphones.includes(headphone.brandAndModel);
+         searchMatches = searchMatches.filter(currentMatch => {
+            return !this.state.taggedHeadphones.includes(currentMatch.brandAndModel);
          });
       }
       searchMatches = searchMatches.slice(0, 4);
@@ -78,25 +74,27 @@ class TagSystem extends React.Component {
       //Render headphone suggestion buttons only if there are matches
       return this.state.searchMatches.map(match => {
          return (
-            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphoneToState(match.brandAndModel)}>
+            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphone(match.brandAndModel)}>
                {match.brandAndModel}
             </button>
          );
       });
    };
-   addTaggedHeadphoneToState = headphoneName => {
+   addTaggedHeadphone = headphoneName => {
       this.setState({
          taggedHeadphones: [...this.state.taggedHeadphones, headphoneName],
          searchTerm: '',
          searchMatches: []
       });
    };
-   removeTaggedHeadphoneFromState = headphoneName => {
-      var newTaggedHeadphones = this.state.taggedHeadphones.filter(headphone => headphone !== headphoneName);
-      var allEntriesExceptRemoved = this.state.outputTags.filter(entry => entry.brandAndModel !== headphoneName);
-      this.setState({ taggedHeadphones: newTaggedHeadphones, outputTags: allEntriesExceptRemoved });
-      if (this.state.selectedTagLine === headphoneName) {
-         this.setState({ selectedTagLine: '', tagLineIsActive: false });
+   removeTaggedHeadphone = removedHeadphoneName => {
+      var remainingTaggedHeadphones = this.state.taggedHeadphones.filter(
+         headphone => headphone !== removedHeadphoneName
+      );
+      var remainingEntries = this.state.outputTags.filter(entry => entry.brandAndModel !== removedHeadphoneName);
+      this.setState({ taggedHeadphones: remainingTaggedHeadphones, outputTags: remainingEntries });
+      if (this.state.selectedTagLine === removedHeadphoneName) {
+         this.setState({ selectedTagLine: '' });
       }
    };
    renderTagLineFromTaggedHeadphones = () => {
@@ -108,59 +106,72 @@ class TagSystem extends React.Component {
                <div
                   className="tag-system__tagged-headphone"
                   //Pass in this headphone name into callback when clicked
-                  onClick={() => this.addSelectedTagLineToState(taggedHeadphoneName)}
+                  onClick={() => this.selectTagLine(taggedHeadphoneName)}
                >
                   {taggedHeadphoneName} :{/* Display the tags */}
-                  <span>{this.renderTagsInRespectiveTagLine(taggedHeadphoneName)}</span>
+                  <span>{this.renderTagsInEachTagLine(taggedHeadphoneName)}</span>
                </div>
-               <i className="fas fa-times" onClick={() => this.removeTaggedHeadphoneFromState(taggedHeadphoneName)} />
+               <i className="fas fa-times" onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)} />
             </div>
          );
       });
    };
-   addSelectedTagLineToState = taggedHeadphoneName => {
-      this.setState({ selectedTagLine: taggedHeadphoneName, tagLineIsActive: true });
+   renderTagsInEachTagLine = taggedHeadphoneName => {
+      //Find all tags associated with this tagged headphone
+      var tagEntry = this.state.outputTags.find(entry => entry.brandAndModel === taggedHeadphoneName);
+      if (!tagEntry) {
+         return null;
+      }
+      return tagEntry.tags.map(tag => (
+         <span className="tag-system__tag" key={tag}>
+            {tag}
+            <i className="fas fa-times" onClick={() => this.removeTag(taggedHeadphoneName, tag)} />
+         </span>
+      ));
+   };
+   //Select which tag line is active
+   selectTagLine = taggedHeadphoneName => {
+      this.setState({ selectedTagLine: taggedHeadphoneName });
    };
    renderTaggingCriterias = () => {
-      //Formulate the tags from the TagLibrary object
-      if (this.state.tagLineIsActive) {
-         return TagLibrary.map(category => {
-            return (
-               <span key={category.criteria}>
-                  {' '}
-                  <span onClick={() => this.setState({ selectedCriteria: category.criteria })}>
-                     {category.criteria}
-                  </span>{' '}
-                  |
-               </span>
-            );
-         });
+      //Formulate the tags from the TagLibrary object only if any tag line is active
+      if (!this.state.selectedTagLine) {
+         return null;
       }
-   };
-   renderTags = () => {
-      //Display all the tags for the currently selected criteria
-      if (this.state.selectedCriteria && this.state.tagLineIsActive) {
-         var currentCriteria = TagLibrary.find(category => category.criteria === this.state.selectedCriteria);
+      return TagLibrary.map(category => {
          return (
-            <div>
-               {currentCriteria.tags.map(tag => (
-                  <span key={tag} onClick={() => this.addTagToState(tag)}>
-                     {tag}
-                  </span>
-               ))}
-            </div>
+            <span key={category.criteria}>
+               <span onClick={() => this.setState({ selectedCriteria: category.criteria })}>{category.criteria}</span> |
+            </span>
          );
-      }
+      });
    };
-   addTagToState = tag => {
+   renderSelectableTags = () => {
+      if (!this.state.selectedCriteria || !this.state.selectedTagLine) {
+         return null;
+      }
+      //Display all the tags for the currently selected criteria
+      var currentCriteria = TagLibrary.find(category => category.criteria === this.state.selectedCriteria);
+      return (
+         <div>
+            {currentCriteria.tags.map(tag => (
+               <span key={tag} onClick={() => this.addTag(tag)}>
+                  {tag}
+               </span>
+            ))}
+         </div>
+      );
+   };
+   // If user clicks on this tag, then add this tag to the state under the currently selected headphone's name
+   addTag = tag => {
       //This should get the name of the headphone that is currently being tagged
       var activeHeadphone = this.state.selectedTagLine;
 
-      //Find the entry from outputTags that contains the same headphone name as the activeHeadphone
+      //Find the entry from outputTags that contains the same headphone name as the activeHeadphone (if the entry exists)
       var currentEntry = this.state.outputTags.find(entry => entry.brandAndModel === activeHeadphone);
 
       //Form an array of other remaining entries
-      var allEntriesExceptCurrent = this.state.outputTags.filter(entry => entry.brandAndModel !== activeHeadphone);
+      var remainingEntries = this.state.outputTags.filter(entry => entry.brandAndModel !== activeHeadphone);
 
       //Make a new entry if the activeHeadphone has not been tagged before
       if (!currentEntry) {
@@ -171,30 +182,18 @@ class TagSystem extends React.Component {
          currentEntry.tags.push(tag);
       }
       //Save all the entries along with the updated tag back to the state
-      this.setState({ outputTags: [...allEntriesExceptCurrent, currentEntry] });
+      this.setState({ outputTags: [...remainingEntries, currentEntry] });
    };
-   renderTagsInRespectiveTagLine = taggedHeadphoneName => {
-      //Find all tags associated with this tagged headphone
-      var tagEntry = this.state.outputTags.find(entry => entry.brandAndModel === taggedHeadphoneName);
-      return tagEntry
-         ? tagEntry.tags.map(tag => (
-              <span className="tag-system__tag" key={tag}>
-                 {' '}
-                 {tag}
-                 <i className="fas fa-times" onClick={() => this.removeTagFromState(taggedHeadphoneName, tag)} />
-              </span>
-           ))
-         : null;
-   };
-   removeTagFromState = (taggedHeadphoneName, tag) => {
+
+   removeTag = (taggedHeadphoneName, tag) => {
       //Find the entry from outputTags that contains the same headphone name as the one we are removing tag from
       var currentEntry = this.state.outputTags.find(entry => entry.brandAndModel === taggedHeadphoneName);
       //Form an array of other remaining entries
-      var allEntriesExceptCurrent = this.state.outputTags.filter(entry => entry.brandAndModel !== taggedHeadphoneName);
+      var remainingEntries = this.state.outputTags.filter(entry => entry.brandAndModel !== taggedHeadphoneName);
       //Remove tag from current entry
       currentEntry.tags = currentEntry.tags.filter(existingTag => existingTag !== tag);
       //Save all the entries minus the removed tag back to the state
-      this.setState({ outputTags: [...allEntriesExceptCurrent, currentEntry] });
+      this.setState({ outputTags: [...remainingEntries, currentEntry] });
    };
    render() {
       return (
@@ -207,7 +206,7 @@ class TagSystem extends React.Component {
             {this.renderTagLineFromTaggedHeadphones()}
             {/* Tags from TagLibrary */}
             {this.renderTaggingCriterias()}
-            {this.renderTags()}
+            {this.renderSelectableTags()}
          </div>
       );
    }
@@ -217,7 +216,4 @@ class TagSystem extends React.Component {
 const mapStateToProps = state => {
    return { listOfHeadphones: state.listOfHeadphones };
 };
-export default connect(
-   mapStateToProps,
-   { fetchListOfHeadphones }
-)(TagSystem);
+export default connect(mapStateToProps)(TagSystem);

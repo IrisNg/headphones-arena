@@ -27,8 +27,11 @@ class ChatInput extends React.Component {
          //Post message to server
          const response = await axios.post('/chat', postObj);
          console.log(response.data);
-         //Invoke callback to refetch chat messages from server
-         this.props.fetchChatMessages();
+         // Empty stored message
+         this.setState({ message: '' }, () => {
+            //Invoke callback to refetch chat messages from server
+            this.props.fetchChatMessages();
+         });
       } catch (err) {
          this.props.addGlobalError(err.response.data);
       }
@@ -41,7 +44,8 @@ class ChatInput extends React.Component {
                <textarea
                   className="chat-input__message"
                   value={this.state.message}
-                  onChange={e => this.setState({ message: e.target.value })}
+                  onChange={event => this.setState({ message: event.target.value })}
+                  onKeyPress={event => (event.key === 'Enter' ? this.postMessage() : null)}
                />
                {/* Author */}
                <input

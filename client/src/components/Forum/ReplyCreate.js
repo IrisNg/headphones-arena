@@ -8,13 +8,11 @@ import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
    state = {
-      //From Props
       idToReplyTo: '',
       title: '',
-      //Not from props - user inputted
+      category: '',
       outputTags: [],
-      content: 'What do you want to share with your fellow Audiophiles today?',
-      category: ''
+      content: 'What do you want to share with your fellow Audiophiles today?'
    };
 
    componentDidUpdate() {
@@ -71,10 +69,6 @@ class ReplyCreate extends React.Component {
          this.props.addGlobalError(err.response.data);
       }
    };
-   //Add styling only to selected category
-   manageClass(category) {
-      return this.state.category === category ? 'active' : '';
-   }
    //Display message to remind user to log in before creating a new post
    askLogin() {
       if (!this.props.currentUser) {
@@ -84,7 +78,6 @@ class ReplyCreate extends React.Component {
    render() {
       return (
          <div className="reply-create">
-            <h6>New Reply</h6>
             <form onSubmit={this.onFormSubmit}>
                {/* Tagging Mechanism */}
                <TagSystem compileTags={this.retrieveTagsFromTagSystem} />

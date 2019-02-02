@@ -37,13 +37,13 @@ function findCategoryPosts(category) {
                reject('Top categorized posts are not found');
             } else {
                //Take 2 of the latest posts
-               var results = foundPosts.splice(0, 2);
+               var results = foundPosts.splice(0, 3);
                //Resort remaining posts by vote popularity
                foundPosts.sort((a, b) => {
                   return b.vote.count - a.vote.count;
                });
                //Combine the latest and hottest posts into one array
-               results = results.concat(foundPosts.splice(0, 3));
+               results = results.concat(foundPosts.splice(0, 4));
                // console.log(results);
                resolve(results);
             }
@@ -78,7 +78,7 @@ router.post('/forum/search', (req, res) => {
       ]
    })
       .sort({ created: -1 })
-      .limit(5)
+      .limit(8)
       .exec((err, foundPosts) => {
          if (err) {
             res.status(400).json('Could not find any post related to your search term');

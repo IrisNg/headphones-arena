@@ -8,16 +8,19 @@ class ForumSearch extends React.Component {
    };
 
    render() {
+      var { searchTerm } = this.props;
       return (
          <div className="forum-search">
-            <div className="forum-search__box" />
+            <i className="fas fa-search forum-search__icon" style={searchTerm ? { display: 'none' } : null} />
             <input
                type="text"
                className="forum-search__input"
-               value={this.props.searchTerm}
+               value={searchTerm}
                onChange={this.onSearchInputChange}
+               style={searchTerm ? { borderColor: '#c00603' } : null}
             />
-            <div className="forum-search__box" />
+            <div className="forum-search__box" style={searchTerm ? { backgroundColor: '#c00603' } : null} />
+            <div className="forum-search__box" style={searchTerm ? { backgroundColor: '#c00603' } : null} />
          </div>
       );
    }

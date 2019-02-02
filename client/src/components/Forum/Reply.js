@@ -13,97 +13,104 @@ class Reply extends React.Component {
    };
    //Render tags selected by the author of this reply
    renderTags = () => {
-      if (this.props.data.tag.length > 0) {
-         return this.props.data.tag.map(entry => {
-            return (
-               <div key={entry.tags}>
-                  <h6
-                     onClick={() => {
-                        this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
-                     }}
-                  >
-                     {entry.brandAndModel}
-                  </h6>
-                  <p>
-                     {entry.tags.map(tag => {
-                        return (
-                           <span className="reply__tag" key={tag}>
-                              {tag}
-                           </span>
-                        );
-                     })}
-                  </p>
-               </div>
-            );
-         });
+      var { data } = this.props;
+      if (data.tag.length === 0) {
+         return null;
       }
+      return data.tag.map(entry => {
+         return (
+            <div key={entry.tags}>
+               <h6
+                  onClick={() => {
+                     this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
+                  }}
+               >
+                  {entry.brandAndModel}
+               </h6>
+               <p>
+                  {entry.tags.map(tag => {
+                     return (
+                        <span className="reply__tag" key={tag}>
+                           {tag}
+                        </span>
+                     );
+                  })}
+               </p>
+            </div>
+         );
+      });
    };
    //Render replies to this reply
    renderReplies = () => {
-      if (this.props.data.replies.length > 0) {
-         return this.props.data.replies.map(reply => (
-            <Reply
-               key={reply._id}
-               data={reply}
-               allowReply={this.props.tier < 3 ? true : false}
-               tier={this.props.tier + 1}
-               mainPostId={this.props.mainPostId}
-               currentUser={this.props.currentUser}
-            />
-         ));
-      } else {
+      var { data } = this.props;
+      if (data.replies.length === 0) {
          return null;
       }
+      return data.replies.map(reply => (
+         <Reply
+            key={reply._id}
+            data={reply}
+            allowReply={this.props.tier < 3}
+            tier={this.props.tier + 1}
+            mainPostId={this.props.mainPostId}
+            currentUser={this.props.currentUser}
+         />
+      ));
    };
 
    //Render the button that triggers the create reply form
    //Restrict reply creation after a certain nested level
    //To prevent database from exploding and text from becoming too squashed up
-   allowReplyCreate = () => {
-      if (this.props.allowReply) {
-         return (
-            <div
-               //Make this button disappear after ReplyCreate component appear
-               style={this.state.renderReplyCreate ? { display: 'none' } : null}
-               onClick={() => this.setState({ renderReplyCreate: true })}
-            >
-               +
-            </div>
-         );
+   renderButtonToTriggerReplyCreate = () => {
+      if (!this.props.allowReply) {
+         return null;
       }
+      return (
+         <div
+            //Make this button disappear after ReplyCreate component appear
+            style={this.state.renderReplyCreate ? { display: 'none' } : null}
+            onClick={() => this.setState({ renderReplyCreate: true })}
+         >
+            +
+         </div>
+      );
    };
    //Render the create reply form
    renderReplyCreate() {
-      if (this.state.renderReplyCreate) {
-         const { _id, title, category } = this.props.data;
-         return (
-            <ReplyCreate
-               idToReplyTo={_id}
-               title={title}
-               category={category}
-               mainPostId={this.props.mainPostId}
-               turnOffReplyCreate={this.turnOffReplyCreate}
-            />
-         );
+      if (!this.state.renderReplyCreate) {
+         return null;
       }
+      var { _id, title, category } = this.props.data;
+      return (
+         <ReplyCreate
+            idToReplyTo={_id}
+            title={title}
+            category={category}
+            mainPostId={this.props.mainPostId}
+            turnOffReplyCreate={this.turnOffReplyCreate}
+         />
+      );
    }
+   //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
    turnOffReplyCreate = () => {
-      //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
       this.setState({ renderReplyCreate: false });
    };
-   renderEditButton = (currentUser, author, _id) => {
-      if (currentUser && author.id === currentUser.id) {
-         return <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />;
+   renderEditButton = () => {
+      var {
+         data: { author, _id },
+         currentUser
+      } = this.props;
+      if (!currentUser || author.id !== currentUser.id) {
+         return null;
       }
-      return null;
+      return <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />;
    };
 
    render() {
       if (!this.props.data) {
-         return <div>Loading</div>;
+         return <div />;
       }
-      const { created, content, author, vote, _id } = this.props.data;
-
+      var { created, content, author, vote, _id } = this.props.data;
       return (
          <div className="reply-thread">
             <div className="reply">
@@ -121,12 +128,12 @@ class Reply extends React.Component {
                   <Vote vote={vote} id={_id} mainPostId={this.props.mainPostId} />
                </div>
                {/* Edit button (If current user is the author of this reply) */}
-               {this.renderEditButton(this.props.currentUser, author, _id)}
+               {this.renderEditButton()}
             </div>
             {/* Replies to this reply */}
             {this.renderReplies()}
             {/* '+' Button  */}
-            {this.allowReplyCreate()}
+            {this.renderButtonToTriggerReplyCreate()}
             {/* Create reply form */}
             {this.renderReplyCreate()}
          </div>

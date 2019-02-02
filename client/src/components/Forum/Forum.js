@@ -6,6 +6,7 @@ import ForumCategory from './ForumCategory';
 import ForumSearch from './ForumSearch';
 import ForumSearchPosts from './ForumSearchPosts';
 import LiveChat from '../LiveChat/LiveChat';
+import ForumStyling from './ForumStyling';
 import './Forum.css';
 
 class Forum extends React.Component {
@@ -26,37 +27,29 @@ class Forum extends React.Component {
                {/* Page Title */}
                <h1 className="forum-contents__page-title">FORUM</h1>
                {/* Comparison category */}
-               <ForumCategory posts={comparison} category={'comparison'} />
+               <ForumCategory posts={comparison} category={'comparison'} searchActive={searchTerm} />
                {/* Searchbar */}
                <ForumSearch />
                {/* Search results */}
                {/* Turn ON this component if user is using the searchbar */}
-               <ForumSearchPosts searchActive={searchTerm ? true : false} />
+               <ForumSearchPosts searchActive={searchTerm} />
                {/* Review category */}
                {/* Turn OFF this component if user is using the searchbar */}
-               <ForumCategory posts={review} category={'review'} searchActive={searchTerm ? true : false} />
+               <ForumCategory posts={review} category={'review'} searchActive={searchTerm} />
                {/* General category */}
                {/* Turn OFF this component if user is using the searchbar */}
-               <ForumCategory posts={general} category={'general'} searchActive={searchTerm ? true : false} />
+               <ForumCategory posts={general} category={'general'} searchActive={searchTerm} />
 
                {/* Budget Recommendation category */}
-               <ForumCategory posts={recommendation} category={'recommendation'} />
+               <ForumCategory posts={recommendation} category={'recommendation'} searchActive={searchTerm} />
                {/* Category names */}
-               <div className="forum-contents__category-names">
-                  <h2 className="forum-contents__comparison-name">COMPARISON</h2>
-                  <h2 className="forum-contents__review-name">REVIEW</h2>
-                  <h2 className="forum-contents__general-name">GENERAL</h2>
-                  <h2 className="forum-contents__recommendation-name">RECOMMENDATION</h2>
-               </div>
-               <div className="forum__vertical-lines" />
+               <ForumStyling searchTerm={searchTerm} />
+               <LiveChat />
             </div>
-            <div className="forum__nav-bar-line" />
-            <div className="forum__horizontal-lines" />
             {/* Button to redirect to PostCreate */}
             <div className="forum__add-post-button" onClick={() => history.push('/posts/new')}>
                +
             </div>
-            <LiveChat />
          </div>
       );
    }

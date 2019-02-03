@@ -93,18 +93,18 @@ router.post('/forum/topposts', (req, res) => {
          }
       });
 });
-// //Create headphone page
-// router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
-//    Headphone.create(req.body, function(err, createdHeadphone) {
-//       if (err) {
-//          res.status(400).json('Failed to create new headphone entry in the database');
-//       } else {
-//          res.json(createdHeadphone);
-//       }
-//    });
-// });
+//Create headphone page
+router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
+   Headphone.create(req.body, function(err, createdHeadphone) {
+      if (err) {
+         res.status(400).json('Failed to create new headphone entry in the database');
+      } else {
+         res.json(createdHeadphone);
+      }
+   });
+});
 //Or seed headphone entries from file
-router.post('/headphones', (req, res) => {
+router.post('/headphones/seed', (req, res) => {
    headphoneSeed.forEach(headphone => {
       Headphone.create(headphone, (err, createdHeadphone) => {
          if (err) {

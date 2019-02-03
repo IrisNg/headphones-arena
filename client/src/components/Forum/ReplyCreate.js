@@ -72,7 +72,7 @@ class ReplyCreate extends React.Component {
    //Display message to remind user to log in before creating a new post
    askLogin() {
       if (!this.props.currentUser) {
-         return <Login />;
+         return <Login turnOffLogin={this.props.turnOffReplyCreate} />;
       }
    }
    render() {

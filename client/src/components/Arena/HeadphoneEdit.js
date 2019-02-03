@@ -47,47 +47,14 @@ class HeadphoneEdit extends React.Component {
       try {
          const response = await axios.get(`/headphones/${id}`);
          //Destructuring from fetched entry
-         const {
-            _id,
-            brand,
-            model,
-            image,
-            officialDescription,
-            amazonLink,
-            price,
-            specification: {
-               impedance,
-               connector,
-               portability,
-               color,
-               cable,
-               driver,
-               sensitivity,
-               frequencyResponse,
-               classification,
-               maximumPower,
-               weight,
-               inTheBox
-            }
-         } = response.data;
+         const { _id, brand, model, image, officialDescription, amazonLink, price, specification } = response.data;
          //Update state with the existing headphone data
          this.setState({
             _id,
             brand,
             model,
             officialDescription,
-            impedance,
-            connector,
-            portability,
-            color,
-            cable,
-            driver,
-            sensitivity,
-            frequencyResponse,
-            classification,
-            maximumPower,
-            weight,
-            inTheBox,
+            ...specification,
             image,
             amazonLink,
             price
@@ -173,7 +140,9 @@ class HeadphoneEdit extends React.Component {
          this.props.addGlobalError(err.response.data);
       }
    };
-
+   renderDeleteButton() {
+      return this.state._id ? <HeadphoneDelete id={this.state._id} /> : null;
+   }
    render() {
       return (
          <div className="headphone-edit">
@@ -186,8 +155,9 @@ class HeadphoneEdit extends React.Component {
                   {/* All the input fields */}
                   {this.mapStateKeysToJSX()}
                   <div className="headphone-edit__buttons">
+                     {/* Delete button */}
+                     {this.renderDeleteButton()}
                      {/* Submit button */}
-                     {this.state._id ? <HeadphoneDelete id={this.state._id} /> : null}
                      <div className="headphone-edit__submit-button" onClick={this.onFormSubmit}>
                         UPDATE HEADPHONE
                      </div>

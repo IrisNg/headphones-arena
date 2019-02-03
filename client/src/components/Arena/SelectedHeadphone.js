@@ -43,6 +43,9 @@ class SelectedHeadphone extends React.Component {
       }
       return `linear-gradient(to right, black ${average * 10}%, white ${100 - average * 10}%)`;
    }
+   manageSelectedPage(page) {
+      return this.state.page === page ? '--active-page' : null;
+   }
    render() {
       if (!this.props.fullHeadphone) {
          return (
@@ -66,15 +69,15 @@ class SelectedHeadphone extends React.Component {
                <div>
                   {/* Select pages */}
                   <span
-                     className={`selected-headphone__page ${this.state.page === 1 ? '--active-page' : ''}`}
+                     className={`selected-headphone__page ${this.manageSelectedPage(1)}`}
                      onClick={() => this.setState({ page: 1 })}
                   />
                   <span
-                     className={`selected-headphone__page ${this.state.page === 2 ? '--active-page' : ''}`}
+                     className={`selected-headphone__page ${this.manageSelectedPage(2)}`}
                      onClick={() => this.setState({ page: 2 })}
                   />
                   <span
-                     className={`selected-headphone__page ${this.state.page === 3 ? '--active-page' : ''}`}
+                     className={`selected-headphone__page ${this.manageSelectedPage(3)}`}
                      onClick={() => this.setState({ page: 3 })}
                   />
                </div>

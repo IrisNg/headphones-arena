@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import history from '../../history';
 import axios from 'axios';
 import { addGlobalError } from '../../actions';
-import Login from '../Authentication/Login';
 
 class SendPrivateMessage extends React.Component {
    state = {
@@ -24,6 +24,9 @@ class SendPrivateMessage extends React.Component {
    }
    //Render sender's username if this is the owner replying
    renderReplyUsername = () => {
+      if (!this.state.replyTo) {
+         return null;
+      }
       const { fromUsername } = this.state.replyTo;
       return (
          <div>
@@ -60,18 +63,26 @@ class SendPrivateMessage extends React.Component {
          }
       }
    };
+
+   checkLogin() {
+      //Proceed if user is logged in
+      if (this.props.currentUser) {
+         return null;
+      }
+      history.go(0);
+   }
    render() {
       return (
          <div>
-            {/* Make user log in if he is not */}
-            {!this.props.currentUser ? <Login /> : null}
             {/* Render sender's username if this is a reply */}
-            {this.state.replyTo ? this.renderReplyUsername() : null}
+            {this.renderReplyUsername()}
             {/* Subject */}
             <input type="text" value={this.state.subject} onChange={e => this.setState({ subject: e.target.value })} />
             {/* Message content */}
             <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
             <button onClick={this.postPrivateMessage}>Send</button>
+            {/* Make user log in if he is not */}
+            {this.checkLogin()}
          </div>
       );
    }

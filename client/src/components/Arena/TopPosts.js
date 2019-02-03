@@ -17,7 +17,7 @@ class TopPosts extends React.Component {
             {/* Date */}
             <div className="top-posts__date">
                <div>
-                  {post.vote.count > 0 ? <i className="fas fa-angle-up" /> : <i className="fas fa-angle-down" />}
+                  {this.manageVoteIcon(post)}
                   {post.vote.count}
                </div>
                <Moment fromNow>{post.created}</Moment>
@@ -25,7 +25,9 @@ class TopPosts extends React.Component {
          </div>
       ));
    }
-
+   manageVoteIcon(post) {
+      return post.vote.count >= 0 ? <i className="fas fa-angle-up" /> : <i className="fas fa-angle-down" />;
+   }
    render() {
       var { topPosts } = this.props;
       if (!topPosts) {

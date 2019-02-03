@@ -30,8 +30,8 @@
 
 .navigation-bar--inactive {
     z-index: 5;
-    transform: translateX(-100vw);
-    transition: transform 1.1s;
+    transform: translateX(-20vw);
+    transition: transform .7s;
 }
 
 .navigation-bar:hover .navigation-bar--inactive {

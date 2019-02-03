@@ -8,11 +8,11 @@ import './Arena.css';
 const Arena = () => {
    return (
       <div className="arena">
-         <div className="arena__background" />
+         <div className="arena__horizontal-line" />
          <HeadphoneList />
          <SelectedList />
          <LiveChat />
-         <div className="arena__continuous-line" />
+         <div className="arena__nav-bar-line" />
       </div>
    );
 };

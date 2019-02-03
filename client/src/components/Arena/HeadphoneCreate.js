@@ -36,7 +36,7 @@ class HeadphoneCreate extends React.Component {
 
    postToServer = async () => {
       //Format object to be posted to the server
-      var {
+      const {
          brand,
          model,
          officialDescription,

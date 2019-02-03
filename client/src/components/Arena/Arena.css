@@ -14,7 +14,7 @@
     grid-template-areas: "headphone-list selected-list live-chat" "headphone-list selected-list live-chat";
 }
 
-.arena__background {
+.arena__horizontal-line {
     height: 50vh;
     width: 100%;
     z-index: -2;
@@ -23,7 +23,7 @@
     border-bottom: 2px solid black;
 }
 
-.arena__continuous-line {
+.arena__nav-bar-line {
     position: fixed;
     width: 3.5rem;
     height: 100%;
@@ -377,6 +377,13 @@
         margin-right: 3.5rem;
         box-shadow: none;
     }
+    .arena~.navigation-bar .navigation-bar--inactive {
+        transform: translateX(-100vw);
+        transition: transform 1.4s;
+    }
+    .arena~.navigation-bar:hover .navigation-bar--inactive {
+        transform: translateX(0);
+    }
     .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
         transform: translateX(3.5rem);
     }
@@ -387,10 +394,10 @@
         grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
         justify-items: center;
     }
-    .arena__background {
+    .arena__horizontal-line {
         height: 55vh;
     }
-    .arena__continuous-line {
+    .arena__nav-bar-line {
         width: 1.9rem;
     }
     .headphone-list {
@@ -442,10 +449,10 @@
     .arena {
         grid-template-columns: 23% 77%;
     }
-    .arena__background {
+    .arena__horizontal-line {
         height: 45vh;
     }
-    .arena__continuous-line {
+    .arena__nav-bar-line {
         width: 2.4rem;
     }
     .headphone-list {

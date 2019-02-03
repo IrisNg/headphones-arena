@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import history from '../../history';
 import { loginUser, addGlobalError } from '../../actions';
 import Register from './Register';
 import './Login.css';
@@ -21,8 +22,15 @@ class Login extends React.Component {
          this.props.loginUser(this.state.username, this.state.password);
          if (this.props.redirectIfDone) {
             //Redirect back when done
-            this.props.redirectIfDone();
+            history.goBack();
          }
+      }
+   };
+   onRefuseClick = () => {
+      if (!this.props.turnOffLogin) {
+         history.goBack();
+      } else {
+         this.props.turnOffLogin();
       }
    };
    renderRegister = () => {
@@ -65,7 +73,7 @@ class Login extends React.Component {
                   >
                      But, I am not registered!
                   </h6>
-                  <h6 className="login__alternatives-refuse" onClick={this.props.turnOffLogin}>
+                  <h6 className="login__alternatives-refuse" onClick={this.onRefuseClick}>
                      No Way! You can't make me!
                   </h6>
                </div>

@@ -183,6 +183,8 @@ export const loginUser = (username, password) => async dispatch => {
 export const logoutUser = () => async dispatch => {
    try {
       const response = await axios.get('/logout');
+      //Force page to refresh
+      history.go(0);
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError('Logout failed. You are stuck here forever haha!'));

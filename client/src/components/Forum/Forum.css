@@ -4,40 +4,6 @@
     bottom: -4px;
 }
 
-.forum-lines div:nth-of-type(1) {
-    position: fixed;
-    height: 3px;
-    width: 100vw;
-    top: 33%;
-    background-color: black;
-}
-
-.forum-lines div:nth-of-type(2) {
-    position: fixed;
-    height: 3px;
-    width: 100vw;
-    top: 66%;
-    background-color: black;
-}
-
-.forum-lines div:nth-of-type(3) {
-    position: fixed;
-    height: 100vh;
-    width: 3px;
-    top: 0;
-    left: 33%;
-    background-color: black;
-}
-
-.forum-lines div:nth-of-type(4) {
-    position: fixed;
-    height: 100vh;
-    width: 3px;
-    top: 0;
-    left: 66%;
-    background-color: black;
-}
-
 /* Forum */
 
 .forum {
@@ -50,7 +16,7 @@
 
 .forum-contents {
     display: grid;
-    grid-template-rows: 27% 7.5% 27% auto;
+    grid-template-rows: 27% 7.6% 27% auto;
     grid-template-columns: repeat(4, 28vh);
     grid-template-areas: "search-bar search-bar search-bar search-bar" ". . . ." "comparison title title recommendation" "comparison review general recommendation";
     grid-gap: 1vh;
@@ -141,8 +107,7 @@
     margin: 0 .5rem;
 }
 
-.forum-search__post-vote-icon,
-.forum-category__post-vote-icon {
+.forum-search__post-vote-icon, .forum-category__post-vote-icon {
     margin-right: .15rem;
 }
 
@@ -469,6 +434,13 @@
     .forum~.navigation-bar .navigation-bar-icon {
         margin-right: 3.5rem;
         box-shadow: none;
+    }
+    .forum~.navigation-bar .navigation-bar--inactive {
+        transform: translateX(-100vw);
+        transition: transform 1.4s;
+    }
+    .forum~.navigation-bar:hover .navigation-bar--inactive {
+        transform: translateX(0);
     }
     .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
         transform: translateX(3.5rem);

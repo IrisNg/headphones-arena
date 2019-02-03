@@ -68,9 +68,12 @@ class Vote extends React.Component {
       if (this.state.askLogin && this.props.currentUser) {
          this.setState({ askLogin: false });
       } else if (this.state.askLogin) {
-         return <Login />;
+         return <Login turnOffLogin={this.turnOffLogin} />;
       }
    }
+   turnOffLogin = () => {
+      this.setState({ askLogin: false });
+   };
    manageUpVoteIconStyle() {
       var { vote, currentUser } = this.props;
       return currentUser && vote.upVote.includes(currentUser.id) ? 'vote--active' : null;

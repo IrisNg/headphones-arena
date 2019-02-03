@@ -4,10 +4,6 @@ import history from '../../history';
 import Login from './Login';
 import Register from './Register';
 
-const redirectIfDone = () => {
-   history.goBack();
-};
-
 const Authentication = ({ currentUser }) => {
    //If user is already logged in then redirect to user's profile page
    if (currentUser) {
@@ -16,9 +12,9 @@ const Authentication = ({ currentUser }) => {
    return (
       <div>
          Are you new here?
-         <Register redirectIfDone={redirectIfDone} />
+         <Register redirectIfDone={true} />
          Or do you have an existing account?
-         <Login redirectIfDone={redirectIfDone} />
+         <Login redirectIfDone={true} />
       </div>
    );
 };

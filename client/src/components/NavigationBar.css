@@ -30,7 +30,7 @@
 
 .navigation-bar--inactive {
     z-index: 5;
-    transform: translateX(-20vw);
+    transform: translateX(-23vw);
     transition: transform .7s;
 }
 
@@ -56,4 +56,64 @@
 
 .navigation-bar-icon:hover .navigation-bar--page-name {
     opacity: 1;
+}
+
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    .arena~.navigation-bar, 
+    .forum~.navigation-bar,
+    .post-show~.navigation-bar {
+        height: calc(3.5rem + 4px);
+        width: 100%;
+        top: 0;
+        left: 0;
+        justify-content: space-between;
+        background-color: black;
+        border: 2px solid black;
+        box-sizing: border-box;
+    }
+    .arena~.navigation-bar:hover, 
+    .forum~.navigation-bar:hover, 
+    .post-show~.navigation-bar:hover {
+        border-color: #c00603;
+    }
+    .arena~.navigation-bar .navigation-bar-icon,
+    .forum~.navigation-bar .navigation-bar-icon, 
+    .post-show~.navigation-bar .navigation-bar-icon {
+        margin-right: 3.5rem;
+        box-shadow: none;
+    }
+    .arena~.navigation-bar .navigation-bar--inactive,
+    .forum~.navigation-bar .navigation-bar--inactive, 
+    .post-show~.navigation-bar .navigation-bar--inactive {
+        transform: translateX(-100vw);
+        transition: transform 1.4s;
+    }
+    .arena~.navigation-bar:hover .navigation-bar--inactive,
+    .forum~.navigation-bar:hover .navigation-bar--inactive, 
+    .post-show~.navigation-bar:hover .navigation-bar--inactive {
+        transform: translateX(0);
+    }
+    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
+    .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
+    .post-show~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+        transform: translateX(3.5rem);
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .arena~.navigation-bar .navigation-bar-icon,
+    .forum~.navigation-bar .navigation-bar-icon,
+    .post-show~.navigation-bar .navigation-bar-icon {
+        margin-right: 0;
+    }
+    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
+    .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
+    .post-show~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+        transform: translateX(0);
+    }
 }

@@ -91,7 +91,9 @@ class MainPost extends React.Component {
       return (
          <div className="main-post">
             {/* Title */}
-            <div className="main-post__title">{title}</div>
+            <div className="main-post__title">
+               <span>{title}</span>
+            </div>
             {/* Category */}
             <div className="main-post__category">{category}</div>
             <div className="main-post__container">

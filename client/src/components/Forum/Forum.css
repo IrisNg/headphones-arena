@@ -417,34 +417,6 @@
 /* Tablet */
 
 @media only screen and (max-width: 767px) {
-    /* NavigationBar */
-    .forum~.navigation-bar {
-        height: calc(3.5rem + 4px);
-        width: 100%;
-        top: 0;
-        left: 0;
-        justify-content: space-between;
-        background-color: black;
-        border: 2px solid black;
-        box-sizing: border-box;
-    }
-    .forum~.navigation-bar:hover {
-        border-color: #c00603;
-    }
-    .forum~.navigation-bar .navigation-bar-icon {
-        margin-right: 3.5rem;
-        box-shadow: none;
-    }
-    .forum~.navigation-bar .navigation-bar--inactive {
-        transform: translateX(-100vw);
-        transition: transform 1.4s;
-    }
-    .forum~.navigation-bar:hover .navigation-bar--inactive {
-        transform: translateX(0);
-    }
-    .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(3.5rem);
-    }
     /* LiveChat */
     .forum .live-chat {
         grid-area: live-chat;
@@ -476,13 +448,6 @@
 /* Phones */
 
 @media only screen and (max-width: 581px) {
-    /* NavigationBar */
-    .forum~.navigation-bar .navigation-bar-icon {
-        margin-right: 0;
-    }
-    .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(0);
-    }
     /* LiveChat */
     .forum .live-chat {
         width: 100%;

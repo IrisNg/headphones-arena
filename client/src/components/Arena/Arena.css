@@ -360,33 +360,6 @@
 /* Tablet */
 
 @media only screen and (max-width: 767px) {
-    .arena~.navigation-bar {
-        height: calc(3.5rem + 4px);
-        width: 100%;
-        top: 0;
-        left: 0;
-        justify-content: space-between;
-        background-color: black;
-        border: 2px solid black;
-        box-sizing: border-box;
-    }
-    .arena~.navigation-bar:hover {
-        border-color: #c00603;
-    }
-    .arena~.navigation-bar .navigation-bar-icon {
-        margin-right: 3.5rem;
-        box-shadow: none;
-    }
-    .arena~.navigation-bar .navigation-bar--inactive {
-        transform: translateX(-100vw);
-        transition: transform 1.4s;
-    }
-    .arena~.navigation-bar:hover .navigation-bar--inactive {
-        transform: translateX(0);
-    }
-    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(3.5rem);
-    }
     .arena {
         padding-top: 3.5rem;
         grid-template-columns: 25% 75%;
@@ -440,12 +413,6 @@
 /* Phones */
 
 @media only screen and (max-width: 481px) {
-    .arena~.navigation-bar .navigation-bar-icon {
-        margin-right: 0;
-    }
-    .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(0);
-    }
     .arena {
         grid-template-columns: 23% 77%;
     }

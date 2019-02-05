@@ -11,6 +11,15 @@ class Reply extends React.Component {
    state = {
       renderReplyCreate: false
    };
+   renderAvatar() {
+      var {
+         profile: { picture },
+         id
+      } = this.props.data.author;
+      return picture ? (
+         <img className="reply__avatar" src={picture} alt="user avatar" onClick={() => history.push(`/user/${id}`)} />
+      ) : null;
+   }
    //Render tags selected by the author of this reply
    renderTags = () => {
       var { data } = this.props;
@@ -19,23 +28,24 @@ class Reply extends React.Component {
       }
       return data.tag.map(entry => {
          return (
-            <div key={entry.tags}>
+            <div key={entry.tags} className="reply__tag-item">
                <h6
+                  className="reply__tagged-headphone"
                   onClick={() => {
                      this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
                   }}
                >
-                  {entry.brandAndModel}
+                  {entry.brandAndModel.toUpperCase()}
                </h6>
-               <p>
+               <div className="reply__tags">
                   {entry.tags.map(tag => {
                      return (
-                        <span className="reply__tag" key={tag}>
-                           {tag}
-                        </span>
+                        <div className="reply__tag" key={tag}>
+                           {tag.toUpperCase()}
+                        </div>
                      );
                   })}
-               </p>
+               </div>
             </div>
          );
       });
@@ -68,10 +78,11 @@ class Reply extends React.Component {
       return (
          <div
             //Make this button disappear after ReplyCreate component appear
+            className="reply__create-reply-button"
             style={this.manageReplyCreateButton()}
             onClick={() => this.setState({ renderReplyCreate: true })}
          >
-            +
+            <i className="far fa-comment-alt" />
          </div>
       );
    };
@@ -115,30 +126,37 @@ class Reply extends React.Component {
       }
       var { created, content, author, vote, _id } = this.props.data;
       return (
-         <div className="reply-thread">
-            <div className="reply">
-               {/* Date */}
-               <Moment format="D MMM YYYY" withTitle>
-                  {created}
-               </Moment>
-               {/* Tags */}
-               <div>{this.renderTags()}</div>
-               {/* Content */}
-               <p>{content}</p>
-               {/* Metadata */}
-               <div>
-                  <h4 onClick={() => history.push(`/user/${author.id}`)}>{author.username}</h4>
-                  <Vote vote={vote} id={_id} mainPostId={this.props.mainPostId} />
+         <div className="reply">
+            {/* Date */}
+            <Moment format="D MMM YYYY" withTitle className="reply__date">
+               {created}
+            </Moment>
+            <div className="reply__body">
+               <div className="reply__author">
+                  {/* Author Avatar */}
+                  {this.renderAvatar()}
+                  {/* Author Username */}
+                  <h4 className="reply__username" onClick={() => history.push(`/user/${author.id}`)}>
+                     {author.username}
+                  </h4>
                </div>
-               {/* Edit button (If current user is the author of this reply) */}
-               {this.renderEditButton()}
+               {/* Content */}
+               <p className="reply__content">{content}</p>
             </div>
-            {/* Replies to this reply */}
-            {this.renderReplies()}
-            {/* '+' Button  */}
-            {this.renderButtonToTriggerReplyCreate()}
+            {/* Tags */}
+            <div className="reply__tag-container">{this.renderTags()}</div>
             {/* Create reply form */}
             {this.renderReplyCreate()}
+            <div className="reply__buttons">
+               {/* Vote */}
+               <Vote vote={vote} id={_id} mainPostId={this.props.mainPostId} />
+               {/* Create Reply Button  */}
+               {this.renderButtonToTriggerReplyCreate()}
+               {/* Edit button (If current user is the author of this reply) */}
+               <div className="reply__edit-button">{this.renderEditButton()}</div>
+            </div>
+            {/* Replies to this reply */}
+            <div className="reply__sub-replies">{this.renderReplies()}</div>
          </div>
       );
    }

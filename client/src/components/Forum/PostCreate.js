@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addGlobalError } from '../../actions';
+import { addGlobalError, fetchForumHomePosts } from '../../actions';
 import history from '../../history';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
@@ -58,6 +58,7 @@ class PostCreate extends React.Component {
             const response2 = await axios.put(`/posts/${response.data._id}/addtags`, postObj);
             console.log(response2);
          }
+         this.props.fetchForumHomePosts();
          history.push('/forum');
       } catch (err) {
          this.props.addGlobalError(err.response.data);
@@ -120,5 +121,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalError }
+   { addGlobalError, fetchForumHomePosts }
 )(PostCreate);

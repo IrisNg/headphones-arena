@@ -1,11 +1,24 @@
 import React from 'react';
-import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { selectHeadphoneUsingNameOnly } from '../../actions';
 import history from '../../history';
+import Moment from 'react-moment';
+import { selectHeadphoneUsingNameOnly } from '../../actions';
+import ReplyCreate from './ReplyCreate';
 import Vote from './Vote';
 
 class MainPost extends React.Component {
+   state = {
+      renderReplyCreate: false
+   };
+   renderAvatar() {
+      var {
+         profile: { picture },
+         id
+      } = this.props.data.author;
+      return picture ? (
+         <img className="reply__avatar" src={picture} alt="user avatar" onClick={() => history.push(`/user/${id}`)} />
+      ) : null;
+   }
    //Render tags selected by the author of this post
    renderTags = () => {
       var {
@@ -16,24 +29,25 @@ class MainPost extends React.Component {
       }
       return tag.map(entry => {
          return (
-            <div key={entry.tags}>
+            <div key={entry.tags} className="main-post__tag-item">
                {/* Tagged headphone's name */}
                {/* If user clicks on the name of this tagged headphone, add this headphone to the list of selected headphones in /arena page */}
                <h6
+                  className="main-post__tagged-headphone"
                   onClick={() => {
                      this.props.selectHeadphoneUsingNameOnly(entry.brandAndModel);
                   }}
                >
-                  {entry.brandAndModel}
+                  {entry.brandAndModel.toUpperCase()}
                </h6>
                {/* List of tags associated with this headphone */}
-               <p>
+               <div className="main-post__tags">
                   {entry.tags.map(tag => (
-                     <span className="post__tag" key={tag}>
-                        {tag}
-                     </span>
+                     <div className="main-post__tag" key={tag}>
+                        {tag.toUpperCase()}
+                     </div>
                   ))}
-               </p>
+               </div>
             </div>
          );
       });
@@ -45,33 +59,77 @@ class MainPost extends React.Component {
          <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
       ) : null;
    }
+   //Render the create reply form
+   renderReplyCreate() {
+      if (!this.state.renderReplyCreate) {
+         return null;
+      }
+      var { _id, title, category } = this.props.data;
+      return (
+         <ReplyCreate
+            idToReplyTo={_id}
+            title={title}
+            category={category}
+            turnOffReplyCreate={this.turnOffReplyCreate}
+            mainPostId={_id}
+         />
+      );
+   }
+   turnOffReplyCreate = () => {
+      //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
+      this.setState({ renderReplyCreate: false });
+   };
+   manageReplyCreateButton() {
+      return this.state.renderReplyCreate ? { display: 'none' } : null;
+   }
 
    render() {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, author, vote, _id } = this.props.data;
+      var { title, created, content, author, vote, _id, category } = this.props.data;
       return (
          <div className="main-post">
-            {/* Date */}
-            <Moment format="D MMM YYYY" withTitle>
-               {created}
-            </Moment>
-            <div>
-               {/* Title */}
-               <div className="main-post__title">{title}</div>
-               {/* Tags */}
-               {this.renderTags()}
-               {/* Content */}
-               <p className="main-post__content">{content}</p>
-               {/* Metadata */}
-               <div className="main-post__metadata">
-                  <h4 onClick={() => history.push(`/user/${author.id}`)}>{author.username}</h4>
-                  <Vote vote={vote} id={_id} mainPostId={_id} />
+            {/* Title */}
+            <div className="main-post__title">{title}</div>
+            {/* Category */}
+            <div className="main-post__category">{category}</div>
+            <div className="main-post__container">
+               {/* Date */}
+               <Moment format="D MMM YYYY" withTitle className="main-post__date">
+                  {created}
+               </Moment>
+               <div className="main-post__body">
+                  <div className="main-post__author">
+                     {/* Author Avatar */}
+                     {this.renderAvatar()}
+                     {/* Author Username */}
+                     <h4 className="main-post__username" onClick={() => history.push(`/user/${author.id}`)}>
+                        {author.username}
+                     </h4>
+                  </div>
+                  {/* Content */}
+                  <p className="main-post__content">{content}</p>
                </div>
+               {/* Tags */}
+               <div className="main-post__tag-container">{this.renderTags()}</div>
+               {/* Create reply form */}
+               {this.renderReplyCreate()}
                {/* Edit button (If current user is the author of this post) */}
-               {this.renderEditButton()}
+               <div className="main-post__edit-button">{this.renderEditButton()}</div>
             </div>
+            {/* Create Reply Button  */}
+            <div
+               //Make this button disappear after ReplyCreate component appear
+               style={this.manageReplyCreateButton()}
+               onClick={() => this.setState({ renderReplyCreate: true })}
+               className="main-post__create-reply-button"
+            >
+               <i className="far fa-comment-alt" />
+            </div>
+            {/* Vote */}
+            <Vote vote={vote} id={_id} mainPostId={_id} />
+            <div className="main-post__horizontal-line-1" />
          </div>
       );
    }

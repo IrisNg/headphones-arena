@@ -10,6 +10,7 @@ var PostSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: 'User'
       },
+      profile: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
       username: String
    },
    tag: [{ brandAndModel: String, tags: [String] }],
@@ -19,9 +20,7 @@ var PostSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: 'Post'
       }
-   ],
-   
-
+   ]
 });
 
 var Post = mongoose.model('Post', PostSchema);

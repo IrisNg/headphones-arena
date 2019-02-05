@@ -16,3 +16,12 @@
     background: whitesmoke;
     color: black;
 }
+.tag-system__searchInput {
+    display: block;
+    margin-right: 5rem;
+    width: 100%;
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+}

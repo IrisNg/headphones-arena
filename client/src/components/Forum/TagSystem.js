@@ -74,9 +74,13 @@ class TagSystem extends React.Component {
       //Render headphone suggestion buttons only if there are matches
       return this.state.searchMatches.map(match => {
          return (
-            <button key={match.brandAndModel} onClick={() => this.addTaggedHeadphone(match.brandAndModel)}>
+            <div
+               className="tag-system__searchMatch"
+               key={match.brandAndModel}
+               onClick={() => this.addTaggedHeadphone(match.brandAndModel)}
+            >
                {match.brandAndModel}
-            </button>
+            </div>
          );
       });
    };
@@ -109,9 +113,9 @@ class TagSystem extends React.Component {
                   onClick={() => this.selectTagLine(taggedHeadphoneName)}
                >
                   {taggedHeadphoneName} :{/* Display the tags */}
-                  <span>{this.renderTagsInEachTagLine(taggedHeadphoneName)}</span>
+                  <span className="tag-system__tags">{this.renderTagsInEachTagLine(taggedHeadphoneName)}</span>
                </div>
-               <i className="fas fa-times" onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)} />
+               <i className="fas fa-times tag-system__remove-tag-line" onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)} />
             </div>
          );
       });
@@ -125,7 +129,7 @@ class TagSystem extends React.Component {
       return tagEntry.tags.map(tag => (
          <span className="tag-system__tag" key={tag}>
             {tag}
-            <i className="fas fa-times" onClick={() => this.removeTag(taggedHeadphoneName, tag)} />
+            <i className="fas fa-times tag-system__remove-tag" onClick={() => this.removeTag(taggedHeadphoneName, tag)} />
          </span>
       ));
    };
@@ -197,9 +201,14 @@ class TagSystem extends React.Component {
    };
    render() {
       return (
-         <div>
+         <div className="tag-system">
             {/* Searchbox for headphones names */}
-            <input type="text" value={this.state.searchTerm} onChange={this.onHeadphoneSearchInput} />
+            <input
+               className="tag-system__searchInput"
+               type="text"
+               value={this.state.searchTerm}
+               onChange={this.onHeadphoneSearchInput}
+            />
             {/* Buttons representing successful search matches */}
             {this.renderSuggestionsFromMatches()}
             {/* One tag line for each tagged headphone */}

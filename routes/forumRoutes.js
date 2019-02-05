@@ -36,7 +36,7 @@ function findCategoryPosts(category) {
             if (err) {
                reject('Top categorized posts are not found');
             } else {
-               //Take 2 of the latest posts
+               //Take some of the latest posts
                var results = foundPosts.splice(0, 3);
                //Resort remaining posts by vote popularity
                foundPosts.sort((a, b) => {
@@ -119,10 +119,18 @@ function createPost(req) {
             //Add in the current user's details
             createdPost.author.id = req.user._id;
             createdPost.author.username = req.user.username;
-            createdPost.vote.count = 100;
-            //Save the updated post
-            createdPost.save();
-            resolve(createdPost);
+            //Find and add current user's profile ID
+            UserProfile.findOne({ userId: req.user._id }, (err, foundProfile) => {
+               if (err) {
+                  reject('Could not find your profile');
+               } else {
+                  createdPost.author.profile = foundProfile._id;
+                  createdPost.vote.count = 100;
+                  //Save the updated post
+                  createdPost.save();
+                  resolve(createdPost);
+               }
+            });
          }
       });
    });
@@ -167,8 +175,11 @@ router.get('/posts/:id', (req, res) => {
    Post.findById(req.params.id)
       // Deep populate the replies of each reply
       .populate({
-         path: 'replies',
-         populate: { path: 'replies', populate: { path: 'replies', populate: { path: 'replies' } } }
+         path: 'replies author.profile',
+         populate: {
+            path: 'replies author.profile',
+            populate: { path: 'replies author.profile', populate: { path: 'replies author.profile' } }
+         }
       })
       .exec((err, foundPost) => {
          if (err) {

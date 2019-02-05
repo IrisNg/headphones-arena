@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updatePost } from '../../actions';
 import Login from '../Authentication/Login';
-import './Vote.css';
 
 class Vote extends React.Component {
    state = {
@@ -85,14 +84,14 @@ class Vote extends React.Component {
    render() {
       var { vote } = this.props;
       return (
-         <div>
+         <div className="vote">
             <i
-               className={`fas fa-angle-up ${this.manageUpVoteIconStyle()}`}
+               className={`fas fa-caret-up ${this.manageUpVoteIconStyle()}`}
                onClick={() => this.onVoteClick('upvote')}
             />
             {vote.count}
             <i
-               className={`fas fa-angle-down ${this.manageDownVoteIconStyle()}`}
+               className={`fas fa-caret-down ${this.manageDownVoteIconStyle()}`}
                onClick={() => this.onVoteClick('downvote')}
             />
             {this.askLogin()}

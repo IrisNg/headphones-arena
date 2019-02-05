@@ -4,7 +4,6 @@ import axios from 'axios';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
 import { fetchPost, addGlobalError } from '../../actions';
-import './ReplyCreate.css';
 
 class ReplyCreate extends React.Component {
    state = {
@@ -12,7 +11,7 @@ class ReplyCreate extends React.Component {
       title: '',
       category: '',
       outputTags: [],
-      content: 'What do you want to share with your fellow Audiophiles today?'
+      content: ''
    };
 
    componentDidUpdate() {
@@ -78,12 +77,24 @@ class ReplyCreate extends React.Component {
    render() {
       return (
          <div className="reply-create">
-            <form onSubmit={this.onFormSubmit}>
+            <form>
                {/* Tagging Mechanism */}
                <TagSystem compileTags={this.retrieveTagsFromTagSystem} />
                {/* Post Contents */}
-               <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
-               <input type="submit" />
+               <textarea
+                  className="reply-create__content"
+                  onChange={e => this.setState({ content: e.target.value })}
+                  value={this.state.content}
+                  placeholder="Share your thoughts with your fellow Audiophiles ..."
+               />
+               <div className="reply-create__buttons">
+                  <div className="reply-create__submit-button" onClick={this.onFormSubmit}>
+                     REPLY
+                  </div>
+                  <div className="reply-create__refuse-button" onClick={this.props.turnOffReplyCreate}>
+                     OOPS!
+                  </div>
+               </div>
             </form>
             {this.askLogin()}
          </div>

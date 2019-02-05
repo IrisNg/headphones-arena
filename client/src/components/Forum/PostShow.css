@@ -1,11 +1,452 @@
-.post-show {
-    background-color: black;
-    color: white;
-    font-family: 'Roboto', sans-serif;
+/* NavigationBar */
+
+.post-show~.navigation-bar {
+    bottom: -4px;
 }
 
-.post__tag,
-.reply__tag {
-    margin : 0 .2rem;
-    background: slategray;
+/* LiveChat */
+
+.post-show .live-chat {
+    border-width: 3px;
+    width: calc(11% - 3px);
+}
+
+:root {
+    --show-gutter: 22vw;
+}
+
+/* PostShow */
+
+.post-show {
+    margin-right: 11%;
+    width: 89%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-template-columns: calc(3.5rem - 3px) auto 3.5rem;
+}
+
+.post-show__vertical-lines-1 {
+    position: relative;
+    z-index: -1;
+    grid-column: 2/span 1;
+    grid-row: 1/ -1;
+    min-height: 100vh;
+    height: 100%;
+    width: calc(100% - 3px);
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+}
+
+/* MainPost */
+
+.main-post {
+    grid-area: 1/1/span 1/-1;
+    display: grid;
+    grid-template-rows: 16.6vh fit-content(3.5rem) auto;
+    grid-template-columns: calc(3.5rem - 3px) auto 3.5rem;
+    grid-template-areas: ". category ." "reply-button main-title vote" ". main-content main-content";
+}
+
+/* Category */
+
+.main-post__category {
+    text-align: right;
+    grid-area: category;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: .3em .6em;
+    font-style: italic;
+    font-size: .95rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Main title */
+
+.main-post__title {
+    position: relative;
+    z-index: 1;
+    grid-column: 2 / span 1;
+    grid-row: 1/ span 2;
+    margin: calc(16.6vh - 2rem) .5em .25em .5em;
+    font-size: 4rem;
+    background-color: white;
+    justify-self: center;
+    padding: 0 .2em;
+    font-weight: 900;
+    text-align: center;
+}
+
+.main-post__container {
+    margin-top: 4.5rem;
+    grid-area: main-content;
+    display: grid;
+    grid-template-columns: var(--show-gutter) auto var(--show-gutter) 3.5rem;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: ". body date edit-button" ". tag-container . ." ". reply-create . .";
+    justify-items: center;
+}
+
+/* Date */
+
+.main-post__date, .reply__date {
+    grid-area: date;
+    writing-mode: vertical-rl;
+    justify-self: start;
+    font-weight: 400;
+    font-size: .8rem;
+    color: #393939;
+    padding-top: .5em;
+    padding-left: .3em;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.main-post__body, .reply__body {
+    /* width: 100%; */
+    grid-area: body;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+/* Author */
+
+.main-post__author, .reply__author {
+    display: flex;
+    align-items: center;
+    padding-bottom: .8em;
+    background-color: black;
+    color: white;
+    padding: .5em 1.45em .6em 1.4em;
+}
+
+.main-post__avatar, .reply__avatar {
+    width: 2em;
+    height: 2em;
+    margin-right: .6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.main-post__avatar:hover, .reply__avatar:hover {
+    border: 2px solid #f6cb01;
+    transform: scale(1.2);
+}
+
+.main-post__username, .reply__username {
+    margin: 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    letter-spacing: .03rem;
+}
+
+.main-post__username:hover, .reply__username:hover {
+    transform: scale(1.05);
+    text-decoration: underline;
+    letter-spacing: .05em;
+    color: #f6cb01;
+}
+
+/* Content */
+
+.main-post__content, .reply__content {
+    margin: 0;
+    text-align: justify;
+    font-size: .95rem;
+    line-height: 1.4em;
+    padding: 1em 1.5em 1.1em 1.5em;
+}
+
+/* Tags */
+
+.main-post__tag-container, .reply__tag-container {
+    /* width: 100%; */
+    grid-area: tag-container;
+    /* display: flex;
+    flex-direction: column; */
+    box-sizing: border-box;
+}
+
+.main-post__tag-container>div.main-post__tag-item:nth-of-type(n+2), .reply__tag-container>div.reply__tag-item:nth-of-type(n+2) {
+    border-top: none;
+}
+
+.main-post__tag-item, .reply__tag-item {
+    /* display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "tagged-headphone tagged-headphone tagged-headphone" "tags tags tags"; */
+    border: 1px solid black;
+    /* box-sizing: border-box; */
+    /* margin: auto; */
+    /* width: calc(100% - 1.5px); */
+}
+
+.main-post__tag-container>div.main-post__tag-item:nth-of-type(1), .reply__tag-container>div.reply__tag-item:nth-of-type(1) {
+    border-top: none;
+}
+
+.main-post__tagged-headphone, .reply__tagged-headphone {
+    /* grid-area: tagged-headphone; */
+    margin: 0;
+    letter-spacing: .04em;
+    padding: 1em 1.5em .8em 1.5em;
+    font-size: .8rem;
+    text-decoration: underline;
+    cursor: pointer;
+    /* height: 100%; */
+}
+
+.main-post__tagged-headphone:hover, .reply__tagged-headphone:hover {
+    background-color: black;
+    color: white;
+    border-bottom: 5px solid #f6cb01;
+    padding-bottom: calc(.8em - 5px);
+}
+
+.main-post__tags, .reply__tags {
+    /* grid-area: tags; */
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em 1em;
+    background-color: #ebebeb;
+}
+
+.main-post__tag, .reply__tag {
+    font-size: .7rem;
+    margin: .2em;
+    padding: .2em .6em;
+    background-color: white;
+    border: 1px solid black;
+    letter-spacing: .02em;
+}
+
+/* ReplyCreate form */
+
+.main-post__container .reply-create, .reply>.reply-create {
+    grid-area: reply-create;
+}
+
+/* Edit button */
+
+.main-post__edit-button {
+    grid-area: edit-button;
+    padding-left: 9px;
+    cursor: pointer;
+}
+
+.main-post__edit-button:hover {
+    color: #164499;
+}
+
+/* Create reply button */
+
+.main-post__create-reply-button {
+    grid-area: reply-button;
+    background-color: black;
+    color: white;
+    /* width: 100%; */
+    /* height: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transform: scaleX(-1);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.main-post__create-reply-button:hover {
+    background-color: #f6cb01;
+    color: black;
+}
+
+/* vote */
+
+.main-post>.vote {
+    grid-area: vote;
+    margin-left: 3px;
+    /* justify-self: start; */
+    /* align-self: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: .85rem;
+    background-color: black;
+    color: white;
+    /* width: calc(100% - 3px); */
+    /* height: 100%; */
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.main-post>div.vote:hover {
+    background-color: #f6cb01;
+}
+
+.main-post>.vote i {
+    font-size: 1.2rem;
+}
+
+.main-post>.vote i:hover {
+    transform: scale(1.3);
+}
+
+.vote--active {
+    color: #f6cb01;
+}
+
+.main-post>.vote:hover .vote--active {
+    color: black;
+}
+
+.main-post__horizontal-line-1 {
+    grid-column: 1/-1;
+    grid-row: 2/span 1;
+    /* width: 100%; */
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    position: relative;
+    z-index: -1;
+}
+
+/* Reply */
+
+/* All replies */
+
+.post-show__replies {
+    grid-area: 2/ 2 /span 1 / -1;
+    padding-left: var(--show-gutter);
+}
+
+/* Each reply */
+
+.reply {
+    margin-top: 2.8rem;
+    padding-left: 1rem;
+    display: grid;
+    grid-template-columns: auto var(--show-gutter) 3.5rem;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "body date buttons" "tag-container . buttons" "reply-create . ." "sub-replies sub-replies sub-replies";
+    border-left: 1px solid rgba(0, 0, 0, 1);
+}
+
+/* Tier 1 replies */
+
+.post-show__replies>.reply {
+    padding-left: 0;
+    border-left: none;
+}
+
+/* Vote, create reply, edit buttons */
+
+.reply>.reply__buttons {
+    grid-area: buttons;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem 0 .5rem 7px;
+}
+
+/* vote */
+
+.reply__buttons>.vote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .85rem;
+    margin-bottom: .5rem;
+}
+
+.reply__buttons>.vote i {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.reply__buttons>.vote i:hover {
+    transform: scale(1.4);
+}
+
+/* Create reply button */
+
+.reply__create-reply-button {
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+.reply__create-reply-button:hover {
+    color: #164499;
+    transform: scale(1.4);
+    font-weight: 900;
+}
+
+/* Edit button */
+
+.reply__edit-button {
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.reply__edit-button:hover {
+    color: #164499;
+    transform: scale(1.4);
+    font-weight: 900;
+}
+
+/* Recursive replies */
+
+.reply__sub-replies {
+    grid-area: sub-replies;
+}
+
+/* ReplyCreate */
+
+.reply-create {
+    width: 100%;
+    border: 2px solid black;
+    margin-top: -2px;
+    box-sizing: border-box;
+}
+
+.reply-create__content {
+    /* display: block; */
+    width: 100%;
+    height: 10rem;
+    outline: none;
+    box-sizing: border-box;
+    padding: 1.5em 2em;
+    resize: none;
+    border: none;
+    background: none;
+}
+
+.reply-create__buttons {
+    display: flex;
+    font-size: .8rem;
+    justify-content: flex-end;
+    font-weight: 900;
+    text-align: center;
+}
+
+.reply-create__submit-button,
+.reply-create__refuse-button{
+    padding: 1em 2em;
+    cursor: pointer;
+}
+
+.reply-create__submit-button:hover {
+    color: #f6cb01;
+    background-color: black;
+}
+
+.reply-create__refuse-button:hover {
+    color: #c00603;
+    background-color: black;
 }

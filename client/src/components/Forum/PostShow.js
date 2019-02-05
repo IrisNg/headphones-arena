@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import { fetchPost } from '../../actions';
 import MainPost from './MainPost';
 import Reply from './Reply';
-import ReplyCreate from './ReplyCreate';
+import LiveChat from '../LiveChat/LiveChat';
 import './PostShow.css';
 
 class PostShow extends React.Component {
-   state = {
-      renderReplyCreate: false
-   };
    //Fetch all data related to this thread from the server
    componentDidMount() {
       this.props.fetchPost(this.props.match.params.id);
@@ -33,29 +30,7 @@ class PostShow extends React.Component {
          />
       ));
    };
-   //Render the create reply form
-   renderReplyCreate() {
-      if (!this.state.renderReplyCreate) {
-         return null;
-      }
-      var { _id, title, category } = this.props.post;
-      return (
-         <ReplyCreate
-            idToReplyTo={_id}
-            title={title}
-            category={category}
-            turnOffReplyCreate={this.turnOffReplyCreate}
-            mainPostId={_id}
-         />
-      );
-   }
-   turnOffReplyCreate = () => {
-      //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
-      this.setState({ renderReplyCreate: false });
-   };
-   manageReplyCreateButton() {
-      return this.state.renderReplyCreate ? { display: 'none' } : null;
-   }
+
    render() {
       var { post, currentUser } = this.props;
       return (
@@ -63,17 +38,9 @@ class PostShow extends React.Component {
             {/* Main Post */}
             <MainPost data={post} currentUser={currentUser} />
             {/* Direct Replies */}
-            {this.renderReplies()}
-            {/* '+' Button  */}
-            <div
-               //Make this button disappear after ReplyCreate component appear
-               style={this.manageReplyCreateButton()}
-               onClick={() => this.setState({ renderReplyCreate: true })}
-            >
-               +
-            </div>
-            {/* Create reply form */}
-            {this.renderReplyCreate()}
+            <div className="post-show__replies">{this.renderReplies()}</div>
+            <div className="post-show__vertical-lines-1" />
+            <LiveChat />
          </div>
       );
    }

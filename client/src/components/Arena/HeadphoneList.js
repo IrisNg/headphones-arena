@@ -14,26 +14,26 @@ class HeadphoneList extends React.Component {
             {
                sequencedList: [...this.props.listOfHeadphones],
                firstHeadphone: this.props.listOfHeadphones[0].brandAndModel
-            },
-            //Trigger the interval timer after state update
-            () => {
-               this.intervalId = setInterval(this.shiftHeadphonesAtInterval, 2500);
             }
+            // //Trigger the interval timer after state update
+            // () => {
+            //    this.intervalId = setInterval(this.shiftHeadphonesAtInterval, 2500);
+            // }
          );
       }
    }
-   //Clean up the interval timer
-   componentWillUnmount() {
-      clearInterval(this.intervalId);
-   }
-   //This will move the first headphone of every cycle to the last position
-   //Creating an animation effect
-   shiftHeadphonesAtInterval = () => {
-      var currentList = [...this.state.sequencedList];
-      var previousFirst = currentList.shift();
-      var newList = [...currentList, previousFirst];
-      this.setState({ sequencedList: newList });
-   };
+   // //Clean up the interval timer
+   // componentWillUnmount() {
+   //    clearInterval(this.intervalId);
+   // }
+   // //This will move the first headphone of every cycle to the last position
+   // //Creating an animation effect
+   // shiftHeadphonesAtInterval = () => {
+   //    var currentList = [...this.state.sequencedList];
+   //    var previousFirst = currentList.shift();
+   //    var newList = [...currentList, previousFirst];
+   //    this.setState({ sequencedList: newList });
+   // };
    renderListOfHeadphones() {
       if (!this.state.sequencedList) {
          return null;

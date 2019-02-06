@@ -5,7 +5,6 @@ import { selectHeadphoneUsingNameOnly } from '../../actions';
 import history from '../../history';
 import ReplyCreate from './ReplyCreate';
 import Vote from './Vote';
-import './Reply.css';
 
 class Reply extends React.Component {
    state = {

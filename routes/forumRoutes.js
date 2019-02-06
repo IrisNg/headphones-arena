@@ -244,19 +244,19 @@ router.put('/posts/:id/addtags', middleware.isLoggedIn, (req, res) => {
    var count = 0;
    // Find the newly tagged headphones and add in the new tags
    req.body.body.tag.forEach(entry => {
-      Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
-         if (err) {
-            res.status(400).json(
-               'Failed to find the headphone you have tagged, please refrain from tagging obsolete headphones'
-            );
-         } else {
-            if (entry.tags.length > 0) {
+      if (entry.tags.length > 0) {
+         Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
+            if (err) {
+               res.status(400).json(
+                  'Failed to find the headphone you have tagged, please refrain from tagging obsolete headphones'
+               );
+            } else {
                //Push in the tags related to the headphone
                foundHeadphone.tags.push({ postId: req.params.id, tags: entry.tags });
                foundHeadphone.save();
             }
-         }
-      });
+         });
+      }
       if (count === req.body.body.tag.length - 1) {
          res.json('Added!');
       }

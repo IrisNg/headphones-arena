@@ -1,3 +1,163 @@
+/* Search bar */
+
+.tag-system__search-bar {
+    padding: 1rem 2rem;
+    background-color: black;
+    color: white;
+    position: relative;
+}
+
+.tag-system__search-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    font-size: .85rem;
+    background: none;
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+.tag-system__search-icon {
+    position: absolute;
+    right: 2rem;
+    top: 1.1rem;
+    font-size: .7rem;
+}
+
+.tag-system__search-bar:hover .tag-system__search-input, .tag-system__search-input:focus {
+    border-color: #f6cb01;
+    color: #f6cb01;
+}
+
+.tag-system__search-bar:hover .tag-system__search-icon, .tag-system__search-input:focus~.tag-system__search-icon, .tag-system__search-bar:hover .tag-system__search-input::placeholder, .tag-system__search-input:focus::placeholder {
+    color: #f6cb01;
+}
+
+/* Search match */
+
+.tag-system__search-matches {
+    padding: .5rem .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom: 2px solid black;
+}
+
+.tag-system__search-match {
+    margin: .2em;
+    padding: .2em .4em;
+    font-size: .7rem;
+    letter-spacing: .02em;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: underline;
+    font-size: .8rem;
+}
+
+.tag-system__search-match:hover {
+    font-weight: 900;
+    background-color: #f6cb01;
+}
+
+/* Tag line */
+
+.tag-system__tag-lines {
+    /* position: relative; */
+    /* z-index: -1; */
+    width: calc(100% - 1px);
+    margin: auto;
+    background-color: #ebebeb;
+    box-sizing: border-box;
+}
+
+.tag-system__tag-line {
+    padding: .5rem;
+    cursor: pointer;
+    /* border-bottom: 1px solid white; */
+    /* box-sizing: border-box; */
+}
+
+.tag-system__tag-line.tag-line--active {
+    background-color: #f6cb01;
+    font-weight: 900;
+}
+
+.tag-system__tag-line:not(.tag-line--active):hover {
+    padding-top: calc(.5rem - 4px);
+    border-top: 4px solid #c00603;
+}
+
+.tag-system__tag-line:not(.tag-line--active):hover .tag-system__tagged-headphone {
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+.tag-system__tag-line>div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    grid-template-rows: 1.7rem auto;
+    grid-template-areas: "tagged-headphone tags close-icon" ". tags .";
+    align-items: center;
+    grid-column-gap: .2rem;
+}
+
+.tag-system__tagged-headphone {
+    grid-area: tagged-headphone;
+    font-size: .9rem;
+}
+
+.tag-system__tags {
+    justify-self: start;
+    grid-area: tags;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-system__tag-line-removal-icon {
+    grid-area: close-icon;
+    justify-self: end;
+}
+
+.tag-system__tag {
+    margin: .15rem;
+    padding: .2rem .6em;
+    background-color: white;
+    border: 1px solid black;
+    font-size: .75rem;
+    letter-spacing: .02em;
+    position: relative;
+
+}
+
+.tag-system__tag-removal-icon {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    left: 0;
+    background-color: rgba(255,255,255,.7);
+    cursor: pointer;
+
+    
+}
+.tag-system__tag-removal-icon i{
+    font-size: 1.1rem;
+    /* font-weight: 900; */
+    /* display: block;
+    margin:auto; */
+    line-height: 1.4rem;
+}
+.tag-system__tag:hover .tag-system__tag-removal-icon {
+z-index: 1;
+
+}
+
+/* 
 .tag-system__tag-line {
     margin: 1rem 0;
     width: 50%;
@@ -24,4 +184,4 @@
     box-sizing: border-box;
     border: none;
     background: none;
-}
+} */

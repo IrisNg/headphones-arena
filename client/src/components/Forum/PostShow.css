@@ -491,14 +491,14 @@
     }
     .post-show {
         height: calc(100vh - 3.5rem);
-        margin-top: 3.5rem;
         width: 100%;
+        margin-top: 3.5rem;
         margin-right: 0;
         grid-template-columns: calc(3.5rem - 2px) auto 3.5rem;
     }
     .post-show__vertical-lines-1 {
-        border-width: 2px;
         width: 100%;
+        border-width: 2px;
     }
     .main-post {
         grid-template-rows: calc(16.6vh - 3.5rem) fit-content(3.5rem) auto;

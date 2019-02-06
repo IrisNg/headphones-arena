@@ -81,7 +81,7 @@ class TagSystem extends React.Component {
       return this.state.searchMatches.map(match => {
          return (
             <div
-               className="tag-system__searchMatch"
+               className="tag-system__search-match"
                key={match.brandAndModel}
                onClick={() => this.addTaggedHeadphone(match.brandAndModel)}
             >
@@ -91,40 +91,48 @@ class TagSystem extends React.Component {
       });
    };
    addTaggedHeadphone = headphoneName => {
-      this.setState({
-         taggedHeadphones: [...this.state.taggedHeadphones, headphoneName],
-         searchTerm: '',
-         searchMatches: []
-      });
+      this.setState(
+         {
+            taggedHeadphones: [...this.state.taggedHeadphones, headphoneName],
+            searchTerm: '',
+            searchMatches: []
+         },
+         () => {
+            this.setState({ selectedTagLine: headphoneName });
+         }
+      );
    };
    removeTaggedHeadphone = removedHeadphoneName => {
       var remainingTaggedHeadphones = this.state.taggedHeadphones.filter(
          headphone => headphone !== removedHeadphoneName
       );
       var remainingEntries = this.state.outputTags.filter(entry => entry.brandAndModel !== removedHeadphoneName);
-      this.setState({ taggedHeadphones: remainingTaggedHeadphones, outputTags: remainingEntries });
-      if (this.state.selectedTagLine === removedHeadphoneName) {
-         this.setState({ selectedTagLine: '' });
-      }
+      this.setState({ taggedHeadphones: remainingTaggedHeadphones, outputTags: remainingEntries }, () => {
+         if (this.state.selectedTagLine === removedHeadphoneName) {
+            this.setState({ selectedTagLine: '' });
+         }
+      });
    };
    renderTagLineFromTaggedHeadphones = () => {
       //Display Tag Line only if there are tagged headphones
       //Map each taggedHeadphone in a separate tag line
       return this.state.taggedHeadphones.map(taggedHeadphoneName => {
          return (
-            <div className="tag-system__tag-line" key={taggedHeadphoneName}>
-               <div
-                  className="tag-system__tagged-headphone"
-                  //Pass in this headphone name into callback when clicked
-                  onClick={() => this.selectTagLine(taggedHeadphoneName)}
-               >
-                  {taggedHeadphoneName} :{/* Display the tags */}
-                  <span className="tag-system__tags">{this.renderTagsInEachTagLine(taggedHeadphoneName)}</span>
+            //Pass in this headphone name into callback when clicked
+            <div
+               className={`tag-system__tag-line ${this.manageSelectedTagLineStyle(taggedHeadphoneName)}`}
+               key={taggedHeadphoneName}
+               onClick={() => this.selectTagLine(taggedHeadphoneName)}
+            >
+               <div>
+                  <div className="tag-system__tagged-headphone">{taggedHeadphoneName} :</div>
+                  {/* Display the tags */}
+                  <div className="tag-system__tags">{this.renderTagsInEachTagLine(taggedHeadphoneName)}</div>
+                  <i
+                     className="far fa-trash-alt tag-system__tag-line-removal-icon"
+                     onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)}
+                  />
                </div>
-               <i
-                  className="fas fa-times tag-system__remove-tag-line"
-                  onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)}
-               />
             </div>
          );
       });
@@ -136,13 +144,12 @@ class TagSystem extends React.Component {
          return null;
       }
       return tagEntry.tags.map(tag => (
-         <span className="tag-system__tag" key={tag}>
+         <div className="tag-system__tag" key={tag}>
             {tag}
-            <i
-               className="fas fa-times tag-system__remove-tag"
-               onClick={() => this.removeTag(taggedHeadphoneName, tag)}
-            />
-         </span>
+            <div className="tag-system__tag-removal-icon">
+               <i className="fas fa-times" onClick={() => this.removeTag(taggedHeadphoneName, tag)} />
+            </div>
+         </div>
       ));
    };
    //Select which tag line is active
@@ -211,20 +218,32 @@ class TagSystem extends React.Component {
       //Save all the entries minus the removed tag back to the state
       this.setState({ outputTags: [...remainingEntries, currentEntry] });
    };
+   manageSelectedTagLineStyle(taggedHeadphoneName) {
+      return this.state.selectedTagLine === taggedHeadphoneName ? 'tag-line--active' : null;
+   }
+   manageSearchMatchesDisplay() {
+      return this.state.searchMatches.length > 0 ? null : { display: 'none' };
+   }
    render() {
       return (
          <div className="tag-system">
             {/* Searchbox for headphones names */}
-            <input
-               className="tag-system__searchInput"
-               type="text"
-               value={this.state.searchTerm}
-               onChange={this.onHeadphoneSearchInput}
-            />
+            <div className="tag-system__search-bar">
+               <input
+                  className="tag-system__search-input"
+                  type="text"
+                  value={this.state.searchTerm}
+                  onChange={this.onHeadphoneSearchInput}
+                  placeholder="Search & Tag headphones"
+               />
+               <i className="fas fa-search tag-system__search-icon" />
+            </div>
             {/* Buttons representing successful search matches */}
-            {this.renderSuggestionsFromMatches()}
+            <div className="tag-system__search-matches" style={this.manageSearchMatchesDisplay()}>
+               {this.renderSuggestionsFromMatches()}
+            </div>
             {/* One tag line for each tagged headphone */}
-            {this.renderTagLineFromTaggedHeadphones()}
+            <div className="tag-system__tag-lines">{this.renderTagLineFromTaggedHeadphones()}</div>
             {/* Tags from TagLibrary */}
             {this.renderTaggingCriterias()}
             {this.renderSelectableTags()}

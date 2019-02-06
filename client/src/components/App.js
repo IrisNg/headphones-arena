@@ -25,9 +25,12 @@ import CheckAuth from './Authentication/CheckAuth';
 import './App.css';
 
 class App extends React.Component {
-   componentDidMount() {
-      this.props.fetchListOfHeadphones();
+   componentDidUpdate() {
+      if (!this.props.listOfHeadphones) {
+         this.props.fetchListOfHeadphones();
+      }
    }
+
    render() {
       return (
          <Router history={history}>
@@ -63,7 +66,10 @@ class App extends React.Component {
       );
    }
 }
+const mapStateToProps = state => {
+   return { listOfHeadphones: state.listOfHeadphones };
+};
 export default connect(
-   null,
+   mapStateToProps,
    { fetchListOfHeadphones }
 )(App);

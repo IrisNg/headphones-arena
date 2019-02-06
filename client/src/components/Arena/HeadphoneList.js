@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchListOfHeadphones } from '../../actions';
 import Headphone from './Headphone';
 
 class HeadphoneList extends React.Component {
@@ -7,6 +8,9 @@ class HeadphoneList extends React.Component {
       sequencedList: null,
       firstHeadphone: ''
    };
+   componentDidMount() {
+      this.props.fetchListOfHeadphones();
+   }
    componentDidUpdate() {
       if (this.props.listOfHeadphones && !this.state.sequencedList) {
          //First time storing the listOfHeadphones into the component state
@@ -65,4 +69,7 @@ const mapStateToProps = state => {
    return { listOfHeadphones: state.listOfHeadphones };
 };
 
-export default connect(mapStateToProps)(HeadphoneList);
+export default connect(
+   mapStateToProps,
+   { fetchListOfHeadphones }
+)(HeadphoneList);

@@ -37,7 +37,10 @@ export const removeHeadphone = headphoneRemoved => {
    };
 };
 //Called by MainPost and Reply component
-export const selectHeadphoneUsingNameOnly = headphoneName => (dispatch, getState) => {
+export const selectHeadphoneUsingNameOnly = headphoneName => async (dispatch, getState) => {
+   if (!getState().listOfHeadphones) {
+      await dispatch(fetchListOfHeadphones());
+   }
    //Look for the headphone entry from redux state using the headphone name
    const headphoneEntry = getState().listOfHeadphones.find(headphone => headphone.brandAndModel === headphoneName);
    //Then call action creator selectHeadphone using the found headphone entry
@@ -48,7 +51,7 @@ export const selectHeadphoneUsingNameOnly = headphoneName => (dispatch, getState
 //Fetch highest voted posts related to the selected headphone
 export const fetchTopPosts = headphoneName => async dispatch => {
    try {
-      const response = await axios.post('/forum/topposts', headphoneName);
+      const response = await axios.post('/posts/top', headphoneName);
       dispatch({ type: 'FETCHED_TOP_POSTS', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError(err.response.data));
@@ -58,13 +61,13 @@ export const fetchTopPosts = headphoneName => async dispatch => {
 //Redirect User to the post's show page
 export const redirectToMainPost = post => async dispatch => {
    if (post.isMainPost) {
-      history.push(`/posts/${post._id}`);
+      history.push(`/show-post/${post._id}`);
    } else {
       try {
          //If this post is a reply, find the main post and then redirect the user
          const response = await axios.post('/posts/find-main', { title: post.title });
          console.log(response);
-         history.push(`/posts/${response.data._id}`);
+         history.push(`/show-post/${response.data._id}`);
       } catch (err) {
          dispatch(addGlobalError(err.response.data));
       }
@@ -77,7 +80,7 @@ export const redirectToMainPost = post => async dispatch => {
 //Called by Forum component
 export const fetchForumHomePosts = () => async dispatch => {
    try {
-      const response = await axios.get('/forum');
+      const response = await axios.get('/posts');
       dispatch({ type: 'FETCHED_FORUM_POSTS', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError(err.response.data));
@@ -94,7 +97,7 @@ export const storeSearchTerm = searchTerm => {
 //Search the database for posts using this search term
 export const fetchUnpopulatedSearchPosts = term => async dispatch => {
    try {
-      const response = await axios.post('/forum/search', { term });
+      const response = await axios.post('/posts/search', { term });
       dispatch({ type: 'FETCHED_UNPOPULATED_SEARCH_POSTS', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError(err.response.data));

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchListOfHeadphones } from '../../actions';
 import TagLibrary from './TagLibrary';
 import './TagSystem.css';
 
@@ -13,6 +14,11 @@ class TagSystem extends React.Component {
       outputTags: [],
       id: ''
    };
+   componentDidMount() {
+      if (!this.props.listOfHeadphones) {
+         this.props.fetchListOfHeadphones();
+      }
+   }
    static getDerivedStateFromProps(nextProps, prevState) {
       if (!nextProps.previousTags || nextProps.id === prevState.id) {
          return null;
@@ -115,7 +121,10 @@ class TagSystem extends React.Component {
                   {taggedHeadphoneName} :{/* Display the tags */}
                   <span className="tag-system__tags">{this.renderTagsInEachTagLine(taggedHeadphoneName)}</span>
                </div>
-               <i className="fas fa-times tag-system__remove-tag-line" onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)} />
+               <i
+                  className="fas fa-times tag-system__remove-tag-line"
+                  onClick={() => this.removeTaggedHeadphone(taggedHeadphoneName)}
+               />
             </div>
          );
       });
@@ -129,7 +138,10 @@ class TagSystem extends React.Component {
       return tagEntry.tags.map(tag => (
          <span className="tag-system__tag" key={tag}>
             {tag}
-            <i className="fas fa-times tag-system__remove-tag" onClick={() => this.removeTag(taggedHeadphoneName, tag)} />
+            <i
+               className="fas fa-times tag-system__remove-tag"
+               onClick={() => this.removeTag(taggedHeadphoneName, tag)}
+            />
          </span>
       ));
    };
@@ -225,4 +237,7 @@ class TagSystem extends React.Component {
 const mapStateToProps = state => {
    return { listOfHeadphones: state.listOfHeadphones };
 };
-export default connect(mapStateToProps)(TagSystem);
+export default connect(
+   mapStateToProps,
+   { fetchListOfHeadphones }
+)(TagSystem);

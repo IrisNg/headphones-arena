@@ -1,9 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
-import { connect } from 'react-redux';
 
-import { fetchListOfHeadphones } from '../actions';
 import Landing from './Landing';
 import NavigationBar from './NavigationBar';
 import GlobalError from './GlobalError';
@@ -25,15 +23,6 @@ import CheckAuth from './Authentication/CheckAuth';
 import './App.css';
 
 class App extends React.Component {
-   componentDidMount() {
-      this.props.fetchListOfHeadphones();
-   }
-   componentDidUpdate() {
-      if (!this.props.listOfHeadphones) {
-         this.props.fetchListOfHeadphones();
-      }
-   }
-
    render() {
       return (
          <Router history={history}>
@@ -41,13 +30,13 @@ class App extends React.Component {
                <Switch>
                   <Route path="/" exact component={Landing} />
                   <Route path="/arena" component={Arena} />
-                  <Route path="/headphones/new" component={HeadphoneCreate} />
-                  <Route path="/headphones/edit" component={HeadphoneEdit} />
+                  <Route path="/create-headphone" component={HeadphoneCreate} />
+                  <Route path="/edit-headphone" component={HeadphoneEdit} />
                   <Route path="/forum" component={Forum} />
-                  <Route path="/posts/new" component={PostCreate} />
-                  <Route exact path="/posts/:id" component={PostShow} />
-                  <Route path="/posts/:id/edit" component={PostEdit} />
-                  <Route path="/posts/:id/delete" component={PostDelete} />
+                  <Route path="/create-post" component={PostCreate} />
+                  <Route exact path="/show-post/:id" component={PostShow} />
+                  <Route path="/edit-post/:id" component={PostEdit} />
+                  <Route path="/delete-post/:id" component={PostDelete} />
                   <Route path="/blacksmith" component={Blacksmith} />
                   {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}
@@ -69,10 +58,5 @@ class App extends React.Component {
       );
    }
 }
-const mapStateToProps = state => {
-   return { listOfHeadphones: state.listOfHeadphones };
-};
-export default connect(
-   mapStateToProps,
-   { fetchListOfHeadphones }
-)(App);
+
+export default App;

@@ -13,7 +13,7 @@ class HeadphoneDelete extends React.Component {
       try {
          const response = await axios.delete(`/headphones/${this.props.id}`);
          console.log(response.data);
-         history.push('/headphones/new');
+         history.push('/create-headphone');
       } catch (err) {
          this.props.addGlobalError(err.response.data);
       }

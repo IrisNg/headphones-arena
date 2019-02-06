@@ -56,7 +56,7 @@ class MainPost extends React.Component {
       var { author, _id } = this.props.data;
       var { currentUser } = this.props;
       return currentUser && author.id === currentUser.id ? (
-         <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />
+         <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${_id}`)} />
       ) : null;
    }
    //Render the create reply form

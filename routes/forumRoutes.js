@@ -7,7 +7,7 @@ var express = require('express'),
 
 // FORUM
 //Find categories posts upon forum page's initial loadup
-router.get('/forum', (req, res) => {
+router.get('/posts', (req, res) => {
    (async () => {
       //Find a mixture of both latest posts and hottest posts (posts with highest votes)
       //for each of the 4 categories - Comparison, Recommendation, Review, General
@@ -51,7 +51,7 @@ function findCategoryPosts(category) {
    });
 }
 //Find search posts when user enters search term in forum page
-router.post('/forum/search', (req, res) => {
+router.post('/posts/search', (req, res) => {
    var term = req.body.term;
    //Formulating Regular Expression to search for posts (using MongoDB)
    //Post matches if it contains all of the letters from the search term

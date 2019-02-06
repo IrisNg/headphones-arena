@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addGlobalError } from '../../actions';
+import { addGlobalError, fetchListOfHeadphones } from '../../actions';
 import HeadphoneDelete from './HeadphoneDelete';
 import './HeadphoneEdit.css';
 
@@ -27,6 +27,11 @@ class HeadphoneEdit extends React.Component {
       amazonLink: '',
       price: ''
    };
+   componentDidMount() {
+      if (!this.props.listOfHeadphones) {
+         this.props.fetchListOfHeadphones();
+      }
+   }
    //Render a list of existing headphones' names to select which headphone needs updating
    renderExistingNames() {
       if (!this.props.listOfHeadphones) {
@@ -175,5 +180,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalError }
+   { addGlobalError, fetchListOfHeadphones }
 )(HeadphoneEdit);

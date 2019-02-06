@@ -11,7 +11,9 @@ class PersonalHeadphones extends React.Component {
    };
    componentDidMount() {
       //Give me the official list of headphones from the database
-      this.props.fetchListOfHeadphones();
+      if (!this.props.listOfHeadphones) {
+         this.props.fetchListOfHeadphones();
+      }
    }
    //Load up previous headphones preferences already existing in the user's profile
    static getDerivedStateFromProps(nextProps, prevState) {

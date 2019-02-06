@@ -15,7 +15,7 @@ class PostDelete extends React.Component {
       try {
          const response = await axios.delete(`/posts/${postId}`);
          console.log(response);
-         history.push(`/posts/${postId}`);
+         history.push(`/show-post/${postId}`);
       } catch (err) {
          this.props.addGlobalError(err.response.data);
       }

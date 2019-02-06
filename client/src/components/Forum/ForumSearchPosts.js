@@ -8,7 +8,7 @@ class ForumSearchPosts extends React.Component {
       var { searchPosts } = this.props;
       return searchPosts.map(post => (
          // If user clicks on this post, redirect to this post's show page
-         <div key={post._id} className="forum-search__post" onClick={() => history.push(`/posts/${post._id}`)}>
+         <div key={post._id} className="forum-search__post" onClick={() => history.push(`/show-post/${post._id}`)}>
             <div className="forum-search__post-container">
                {/* Title */}
                <h4 className="forum-search__post-title">{post.title}</h4>

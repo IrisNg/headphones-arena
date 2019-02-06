@@ -117,7 +117,7 @@ class Reply extends React.Component {
       if (!currentUser || author.id !== currentUser.id) {
          return null;
       }
-      return <i className="fas fa-edit" onClick={() => history.push(`/posts/${_id}/edit`)} />;
+      return <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${_id}`)} />;
    };
 
    render() {

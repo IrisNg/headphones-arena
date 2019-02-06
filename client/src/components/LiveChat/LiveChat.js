@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError } from '../../actions';
+import { addGlobalError, fetchListOfHeadphones } from '../../actions';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import './LiveChat.css';
@@ -12,6 +12,9 @@ class LiveChat extends React.Component {
       headphoneNamesWithRegex: null
    };
    componentDidMount() {
+      if (!this.props.headphones) {
+         this.props.fetchListOfHeadphones();
+      }
       this.fetchChatMessages();
       //Automatically refresh the livechat every 5 seconds
       this.intervalId = setInterval(() => this.fetchChatMessages(), 5000);
@@ -93,5 +96,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { addGlobalError }
+   { addGlobalError, fetchListOfHeadphones }
 )(LiveChat);

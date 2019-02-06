@@ -58,7 +58,7 @@ router.get('/headphones/:id', (req, res) => {
 //    // });
 // });
 //Find the top posts related to the selected headphone
-router.post('/forum/topposts', (req, res) => {
+router.post('/posts/top', (req, res) => {
    var brandAndModel = req.body.brandAndModel;
    var model = req.body.model;
    //Separate the alternative naming from the brandAndModel and model

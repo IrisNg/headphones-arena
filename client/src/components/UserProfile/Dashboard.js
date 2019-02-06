@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
             </div>
             {/* Edit button (If current user is the owner) */}
             {this.props.currentUser && post.author.id === this.props.currentUser.id ? (
-               <i className="fas fa-edit" onClick={() => history.push(`/posts/${post._id}/edit`)} />
+               <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${post._id}`)} />
             ) : null}
          </div>
       ));

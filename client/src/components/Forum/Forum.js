@@ -47,7 +47,7 @@ class Forum extends React.Component {
                <LiveChat />
             </div>
             {/* Button to redirect to PostCreate */}
-            <div className="forum__add-post-button" onClick={() => history.push('/posts/new')}>
+            <div className="forum__add-post-button" onClick={() => history.push('/create-post')}>
                +
             </div>
          </div>

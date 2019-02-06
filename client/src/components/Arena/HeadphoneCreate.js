@@ -132,7 +132,7 @@ class HeadphoneCreate extends React.Component {
                <form>
                   <div className="headphone-create__buttons">
                      {/* Edit button */}
-                     <div className="headphone-create__edit-button" onClick={() => history.push('/headphones/edit')}>
+                     <div className="headphone-create__edit-button" onClick={() => history.push('/edit-headphone')}>
                         EDIT
                      </div>
                      {/* Submit button */}

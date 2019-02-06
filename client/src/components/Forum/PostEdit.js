@@ -107,7 +107,7 @@ class PostEdit extends React.Component {
                {/* Post Contents */}
                <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
                <input type="submit" />
-               <button onClick={() => history.push(`/posts/${this.props.match.params.id}/delete`)}>Delete</button>
+               <button onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}>Delete</button>
             </form>
             {this.askLogin()}
          </div>

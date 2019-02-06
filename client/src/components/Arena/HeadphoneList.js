@@ -8,6 +8,9 @@ class HeadphoneList extends React.Component {
       sequencedList: null,
       firstHeadphone: ''
    };
+   componentDidMount() {
+      this.props.fetchListOfHeadphones();
+   }
    componentDidUpdate() {
       if (this.props.listOfHeadphones && !this.state.sequencedList) {
          //First time storing the listOfHeadphones into the component state
@@ -21,8 +24,6 @@ class HeadphoneList extends React.Component {
                this.intervalId = setInterval(this.shiftHeadphonesAtInterval, 2500);
             }
          );
-      } else if (!this.props.listOfHeadphones) {
-         this.props.fetchListOfHeadphones();
       }
    }
    //Clean up the interval timer

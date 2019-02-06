@@ -12,6 +12,7 @@ class HeadphoneList extends React.Component {
       this.props.fetchListOfHeadphones();
    }
    componentDidUpdate() {
+      console.log(this.props.listOfHeadphones);
       if (this.props.listOfHeadphones && !this.state.sequencedList) {
          //First time storing the listOfHeadphones into the component state
          this.setState(

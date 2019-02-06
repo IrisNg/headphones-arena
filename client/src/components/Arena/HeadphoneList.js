@@ -21,10 +21,9 @@ class HeadphoneList extends React.Component {
                this.intervalId = setInterval(this.shiftHeadphonesAtInterval, 2500);
             }
          );
-      } 
-      // else if (!this.props.listOfHeadphones) {
-      //    this.props.fetchListOfHeadphones();
-      // }
+      } else if (!this.props.listOfHeadphones) {
+         this.props.fetchListOfHeadphones();
+      }
    }
    //Clean up the interval timer
    componentWillUnmount() {

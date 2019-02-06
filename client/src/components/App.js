@@ -25,6 +25,9 @@ import CheckAuth from './Authentication/CheckAuth';
 import './App.css';
 
 class App extends React.Component {
+   componentDidMount() {
+      this.props.fetchListOfHeadphones();
+   }
    componentDidUpdate() {
       if (!this.props.listOfHeadphones) {
          this.props.fetchListOfHeadphones();

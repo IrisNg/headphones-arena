@@ -6,7 +6,7 @@ import history from '../history';
 //Each headphone entry is a partial object containing only {brand, model, brandAndModel, _id}
 export const fetchListOfHeadphones = () => async dispatch => {
    try {
-      var response = await axios.get('/arena');
+      var response = await axios.get('/headphones');
       dispatch({ type: 'FETCHED_LIST_OF_HEADPHONES', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError(err.response.data));

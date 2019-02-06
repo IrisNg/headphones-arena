@@ -10,7 +10,7 @@ var express = require('express'),
 
 // ARENA
 //index page
-router.get('/arena', (req, res) => {
+router.get('/headphones', (req, res) => {
    Headphone.find({}, (err, foundHeadphones) => {
       if (err) {
          res.status(400).json(

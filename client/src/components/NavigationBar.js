@@ -19,30 +19,28 @@ class NavigationBar extends React.Component {
       var { currentLocation } = this.state;
       return (
          <div className="navigation-bar">
-            {/* Logout button */}
-            {user ? <Logout /> : null}
             {/* To Arena page */}
             <div
                className={`navigation-bar-icon ${
-                  currentLocation === '/arena' || currentLocation === '/'
+                  ['/arena', '-headphone'].some(path => currentLocation.includes(path) || currentLocation === '/')
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
                onClick={() => history.push('/arena')}
             >
-               <img src="https://i.imgur.com/Urok6wJ.png" alt="To Arena Page" />
+               <img src="https://i.imgur.com/SZVF3SA.jpg" alt="To Arena Page" />
                <div className="navigation-bar--page-name">ARENA</div>
             </div>
             {/* To Forum page */}
             <div
                className={`navigation-bar-icon ${
-                  ['/forum', '/posts'].some(path => currentLocation.includes(path) || currentLocation === '/')
+                  ['/forum', '-post'].some(path => currentLocation.includes(path) || currentLocation === '/')
                      ? 'navigation-bar--active'
                      : 'navigation-bar--inactive'
                }`}
                onClick={() => history.push('/forum')}
             >
-               <img src="https://i.imgur.com/Spthb5x.png" alt="To Forum Page" />
+               <img src="https://i.imgur.com/sVQQml8.jpg" alt="To Forum Page" />
                <div className="navigation-bar--page-name">FORUM</div>
             </div>
             {/* To Login page or user's dashboard */}
@@ -54,9 +52,16 @@ class NavigationBar extends React.Component {
                }`}
                onClick={() => history.push(user ? `/user/${user.id}` : `/login`)}
             >
-               <img src="https://i.imgur.com/Iv5jEih.png" alt="To Login Page or Dashboard" />
+               <img src="https://i.imgur.com/c34xhYu.jpg" alt="To Login Page or Dashboard" />
                <div className="navigation-bar--page-name">ACCOUNT</div>
             </div>
+            {/* Logout button */}
+            {user ? (
+               <div className="navigation-bar--inactive">
+                  <Logout />
+               </div>
+            ) : null}
+            <div className="navigation-bar__line" />
          </div>
       );
    }

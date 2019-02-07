@@ -82,6 +82,7 @@
 .tag-system__tag-line.tag-line--active {
     background-color: #f6cb01;
     font-weight: 900;
+    cursor: auto;
 }
 
 .tag-system__tag-line:not(.tag-line--active):hover {

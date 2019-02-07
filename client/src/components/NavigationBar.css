@@ -7,8 +7,7 @@
     display: flex;
     align-items: flex-start;
     font-size: .7rem;
-    font-weight: 900;
-    overflow: hidden;
+    font-weight: 700;
 }
 
 .navigation-bar-icon {
@@ -22,7 +21,7 @@
     order: -1;
 }
 
-.navigation-bar-icon, .navigation-bar-icon img, .navigation-bar-icon .navigation-bar--page-name {
+.navigation-bar-icon, .navigation-bar-icon img, .navigation-bar-icon .navigation-bar--page-name, .navigation-bar .logout__button {
     height: 3.5rem;
     width: 3.5rem;
     line-height: 3.5rem;
@@ -30,16 +29,15 @@
 
 .navigation-bar--inactive {
     z-index: 5;
-    transform: translateX(-23vw);
+    transform: translateX(-15rem);
     transition: transform .7s;
 }
 
 .navigation-bar:hover .navigation-bar--inactive {
     transform: translateX(0);
-    box-shadow: 2px 2px #c00603;
 }
 
-.navigation-bar:hover .navigation-bar--active {
+.navigation-bar:hover .navigation-bar-icon {
     box-shadow: 2px 2px #c00603;
 }
 
@@ -57,7 +55,39 @@
 .navigation-bar-icon:hover .navigation-bar--page-name {
     opacity: 1;
 }
+.navigation-bar .logout__button {
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navigation-bar .logout__button:hover {
+color: #eb5252;
+}
 
+
+.navigation-bar__line {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    top: -.5px;
+    left: 0;
+    background-color: white; 
+    border-bottom: 3px solid black;
+    visibility: hidden;
+}
+.forum~.navigation-bar .navigation-bar__line,
+.post-show~.navigation-bar .navigation-bar__line{
+    height: calc(100% - 2px);
+
+}
+.landing~.navigation-bar .logout,
+.landing~.navigation-bar .navigation-bar__line {
+    display: none;
+}
 
 /* Tablet */
 
@@ -65,26 +95,39 @@
     .arena~.navigation-bar, 
     .forum~.navigation-bar,
     .post-show~.navigation-bar {
-        height: calc(3.5rem + 4px);
+        height: 3rem;
         width: 100%;
         top: 0;
         left: 0;
         justify-content: space-between;
-        background-color: black;
-        border: 2px solid black;
+        /* border-top: 2px solid white; */
+        /* border-bottom: 2px solid white; */
         box-sizing: border-box;
-    }
-    .arena~.navigation-bar:hover, 
-    .forum~.navigation-bar:hover, 
-    .post-show~.navigation-bar:hover {
-        border-color: #c00603;
     }
     .arena~.navigation-bar .navigation-bar-icon,
     .forum~.navigation-bar .navigation-bar-icon, 
     .post-show~.navigation-bar .navigation-bar-icon {
-        margin-right: 3.5rem;
+        width: 3rem;
+        height: 3rem;
+        margin-right: 3rem;
+    line-height: 3rem;
+    }
+    .forum~.navigation-bar .navigation-bar-icon, 
+    .post-show~.navigation-bar .navigation-bar-icon  {
         box-shadow: none;
     }
+
+    .arena~.navigation-bar .navigation-bar-icon img, 
+    .forum~.navigation-bar .navigation-bar-icon img, 
+    .post-show~.navigation-bar .navigation-bar-icon img, 
+        .arena~.navigation-bar .navigation-bar--page-name,
+        .forum~.navigation-bar .navigation-bar--page-name,
+        .post-show~.navigation-bar .navigation-bar--page-name{
+    height: 3rem;
+    width: 3rem;
+    line-height: 3rem;
+    font-size: .6rem;
+}
     .arena~.navigation-bar .navigation-bar--inactive,
     .forum~.navigation-bar .navigation-bar--inactive, 
     .post-show~.navigation-bar .navigation-bar--inactive {
@@ -99,8 +142,20 @@
     .arena~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
     .forum~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name,
     .post-show~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
-        transform: translateX(3.5rem);
+        transform: translateX(3rem);
     }
+    .arena~.navigation-bar .logout__button,
+    .forum~.navigation-bar .logout__button,
+    .post-show~.navigation-bar .logout__button {
+        height: 3rem;
+        width: 3rem;
+        font-size: .6rem;
+    }
+    .arena~.navigation-bar .navigation-bar__line,
+    .forum~.navigation-bar .navigation-bar__line,
+    .post-show~.navigation-bar .navigation-bar__line {
+        visibility: visible;
+    }    
 }
 
 /* Phones */

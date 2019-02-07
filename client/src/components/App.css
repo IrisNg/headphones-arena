@@ -7,6 +7,9 @@ body {
     margin: 0;
 }
 
+* {
+    box-sizing: content-box;
+}
 /* Normal Laptops */
 
 @media screen and (max-width: 1280px) {
@@ -34,7 +37,7 @@ body {
 
 @media only screen and (max-width: 581px) {
     html {
-        font-size: 18px;
+        font-size: 17px;
     }
 }
 
@@ -43,6 +46,6 @@ body {
 
 @media only screen and (max-width: 481px) {
     html {
-        font-size: 18px;
+        font-size: 17px;
     }
 }

@@ -401,12 +401,12 @@
     }
     .forum__name h5 {
         margin: 0;
-        padding-top: .7em;
+        padding-top: .5em;
         writing-mode: vertical-rl;
         font-size: 1.1rem;
     }
     .forum__name--comparison h5, .forum__name--review h5 {
-        padding-bottom: .7em;
+        padding-bottom: .5em;
         transform: rotateZ(180deg);
     }
     .forum__category-names {
@@ -425,7 +425,7 @@
     }
     /* Forum */
     .forum {
-        grid-template-columns: 3.5rem calc(100vw - 3.5rem);
+        grid-template-columns: 3rem calc(100vw - 3rem);
     }
     .forum-contents {
         grid-template-rows: 27% 7.5% 27% auto auto auto;
@@ -439,6 +439,13 @@
     .forum-search-posts {
         grid-area: 4/2/-2 / span 2;
     }
+    .forum__add-post-button {
+        width: 3rem;
+    }
+    
+.forum__nav-bar-line {
+    width: 3rem;
+}
     /* Category Names */
     .forum-styling {
         grid-template-columns: 1fr 54vh 1fr;

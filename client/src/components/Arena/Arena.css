@@ -79,9 +79,10 @@
     grid-area: selected-list;
     align-self: center;
     justify-self: center;
-    padding: .05rem 1.5rem;
+    padding: .05rem 1.5rem .05rem 1.9rem;
     font-weight: 900;
     font-size: 1.2rem;
+    text-align: center;
     letter-spacing: .3rem;
     background-color: black;
     color: white;
@@ -361,7 +362,7 @@
 
 @media only screen and (max-width: 767px) {
     .arena {
-        padding-top: 3.5rem;
+        padding-top: 3rem;
         grid-template-columns: 25% 75%;
         grid-template-rows: 100vh auto auto;
         grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
@@ -371,17 +372,23 @@
         height: 55vh;
     }
     .arena__nav-bar-line {
-        width: 1.9rem;
+        width: 1.7rem;
     }
     .headphone-list {
-        padding-left: .9rem;
+        padding-left: .75rem;
+    }
+    .headphone {
+        font-size: .95rem;
+        background-color: rgba(255,255,255, .85);
     }
     .selected-list {
         grid-template-columns: repeat(auto-fit, 67%);
         grid-column-gap: 0;
     }
     .selected-list__empty {
-        margin-top: calc(10vh + 1px);
+        margin: calc(10vh + 1px) 3rem 0 3rem;
+        line-height: 1.3rem;
+        font-size: 1.1rem;
     }
     .selected-headphone:nth-of-type(4) {
         display: none;
@@ -420,18 +427,22 @@
         height: 45vh;
     }
     .arena__nav-bar-line {
-        width: 2.4rem;
+        width: 1.65rem;
     }
     .headphone-list {
-        padding-left: 3.7rem;
+        padding-left: 2.7rem;
+    }
+    .headphone {
+        font-size: .9rem;
     }
     .selected-list {
         grid-template-columns: repeat(auto-fit, 75%);
     }
     .selected-list__empty {
-        margin-top: calc(-10vh + 1px);
-        padding: .05rem .5rem;
-        text-align: center;
+        margin: calc(-10vh + 1px) 4rem 0 4rem;
+        padding: .2rem .3rem;
+        font-size: 1rem;
+        line-height: 1.2rem;
     }
     .selected-headphone__essential {
         height: calc(45vh - 3.5rem - 1.6rem - 1.5px);

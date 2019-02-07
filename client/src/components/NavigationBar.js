@@ -57,10 +57,11 @@ class NavigationBar extends React.Component {
             </div>
             {/* Logout button */}
             {user ? (
-               <div className="navigation-bar--inactive">
+               <div className="navigation-bar__logout">
                   <Logout />
                </div>
             ) : null}
+
             <div className="navigation-bar__line" />
          </div>
       );

@@ -2,21 +2,21 @@
 
 .tag-system__search-bar {
     padding: 1rem 2rem;
+    position: relative;
     background-color: black;
     color: white;
-    position: relative;
 }
 
 .tag-system__search-input {
     width: 100%;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    font-weight: 700;
     font-size: .85rem;
+    font-weight: 700;
     background: none;
-    border-bottom: 1px solid white;
     color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    box-sizing: border-box;
 }
 
 .tag-system__search-icon {
@@ -48,12 +48,11 @@
 .tag-system__search-match {
     margin: .2em;
     padding: .2em .4em;
-    font-size: .7rem;
-    letter-spacing: .02em;
-    cursor: pointer;
+    font-size: .8rem;
     font-weight: 700;
     text-decoration: underline;
-    font-size: .8rem;
+    letter-spacing: .02em;
+    cursor: pointer;
 }
 
 .tag-system__search-match:hover {
@@ -64,8 +63,6 @@
 /* Tag line */
 
 .tag-system__tag-lines {
-    /* position: relative; */
-    /* z-index: -1; */
     width: calc(100% - 1px);
     margin: auto;
     background-color: #ebebeb;
@@ -73,24 +70,25 @@
 }
 
 .tag-system__tag-line {
-    padding: .5rem;
+    padding: .9rem .8rem;
+    border-top: 4px solid #ebebeb;
+    box-sizing: border-box;
     cursor: pointer;
-    /* border-bottom: 1px solid white; */
-    /* box-sizing: border-box; */
 }
 
 .tag-system__tag-line.tag-line--active {
-    background-color: #f6cb01;
     font-weight: 900;
+    background-color: #f6cb01;
+    border-top: 4px solid #f6cb01;
+    box-sizing: border-box;
     cursor: auto;
 }
 
 .tag-system__tag-line:not(.tag-line--active):hover {
-    padding-top: calc(.5rem - 4px);
     border-top: 4px solid #c00603;
 }
 
-.tag-system__tag-line:not(.tag-line--active):hover .tag-system__tagged-headphone {
+.tag-system__tag-line:not(.tag-line--active):hover>.tag-system__tagged-headphone {
     text-decoration: underline;
     font-weight: 900;
 }
@@ -98,11 +96,11 @@
 .tag-system__tag-line>div {
     width: 100%;
     display: grid;
-    grid-template-columns: max-content auto max-content;
     grid-template-rows: 1.7rem auto;
+    grid-template-columns: max-content auto max-content;
     grid-template-areas: "tagged-headphone tags close-icon" ". tags .";
-    align-items: center;
     grid-column-gap: .2rem;
+    align-items: center;
 }
 
 .tag-system__tagged-headphone {
@@ -110,27 +108,31 @@
     font-size: .9rem;
 }
 
-.tag-system__tags {
-    justify-self: start;
-    grid-area: tags;
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .tag-system__tag-line-removal-icon {
     grid-area: close-icon;
     justify-self: end;
+    cursor: pointer;
+}
+
+.tag-system__tag-line-removal-icon:hover {
+    transform: scale(1.3);
+}
+
+.tag-system__tags {
+    grid-area: tags;
+    justify-self: start;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .tag-system__tag {
     margin: .15rem;
     padding: .2rem .6em;
-    background-color: white;
-    border: 1px solid black;
+    position: relative;
     font-size: .75rem;
     letter-spacing: .02em;
-    position: relative;
-
+    border: 1px solid black;
+    background-color: white;
 }
 
 .tag-system__tag-removal-icon {
@@ -139,50 +141,84 @@
     width: 100%;
     height: 100%;
     top: 0;
-    text-align: center;
     left: 0;
-    background-color: rgba(255,255,255,.7);
+    text-align: center;
+    background-color: rgba(255, 255, 255, .7);
     cursor: pointer;
-
-    
 }
-.tag-system__tag-removal-icon i{
+
+.tag-system__tag-removal-icon i {
     font-size: 1.1rem;
-    /* font-weight: 900; */
-    /* display: block;
-    margin:auto; */
     line-height: 1.4rem;
 }
-.tag-system__tag:hover .tag-system__tag-removal-icon {
-z-index: 1;
 
+.tag-system__tag:hover>.tag-system__tag-removal-icon {
+    z-index: 1;
 }
 
-/* 
-.tag-system__tag-line {
-    margin: 1rem 0;
-    width: 50%;
-    border: 1px solid black;
+.tag-system__criterias {
+    padding: 1rem .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: black;
+    font-size: .8rem;
+}
+
+.tag-system__criteria {
+    padding: 0 .4rem;
+    letter-spacing: .03rem;
+    line-height: 1.5rem;
+    color: white;
     cursor: pointer;
 }
-.tag-system__tag-line:hover{
-    background-color: grey;
-    color: white;
-}
-.tag-system__tagged-headphone{
-    display:inline-block;
-    width: 95%;
-}
-.tag-system__tag {
-    background: whitesmoke;
+
+.tag-system__criteria:hover, .tag-system__criteria.criteria--active {
+    text-decoration: underline;
+    font-weight: 900;
+    background-color: #f6cb01;
     color: black;
 }
-.tag-system__searchInput {
-    display: block;
-    margin-right: 5rem;
+
+.tag-system__selectable-tags {
     width: 100%;
-    outline: none;
+    margin: auto;
+    padding: .8rem .5rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    font-size: .8rem;
+    background-color: #ebebeb;
+    border-bottom: 2px solid black;
     box-sizing: border-box;
-    border: none;
-    background: none;
-} */
+}
+
+.tag-system__selectable-tags:after {
+    content: '';
+    margin-left: -15px;
+    margin-top: -11px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border: 15px solid transparent;
+    border-bottom-color: #ebebeb;
+    border-top: 0;
+}
+
+.tag-system__selectable-tag {
+    margin: .2em;
+    padding: 0 .6em;
+    line-height: 1.1rem;
+    letter-spacing: .02rem;
+    font-weight: 700;
+    background-color: white;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.tag-system__selectable-tag:hover {
+    text-decoration: underline;
+    border-color: black;
+}

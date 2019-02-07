@@ -163,9 +163,13 @@ class TagSystem extends React.Component {
       }
       return TagLibrary.map(category => {
          return (
-            <span key={category.criteria}>
-               <span onClick={() => this.setState({ selectedCriteria: category.criteria })}>{category.criteria}</span> |
-            </span>
+            <div
+               onClick={() => this.setState({ selectedCriteria: category.criteria })}
+               key={category.criteria}
+               className={`tag-system__criteria ${this.manageSelectedCriteriaStyle(category.criteria)}`}
+            >
+               {category.criteria}
+            </div>
          );
       });
    };
@@ -175,15 +179,11 @@ class TagSystem extends React.Component {
       }
       //Display all the tags for the currently selected criteria
       var currentCriteria = TagLibrary.find(category => category.criteria === this.state.selectedCriteria);
-      return (
-         <div>
-            {currentCriteria.tags.map(tag => (
-               <span key={tag} onClick={() => this.addTag(tag)}>
-                  {tag}
-               </span>
-            ))}
+      return currentCriteria.tags.map(tag => (
+         <div onClick={() => this.addTag(tag)} key={tag} className="tag-system__selectable-tag">
+            {tag}
          </div>
-      );
+      ));
    };
    // If user clicks on this tag, then add this tag to the state under the currently selected headphone's name
    addTag = tag => {
@@ -218,12 +218,22 @@ class TagSystem extends React.Component {
       //Save all the entries minus the removed tag back to the state
       this.setState({ outputTags: [...remainingEntries, currentEntry] });
    };
-   manageSelectedTagLineStyle(taggedHeadphoneName) {
-      return this.state.selectedTagLine === taggedHeadphoneName ? 'tag-line--active' : null;
-   }
    manageSearchMatchesDisplay() {
       return this.state.searchMatches.length > 0 ? null : { display: 'none' };
    }
+   manageSelectedTagLineStyle(taggedHeadphoneName) {
+      return this.state.selectedTagLine === taggedHeadphoneName ? 'tag-line--active' : null;
+   }
+   manageCriteriasDisplay() {
+      return this.state.selectedTagLine ? null : { display: 'none' };
+   }
+   manageSelectedCriteriaStyle(criteria) {
+      return this.state.selectedCriteria === criteria ? 'criteria--active' : null;
+   }
+   manageSelectableTagsDisplay() {
+      return this.state.selectedCriteria && this.state.selectedTagLine ? null : { display: 'none' };
+   }
+
    render() {
       return (
          <div className="tag-system">
@@ -245,8 +255,12 @@ class TagSystem extends React.Component {
             {/* One tag line for each tagged headphone */}
             <div className="tag-system__tag-lines">{this.renderTagLineFromTaggedHeadphones()}</div>
             {/* Tags from TagLibrary */}
-            {this.renderTaggingCriterias()}
-            {this.renderSelectableTags()}
+            <div className="tag-system__criterias" style={this.manageCriteriasDisplay()}>
+               {this.renderTaggingCriterias()}
+            </div>
+            <div className="tag-system__selectable-tags" style={this.manageSelectableTagsDisplay()}>
+               {this.renderSelectableTags()}
+            </div>
          </div>
       );
    }

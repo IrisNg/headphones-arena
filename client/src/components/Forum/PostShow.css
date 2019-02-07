@@ -403,6 +403,7 @@
     padding: 1.5em 2em;
     outline: none;
     resize: none;
+    font-family: inherit;
     border: none;
     background: none;
     box-sizing: border-box;

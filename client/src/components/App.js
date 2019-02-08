@@ -17,7 +17,7 @@ import Blacksmith from './Blacksmith/Blacksmith';
 import Dashboard from './UserProfile/Dashboard';
 
 // delete
-import Authentication from './Authentication/Authentication';
+import Login from './Authentication/Login';
 import CheckAuth from './Authentication/CheckAuth';
 
 import './App.css';
@@ -41,11 +41,11 @@ class App extends React.Component {
                   {/* <Route path="/mods/new" component={ModCreate} />
                <Route path="/mods/:id" exact component={ModShow} /> */}
                   {/* <Route path="/mods/:id/edit" exact component={ModEdit} /> */}
-                  <Route path="/login" component={Authentication} />
                   <Route path="/user/:id" component={Dashboard} />
                </Switch>
                <NavigationBar />
                <CheckAuth />
+               <Login />
                <GlobalError />
                {/* <div className="forum-lines">
                   <div />

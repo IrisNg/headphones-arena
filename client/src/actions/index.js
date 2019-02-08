@@ -180,6 +180,7 @@ export const loginUser = (username, password) => async dispatch => {
       const response = await axios.post('/login', { username, password });
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
+      await dispatch(askLogin(true));
       dispatch(addGlobalError('Incorrect username or password! Are you registered? Have you forgotten your password?'));
    }
 };
@@ -200,6 +201,12 @@ export const checkUser = () => async dispatch => {
    } catch (err) {
       dispatch(addGlobalError(err.response.data));
    }
+};
+export const askLogin = boolean => {
+   return {
+      type: 'ASK_LOGIN',
+      payload: boolean
+   };
 };
 //Global Error
 export const addGlobalError = errorMessage => {

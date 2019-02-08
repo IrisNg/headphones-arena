@@ -5,14 +5,15 @@
 .landing~.navigation-bar {
     width: 9rem;
     height: 11.5rem;
-    bottom: -.3rem;
+    bottom: 0;
     left: 2.5rem;
     flex-direction: column;
     filter: brightness(90%);
 }
 
 .landing~.navigation-bar .navigation-bar__icon {
-    margin-bottom: 1rem;
+    margin-bottom: .8rem;
+    border: 1px solid white;
 }
 
 .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
@@ -81,14 +82,14 @@
 
 @media screen and (max-width: 767px) {
     .landing~.navigation-bar {
-        bottom: 1rem;
+        bottom: -.5rem;
         left: 1rem;
         height: 12.5rem;
     }
     .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
-        height: 3.5rem;
-        width: 3.5rem;
-        line-height: 3.5rem;
+        height: 3rem;
+        width: 3rem;
+        line-height: 3rem;
     }
     .landing {
         background: radial-gradient(ellipse at center, transparent 22%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 27%/cover no-repeat;

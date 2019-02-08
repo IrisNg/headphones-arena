@@ -87,10 +87,14 @@ class PostEdit extends React.Component {
          this.props.addGlobalError(err.response.data);
       }
    };
-   askLogin() {
-      if (!this.props.currentUser) {
-         return <Login />;
+   checkLogin() {
+      if (this.props.currentUser) {
+         return null;
       }
+      return <Login disableParentInterface={this.onLoginRefuse} />;
+   }
+   onLoginRefuse() {
+      history.goBack();
    }
    render() {
       var { post } = this.props;
@@ -109,7 +113,7 @@ class PostEdit extends React.Component {
                <input type="submit" />
                <button onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}>Delete</button>
             </form>
-            {this.askLogin()}
+            {this.checkLogin()}
          </div>
       );
    }

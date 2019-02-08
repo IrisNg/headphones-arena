@@ -11,3 +11,12 @@ export const currentUserReducer = (state = null, action) => {
          return state;
    }
 };
+
+export const askLoginReducer = (state = false, action) => {
+   switch (action.type) {
+      case 'ASK_LOGIN':
+         return action.payload;
+      default:
+         return state;
+   }
+};

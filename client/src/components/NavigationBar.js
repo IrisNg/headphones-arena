@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import history from '../history';
+import { askLogin } from '../actions';
 import Logout from './Authentication/Logout';
 import './NavigationBar.css';
 
@@ -16,7 +17,11 @@ class NavigationBar extends React.Component {
    }
    onAccountIconClick = () => {
       var { user } = this.props;
-      history.push(user ? `/user/${user.id}` : `/login`);
+      if (!user) {
+         this.props.askLogin(true);
+      } else {
+         history.push(`/user/${user.id}`);
+      }
    };
    manageArenaClass() {
       var { currentLocation } = this.state;
@@ -32,7 +37,7 @@ class NavigationBar extends React.Component {
    }
    manageAccountClass() {
       var { currentLocation } = this.state;
-      return ['/user', '/login'].some(path => currentLocation.includes(path) || currentLocation === '/')
+      return ['/user'].some(path => currentLocation.includes(path) || currentLocation === '/')
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
    }
@@ -73,4 +78,7 @@ class NavigationBar extends React.Component {
 const mapStateToProps = state => {
    return { user: state.currentUser };
 };
-export default connect(mapStateToProps)(NavigationBar);
+export default connect(
+   mapStateToProps,
+   { askLogin }
+)(NavigationBar);

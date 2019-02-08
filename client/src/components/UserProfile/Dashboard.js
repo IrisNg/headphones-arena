@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import { fetchUserProfile, redirectToMainPost } from '../../actions';
+import { fetchUserProfile, redirectToMainPost, askLogin } from '../../actions';
 import history from '../../history';
 import UploadPicture from './UploadPicture';
 import PersonalHeadphones from './PersonalHeadphones';
@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
    activatePrivateMessage = () => {
       //Ask user to log in if he is not
       if (!this.props.currentUser) {
-         history.push('/login');
+         this.props.askLogin(true);
          //Activate interface if user is logged in and he is not the owner of this profile
       } else if (this.state.isOwner === false) {
          this.setState({ privateMessageActive: true });
@@ -164,5 +164,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchUserProfile, redirectToMainPost }
+   { fetchUserProfile, redirectToMainPost, askLogin }
 )(Dashboard);

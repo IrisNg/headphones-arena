@@ -68,11 +68,15 @@ class PostCreate extends React.Component {
    manageClass(category) {
       return this.state.category === category ? 'active' : '';
    }
-   //Display message to remind user to log in before creating a new post
-   askLogin() {
-      if (!this.props.currentUser) {
-         return <Login />;
+   //Display Login component to remind user to log in before creating a new post
+   checkLogin() {
+      if (this.props.currentUser) {
+         return null;
       }
+      return <Login disableParentInterface={this.onLoginRefuse} />;
+   }
+   onLoginRefuse() {
+      history.goBack();
    }
    render() {
       return (
@@ -108,7 +112,7 @@ class PostCreate extends React.Component {
                <textarea value={this.state.content} onChange={e => this.setState({ content: e.target.value })} />
                <input type="submit" />
             </form>
-            {this.askLogin()}
+            {this.checkLogin()}
          </div>
       );
    }

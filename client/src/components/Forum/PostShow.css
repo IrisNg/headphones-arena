@@ -89,7 +89,7 @@
     grid-area: main-content;
     display: grid;
     grid-template-rows: auto auto auto;
-    grid-template-columns: var(--show-gutter) auto var(--show-gutter) 3.5rem;
+    grid-template-columns: var(--show-gutter) 1fr var(--show-gutter) 3.5rem;
     grid-template-areas: ". body date edit-button" ". tag-container . ." ". reply-create . .";
     justify-items: center;
 }
@@ -109,6 +109,7 @@
 }
 
 .main-post__body, .reply__body {
+    width: 100%;
     grid-area: body;
     display: flex;
     flex-direction: column;

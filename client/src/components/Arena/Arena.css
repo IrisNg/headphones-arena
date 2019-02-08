@@ -386,7 +386,7 @@
         grid-column-gap: 0;
     }
     .selected-list__empty {
-        margin: calc(10vh + 1px) 3rem 0 3rem;
+        margin: calc(10vh + 1px) 2.5rem 0 2.5rem;
         line-height: 1.3rem;
         font-size: 1.1rem;
     }
@@ -416,7 +416,6 @@
         grid-area: live-chat;
     }
 }
-
 /* Phones */
 
 @media only screen and (max-width: 481px) {
@@ -424,7 +423,7 @@
         grid-template-columns: 23% 77%;
     }
     .arena__horizontal-line {
-        height: 45vh;
+        height: 50vh;
     }
     .arena__nav-bar-line {
         width: 1.65rem;
@@ -445,7 +444,7 @@
         line-height: 1.2rem;
     }
     .selected-headphone__essential {
-        height: calc(45vh - 3.5rem - 1.6rem - 1.5px);
+        height: calc(50vh - 3.5rem - 1.6rem - 1.5px);
     }
     .selected-headphone img {
         width: 85%;

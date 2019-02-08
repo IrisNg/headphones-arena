@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import history from '../../history';
-import { loginUser, addGlobalError } from '../../actions';
+import { loginUser, addGlobalError, askLogin } from '../../actions';
 import Register from './Register';
 import './Login.css';
-import { isNull } from 'util';
 
 class Login extends React.Component {
    state = {
@@ -17,26 +15,22 @@ class Login extends React.Component {
       if (!this.state.username || !this.state.password) {
          this.props.addGlobalError('Both username and password are required!');
       } else {
-         //Log user in
+         //Log user in then turn off this Login component
          this.props.loginUser(this.state.username, this.state.password);
-         if (this.props.redirectIfDone) {
-            //Redirect back when done
-            history.goBack();
-         }
+         this.props.askLogin(false);
       }
    };
    onRefuseClick = () => {
-      if (!this.props.turnOffLogin) {
-         //If there is no parent component, then redirect back to the previous page
-         history.goBack();
+      if (this.props.disableParentInterface) {
+         this.props.disableParentInterface();
       } else {
-         //Turn off this Login component using the callback from the parent component
-         this.props.turnOffLogin();
+         //Turn off this Login component
+         this.props.askLogin(false);
       }
    };
    renderRegister = () => {
       if (!this.state.registerIsActive) {
-         return isNull;
+         return null;
       }
       return <Register turnOffRegister={this.turnOffRegister} onRefuseClick={this.onRefuseClick} />;
    };
@@ -48,6 +42,10 @@ class Login extends React.Component {
       return this.state.registerIsActive ? { display: 'none' } : null;
    }
    render() {
+      console.log(this.props.loginIsActive);
+      if (!this.props.loginIsActive && !this.props.disableParentInterface) {
+         return <div />;
+      }
       return (
          <div className="login">
             <div className="login__contents" style={this.manageLoginDisplay()}>
@@ -99,9 +97,9 @@ class Login extends React.Component {
    }
 }
 const mapStateToProps = state => {
-   return { currentUser: state.currentUser };
+   return { currentUser: state.currentUser, loginIsActive: state.loginIsActive };
 };
 export default connect(
    mapStateToProps,
-   { loginUser, addGlobalError }
+   { loginUser, addGlobalError, askLogin }
 )(Login);

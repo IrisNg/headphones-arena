@@ -68,11 +68,12 @@ class ReplyCreate extends React.Component {
          this.props.addGlobalError(err.response.data);
       }
    };
-   //Display message to remind user to log in before creating a new post
-   askLogin() {
-      if (!this.props.currentUser) {
-         return <Login turnOffLogin={this.props.turnOffReplyCreate} />;
+   //Display Login component to remind user to log in before creating a new post
+   checkLogin() {
+      if (this.props.currentUser) {
+         return null;
       }
+      return <Login disableParentInterface={this.props.turnOffReplyCreate} />;
    }
    render() {
       return (
@@ -96,7 +97,7 @@ class ReplyCreate extends React.Component {
                   </div>
                </div>
             </form>
-            {this.askLogin()}
+            {this.checkLogin()}
          </div>
       );
    }

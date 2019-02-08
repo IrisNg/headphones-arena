@@ -1,17 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updatePost } from '../../actions';
-import Login from '../Authentication/Login';
+import { updatePost, askLogin } from '../../actions';
 
 class Vote extends React.Component {
-   state = {
-      askLogin: false
-   };
+  
    onVoteClick = voteNature => {
       var { currentUser, vote } = this.props;
       //Allow voting only if user is logged in
       if (!currentUser) {
-         this.setState({ askLogin: true });
+         this.props.askLogin(true);
       } else {
          //Create variables by making a deep copy of the original vote object, no referencing!
          var count = vote.count;
@@ -63,16 +60,6 @@ class Vote extends React.Component {
          this.props.updatePost(this.props.id, updateObj, this.props.mainPostId);
       }
    };
-   askLogin() {
-      if (this.state.askLogin && this.props.currentUser) {
-         this.setState({ askLogin: false });
-      } else if (this.state.askLogin) {
-         return <Login turnOffLogin={this.turnOffLogin} />;
-      }
-   }
-   turnOffLogin = () => {
-      this.setState({ askLogin: false });
-   };
    manageUpVoteIconStyle() {
       var { vote, currentUser } = this.props;
       return currentUser && vote.upVote.includes(currentUser.id) ? 'vote--active' : null;
@@ -94,7 +81,6 @@ class Vote extends React.Component {
                className={`fas fa-caret-down ${this.manageDownVoteIconStyle()}`}
                onClick={() => this.onVoteClick('downvote')}
             />
-            {this.askLogin()}
          </div>
       );
    }
@@ -104,5 +90,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { updatePost }
+   { updatePost, askLogin }
 )(Vote);

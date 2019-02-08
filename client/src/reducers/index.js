@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { headphoneListReducer, selectedHeadphoneReducer, topPostsReducer, fullHeadphoneReducer } from './arenaReducers';
 import { forumPostsReducer, forumSearchTermReducer, searchPostsReducer, postReducer } from './forumReducers';
 import { userProfileReducer } from './userProfileReducers';
-import { currentUserReducer } from './authenticationReducers';
+import { currentUserReducer, askLoginReducer } from './authenticationReducers';
 import { globalErrorReducer } from './errorReducers';
 
 export default combineReducers({
@@ -16,5 +16,6 @@ export default combineReducers({
    post: postReducer,
    userProfile: userProfileReducer,
    currentUser: currentUserReducer,
+   loginIsActive: askLoginReducer,
    globalError: globalErrorReducer
 });

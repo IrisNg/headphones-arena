@@ -25,11 +25,22 @@ const renderTags = headphone => {
    //Only want the top 9 most chosen tags
    var topTags = sortedTags.slice(0, 9);
    //Render the top 9 most chosen tags for this selected headphone
-   return topTags.map(tag => (
-      <span key={tag.tagName} className="overview__tag">
-         {tag.tagName.toUpperCase()}
-      </span>
-   ));
+   return topTags.map(tag => {
+      if (tag.tagName.length > 25) {
+         return (
+            <div className="overview__tag--span-div">
+               <span key={tag.tagName} className="overview__tag--span">
+                  {tag.tagName}
+               </span>
+            </div>
+         );
+      }
+      return (
+         <div key={tag.tagName} className="overview__tag--div">
+            {tag.tagName}
+         </div>
+      );
+   });
 };
 
 const Overview = ({ headphone }) => {

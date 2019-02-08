@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { registerUser, addGlobalError } from '../../actions';
+import { registerUser, addGlobalError, askLogin } from '../../actions';
 import './Register.css';
 
 class Register extends React.Component {
@@ -15,10 +15,6 @@ class Register extends React.Component {
       } else {
          //Register user
          this.props.registerUser(this.state.username, this.state.password);
-         if (this.props.redirectIfDone) {
-            //Redirect back when done
-            this.props.redirectIfDone();
-         }
       }
    };
    render() {
@@ -73,5 +69,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { registerUser, addGlobalError }
+   { registerUser, addGlobalError, askLogin }
 )(Register);

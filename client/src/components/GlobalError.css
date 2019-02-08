@@ -1,13 +1,52 @@
 .global-error {
-    background-color: lightcoral;
-    color: black;
     position: fixed;
-    top: 1rem;
-    width: 50vw;
-    height: 5vh;
-    left: 25vw;
-    line-height: 5vh;
+    width: calc(100% - 3.5rem - 11%);
+    margin-left: 3.5rem;
+    z-index: 8;
+    top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.global-error__message {
+    display: inline-block;
+    width: auto;
+    max-width: 30vw;
+    padding: .7rem 2rem;
     text-align: center;
-    border: 2px solid coral;
-    z-index: 10;
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: 4px 4px black;
+    animation: slide-in 15s ease-in-out both;
+}
+
+@keyframes slide-in {
+    0%, 100% {
+        transform: translateY(-20rem);
+    }
+    8% {
+        transform: translateY(0);
+    }
+    92% {
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .global-error {
+        width: calc(100% - 3.5rem - 12%);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .global-error {
+        width: calc(100% - 3.5rem - 17%);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .global-error {
+        width: calc(100% - 3rem);
+        margin-left: 3rem;
+    }
 }

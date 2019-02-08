@@ -170,6 +170,7 @@ export const updateHeadphoneRating = (profileId, updateObj) => async dispatch =>
 export const registerUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/register', { username, password });
+      await dispatch(askLogin(false));
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
       dispatch(addGlobalError(err.response.data));
@@ -178,9 +179,9 @@ export const registerUser = (username, password) => async dispatch => {
 export const loginUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/login', { username, password });
+      await dispatch(askLogin(false));
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
-      await dispatch(askLogin(true));
       dispatch(addGlobalError('Incorrect username or password! Are you registered? Have you forgotten your password?'));
    }
 };
@@ -204,7 +205,7 @@ export const checkUser = () => async dispatch => {
 };
 export const askLogin = boolean => {
    return {
-      type: 'ASK_LOGIN',
+      type: 'ASK_LOGIN_STATUS',
       payload: boolean
    };
 };

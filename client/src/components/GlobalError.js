@@ -21,14 +21,18 @@ class GlobalError extends React.Component {
    }
    //Display the global error for 5 seconds, then remove it from redux state
    removeErrorAfterTimeOut = () => {
-      setTimeout(() => this.props.addGlobalError(''), 5000);
+      setTimeout(() => this.props.addGlobalError(''), 15000);
    };
    render() {
       var { globalError } = this.props;
       if (!globalError) {
          return <div />;
       }
-      return <div className="global-error">{globalError}</div>;
+      return (
+         <div className="global-error">
+            <div className="global-error__message">{globalError}</div>
+         </div>
+      );
    }
 }
 const mapStateToProps = state => {

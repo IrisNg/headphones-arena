@@ -17,7 +17,6 @@ class Login extends React.Component {
       } else {
          //Log user in then turn off this Login component
          this.props.loginUser(this.state.username, this.state.password);
-         this.props.askLogin(false);
       }
    };
    onRefuseClick = () => {

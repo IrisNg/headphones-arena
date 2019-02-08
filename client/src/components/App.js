@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 
-import Landing from './Landing';
+import Landing from './Landing/Landing';
 import NavigationBar from './NavigationBar';
 import GlobalError from './GlobalError';
 import Arena from './Arena/Arena';

@@ -244,7 +244,7 @@ class TagSystem extends React.Component {
                   type="text"
                   value={this.state.searchTerm}
                   onChange={this.onHeadphoneSearchInput}
-                  placeholder="Search & Tag headphones"
+                  placeholder="Search for headphone"
                />
                <i className="fas fa-search tag-system__search-icon" />
             </div>

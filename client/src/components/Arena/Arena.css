@@ -250,14 +250,27 @@
     border-bottom: 2px solid black;
 }
 
-.overview__tag {
+.overview__tag--div {
     display: inline-block;
-    margin: 2px .2rem;
-    padding: 0 .4rem;
+    margin: .2rem .2rem;
+    padding: .15rem .4rem;
+    line-height: .9rem;
+    text-transform: uppercase; 
     border: .5px solid rgba(0, 0, 0, .7);
     box-shadow: 2px 2px black;
 }
-
+.overview__tag--span {
+    display: inline;
+    padding: .15rem .4rem;
+    vertical-align: middle;
+    text-transform: uppercase; 
+    border: .5px solid rgba(0, 0, 0, .7);
+    box-shadow: 2px 2px black;
+}
+.overview__tag--span-div {
+    line-height: 1.65rem;
+    margin: 0 .2rem;
+}
 /* Specification */
 
 .specification {
@@ -368,9 +381,6 @@
         grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
         justify-items: center;
     }
-    .arena__horizontal-line {
-        height: 55vh;
-    }
     .arena__nav-bar-line {
         width: 1.7rem;
     }
@@ -392,9 +402,6 @@
     }
     .selected-headphone:nth-of-type(4) {
         display: none;
-    }
-    .selected-headphone__essential {
-        height: calc(55vh - 3.5rem - 1.6rem - 1.5px);
     }
     .selected-headphone__close-button {
         opacity: 1;
@@ -422,9 +429,6 @@
     .arena {
         grid-template-columns: 23% 77%;
     }
-    .arena__horizontal-line {
-        height: 50vh;
-    }
     .arena__nav-bar-line {
         width: 1.65rem;
     }
@@ -442,9 +446,6 @@
         padding: .2rem .3rem;
         font-size: 1rem;
         line-height: 1.2rem;
-    }
-    .selected-headphone__essential {
-        height: calc(50vh - 3.5rem - 1.6rem - 1.5px);
     }
     .selected-headphone img {
         width: 85%;

@@ -14,7 +14,7 @@ export const currentUserReducer = (state = null, action) => {
 
 export const askLoginReducer = (state = false, action) => {
    switch (action.type) {
-      case 'ASK_LOGIN':
+      case 'ASK_LOGIN_STATUS':
          return action.payload;
       default:
          return state;

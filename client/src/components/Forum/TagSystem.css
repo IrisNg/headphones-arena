@@ -9,6 +9,7 @@
 
 .tag-system__search-input {
     width: 100%;
+    padding: .15rem 0;
     font-size: .85rem;
     font-weight: 700;
     background: none;

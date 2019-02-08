@@ -1,4 +1,4 @@
-.check-auth {
+.landing~.check-auth {
     display: none;
 }
 
@@ -11,26 +11,26 @@
     filter: brightness(90%);
 }
 
-.landing~.navigation-bar .navigation-bar-icon {
+.landing~.navigation-bar .navigation-bar__icon {
     margin-bottom: 1rem;
 }
 
-.landing~.navigation-bar .navigation-bar-icon, .landing~.navigation-bar .navigation-bar-icon img, .landing~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
+.landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
     height: 3rem;
     width: 3rem;
     line-height: 3rem;
 }
 
-.landing~.navigation-bar:hover .navigation-bar-icon {
+.landing~.navigation-bar:hover .navigation-bar__icon {
     box-shadow: none;
 }
 
-.landing~.navigation-bar .navigation-bar--page-name {
+.landing~.navigation-bar .navigation-bar__page-name {
     font-size: 1rem;
     background-color: rgba(0, 0, 0, 0);
 }
 
-.landing~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+.landing~.navigation-bar .navigation-bar__icon:hover .navigation-bar__page-name {
     transform: translateX(3.5rem);
 }
 
@@ -85,7 +85,7 @@
         left: 1rem;
         height: 12.5rem;
     }
-    .landing~.navigation-bar .navigation-bar-icon, .landing~.navigation-bar .navigation-bar-icon img, .landing~.navigation-bar .navigation-bar-icon .navigation-bar--page-name {
+    .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
         height: 3.5rem;
         width: 3.5rem;
         line-height: 3.5rem;

@@ -44,8 +44,8 @@ class App extends React.Component {
                   <Route path="/login" component={Authentication} />
                   <Route path="/user/:id" component={Dashboard} />
                </Switch>
-               <CheckAuth />
                <NavigationBar />
+               <CheckAuth />
                <GlobalError />
                {/* <div className="forum-lines">
                   <div />

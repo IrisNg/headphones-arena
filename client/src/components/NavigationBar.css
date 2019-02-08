@@ -10,41 +10,41 @@
     font-weight: 700;
 }
 
-.navigation-bar-icon {
+.navigation-bar__icon {
     position: relative;
     margin-right: 1.5rem;
     cursor: pointer;
 }
 
-.navigation-bar--active {
+.navigation-icon--active {
     z-index: 10;
     order: -1;
 }
 
-.navigation-bar-icon, .navigation-bar-icon img, .navigation-bar-icon .navigation-bar--page-name, .navigation-bar .logout__button {
+.navigation-bar__icon, .navigation-bar__icon img, .navigation-bar__icon .navigation-bar__page-name, .navigation-bar .logout__button {
     height: 3.5rem;
     width: 3.5rem;
     line-height: 3.5rem;
 }
 
-.navigation-bar--inactive,
+.navigation-icon--inactive,
 .navigation-bar__logout {
     z-index: 5;
     transform: translateX(-15rem);
     transition: transform .7s;
 }
 
-.navigation-bar:hover .navigation-bar--inactive, 
+.navigation-bar:hover .navigation-icon--inactive, 
 .navigation-bar:hover .navigation-bar__logout {
     transform: translateX(0);
 }
 
-.navigation-bar:hover .navigation-bar-icon, 
+.navigation-bar:hover .navigation-bar__icon, 
 .navigation-bar:hover .navigation-bar__logout {
     box-shadow: 2px 2px #c00603;
 }
 
-.navigation-bar--page-name {
+.navigation-bar__page-name {
     position: absolute;
     top: 0;
     transition: opacity .2s ease-in, transform .4s ease-in;
@@ -55,7 +55,7 @@
     color: white;
 }
 
-.navigation-bar-icon:hover .navigation-bar--page-name {
+.navigation-bar__icon:hover .navigation-bar__page-name {
     opacity: 1;
 }
 .navigation-bar__logout .logout__button {
@@ -102,35 +102,35 @@ color: #eb5252;
         justify-content: space-between;
         box-sizing: border-box;
     }
-    :not(.landing)~.navigation-bar .navigation-bar-icon {
+    :not(.landing)~.navigation-bar .navigation-bar__icon {
         width: 3rem;
         height: 3rem;
         margin-right: 3rem;
     line-height: 3rem;
     }
-    :not(.landing):not(.arena)~.navigation-bar .navigation-bar-icon,
+    :not(.landing):not(.arena)~.navigation-bar .navigation-bar__icon,
     :not(.landing):not(.arena)~.navigation-bar .navigation-bar__logout{
         box-shadow: none;
     }
   
 
-    :not(.landing)~.navigation-bar .navigation-bar-icon img, 
-        :not(.landing)~.navigation-bar .navigation-bar--page-name{
+    :not(.landing)~.navigation-bar .navigation-bar__icon img, 
+        :not(.landing)~.navigation-bar .navigation-bar__page-name{
     height: 3rem;
     width: 3rem;
     line-height: 3rem;
     font-size: .6rem;
 }
-:not(.landing)~.navigation-bar .navigation-bar--inactive,
+:not(.landing)~.navigation-bar .navigation-icon--inactive,
     :not(.landing)~.navigation-bar .navigation-bar__logout {
         transform: translateX(-100vw);
         transition: transform 1.4s;
     }
-    :not(.landing)~.navigation-bar:hover .navigation-bar--inactive,
+    :not(.landing)~.navigation-bar:hover .navigation-icon--inactive,
     :not(.landing)~.navigation-bar:hover .navigation-bar__logout {
         transform: translateX(0);
     }
-    :not(.landing)~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+    :not(.landing)~.navigation-bar .navigation-bar__icon:hover .navigation-bar__page-name {
         transform: translateX(3rem);
     }
     :not(.landing)~.navigation-bar .logout__button {
@@ -146,10 +146,10 @@ color: #eb5252;
 /* Phones */
 
 @media only screen and (max-width: 481px) {
-    :not(.landing)~.navigation-bar .navigation-bar-icon {
+    :not(.landing)~.navigation-bar .navigation-bar__icon {
         margin-right: 0;
     }
-    :not(.landing)~.navigation-bar .navigation-bar-icon:hover .navigation-bar--page-name {
+    :not(.landing)~.navigation-bar .navigation-bar__icon:hover .navigation-bar__page-name {
         transform: translateX(0);
     }
 }

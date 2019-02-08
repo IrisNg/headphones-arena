@@ -155,7 +155,7 @@
 .tag-system__tag:hover>.tag-system__tag-removal-icon {
     z-index: 1;
 }
-
+/* Tag criteria */
 .tag-system__criterias {
     padding: 1rem .5rem;
     display: flex;
@@ -179,7 +179,7 @@
     background-color: #f6cb01;
     color: black;
 }
-
+/* Selectable tags */
 .tag-system__selectable-tags {
     width: 100%;
     margin: auto;

@@ -1,8 +1,28 @@
 .check-auth {
     position: fixed;
-    bottom: 2%;
-    right: 2%;
-    font-size: .7rem;
-    color: white;
-    z-index: 5;
+    z-index: 10;
+    width: 3.2rem;
+    bottom: 3.5rem;
+    left: 0;
+    margin-left: .3rem;
+    font-size: .8rem;
+    color: black;
+}
+/* 
+.navigation-bar:hover~.check-auth{
+    display: none;
+} */
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+.check-auth{
+    width: calc(100vw - 3.5rem);
+    top: 1.7rem;
+    left: 3rem;
+    margin-left: .3rem;
+}
+.navigation-bar:hover~.check-auth{
+    display: none;
+}
 }

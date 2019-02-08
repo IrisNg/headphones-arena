@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { registerUser, addGlobalError } from '../../actions';
+import './Register.css';
 
 class Register extends React.Component {
    state = {
       username: '',
       password: ''
    };
-   onSubmitClick = e => {
-      e.preventDefault();
+   onSubmitClick = () => {
       //Check required fields
       if (!this.state.username || !this.state.password) {
          this.props.addGlobalError('Both username and password are required');
@@ -23,23 +23,47 @@ class Register extends React.Component {
    };
    render() {
       return (
-         <div>
-            REGISTER
-            <form>
-               <label>Username</label>
-               <input
-                  type="text"
-                  value={this.state.username}
-                  onChange={e => this.setState({ username: e.target.value })}
-               />
-               <label>Password</label>
-               <input
-                  type="text"
-                  value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
-               />
-               <input type="submit" onClick={this.onSubmitClick} />
-            </form>
+         <div className="register">
+            <div className="register__contents">
+               <form className="register__form">
+                  {/* Title */}
+                  <div className="register__form-page-title"> REGISTER</div>
+                  {/* Username */}
+                  <label className="register__form-label">USERNAME</label>
+                  <input
+                     type="text"
+                     className="register__form-input"
+                     value={this.state.username}
+                     onChange={e => this.setState({ username: e.target.value })}
+                  />
+                  {/* Password */}
+                  <label className="register__form-label">PASSWORD</label>
+                  <input
+                     type="password"
+                     className="register__form-input"
+                     value={this.state.password}
+                     onChange={e => this.setState({ password: e.target.value })}
+                     onKeyPress={e => (e.key === 'Enter' ? this.onSubmitClick() : null)}
+                  />
+                  {/* Register button */}
+                  <div className="register__form-button" onClick={this.onSubmitClick}>
+                     REGISTER ME!
+                  </div>
+               </form>
+               <div className="register__alternatives">
+                  {/* Switch to Login page when clicked */}
+                  <h6 className="register__alternatives-login" onClick={this.props.turnOffRegister}>
+                     Wait, I'm already a member!
+                  </h6>
+                  {/* Exit out of this component when clicked */}
+                  <h6 className="register__alternatives-refuse" onClick={this.props.onRefuseClick}>
+                     No Way! You can't make me!
+                  </h6>
+               </div>
+               <div className="register__continuous-line" />
+               <div className="register__vertical-line" />
+               <div className="register__vertical-line-2" />
+            </div>
          </div>
       );
    }

@@ -378,7 +378,7 @@
         padding-left: .75rem;
     }
     .headphone {
-        font-size: .95rem;
+        font-size: .9rem;
         background-color: rgba(255,255,255, .85);
     }
     .selected-list {
@@ -433,7 +433,7 @@
         padding-left: 2.7rem;
     }
     .headphone {
-        font-size: .9rem;
+        font-size: .85rem;
     }
     .selected-list {
         grid-template-columns: repeat(auto-fit, 75%);

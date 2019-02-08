@@ -13,7 +13,7 @@ class CheckAuth extends React.Component {
    //Display user's authentication status
    render() {
       return (
-         <div className="check-auth">{this.props.current ? `Log In status ${this.props.current.username}` : 'MEH'}</div>
+         <div className="check-auth">{this.props.current ? `Hi welcome there${this.props.current.username}!` : 'Unidentified'}</div>
       );
    }
 }

@@ -376,7 +376,7 @@
 @media only screen and (max-width: 767px) {
     .arena {
         padding-top: 3rem;
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 25% auto;
         grid-template-rows: 100vh auto auto;
         grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
         justify-items: center;
@@ -392,11 +392,12 @@
         background-color: rgba(255,255,255, .85);
     }
     .selected-list {
-        grid-template-columns: repeat(auto-fit, 67%);
+        margin-left: -3rem;
+        grid-template-columns: repeat(auto-fit, 18rem);
         grid-column-gap: 0;
     }
     .selected-list__empty {
-        margin: calc(10vh + 1px) 2.5rem 0 2.5rem;
+        margin: 1px 2.5rem 0 2.5rem;
         line-height: 1.3rem;
         font-size: 1.1rem;
     }
@@ -419,7 +420,8 @@
         font-size: .88rem;
     }
     .arena .live-chat {
-        width: 67%;
+        width: 18rem;
+        margin-left: -3rem;
         grid-area: live-chat;
     }
 }
@@ -439,10 +441,11 @@
         font-size: .85rem;
     }
     .selected-list {
-        grid-template-columns: repeat(auto-fit, 75%);
+        margin-left: 0;
+        grid-template-columns: repeat(auto-fit, 14rem);
     }
     .selected-list__empty {
-        margin: calc(-10vh + 1px) 4rem 0 4rem;
+        margin: 1px 4rem 0 4rem;
         padding: .2rem .3rem;
         font-size: 1rem;
         line-height: 1.2rem;
@@ -451,6 +454,8 @@
         width: 85%;
     }
     .arena .live-chat {
-        width: 75%;
+        width: 14rem;
+        margin-left: 0;
+
     }
 }

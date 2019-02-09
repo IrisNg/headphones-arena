@@ -26,6 +26,7 @@
 .forum-contents__page-title {
     grid-area: title;
     margin: 0;
+    padding-left: .5rem;
     justify-self: center;
     align-self: center;
     font-family: 'bebas_neuebold';
@@ -224,9 +225,11 @@
     height: 3.5rem;
     top: 50vh;
     z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    font-size: 4rem;
-    line-height: 3.5rem;
+    font-size: 3.5rem;
     color: white;
     background-color: black;
     box-sizing: border-box;
@@ -403,7 +406,8 @@
         margin: 0;
         padding-top: .5em;
         writing-mode: vertical-rl;
-        font-size: 1.1rem;
+        font-size: .75rem;
+        letter-spacing: .04rem;
     }
     .forum__name--comparison h5, .forum__name--review h5 {
         padding-bottom: .5em;
@@ -428,7 +432,9 @@
         grid-template-columns: 3rem calc(100vw - 3rem);
     }
     .forum-contents {
-        grid-template-rows: 27% 7.5% 27% auto auto auto;
+        margin-top: -2.1rem;
+        grid-template-rows: 31.5% 3% 27% auto auto auto;
+        grid-template-columns: 1fr repeat(2, 13rem) 1fr;
         grid-template-areas: "search-bar search-bar search-bar search-bar" ". . . ." ". title title ." "comparison-name comparison recommendation recommendation-name" "review-name review general general-name" ". live-chat live-chat .";
     }
     .forum-contents__page-title {
@@ -439,13 +445,21 @@
     .forum-search-posts {
         grid-area: 4/2/-2 / span 2;
     }
+    .forum-category__post, .forum-search__post {
+        height: 13rem;
+    }
     .forum__add-post-button {
         width: 3rem;
+        top: calc(50vh - 1.2rem);
     }
     
 .forum__nav-bar-line {
     width: 3rem;
 }
+.forum__horizontal-lines {
+    top: calc(50vh - 1.2rem);
+
+    }
     /* Category Names */
     .forum-styling {
         grid-template-columns: 1fr 54vh 1fr;
@@ -460,8 +474,8 @@
         width: 100%;
     }
     .forum-contents {
-        grid-template-rows: 27% 5% 32% auto auto auto auto auto;
-        grid-template-columns: 1fr 32vh 1fr;
+        grid-template-rows: 32% 0% 35% auto auto auto auto auto;
+        grid-template-columns: 1fr 13rem 1fr;
         grid-template-areas: "search-bar search-bar search-bar" ". . ." "title title title" ". comparison comparison-name" ". recommendation recommendation-name" ". review review-name" ". general general-name" ". live-chat .";
     }
     .forum-contents__page-title {
@@ -471,11 +485,8 @@
     /* SearchPosts */
     .forum-search-posts {
         grid-area: 4/2/-2 / span 1;
-        grid-template-rows: repeat(8, 32vh);
-        grid-template-columns: 32vh;
-    }
-    .forum-category__post, .forum-search__post {
-        height: 32vh;
+        grid-template-rows: repeat(8, 13rem);
+        grid-template-columns: 13rem;
     }
     /* Categories */
     .forum-category-comparison, .forum-category-recommendation {
@@ -487,11 +498,23 @@
     .forum-category .forum-category__post:nth-of-type(n+4) {
         display: none;
     }
+    /* Misc */
+    .forum__add-post-button {
+        height: 3rem;
+        top: calc(50vh - .6rem);
+        font-size: 3rem;
+    }
+    .forum__horizontal-lines {
+        height: 3rem;
+        top: calc(50vh - .6rem);
+    
+        }
+    
     /* Category Names */
     .forum-styling {
         grid-area: 4 / 2 / span 4 / -1;
         grid-template-rows: 1fr 1fr 1fr 1fr;
-        grid-template-columns: 32vh min-content;
+        grid-template-columns: 13rem min-content;
         grid-template-areas: ". comparison-name" ". recommendation-name" ". review-name" ". general-name";
         grid-column-gap: .1em;
     }

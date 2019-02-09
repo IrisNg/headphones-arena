@@ -1,4 +1,4 @@
-.global-error {
+.global-message {
     position: fixed;
     width: calc(100% - 3.5rem - 11%);
     margin-left: 3.5rem;
@@ -8,7 +8,7 @@
     justify-content: center;
 }
 
-.global-error__message {
+.global-message__message {
     display: inline-block;
     width: auto;
     max-width: 30vw;
@@ -33,19 +33,19 @@
 }
 
 @media screen and (max-width: 1280px) {
-    .global-error {
+    .global-message {
         width: calc(100% - 3.5rem - 12%);
     }
 }
 
 @media screen and (max-width: 1024px) {
-    .global-error {
+    .global-message {
         width: calc(100% - 3.5rem - 17%);
     }
 }
 
 @media screen and (max-width: 767px) {
-    .global-error {
+    .global-message {
         width: calc(100% - 3rem);
         margin-left: 3rem;
     }

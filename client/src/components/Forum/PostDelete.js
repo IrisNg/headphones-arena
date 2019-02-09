@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError } from '../../actions';
+import { addGlobalMessage } from '../../actions';
 import history from '../../history';
 import './PostDelete.css';
 
@@ -15,9 +15,10 @@ class PostDelete extends React.Component {
       try {
          const response = await axios.delete(`/posts/${postId}`);
          console.log(response);
+         this.props.addGlobalMessage('Post. Erased. Beep.');
          history.push(`/show-post/${postId}`);
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
 
@@ -37,5 +38,5 @@ class PostDelete extends React.Component {
 }
 export default connect(
    null,
-   { addGlobalError }
+   { addGlobalMessage }
 )(PostDelete);

@@ -48,13 +48,14 @@
 /* Headphone */
 
 .headphone {
-    margin: .15rem 0 .2rem 0;
+    margin: .2rem 0;
+    padding: 0 .3rem;
     background-color: white;
     font-size: medium;
+    width: fit-content;
 }
 
 .headphone:hover {
-    padding-right: .3rem;
     text-align: right;
     background-color: #164499;
     color: white;
@@ -389,7 +390,6 @@
     }
     .headphone {
         font-size: .9rem;
-        background-color: rgba(255,255,255, .85);
     }
     .selected-list {
         margin-left: -3rem;

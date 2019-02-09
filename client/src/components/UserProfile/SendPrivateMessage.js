@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import history from '../../history';
 import axios from 'axios';
-import { addGlobalError } from '../../actions';
+import { addGlobalMessage } from '../../actions';
 
 class SendPrivateMessage extends React.Component {
    state = {
@@ -48,18 +48,19 @@ class SendPrivateMessage extends React.Component {
       };
       //Check for required fields
       if (!this.state.subject || !this.state.message) {
-         this.props.addGlobalError(
-            'Your message needs a subject and some content... Do not become a spammer...Or Else.'
+         this.props.addGlobalMessage(
+            'Your message needs a subject and some content... Do not become a spammer...Or Else. *insert angry face*'
          );
       } else {
          try {
             //Post private message
             const response = await axios.post(`/user-profile/${this.props.profileId}/message`, postObj);
             console.log(response);
+            this.props.addGlobalMessage('Private message has been sent. ssshhh ...');
             //Then turn off this interface when done
             this.props.turnOff();
          } catch (err) {
-            this.props.addGlobalError(err.response.data);
+            this.props.addGlobalMessage(err.response.data);
          }
       }
    };
@@ -94,5 +95,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalError }
+   { addGlobalMessage }
 )(SendPrivateMessage);

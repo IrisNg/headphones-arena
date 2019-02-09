@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError } from '../../actions';
+import { addGlobalMessage } from '../../actions';
 class UploadPicture extends React.Component {
    state = {
       imageUrl: ''
@@ -13,10 +13,11 @@ class UploadPicture extends React.Component {
             picture: this.state.imageUrl
          });
          console.log(response);
+         this.props.addGlobalMessage('Uploaded your avatar! Hehe');
          //Turn off this component
          this.props.turnOff();
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
 
@@ -37,5 +38,5 @@ class UploadPicture extends React.Component {
 
 export default connect(
    null,
-   { addGlobalError }
+   { addGlobalMessage }
 )(UploadPicture);

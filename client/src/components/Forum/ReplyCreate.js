@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
-import { fetchPost, addGlobalError } from '../../actions';
+import { fetchPost, addGlobalMessage } from '../../actions';
 
 class ReplyCreate extends React.Component {
    state = {
@@ -31,7 +31,7 @@ class ReplyCreate extends React.Component {
       if (this.props.currentUser) {
          //Check for required fields
          if (!this.state.content) {
-            this.props.addGlobalError('Please fill in some content for your reply at least...');
+            this.props.addGlobalMessage('Please fill in some content for your reply at least...');
          } else {
             //Post new post form to server
             this.postToServer();
@@ -62,10 +62,11 @@ class ReplyCreate extends React.Component {
          }
          //Refetch post thread data
          this.props.fetchPost(this.props.mainPostId);
+         this.props.addGlobalMessage('Successfully added your Reply. Thanks for sharing!');
          //Turn off this interface afterwards
          this.props.turnOffReplyCreate();
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    //Display Login component to remind user to log in before creating a new post
@@ -108,5 +109,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { fetchPost, addGlobalError }
+   { fetchPost, addGlobalMessage }
 )(ReplyCreate);

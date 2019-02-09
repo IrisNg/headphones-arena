@@ -9,7 +9,7 @@ export const fetchListOfHeadphones = () => async dispatch => {
       var response = await axios.get('/headphones');
       dispatch({ type: 'FETCHED_LIST_OF_HEADPHONES', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by SelectedHeadphone component
@@ -19,15 +19,16 @@ export const fetchFullHeadphone = id => async dispatch => {
       var response = await axios.get(`/headphones/${id}`);
       dispatch({ type: 'FETCHED_FULL_HEADPHONE', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by Headphone component
-export const selectHeadphone = headphoneSelected => {
-   return {
+export const selectHeadphone = headphoneSelected => async dispatch => {
+   await dispatch(addGlobalMessage(`${headphoneSelected.brandAndModel} has entered the Arena!`));
+   dispatch({
       type: 'HEADPHONE_SELECTED',
       payload: headphoneSelected
-   };
+   });
 };
 //Called by SelectedHeadphone component
 export const removeHeadphone = headphoneRemoved => {
@@ -54,7 +55,7 @@ export const fetchTopPosts = headphoneName => async dispatch => {
       const response = await axios.post('/posts/top', headphoneName);
       dispatch({ type: 'FETCHED_TOP_POSTS', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by Dashboard, TopPosts, ForumCategory components
@@ -69,7 +70,7 @@ export const redirectToMainPost = post => async dispatch => {
          console.log(response);
          history.push(`/show-post/${response.data._id}`);
       } catch (err) {
-         dispatch(addGlobalError(err.response.data));
+         dispatch(addGlobalMessage(err.response.data));
       }
    }
    console.log('dispatched!');
@@ -83,7 +84,7 @@ export const fetchForumHomePosts = () => async dispatch => {
       const response = await axios.get('/posts');
       dispatch({ type: 'FETCHED_FORUM_POSTS', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by fetchSearchPosts action creator
@@ -100,7 +101,7 @@ export const fetchUnpopulatedSearchPosts = term => async dispatch => {
       const response = await axios.post('/posts/search', { term });
       dispatch({ type: 'FETCHED_UNPOPULATED_SEARCH_POSTS', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by ForumSearch component
@@ -124,7 +125,7 @@ export const fetchSearchPosts = searchTerm => async (dispatch, getState) => {
             dispatch({ type: 'FETCHED_SEARCH_POSTS', payload: populatedPosts });
          }
       } catch (err) {
-         dispatch(addGlobalError(err.response.data));
+         dispatch(addGlobalMessage(err.response.data));
       }
    });
 };
@@ -134,7 +135,7 @@ export const fetchPost = id => async dispatch => {
       const response = await axios.get(`/posts/${id}`);
       dispatch({ type: 'FETCHED_POST', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Called by PostEdit and Vote components
@@ -143,9 +144,10 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
       const response = await axios.put(`/posts/${id}`, updateObj);
       console.log(response);
       await dispatch(fetchPost(mainPostId));
+      await dispatch(addGlobalMessage('Your Post has been updated successfully!'));
       dispatch({ type: 'UPDATED_POST' });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //UserProfile
@@ -154,16 +156,17 @@ export const fetchUserProfile = userId => async dispatch => {
       const response = await axios.get(`/user/${userId}`);
       dispatch({ type: 'FETCHED_USER_PROFILE', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 export const updateHeadphoneRating = (profileId, updateObj) => async dispatch => {
    try {
       const response = await axios.put(`/user-profile/${profileId}`, updateObj);
       await dispatch(fetchUserProfile(response.data.userId));
+      await dispatch(addGlobalMessage("Your rating has contributed to this headphone's Arena score ..."));
       dispatch({ type: 'UPDATED_USER_PROFILE' });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 //Authentication
@@ -171,18 +174,22 @@ export const registerUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/register', { username, password });
       await dispatch(askLogin(false));
+      await dispatch(addGlobalMessage('Successfully registered and logged in!'));
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 export const loginUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/login', { username, password });
       await dispatch(askLogin(false));
+      await dispatch(addGlobalMessage(`Welcome back ${username}!`));
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError('Incorrect username or password! Are you registered? Have you forgotten your password?'));
+      dispatch(
+         addGlobalMessage('Incorrect username or password! Are you registered? Have you forgotten your password?')
+      );
    }
 };
 export const logoutUser = () => async dispatch => {
@@ -190,9 +197,10 @@ export const logoutUser = () => async dispatch => {
       const response = await axios.get('/logout');
       //Force page to refresh
       history.go(0);
+      await dispatch(addGlobalMessage('See you next time!'));
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError('Logout failed. You are stuck here forever haha!'));
+      dispatch(addGlobalMessage('Logout failed. You are stuck here forever haha!'));
    }
 };
 export const checkUser = () => async dispatch => {
@@ -200,7 +208,7 @@ export const checkUser = () => async dispatch => {
       const response = await axios.get('/user');
       dispatch({ type: 'CURRENT_USER', payload: response.data });
    } catch (err) {
-      dispatch(addGlobalError(err.response.data));
+      dispatch(addGlobalMessage(err.response.data));
    }
 };
 export const askLogin = boolean => {
@@ -209,10 +217,10 @@ export const askLogin = boolean => {
       payload: boolean
    };
 };
-//Global Error
-export const addGlobalError = errorMessage => {
+//Global Message
+export const addGlobalMessage = message => {
    return {
-      type: 'ERROR_MESSAGE',
-      payload: errorMessage
+      type: 'GLOBAL_MESSAGE',
+      payload: message
    };
 };

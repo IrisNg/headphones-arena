@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchPost, updatePost, addGlobalError } from '../../actions';
+import { fetchPost, updatePost, addGlobalMessage } from '../../actions';
 import history from '../../history';
 import TagSystem from './TagSystem';
 import Login from '../Authentication/Login';
@@ -40,14 +40,12 @@ class PostEdit extends React.Component {
    retrieveTagsFromTagSystem = outputTags => {
       this.setState({ outputTags });
    };
-   onFormSubmit = event => {
+   onSubmitClick = event => {
       event.preventDefault();
-      var { currentUser, post, addGlobalError, updatePost } = this.props;
+      var { currentUser, post, addGlobalMessage, updatePost } = this.props;
       if (currentUser.id !== post.author.id) {
          //Display this message if current user is NOT the owner of this post
-         addGlobalError(
-            "I mean, you wish you were the author of this post, but you are not. So you can't edit this post."
-         );
+         addGlobalMessage("You wish you were the author of this post, but you are not. So you can't edit this post.");
       } else {
          //Format object to send to the server
          var updateObj = {
@@ -59,7 +57,7 @@ class PostEdit extends React.Component {
          };
          //Check for required fields
          if (!this.state.content) {
-            addGlobalError('Please fill in some content at least...GEEZ...');
+            addGlobalMessage('Please fill in some content at least...GEEZ...');
          } else {
             //Update post in the server database
             updatePost(post._id, updateObj);
@@ -82,9 +80,10 @@ class PostEdit extends React.Component {
             var response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
             console.log(response2);
          }
+         this.props.addGlobalMessage('Post update completed!');
          history.goBack();
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    checkLogin() {
@@ -100,8 +99,8 @@ class PostEdit extends React.Component {
       var { post } = this.props;
       return (
          <div className="post-edit">
-            <h6>Edit Post</h6>
-            <form onSubmit={this.onFormSubmit}>
+            <h6 className="post-create__page-title">Edit Post</h6>
+            <form className="post-create__form">
                {/* Tagging Mechanism */}
                <TagSystem
                   previousTags={post ? post.tag : null}
@@ -109,9 +108,25 @@ class PostEdit extends React.Component {
                   id={post ? post._id : null}
                />
                {/* Post Contents */}
-               <textarea onChange={e => this.setState({ content: e.target.value })} value={this.state.content} />
-               <input type="submit" />
-               <button onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}>Delete</button>
+               <textarea
+                  onChange={e => this.setState({ content: e.target.value })}
+                  value={this.state.content}
+                  className="post-create__input-content"
+                  placeholder="Share your thoughts with your fellow Audiophiles again!"
+               />
+               {/* Submit button */}
+               <div className="post-create__button-container">
+                  <div className="post-create__update-button" onClick={this.onSubmitClick}>
+                     Update Post!
+                  </div>
+               </div>
+               {/* Delete button */}
+               <div
+                  className="post-create__delete-button"
+                  onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}
+               >
+                  Delete
+               </div>
             </form>
             {this.checkLogin()}
          </div>
@@ -124,5 +139,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchPost, updatePost, addGlobalError }
+   { fetchPost, updatePost, addGlobalMessage }
 )(PostEdit);

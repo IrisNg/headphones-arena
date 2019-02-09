@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addGlobalError, fetchForumHomePosts } from '../../actions';
+import { addGlobalMessage, fetchForumHomePosts } from '../../actions';
 import history from '../../history';
 import TagSystem from './TagSystem';
 import LiveChat from '../LiveChat/LiveChat';
@@ -31,7 +31,7 @@ class PostCreate extends React.Component {
       if (this.props.currentUser) {
          //Check for required fields
          if (!title || !category || !content) {
-            this.props.addGlobalError('Do you have 1 category selected, title and content filled in?');
+            this.props.addGlobalMessage('Do you have 1 category selected, title and content filled in?');
          } else {
             //Post new post form to server
             this.postToServer();
@@ -60,9 +60,10 @@ class PostCreate extends React.Component {
             console.log(response2);
          }
          this.props.fetchForumHomePosts();
+         this.props.addGlobalMessage('Your Post has been successfully created! Thanks for sharing :)');
          history.push('/forum');
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
 
@@ -158,5 +159,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalError, fetchForumHomePosts }
+   { addGlobalMessage, fetchForumHomePosts }
 )(PostCreate);

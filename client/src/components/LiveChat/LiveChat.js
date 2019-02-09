@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError, fetchListOfHeadphones } from '../../actions';
+import { addGlobalMessage, fetchListOfHeadphones } from '../../actions';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import './LiveChat.css';
@@ -35,7 +35,7 @@ class LiveChat extends React.Component {
          const response = await axios.get('/chat');
          this.setState({ messages: response.data });
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    renderChatMessages() {
@@ -96,5 +96,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { addGlobalError, fetchListOfHeadphones }
+   { addGlobalMessage, fetchListOfHeadphones }
 )(LiveChat);

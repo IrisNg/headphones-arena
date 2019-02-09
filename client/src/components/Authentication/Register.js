@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { registerUser, addGlobalError, askLogin } from '../../actions';
+import { registerUser, addGlobalMessage, askLogin } from '../../actions';
 import './Register.css';
 
 class Register extends React.Component {
@@ -11,7 +11,7 @@ class Register extends React.Component {
    onSubmitClick = () => {
       //Check required fields
       if (!this.state.username || !this.state.password) {
-         this.props.addGlobalError('Both username and password are required');
+         this.props.addGlobalMessage('Both username and password are required');
       } else {
          //Register user
          this.props.registerUser(this.state.username, this.state.password);
@@ -69,5 +69,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { registerUser, addGlobalError, askLogin }
+   { registerUser, addGlobalMessage, askLogin }
 )(Register);

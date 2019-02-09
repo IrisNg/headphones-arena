@@ -54,7 +54,9 @@
     box-sizing: border-box;
     color: white;
 }
-
+.navigation-bar__page-name::selection {
+    background: none;
+}
 .navigation-bar__icon:hover .navigation-bar__page-name {
     opacity: 1;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { addGlobalError, fetchListOfHeadphones } from '../../actions';
+import { addGlobalMessage, fetchListOfHeadphones } from '../../actions';
 import HeadphoneDelete from './HeadphoneDelete';
 import './HeadphoneEdit.css';
 
@@ -65,7 +65,7 @@ class HeadphoneEdit extends React.Component {
             price
          });
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
@@ -141,8 +141,9 @@ class HeadphoneEdit extends React.Component {
       try {
          const response = await axios.put(`/headphones/${this.state._id}`, updateObj);
          console.log(response.data);
+         this.props.addGlobalMessage('Updated headphone successfully. Thank you for your hard work :)');
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    renderDeleteButton() {
@@ -180,5 +181,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalError, fetchListOfHeadphones }
+   { addGlobalMessage, fetchListOfHeadphones }
 )(HeadphoneEdit);

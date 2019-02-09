@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError } from '../../actions';
+import { addGlobalMessage } from '../../actions';
 
 class ChatInput extends React.Component {
    state = {
@@ -33,7 +33,7 @@ class ChatInput extends React.Component {
             this.props.fetchChatMessages();
          });
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    render() {
@@ -65,5 +65,5 @@ const mapStateToProps = state => {
 };
 export default connect(
    mapStateToProps,
-   { addGlobalError }
+   { addGlobalMessage }
 )(ChatInput);

@@ -4,7 +4,7 @@ import history from '../history';
 
 import Landing from './Landing/Landing';
 import NavigationBar from './NavigationBar';
-import GlobalError from './GlobalError';
+import GlobalMessage from './GlobalMessage';
 import Arena from './Arena/Arena';
 import HeadphoneCreate from './Arena/HeadphoneCreate';
 import HeadphoneEdit from './Arena/HeadphoneEdit';
@@ -46,7 +46,7 @@ class App extends React.Component {
                <NavigationBar />
                <CheckAuth />
                <Login />
-               <GlobalError />
+               <GlobalMessage />
                {/* <div className="forum-lines">
                   <div />
                   <div />

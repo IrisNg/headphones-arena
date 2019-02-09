@@ -33,6 +33,9 @@ class PostShow extends React.Component {
 
    render() {
       var { post, currentUser } = this.props;
+      if (!post || post._id !== this.props.match.params.id) {
+         return <div />;
+      }
       return (
          <div className="post-show">
             {/* Main Post */}

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalError } from '../../actions';
+import { addGlobalMessage } from '../../actions';
 
 import history from '../../history';
 import './HeadphoneCreate.css';
@@ -82,8 +82,9 @@ class HeadphoneCreate extends React.Component {
       try {
          const response = await axios.post('/headphones', postObj);
          console.log(response);
+         this.props.addGlobalMessage('Headphone successfully added to the database!');
       } catch (err) {
-         this.props.addGlobalError(err.response.data);
+         this.props.addGlobalMessage(err.response.data);
       }
    };
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
@@ -152,5 +153,5 @@ class HeadphoneCreate extends React.Component {
 
 export default connect(
    null,
-   { addGlobalError }
+   { addGlobalMessage }
 )(HeadphoneCreate);

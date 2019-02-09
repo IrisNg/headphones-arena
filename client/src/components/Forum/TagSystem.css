@@ -49,6 +49,7 @@
 .tag-system__search-match {
     margin: .2em;
     padding: .2em .4em;
+    text-align: center;
     font-size: .8rem;
     font-weight: 700;
     text-decoration: underline;
@@ -72,6 +73,7 @@
 
 .tag-system__tag-line {
     padding: .9rem .8rem;
+    padding-top: calc(.9rem - 4px);
     border-top: 4px solid #ebebeb;
     box-sizing: border-box;
     cursor: pointer;
@@ -97,21 +99,23 @@
 .tag-system__tag-line>div {
     width: 100%;
     display: grid;
-    grid-template-rows: 1.7rem auto;
-    grid-template-columns: max-content auto max-content;
+    grid-template-rows: auto auto;
+    grid-template-columns: minmax(auto, 30%) auto max-content;
     grid-template-areas: "tagged-headphone tags close-icon" ". tags .";
     grid-column-gap: .2rem;
-    align-items: center;
 }
 
 .tag-system__tagged-headphone {
     grid-area: tagged-headphone;
+    
     font-size: .9rem;
 }
 
 .tag-system__tag-line-removal-icon {
     grid-area: close-icon;
+    padding-top: .15rem;
     justify-self: end;
+    transform-origin: 50% 0;
     cursor: pointer;
 }
 
@@ -122,6 +126,8 @@
 .tag-system__tags {
     grid-area: tags;
     justify-self: start;
+    align-self: start;
+    margin-top: -.2rem;
     display: flex;
     flex-wrap: wrap;
 }

@@ -144,9 +144,9 @@ class PostCreate extends React.Component {
                </div>
             </form>
             {this.checkLogin()}
+            <LiveChat />
             <div className="post-create__horizontal-lines" />
             <div className="post-create__vertical-line" />
-            <LiveChat />
          </div>
       );
    }

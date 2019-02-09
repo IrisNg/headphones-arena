@@ -4,6 +4,7 @@ import axios from 'axios';
 import { fetchPost, updatePost, addGlobalMessage } from '../../actions';
 import history from '../../history';
 import TagSystem from './TagSystem';
+import LiveChat from '../LiveChat/LiveChat';
 import Login from '../Authentication/Login';
 import './PostEdit.css';
 
@@ -90,17 +91,20 @@ class PostEdit extends React.Component {
       if (this.props.currentUser) {
          return null;
       }
-      return <Login disableParentInterface={this.onLoginRefuse} />;
+      return <Login disableParentInterface={this.onRefuse} />;
    }
-   onLoginRefuse() {
+   onRefuse() {
       history.goBack();
    }
    render() {
       var { post } = this.props;
       return (
          <div className="post-edit">
-            <h6 className="post-create__page-title">Edit Post</h6>
-            <form className="post-create__form">
+            {/* Page Title */}
+            <h6 className="post-edit__page-title">Edit Post</h6>
+            {/* Back Icon */}
+            <i className="fas fa-angle-left post-edit__back-icon" onClick={this.onRefuse} />
+            <form className="post-edit__form">
                {/* Tagging Mechanism */}
                <TagSystem
                   previousTags={post ? post.tag : null}
@@ -111,24 +115,27 @@ class PostEdit extends React.Component {
                <textarea
                   onChange={e => this.setState({ content: e.target.value })}
                   value={this.state.content}
-                  className="post-create__input-content"
+                  className="post-edit__input-content"
                   placeholder="Share your thoughts with your fellow Audiophiles again!"
                />
-               {/* Submit button */}
-               <div className="post-create__button-container">
-                  <div className="post-create__update-button" onClick={this.onSubmitClick}>
-                     Update Post!
+               <div className="post-edit__button-container">
+                  {/* Submit button */}
+                  <div className="post-edit__update-button" onClick={this.onSubmitClick}>
+                     UPDATE!
                   </div>
-               </div>
-               {/* Delete button */}
-               <div
-                  className="post-create__delete-button"
-                  onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}
-               >
-                  Delete
+                  {/* Delete button */}
+                  <div
+                     className="post-edit__delete-button"
+                     onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}
+                  >
+                     DELETE
+                  </div>
                </div>
             </form>
             {this.checkLogin()}
+            <LiveChat />
+            <div className="post-edit__horizontal-lines" />
+            <div className="post-edit__vertical-line" />
          </div>
       );
    }

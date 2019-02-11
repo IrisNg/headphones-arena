@@ -1,7 +1,5 @@
 import React from 'react';
 import Moment from 'react-moment';
-import { connect } from 'react-redux';
-import { selectHeadphoneUsingNameOnly } from '../../actions';
 import history from '../../history';
 import ReplyCreate from './ReplyCreate';
 import Vote from './Vote';
@@ -51,7 +49,7 @@ class Reply extends React.Component {
    };
    //Render replies to this reply
    renderReplies = () => {
-      var { data } = this.props;
+      var { data, selectHeadphoneUsingNameOnly } = this.props;
       if (data.replies.length === 0) {
          return null;
       }
@@ -63,6 +61,7 @@ class Reply extends React.Component {
             tier={this.props.tier + 1}
             mainPostId={this.props.mainPostId}
             currentUser={this.props.currentUser}
+            selectHeadphoneUsingNameOnly={selectHeadphoneUsingNameOnly}
          />
       ));
    };
@@ -123,6 +122,7 @@ class Reply extends React.Component {
       if (!this.props.data) {
          return <div />;
       }
+      console.log(this.props);
       var { created, content, author, vote, _id } = this.props.data;
       return (
          <div className="reply">
@@ -161,7 +161,4 @@ class Reply extends React.Component {
    }
 }
 
-export default connect(
-   null,
-   { selectHeadphoneUsingNameOnly }
-)(Reply);
+export default Reply;

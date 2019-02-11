@@ -23,12 +23,20 @@ export const fetchFullHeadphone = id => async dispatch => {
    }
 };
 //Called by Headphone component
-export const selectHeadphone = headphoneSelected => async dispatch => {
-   await dispatch(addGlobalMessage(`${headphoneSelected.brandAndModel} has entered the Arena!`));
-   dispatch({
-      type: 'HEADPHONE_SELECTED',
-      payload: headphoneSelected
-   });
+export const selectHeadphone = headphone => async (dispatch, getState) => {
+   //Do not add headphone to the redux state if it is already stored in the list
+   if (getState().listOfSelectedHeadphones.some(headphoneSelected => headphone._id === headphoneSelected._id)) {
+      dispatch({
+         type: 'HEADPHONE_REJECTED'
+      });
+   } else {
+      //If the headphone is not in the redux state then display this message and pass it to the reducer
+      await dispatch(addGlobalMessage(`${headphone.brandAndModel} has entered the Arena!`));
+      dispatch({
+         type: 'HEADPHONE_SELECTED',
+         payload: headphone
+      });
+   }
 };
 //Called by SelectedHeadphone component
 export const removeHeadphone = headphoneRemoved => {
@@ -48,7 +56,7 @@ export const selectHeadphoneUsingNameOnly = headphoneName => async (dispatch, ge
    dispatch(selectHeadphone(headphoneEntry));
    dispatch({ type: 'HEADPHONE_SELECTED_USING_NAME_ONLY' });
 };
-//Called by SelectedHeadphone component
+//Called by TopPosts component
 //Fetch highest voted posts related to the selected headphone
 export const fetchTopPosts = headphoneName => async dispatch => {
    try {
@@ -151,6 +159,7 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
    }
 };
 //UserProfile
+//Called by Dashboard component
 export const fetchUserProfile = userId => async dispatch => {
    try {
       const response = await axios.get(`/user/${userId}`);
@@ -159,6 +168,7 @@ export const fetchUserProfile = userId => async dispatch => {
       dispatch(addGlobalMessage(err.response.data));
    }
 };
+//Called by PersonalHeadphones component
 export const updateHeadphoneRating = (profileId, updateObj) => async dispatch => {
    try {
       const response = await axios.put(`/user-profile/${profileId}`, updateObj);
@@ -170,6 +180,7 @@ export const updateHeadphoneRating = (profileId, updateObj) => async dispatch =>
    }
 };
 //Authentication
+//Called by Register component
 export const registerUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/register', { username, password });
@@ -180,6 +191,7 @@ export const registerUser = (username, password) => async dispatch => {
       dispatch(addGlobalMessage(err.response.data));
    }
 };
+//Called by Login component
 export const loginUser = (username, password) => async dispatch => {
    try {
       const response = await axios.post('/login', { username, password });
@@ -192,6 +204,7 @@ export const loginUser = (username, password) => async dispatch => {
       );
    }
 };
+//Called by Logout component
 export const logoutUser = () => async dispatch => {
    try {
       const response = await axios.get('/logout');
@@ -203,6 +216,7 @@ export const logoutUser = () => async dispatch => {
       dispatch(addGlobalMessage('Logout failed. You are stuck here forever haha!'));
    }
 };
+//Called by CheckAuth component
 export const checkUser = () => async dispatch => {
    try {
       const response = await axios.get('/user');
@@ -219,6 +233,7 @@ export const askLogin = boolean => {
 };
 //Global Message
 export const addGlobalMessage = message => {
+   console.log(message);
    return {
       type: 'GLOBAL_MESSAGE',
       payload: message

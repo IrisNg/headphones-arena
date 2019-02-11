@@ -38,6 +38,9 @@ class SendPrivateMessage extends React.Component {
    postPrivateMessage = async () => {
       //Format object to be posted to the server
       const postObj = {
+         //Recipient's userId
+         //If current user is the owner of the profile trying to reply back to a sender, then use the sender's userId
+         //If current user is NOT the owner of the profile but trying to send a message to the owner, then use the owner's userId
          toUserId: this.state.replyTo ? this.state.replyTo.fromUserId : this.props.userId,
          body: {
             subject: this.state.subject,
@@ -54,11 +57,14 @@ class SendPrivateMessage extends React.Component {
       } else {
          try {
             //Post private message
+            //profileId params here refers to the owner's user profile Id, just a route, does not matter much
             const response = await axios.post(`/user-profile/${this.props.profileId}/message`, postObj);
             console.log(response);
             this.props.addGlobalMessage('Private message has been sent. ssshhh ...');
-            //Then turn off this interface when done
-            this.props.turnOff();
+            this.setState({ subject: '', message: '', replyTo: null }, () => {
+               //Then turn off this interface when done
+               this.props.turnOff();
+            });
          } catch (err) {
             this.props.addGlobalMessage(err.response.data);
          }
@@ -81,7 +87,8 @@ class SendPrivateMessage extends React.Component {
             <input type="text" value={this.state.subject} onChange={e => this.setState({ subject: e.target.value })} />
             {/* Message content */}
             <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
-            <button onClick={this.postPrivateMessage}>Send</button>
+            {/* Send button */}
+            <div onClick={this.postPrivateMessage}>Send!</div>
             {/* Make user log in if he is not */}
             {this.checkLogin()}
          </div>

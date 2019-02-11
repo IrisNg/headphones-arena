@@ -77,7 +77,6 @@ class LiveChat extends React.Component {
          var regExp = new RegExp(requirement ? requirement : requirement2, 'i');
          return { regex: regExp, entry: headphone };
       });
-      console.log(headphoneNamesWithRegex);
       this.setState({ headphoneNamesWithRegex });
    }
    render() {

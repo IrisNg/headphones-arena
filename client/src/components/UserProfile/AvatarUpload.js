@@ -2,10 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { addGlobalMessage } from '../../actions';
-class UploadPicture extends React.Component {
+class AvatarUpload extends React.Component {
    state = {
       imageUrl: ''
    };
+
    //Upload image url to the database
    onUploadClick = async () => {
       try {
@@ -14,23 +15,27 @@ class UploadPicture extends React.Component {
          });
          console.log(response);
          this.props.addGlobalMessage('Uploaded your avatar! Hehe');
-         //Turn off this component
-         this.props.turnOff();
       } catch (err) {
          this.props.addGlobalMessage(err.response.data);
       }
    };
 
    render() {
+      var { isOwner } = this.props;
+      if (!isOwner) {
+         return <div />;
+      }
       return (
-         <div>
-            URL link to image{' '}
+         <div className="avatar-upload">
+            {/* Url input bar to upload picture */}
             <input
                type="text"
                value={this.state.imageUrl}
                onChange={e => this.setState({ imageUrl: e.target.value })}
+               placeholder="URL for your avatar"
             />
-            <button onClick={this.onUploadClick}>Upload</button>
+            {/* Upload button */}
+            <div onClick={this.onUploadClick}>Upload</div>
          </div>
       );
    }
@@ -39,4 +44,4 @@ class UploadPicture extends React.Component {
 export default connect(
    null,
    { addGlobalMessage }
-)(UploadPicture);
+)(AvatarUpload);

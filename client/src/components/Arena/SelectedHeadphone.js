@@ -26,22 +26,33 @@ class SelectedHeadphone extends React.Component {
          return <TopPosts headphone={fullHeadphone} />;
       }
    }
-
-   renderRatings(headphone) {
-      var average;
-      if (headphone.ratings.length === 0) {
-         average = 10;
+   renderRating() {
+      const { fullHeadphone } = this.props;
+      //Calculate the average rating first
+      var average = this.calculateAverageRating(fullHeadphone);
+      if (average === 0) {
+         return `white`;
+      } else if (average === 10) {
+         return `black`;
       }
-      //Find the average rating for this headphone
+      //Display rating in percentage like a health bar
+      return `linear-gradient(to right, black ${average * 10}%, white ${average * 10}%)`;
+   }
+   calculateAverageRating(headphone) {
+      //Give full marks if no rating exists
+      if (headphone.ratings.length === 0) {
+         var average = 10;
+      }
+      //Find the average rating for this headphone from a list of rating entries
       else {
-         average =
+         var average =
             (headphone.ratings.reduce((acc, curr) => {
                return acc + curr.rating;
             }, 0) /
                headphone.ratings.length) *
             2;
       }
-      return `linear-gradient(to right, black ${average * 10}%, white ${100 - average * 10}%)`;
+      return average;
    }
    manageSelectedPage(page) {
       return this.state.page === page ? '--active-page' : null;
@@ -85,7 +96,7 @@ class SelectedHeadphone extends React.Component {
                <div
                   className="selected-headphone__rating"
                   style={{
-                     background: this.renderRatings(fullHeadphone)
+                     background: this.renderRating()
                   }}
                />
                {/* Amazon Button */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPost } from '../../actions';
+import { fetchPost, selectHeadphoneUsingNameOnly } from '../../actions';
 import MainPost from './MainPost';
 import Reply from './Reply';
 import LiveChat from '../LiveChat/LiveChat';
@@ -13,7 +13,7 @@ class PostShow extends React.Component {
    }
    //Render replies of this thread
    renderReplies = () => {
-      var { post, currentUser } = this.props;
+      var { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
       if (!post) {
          return null;
       } else if (post.replies.length === 0) {
@@ -27,19 +27,24 @@ class PostShow extends React.Component {
             tier={1}
             mainPostId={post._id}
             currentUser={currentUser}
+            selectHeadphoneUsingNameOnly={selectHeadphoneUsingNameOnly}
          />
       ));
    };
 
    render() {
-      var { post, currentUser } = this.props;
+      var { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
       if (!post || post._id !== this.props.match.params.id) {
          return <div />;
       }
       return (
          <div className="post-show">
             {/* Main Post */}
-            <MainPost data={post} currentUser={currentUser} />
+            <MainPost
+               data={post}
+               currentUser={currentUser}
+               selectHeadphoneUsingNameOnly={selectHeadphoneUsingNameOnly}
+            />
             {/* Direct Replies */}
             <div className="post-show__replies">{this.renderReplies()}</div>
             <div className="post-show__vertical-lines-1" />
@@ -54,5 +59,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { fetchPost }
+   { fetchPost, selectHeadphoneUsingNameOnly }
 )(PostShow);

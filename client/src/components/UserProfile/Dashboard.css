@@ -1,6 +1,102 @@
+/* NavigationBar */
+
+.dashboard~.navigation-bar {
+    bottom: -4px;
+}
+
+/* Dashboard */
+
 .dashboard {
-    margin-bottom: 5rem;
+    height: 100vh;
+    width: calc(100% - 11% - 3px);
+    display: grid;
+    grid-template-rows: 1fr 5rem .5fr 4fr .7fr;
+    grid-template-columns: 3.5rem calc(50% - 3.5rem - 2.5rem ) 5rem 1.5fr 1fr;
+    grid-template-areas: ". . . . ." ". stats avatar username username" ". . . . ." ". page-selectors page-selectors page-content ." ". . . . .";
 }
-.dashboard__picture {
-    width: 4rem;
+
+.dashboard__stats {
+    grid-area:stats;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 1rem;
+    font-size: .85rem;
 }
+.dashboard__stats-label {
+    display: inline-block;
+    margin-right: 1rem;
+    /* font-weight: 700; */
+}
+.dashboard__date {
+    text-transform: uppercase;
+}
+.dashboard__avatar {
+    grid-area: avatar;
+    height: 5rem;
+    width: 5rem;
+    /* border-radius: 50%; */
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.dashboard__username {
+    grid-area: username;
+    padding: 1rem;
+    margin: 0;
+}
+
+
+.dashboard__page-selectors {
+    margin: 1rem 0;
+    grid-area: page-selectors;
+    /* justify-self: end; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-right: calc(1.5rem - 3px);
+    /* text-align: right; */
+}
+.dashboard__page-selector {
+    /* width: max-content; */
+    display: flex;
+    align-items: center;
+    /* justify-content: flex-end; */
+    
+    
+}
+.dashboard__page-label {
+    margin: 0 1.5rem 0 0;
+    /* margin-right: .5rem; */
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: .04rem;
+    
+}
+.dashboard__page-button {
+    font-weight: 900;
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.5rem;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.dashboard__page-content{
+    grid-area: page-content;
+    overflow: hidden;
+    margin-left: .3rem;
+    padding: 1rem;
+    border: 1px solid black;
+}
+.dashboard__post-title {
+    margin: 0;
+}
+.dashboard__vertical-line{
+    grid-area: 1/ 1/ -1 /span 1;
+    /* border-left: 3px solid black; */
+    border-right: 2px solid black;
+} 

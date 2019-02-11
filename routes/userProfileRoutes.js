@@ -84,6 +84,7 @@ function addNewRatingsToHeadphones(req) {
 }
 //Post a private message to a specific user's profile
 router.post('/user-profile/:id/message', middleware.isLoggedIn, (req, res) => {
+   //Find the recipient's user profile and push the message in
    UserProfile.findOne({ userId: req.body.toUserId }, (err, foundProfile) => {
       if (err) {
          console.log(err);

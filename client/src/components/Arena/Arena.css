@@ -103,6 +103,9 @@
     align-items: center;
     border: 2px solid black;
 }
+.selected-headphone~.selected-headphone.selected-headphone~.selected-headphone__loading {
+    display: none;
+}
 
 .loading-image {
     width: 4rem;
@@ -367,6 +370,9 @@
     .selected-headphone:nth-of-type(4) {
         display: block;
     }
+    .selected-headphone~.selected-headphone.selected-headphone~.selected-headphone__loading {
+        display: block;
+    }
     .arena .live-chat {
         width: 17%;
     }
@@ -402,6 +408,9 @@
         font-size: 1.1rem;
     }
     .selected-headphone:nth-of-type(4) {
+        display: none;
+    }
+    .selected-headphone~.selected-headphone.selected-headphone~.selected-headphone__loading {
         display: none;
     }
     .selected-headphone__close-button {

@@ -18,17 +18,16 @@ export const fullHeadphoneReducer = (state = [], action) => {
    }
 };
 export const selectedHeadphoneReducer = (state = [], action) => {
-   if (
-      action.type === 'HEADPHONE_SELECTED' &&
-      state.every(headphone => headphone.brandAndModel !== action.payload.brandAndModel)
-   ) {
-      return [...state, action.payload];
-   } else if (action.type === 'HEADPHONE_REMOVED') {
-      return state.filter(function(headphone) {
-         return headphone !== action.payload;
-      });
+   switch (action.type) {
+      case 'HEADPHONE_REJECTED':
+         return state;
+      case 'HEADPHONE_SELECTED':
+         return [...state, action.payload];
+      case 'HEADPHONE_REMOVED':
+         return state.filter(headphone => headphone._id !== action.payload._id);
+      default:
+         return state;
    }
-   return state;
 };
 
 export const topPostsReducer = (state = [], action) => {

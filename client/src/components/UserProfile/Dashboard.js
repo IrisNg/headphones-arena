@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { fetchUserProfile, redirectToMainPost, askLogin } from '../../actions';
 import history from '../../history';
-import UploadPicture from './UploadPicture';
+import AvatarUpload from './AvatarUpload';
 import PersonalHeadphones from './PersonalHeadphones';
 import SendPrivateMessage from './SendPrivateMessage';
+import LiveChat from '../LiveChat/LiveChat';
 import './Dashboard.css';
 
 class Dashboard extends React.Component {
    state = {
-      editActive: false,
+      page: 'ratings',
       privateMessageActive: false,
       replyTo: null,
       isOwner: null,
@@ -43,14 +44,18 @@ class Dashboard extends React.Component {
             : this.setState({ isOwner: false, userId: this.props.match.params.id });
       }
    };
-
+   //Render anonymous avatar if owner did not set a custom avatar
+   renderAvatar(picture) {
+      return picture ? picture : 'https://i.imgur.com/bwWPvQ9.jpg';
+   }
    //Render posts created by this User
    renderPosts(posts) {
       return posts.map(post => (
          <div key={post._id}>
-            POSTS
             {/* If user clicks on the title of this post, redirect to this post's show page */}
-            <h3 onClick={() => this.props.redirectToMainPost(post)}>{post.title}</h3>
+            <h3 onClick={() => this.props.redirectToMainPost(post)} className="dashboard__post-title">
+               {post.title}
+            </h3>
             <p>{post.content.substring(0, 100)}</p>
             <div>
                <span>Votes {post.vote.count} </span>
@@ -58,16 +63,40 @@ class Dashboard extends React.Component {
                <Moment fromNow>{post.created}</Moment>
             </div>
             {/* Edit button (If current user is the owner) */}
-            {this.props.currentUser && post.author.id === this.props.currentUser.id ? (
-               <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${post._id}`)} />
-            ) : null}
+            {this.renderEditButton(post)}
          </div>
       ));
    }
+   //Render edit button for posts if user is owner
+   renderEditButton(post) {
+      const { currentUser } = this.props;
+      return currentUser && post.author.id === currentUser.id ? (
+         <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${post._id}`)} />
+      ) : null;
+   }
 
+   renderMessagesPage() {
+      const { isOwner, privateMessageActive, replyTo } = this.state;
+      const { privateMessages, userId, _id } = this.props.profile;
+      if (!this.state.page === 'messages') {
+         return null;
+      }
+      return (
+         <div>
+            {/* Private messages */}
+            {this.renderReceivedPrivateMessages(privateMessages)}
+            {/* Button to private message the owner of this profile */}
+            {!isOwner ? <i className="fas fa-envelope" onClick={this.activatePrivateMessage} /> : null}
+            {/* Interface to send private message to the owner or reply to the sender*/}
+            {privateMessageActive ? (
+               <SendPrivateMessage userId={userId} profileId={_id} turnOff={this.turnOffInterfaces} replyTo={replyTo} />
+            ) : null}
+         </div>
+      );
+   }
    //Render private messages sent to this user
    //Current user can only see this if he is the owner of this profile
-   renderPrivateMessages = privateMessages => {
+   renderReceivedPrivateMessages = privateMessages => {
       return privateMessages.map(message => {
          return (
             <div key={message._id}>
@@ -107,57 +136,91 @@ class Dashboard extends React.Component {
    };
    //Turn off the interfaces to re-upload avatar picture and send private message
    turnOffInterfaces = () => {
-      this.setState({ editActive: false, privateMessageActive: false, replyTo: null });
+      this.setState({ privateMessageActive: false, replyTo: null });
       this.props.fetchUserProfile(this.props.match.params.id);
    };
 
    render() {
       if (!this.props.profile) {
-         return <div>Loading</div>;
+         return <div />;
       }
-      var { username, posts, picture, _id, headphones, created, userId, privateMessages } = this.props.profile;
+      const { username, posts, picture, _id, headphones, created, userId, privateMessages } = this.props.profile;
+      const { page, isOwner } = this.state;
       return (
          <div className="dashboard">
-            {/* Username */}
-            <h1>{username}</h1>
-            {/* Date since user joined the forum */}
-            <Moment fromNow>{created}</Moment>
-            {/* Personal headphones preferences */}
-            <PersonalHeadphones headphones={headphones} profileId={_id} isOwner={this.state.isOwner} />
+            <div className="dashboard__stats">
+               {/* Date since user joined the forum */}
+               <div className="dashboard__date">
+                  <span className="dashboard__stats-label">JOINED</span>
+                  <Moment fromNow>{created}</Moment>
+               </div>
+               {/* Number of posts */}
+               <div className="dashboard__post-count">
+                  <span className="dashboard__stats-label">NO. OF POSTS</span>
+                  {posts.length}
+               </div>
+               {/* Number of headphones */}
+               <div className="dashboard__headphone-count">
+                  <span className="dashboard__stats-label">NO. OF HEADPHONES</span>
+                  {headphones.length}
+               </div>
+            </div>
             {/* Avatar picture */}
-            {picture ? <img className="dashboard__picture" src={picture} alt="profile" /> : null}
-            {/* Show private messages */}
-            {this.renderPrivateMessages(privateMessages)}
-            {/* Private message the owner of this profile */}
-            {!this.state.isOwner ? <i className="fas fa-envelope" onClick={this.activatePrivateMessage} /> : null}
-            {/* Interface to send private message */}
-            {this.state.privateMessageActive ? (
-               <SendPrivateMessage
-                  userId={userId}
-                  profileId={_id}
-                  turnOff={this.turnOffInterfaces}
-                  replyTo={this.state.replyTo ? this.state.replyTo : null}
-               />
-            ) : null}
-            {/* Posts created by the User */}
-            {this.renderPosts(posts)}
-            {/* Interface to re-upload avatar picture */}
-            {this.state.isOwner ? (
-               <button onClick={() => this.setState({ editActive: true })}>Upload Avatar</button>
-            ) : null}
-            {this.state.editActive ? <UploadPicture profileId={_id} turnOff={this.turnOffInterfaces} /> : null}
+            <img className="dashboard__avatar" src={this.renderAvatar(picture)} alt="profile" />
+            {/* Username */}
+            <h1 className="dashboard__username">{username}</h1>
+            {/* Page selectors */}
+            <div className="dashboard__page-selectors">
+               <div className="dashboard__page-selector">
+                  <h2 className="dashboard__page-label">avatar</h2>
+                  <div className="dashboard__page-button" onClick={() => this.setState({ page: 'avatar' })}>
+                     A
+                  </div>
+               </div>
+               <div className="dashboard__page-selector">
+                  <h2 className="dashboard__page-label">ratings</h2>
+                  <div className="dashboard__page-button" onClick={() => this.setState({ page: 'ratings' })}>
+                     R
+                  </div>
+               </div>
+               <div className="dashboard__page-selector">
+                  <h2 className="dashboard__page-label">messages</h2>
+                  <div className="dashboard__page-button" onClick={() => this.setState({ page: 'messages' })}>
+                     M
+                  </div>
+               </div>
+               <div className="dashboard__page-selector">
+                  <h2 className="dashboard__page-label">posts</h2>
+                  <div className="dashboard__page-button" onClick={() => this.setState({ page: 'posts' })}>
+                     P
+                  </div>
+               </div>
+            </div>
+            <div className="dashboard__page-content">
+               {/* Interface to re-upload avatar picture */}
+               {page === 'avatar' && isOwner ? <AvatarUpload profileId={_id} isOwner={this.state.isOwner} /> : null}
+               {/* Personal headphones preferences */}
+               {page === 'ratings' ? (
+                  <PersonalHeadphones headphones={headphones} profileId={_id} isOwner={this.state.isOwner} />
+               ) : null}
+               {/* Posts created by the User */}
+               {page === 'posts' ? this.renderPosts(posts) : null}
+               {/* Private messages */}
+               {page === 'messages' ? this.renderMessagesPage() : null}
+            </div>
+            <div className="dashboard__vertical-line" />
+            <LiveChat />
          </div>
       );
    }
 }
 
 const mapStateToProps = state => {
-   var profile;
    //Exclude private messages from the fetched profile data if the current user is not the owner of this user profile
    if (state.currentUser && state.userProfile && state.currentUser.id === state.userProfile.userId) {
-      profile = state.userProfile;
+      var profile = state.userProfile;
    } else if (state.userProfile) {
-      profile = { ...state.userProfile, privateMessages: [] };
+      var profile = { ...state.userProfile, privateMessages: [] };
    }
    return { profile, currentUser: state.currentUser };
 };

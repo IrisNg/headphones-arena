@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import history from '../../history';
 import Moment from 'react-moment';
-import { selectHeadphoneUsingNameOnly } from '../../actions';
 import ReplyCreate from './ReplyCreate';
 import Vote from './Vote';
 
@@ -137,7 +135,4 @@ class MainPost extends React.Component {
    }
 }
 
-export default connect(
-   null,
-   { selectHeadphoneUsingNameOnly }
-)(MainPost);
+export default MainPost;

@@ -41,7 +41,6 @@ class Login extends React.Component {
       return this.state.registerIsActive ? { display: 'none' } : null;
    }
    render() {
-      console.log(this.props.loginIsActive);
       if (!this.props.loginIsActive && !this.props.disableParentInterface) {
          return <div />;
       }

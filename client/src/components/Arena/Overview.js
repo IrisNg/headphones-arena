@@ -28,10 +28,8 @@ const renderTags = headphone => {
    return topTags.map(tag => {
       if (tag.tagName.length > 25) {
          return (
-            <div className="overview__tag--span-div">
-               <span key={tag.tagName} className="overview__tag--span">
-                  {tag.tagName}
-               </span>
+            <div className="overview__tag--span-div" key={tag.tagName}>
+               <span className="overview__tag--span">{tag.tagName}</span>
             </div>
          );
       }

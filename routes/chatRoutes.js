@@ -12,6 +12,7 @@ router.get('/chat', function(req, res) {
          if (err) {
             res.status(400).json("Could not find recent chat messages, it's okay, just be forever alone.");
          } else {
+            foundMessages.reverse();
             res.json(foundMessages);
          }
       });

@@ -53,12 +53,10 @@ class PageContent extends React.Component {
       const { replyTo } = this.state;
       const {
          isOwner,
-         profile: { userId, _id }
+         profile: { userId, _id, username }
       } = this.props;
       return (
          <div>
-            {/* Received private messages */}
-            {this.renderReceivedPrivateMessages()}
             {/* Interface to send private message to the owner or reply to the sender*/}
             <SendPrivateMessage
                userId={userId}
@@ -66,7 +64,10 @@ class PageContent extends React.Component {
                emptyReplyDetails={this.emptyReplyDetails}
                replyTo={replyTo}
                isOwner={isOwner}
+               ownerUsername={username}
             />
+            {/* Received private messages */}
+            <div className="page-content__messages">{this.renderReceivedPrivateMessages()}</div>
          </div>
       );
    }
@@ -76,26 +77,33 @@ class PageContent extends React.Component {
       const { privateMessages } = this.props.profile;
       return privateMessages.map(message => {
          return (
-            <div key={message._id}>
-               <h3>{message.subject}</h3>
-               {/* Redirects to sender's profile page if user clicks on the sender's username */}
-               <h6
-                  onClick={() => {
-                     history.push(`/user/${message.fromUserId}`);
-                  }}
-               >
-                  From {message.fromUsername}
-               </h6>
-               {/* Clicking on this reply icon will allow owner to send a private message back to the sender */}
-               <i
-                  className="fas fa-reply"
-                  onClick={() =>
-                     this.setState({
-                        replyTo: { ...message }
-                     })
-                  }
-               />
-               <p>{message.message}</p>
+            <div key={message._id} className="page-content__message">
+               {/* Subject */}
+               <h4 className="page-content__message-subject">{message.subject}</h4>
+               {/* Content*/}
+               <p className="page-content__message-content">{message.message}</p>
+               <div className="page-content__message-metadata">
+                  {/* Sender's username */}
+                  {/* Redirect to sender's profile page if owner clicks on the sender's username */}
+                  <h5
+                     className="page-content__message-username"
+                     onClick={() => {
+                        history.push(`/user/${message.fromUserId}`);
+                     }}
+                  >
+                     From {message.fromUsername}
+                  </h5>
+                  {/* Reply icon */}
+                  {/* Clicking on this reply icon will allow owner to send a private message back to the sender */}
+                  <i
+                     className="fas fa-reply page-content__message-reply"
+                     onClick={() =>
+                        this.setState({
+                           replyTo: { ...message }
+                        })
+                     }
+                  />
+               </div>
             </div>
          );
       });
@@ -113,6 +121,7 @@ class PageContent extends React.Component {
       } = this.props;
       return (
          <div className="page-content">
+            <div className="page-content__page-title">{page}</div>
             {/* Interface to re-upload avatar picture */}
             {page === 'avatar' ? (
                <AvatarUpload profileId={_id} fetchUserProfile={fetchUserProfile} userId={this.state.userId} />

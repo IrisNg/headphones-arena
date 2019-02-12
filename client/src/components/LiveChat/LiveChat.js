@@ -43,8 +43,7 @@ class LiveChat extends React.Component {
       if (!messages) {
          return null;
       }
-      //Reverse the array order such that the newest message is at the bottom
-      messages.reverse();
+
       return messages.map(message => (
          <ChatMessage
             key={message._id}

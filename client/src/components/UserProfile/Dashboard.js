@@ -9,7 +9,7 @@ import './Dashboard.css';
 
 class Dashboard extends React.Component {
    state = {
-      page: 'ratings',
+      page: 'messages',
       isOwner: null,
       userId: ''
    };
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
       //This checks if the currently displayed profile data's id is the same as the id in the url params
       if (prevState.userId !== nextProps.match.params.id) {
          nextProps.fetchUserProfile(nextProps.match.params.id);
-         return { isOwner: null, page: 'ratings' };
+         return { isOwner: null, page: 'messages' };
       }
       return null;
    }
@@ -66,12 +66,12 @@ class Dashboard extends React.Component {
                   <Moment fromNow>{created}</Moment>
                </div>
                {/* Number of posts */}
-               <div className="dashboard__post-count">
+               <div>
                   <span className="dashboard__stats-label">NO. OF POSTS</span>
                   {posts.length}
                </div>
                {/* Number of headphones */}
-               <div className="dashboard__headphone-count">
+               <div>
                   <span className="dashboard__stats-label">NO. OF HEADPHONES</span>
                   {headphones.length}
                </div>
@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
             {/* Title */}
             <h1 className="dashboard__title">DASHBOARD</h1>
             {/* Page selectors */}
-            <PageSelectors selectPage={this.selectPage} isOwner={isOwner} />
+            <PageSelectors selectPage={this.selectPage} isOwner={isOwner} page={page} />
             {/* Page content */}
             <PageContent
                page={page}
@@ -99,11 +99,12 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
+   var profile;
    //Exclude private messages from the fetched profile data if the current user is not the owner of this user profile
    if (state.currentUser && state.userProfile && state.currentUser.id === state.userProfile.userId) {
-      var profile = state.userProfile;
+      profile = state.userProfile;
    } else if (state.userProfile) {
-      var profile = { ...state.userProfile, privateMessages: [] };
+      profile = { ...state.userProfile, privateMessages: [] };
    }
    return { profile, currentUser: state.currentUser };
 };

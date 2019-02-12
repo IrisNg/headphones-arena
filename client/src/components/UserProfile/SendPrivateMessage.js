@@ -30,11 +30,7 @@ class SendPrivateMessage extends React.Component {
          return null;
       }
       const { fromUsername } = this.state.replyTo;
-      return (
-         <div>
-            <div>Replying to {fromUsername}</div>
-         </div>
-      );
+      return <div>Replying to {fromUsername}</div>;
    };
    //Post private message to the server
    postPrivateMessage = async () => {
@@ -68,7 +64,7 @@ class SendPrivateMessage extends React.Component {
             const response = await axios.post(`/user-profile/${this.props.profileId}/message`, postObj);
             console.log(response);
             this.props.addGlobalMessage('Private message has been sent. ssshhh ...');
-            this.setState({ message: '' }, () => {
+            this.setState({ message: '', subject: '' }, () => {
                //Then invoke callback to empty the reply details in the parent component too
                this.props.emptyReplyDetails();
             });
@@ -79,21 +75,36 @@ class SendPrivateMessage extends React.Component {
    };
 
    render() {
-      const { isOwner } = this.props;
+      const { isOwner, ownerUsername } = this.props;
       const { replyTo } = this.state;
       if (isOwner && !replyTo) {
          return <div />;
       }
       return (
-         <div>
+         <div className="send-pm">
             {/* Render sender's username if this is a reply */}
-            {this.renderReplyUsername()}
+            <div className="send-pm__reply-username">{this.renderReplyUsername()}</div>
             {/* Subject */}
-            <input type="text" value={this.state.subject} onChange={e => this.setState({ subject: e.target.value })} />
+            <input
+               type="text"
+               className="send-pm__subject"
+               value={this.state.subject}
+               onChange={e => this.setState({ subject: e.target.value })}
+               placeholder="Subject"
+            />
             {/* Message content */}
-            <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
+            <textarea
+               className="send-pm__message"
+               value={this.state.message}
+               onChange={e => this.setState({ message: e.target.value })}
+               placeholder={!isOwner ? `Send a message @${ownerUsername}` : 'Message'}
+            />
             {/* Send button */}
-            <div onClick={this.postPrivateMessage}>Send!</div>
+            <div className="send-pm__button-container">
+               <div onClick={this.postPrivateMessage} className="send-pm__send-button">
+                  Send
+               </div>
+            </div>
          </div>
       );
    }

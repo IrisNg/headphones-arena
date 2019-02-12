@@ -39,13 +39,14 @@ class SelectedHeadphone extends React.Component {
       return `linear-gradient(to right, black ${average * 10}%, white ${average * 10}%)`;
    }
    calculateAverageRating(headphone) {
+      var average;
       //Give full marks if no rating exists
       if (headphone.ratings.length === 0) {
-         var average = 10;
+         average = 10;
       }
       //Find the average rating for this headphone from a list of rating entries
       else {
-         var average =
+         average =
             (headphone.ratings.reduce((acc, curr) => {
                return acc + curr.rating;
             }, 0) /

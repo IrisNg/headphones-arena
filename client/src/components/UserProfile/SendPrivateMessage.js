@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import history from '../../history';
 import axios from 'axios';
-import { addGlobalMessage } from '../../actions';
+import { addGlobalMessage, askLogin } from '../../actions';
 
 class SendPrivateMessage extends React.Component {
    state = {
@@ -12,7 +11,10 @@ class SendPrivateMessage extends React.Component {
    };
    //Load previous private message data if this is the owner trying to make a reply back to the sender
    static getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps.replyTo && !prevState.replyTo) {
+      if (nextProps.replyTo !== prevState.replyTo) {
+         if (!nextProps.replyTo) {
+            return { replyTo: null, subject: '' };
+         }
          return {
             replyTo: { ...nextProps.replyTo },
             subject: nextProps.replyTo.subject.includes('RE:')
@@ -36,34 +38,39 @@ class SendPrivateMessage extends React.Component {
    };
    //Post private message to the server
    postPrivateMessage = async () => {
-      //Format object to be posted to the server
-      const postObj = {
-         //Recipient's userId
-         //If current user is the owner of the profile trying to reply back to a sender, then use the sender's userId
-         //If current user is NOT the owner of the profile but trying to send a message to the owner, then use the owner's userId
-         toUserId: this.state.replyTo ? this.state.replyTo.fromUserId : this.props.userId,
-         body: {
-            subject: this.state.subject,
-            message: this.state.message,
-            fromUsername: this.props.currentUser.username,
-            fromUserId: this.props.currentUser.id
-         }
-      };
-      //Check for required fields
-      if (!this.state.subject || !this.state.message) {
+      const { replyTo, subject, message } = this.state;
+      const { currentUser, userId } = this.props;
+      //Get user to log in if he is not
+      if (!currentUser) {
+         this.props.askLogin(true);
+      } else if (!subject || !message) {
+         //Check for required fields
          this.props.addGlobalMessage(
             'Your message needs a subject and some content... Do not become a spammer...Or Else. *insert angry face*'
          );
       } else {
+         //Format object to be posted to the server
+         const postObj = {
+            //Recipient's userId
+            //If current user is the owner of the profile trying to reply back to a sender, then use the sender's userId
+            //If current user is NOT the owner of the profile but trying to send a message to the owner, then use the owner's userId
+            toUserId: replyTo ? replyTo.fromUserId : userId,
+            body: {
+               subject: subject,
+               message: message,
+               fromUsername: currentUser.username,
+               fromUserId: currentUser.id
+            }
+         };
          try {
             //Post private message
             //profileId params here refers to the owner's user profile Id, just a route, does not matter much
             const response = await axios.post(`/user-profile/${this.props.profileId}/message`, postObj);
             console.log(response);
             this.props.addGlobalMessage('Private message has been sent. ssshhh ...');
-            this.setState({ subject: '', message: '', replyTo: null }, () => {
-               //Then turn off this interface when done
-               this.props.turnOff();
+            this.setState({ message: '' }, () => {
+               //Then invoke callback to empty the reply details in the parent component too
+               this.props.emptyReplyDetails();
             });
          } catch (err) {
             this.props.addGlobalMessage(err.response.data);
@@ -71,14 +78,12 @@ class SendPrivateMessage extends React.Component {
       }
    };
 
-   checkLogin() {
-      //Proceed if user is logged in
-      if (this.props.currentUser) {
-         return null;
-      }
-      history.go(0);
-   }
    render() {
+      const { isOwner } = this.props;
+      const { replyTo } = this.state;
+      if (isOwner && !replyTo) {
+         return <div />;
+      }
       return (
          <div>
             {/* Render sender's username if this is a reply */}
@@ -89,8 +94,6 @@ class SendPrivateMessage extends React.Component {
             <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
             {/* Send button */}
             <div onClick={this.postPrivateMessage}>Send!</div>
-            {/* Make user log in if he is not */}
-            {this.checkLogin()}
          </div>
       );
    }
@@ -102,5 +105,5 @@ const mapStateToProps = state => {
 
 export default connect(
    mapStateToProps,
-   { addGlobalMessage }
+   { addGlobalMessage, askLogin }
 )(SendPrivateMessage);

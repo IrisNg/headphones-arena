@@ -10,7 +10,7 @@
     height: 100vh;
     width: calc(100% - 11% - 3px);
     display: grid;
-    grid-template-rows: 1fr 5rem .5fr 4fr .7fr;
+    grid-template-rows: calc(25vh - 2.5rem) 5rem 2rem 4fr 1fr;
     grid-template-columns: 3.5rem calc(50% - 3.5rem - 2.5rem ) 5rem 1.5fr 1fr;
     grid-template-areas: ". . . . ." ". stats avatar username username" ". . . . ." ". page-selectors page-selectors page-content ." ". . . . .";
 }
@@ -24,13 +24,17 @@
     padding: 1rem;
     font-size: .85rem;
 }
+.dashboard__username {
+    margin: 0;
+}
+
+.dashboard__date {
+    text-transform: uppercase;
+}
 .dashboard__stats-label {
     display: inline-block;
     margin-right: 1rem;
     /* font-weight: 700; */
-}
-.dashboard__date {
-    text-transform: uppercase;
 }
 .dashboard__avatar {
     grid-area: avatar;
@@ -41,14 +45,17 @@
     border: 1px solid black;
 }
 
-.dashboard__username {
+.dashboard__title {
     grid-area: username;
     padding: 1rem;
     margin: 0;
+    font-size: 2rem;
+    line-height: 2rem;
+    display: flex;
+    align-items: center;
 }
 
-
-.dashboard__page-selectors {
+.dashboard>.page-selectors {
     margin: 1rem 0;
     grid-area: page-selectors;
     /* justify-self: end; */
@@ -56,10 +63,10 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    padding-right: calc(1.5rem - 3px);
+    padding-right: 1.5rem;
     /* text-align: right; */
 }
-.dashboard__page-selector {
+.dashboard .page-selectors__selector {
     /* width: max-content; */
     display: flex;
     align-items: center;
@@ -67,15 +74,15 @@
     
     
 }
-.dashboard__page-label {
-    margin: 0 1.5rem 0 0;
+.dashboard .page-selectors__label {
+    margin: 0 1.2rem 0 0;
     /* margin-right: .5rem; */
     font-weight: 700;
     font-size: 1.2rem;
     letter-spacing: .04rem;
     
 }
-.dashboard__page-button {
+.dashboard .page-selectors__button {
     font-weight: 900;
     height: 2rem;
     width: 2rem;
@@ -84,15 +91,16 @@
     display: flex;
     justify-content: center;
     align-items: center;    
+    box-sizing: border-box;
 }
-.dashboard__page-content{
+.dashboard>.page-content{
     grid-area: page-content;
-    overflow: hidden;
-    margin-left: .3rem;
+    overflow: auto;
+    margin: 1rem ;
     padding: 1rem;
     border: 1px solid black;
 }
-.dashboard__post-title {
+.page-content__post-title {
     margin: 0;
 }
 .dashboard__vertical-line{

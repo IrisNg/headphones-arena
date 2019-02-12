@@ -9,22 +9,20 @@ class AvatarUpload extends React.Component {
 
    //Upload image url to the database
    onUploadClick = async () => {
+      const { userId, profileId } = this.props;
       try {
-         const response = await axios.put(`/user-profile/${this.props.profileId}`, {
+         const response = await axios.put(`/user-profile/${profileId}`, {
             picture: this.state.imageUrl
          });
          console.log(response);
          this.props.addGlobalMessage('Uploaded your avatar! Hehe');
+         this.props.fetchUserProfile(userId);
       } catch (err) {
          this.props.addGlobalMessage(err.response.data);
       }
    };
 
    render() {
-      var { isOwner } = this.props;
-      if (!isOwner) {
-         return <div />;
-      }
       return (
          <div className="avatar-upload">
             {/* Url input bar to upload picture */}

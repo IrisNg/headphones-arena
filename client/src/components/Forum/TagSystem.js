@@ -53,11 +53,9 @@ class TagSystem extends React.Component {
    searchForHeadphones = searchTerm => {
       //Remove spaces from search term inputted by the user
       var removeSpace = searchTerm.replace(/\s/g, '');
-
       //Preparing the search term to be converted to regular expression
       //Giving allowance for stray spaces and stray letters (i.e just check whether the headphone's name contains every letter from the search term)
       var regExpPrepare = removeSpace.split('').join('.*');
-
       //Convert to regular expression
       var regExp = new RegExp(regExpPrepare, 'i');
 
@@ -189,13 +187,10 @@ class TagSystem extends React.Component {
    addTag = tag => {
       //This should get the name of the headphone that is currently being tagged
       var activeHeadphone = this.state.selectedTagLine;
-
       //Find the entry from outputTags that contains the same headphone name as the activeHeadphone (if the entry exists)
       var currentEntry = this.state.outputTags.find(entry => entry.brandAndModel === activeHeadphone);
-
       //Form an array of other remaining entries
       var remainingEntries = this.state.outputTags.filter(entry => entry.brandAndModel !== activeHeadphone);
-
       //Make a new entry if the activeHeadphone has not been tagged before
       if (!currentEntry) {
          currentEntry = { brandAndModel: activeHeadphone, tags: [] };

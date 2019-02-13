@@ -135,7 +135,7 @@
 }
 
 .page-content::-webkit-scrollbar-thumb {
-    background-color:#3d3d3d;
+    background-color: #3d3d3d;
 }
 
 /* PageContent - message */
@@ -157,7 +157,6 @@
     margin: 0 0 .4rem 0;
     text-align: justify;
     font-size: .95rem;
-
 }
 
 .page-content__message-content {
@@ -245,9 +244,9 @@
 /* AvatarUpload */
 
 .avatar-upload__label {
-font-size: .9rem;
-font-weight: 700;
-padding-left: .1rem;
+    font-size: .9rem;
+    font-weight: 700;
+    padding-left: .1rem;
 }
 
 .avatar-upload__input {
@@ -256,17 +255,20 @@ padding-left: .1rem;
     box-sizing: border-box;
     outline: none;
     border: 1px solid black;
-    padding: .5rem .5rem;
+    padding: .5rem;
     font-family: inherit;
     font-size: .85rem;
 }
+
 .avatar-upload__input:focus {
     border-width: 1.5px;
 }
+
 .avatar-upload__button-container {
     display: flex;
     justify-content: flex-end;
 }
+
 .avatar-upload__button {
     margin-top: .8rem;
     background-color: black;
@@ -275,11 +277,160 @@ padding-left: .1rem;
     padding: .3rem .6rem;
     font-weight: 700;
     cursor: pointer;
-
 }
 
 .avatar-upload__button:hover {
     color: #f6cb01;
 }
 
+/* PersonalHeadphones */
 
+.personal-headphones {
+    margin-top: 1.6rem;
+}
+
+/* PersonalHeadphones - search */
+
+.personal-headphones__search-box {
+    margin-top: 1.8rem;
+    position: relative;
+    margin-bottom: 1.8rem;
+}
+
+.personal-headphones__search-input {
+    padding: .4rem 1.2rem .3rem .3rem;
+    width: 100%;
+    font-size: .85rem;
+    font-weight: 700;
+    background: none;
+    border: 1.5px solid transparent;
+    border-bottom: 1.5px solid black;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.personal-headphones__search-input::placeholder {
+    font-weight: 400;
+}
+
+.personal-headphones__search-input--active {
+    border-color: black;
+}
+
+.personal-headphones__search-icon {
+    position: absolute;
+    right: .4rem;
+    top: .6rem;
+    font-size: .7rem;
+}
+
+.personal-headphones__search-input:hover, .personal-headphones__search-input:focus {
+    border-color: black;
+}
+
+.personal-headphones__search-matches {
+    padding: .5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1.5px solid black;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+.personal-headphones__search-input:not(.personal-headphones__search-input--active)~.personal-headphones__search-matches {
+    display: none;
+}
+
+
+.personal-headphones__no-match {
+    margin: .15rem 0;
+    padding: .2rem .4rem;
+    text-align: center;
+    font-size: .85rem;
+    letter-spacing: .02em;
+}
+
+.personal-headphones__search-match {
+    margin: .15rem 0;
+    padding: .2rem .4rem;
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: underline;
+    letter-spacing: .02em;
+    cursor: pointer;
+}
+
+.personal-headphones__search-match:hover {
+    font-weight: 900;
+    background-color: #f6cb01;
+}
+
+/* PersonalHeadphones - rate headphones*/
+
+.personal-headphones__tagged-headphones {
+    margin-top: 1.6rem;
+}
+
+.personal-headphones__tagged-headphone {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.personal-headphones__tagged-headphones>div.personal-headphones__tagged-headphone:nth-last-of-type(1) {
+    margin-bottom: .4rem;
+}
+
+.personal-headphones__headphone-name {
+    font-weight: 700;
+    font-size: .85rem;
+    border-right: 4px solid transparent;
+    cursor: pointer;
+    padding: .3rem;
+    letter-spacing: .04rem;
+}
+
+.tagged-headphone--not-owner .personal-headphones__headphone-name:hover {
+    border-right: 4px solid black;
+    background-color: #f6cb01;
+    font-weight: 900;
+}
+
+.personal-headphones__icons {
+    margin-top: .1rem;
+    align-self: flex-end;
+    font-size: .8rem;
+    padding: 0 .3rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.personal-headphones__heart {
+    margin: 0 .13rem;
+}
+
+.personal-headphones__tagged-headphone:not(.tagged-headphone--not-owner) .personal-headphones__heart {
+    cursor: pointer;
+    font-size: .9rem;
+}
+
+.personal-headphones__tagged-headphone:not(.tagged-headphone--not-owner) .personal-headphones__heart:hover {
+    color: #c00603;
+    transform-origin: 50% 50%;
+    transform: scale(1.4);
+}
+
+.personal-headphones__close-icon {
+    margin-left: .8rem;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.personal-headphones__close-icon:hover {
+    color: #c00603;
+    transform-origin: 50% 50%;
+    transform: scale(1.5);
+}

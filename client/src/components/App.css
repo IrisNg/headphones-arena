@@ -16,6 +16,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
     background-color:#3d3d3d;
 }
+
 * {
     box-sizing: content-box;
 }

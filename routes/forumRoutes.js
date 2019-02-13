@@ -125,7 +125,7 @@ function createPost(req) {
                   reject('Could not find your profile');
                } else {
                   createdPost.author.profile = foundProfile._id;
-                  createdPost.vote.count = 100;
+                  // createdPost.vote.count = 100;
                   //Save the updated post
                   createdPost.save();
                   resolve(createdPost);

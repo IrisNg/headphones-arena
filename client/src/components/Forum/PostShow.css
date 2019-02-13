@@ -43,7 +43,7 @@
 .main-post {
     grid-area: 1/1/span 1/-1;
     display: grid;
-    grid-template-rows: 16.6vh minmax(3.5rem auto) auto;
+    grid-template-rows: 16.6vh fit-content(3.5rem) auto;
     grid-template-columns: calc(3.5rem - 3px) auto 3.5rem;
     grid-template-areas: ". category ." "reply-button main-title vote" ". main-content main-content";
 }
@@ -68,7 +68,6 @@
 .main-post__title {
     grid-row: 1/ span 2;
     grid-column: 2 / span 1;
-    padding: 0 .2em;
     margin: calc(16.6vh - 2rem) 1.5rem .25em 1.5rem;
     justify-self: center;
     position: relative;
@@ -77,6 +76,7 @@
 }
 
 .main-post__title span {
+    padding: 0 .2em;
     font-size: 4rem;
     font-weight: 900;
     background-color: white;
@@ -167,6 +167,7 @@
 
 .main-post__tag-container, .reply__tag-container {
     grid-area: tag-container;
+    width:100%;
     box-sizing: border-box;
 }
 

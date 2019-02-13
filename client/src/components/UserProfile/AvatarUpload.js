@@ -16,7 +16,7 @@ class AvatarUpload extends React.Component {
          });
          console.log(response);
          this.props.addGlobalMessage('Uploaded your avatar! Hehe');
-         this.props.fetchUserProfile(userId);
+         this.setState({ imageUrl: '' }, () => this.props.fetchUserProfile(userId));
       } catch (err) {
          this.props.addGlobalMessage(err.response.data);
       }
@@ -25,15 +25,21 @@ class AvatarUpload extends React.Component {
    render() {
       return (
          <div className="avatar-upload">
+            <label className="avatar-upload__label">Upload New Avatar</label>
             {/* Url input bar to upload picture */}
             <input
                type="text"
+               className="avatar-upload__input"
                value={this.state.imageUrl}
                onChange={e => this.setState({ imageUrl: e.target.value })}
-               placeholder="URL for your avatar"
+               placeholder="URL link"
             />
             {/* Upload button */}
-            <div onClick={this.onUploadClick}>Upload</div>
+            <div className="avatar-upload__button-container">
+               <div onClick={this.onUploadClick} className="avatar-upload__button">
+                  Upload !
+               </div>
+            </div>
          </div>
       );
    }

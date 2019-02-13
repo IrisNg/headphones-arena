@@ -20,6 +20,7 @@ class PageContent extends React.Component {
             userId: nextProps.userId
          };
       }
+      return null;
    }
    //Render posts created by this User
    renderPosts(posts) {
@@ -75,38 +76,40 @@ class PageContent extends React.Component {
    //Current user can only see this if he is the owner of this profile
    renderReceivedPrivateMessages = () => {
       const { privateMessages } = this.props.profile;
-      return privateMessages.map(message => {
-         return (
-            <div key={message._id} className="page-content__message">
-               {/* Subject */}
-               <h4 className="page-content__message-subject">{message.subject}</h4>
-               {/* Content*/}
-               <p className="page-content__message-content">{message.message}</p>
-               <div className="page-content__message-metadata">
-                  {/* Sender's username */}
-                  {/* Redirect to sender's profile page if owner clicks on the sender's username */}
-                  <h5
-                     className="page-content__message-username"
-                     onClick={() => {
-                        history.push(`/user/${message.fromUserId}`);
-                     }}
-                  >
-                     From {message.fromUsername}
-                  </h5>
-                  {/* Reply icon */}
-                  {/* Clicking on this reply icon will allow owner to send a private message back to the sender */}
-                  <i
-                     className="fas fa-reply page-content__message-reply"
-                     onClick={() =>
-                        this.setState({
-                           replyTo: { ...message }
-                        })
-                     }
-                  />
+      return privateMessages
+         .map(message => {
+            return (
+               <div key={message._id} className="page-content__message">
+                  {/* Subject */}
+                  <h4 className="page-content__message-subject">{message.subject}</h4>
+                  {/* Content*/}
+                  <p className="page-content__message-content">{message.message}</p>
+                  <div className="page-content__message-metadata">
+                     {/* Sender's username */}
+                     {/* Redirect to sender's profile page if owner clicks on the sender's username */}
+                     <h5
+                        className="page-content__message-username"
+                        onClick={() => {
+                           history.push(`/user/${message.fromUserId}`);
+                        }}
+                     >
+                        From {message.fromUsername}
+                     </h5>
+                     {/* Reply icon */}
+                     {/* Clicking on this reply icon will allow owner to send a private message back to the sender */}
+                     <i
+                        className="fas fa-reply page-content__message-reply"
+                        onClick={() =>
+                           this.setState({
+                              replyTo: { ...message }
+                           })
+                        }
+                     />
+                  </div>
                </div>
-            </div>
-         );
-      });
+            );
+         })
+         .reverse();
    };
    //Callback to empty replyTo after private message is sent
    emptyReplyDetails = () => {

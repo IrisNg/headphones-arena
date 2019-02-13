@@ -7,31 +7,25 @@ class SendPrivateMessage extends React.Component {
    state = {
       subject: '',
       message: '',
+      replyMessageId: '',
       replyTo: null
    };
    //Load previous private message data if this is the owner trying to make a reply back to the sender
    static getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps.replyTo !== prevState.replyTo) {
-         if (!nextProps.replyTo) {
-            return { replyTo: null, subject: '' };
-         }
+      if (nextProps.replyTo && nextProps.replyTo._id !== prevState.replyMessageId) {
          return {
+            replyMessageId: nextProps.replyTo._id,
             replyTo: { ...nextProps.replyTo },
+            message: '',
             subject: nextProps.replyTo.subject.includes('RE:')
                ? nextProps.replyTo.subject
                : `RE: ${nextProps.replyTo.subject}`
          };
+      } else if (!nextProps.replyTo && prevState.replyMessageId) {
+         return { replyTo: null, subject: '', replyMessageId: '' };
       }
       return null;
    }
-   //Render sender's username if this is the owner replying
-   renderReplyUsername = () => {
-      if (!this.state.replyTo) {
-         return null;
-      }
-      const { fromUsername } = this.state.replyTo;
-      return <div>Replying to {fromUsername}</div>;
-   };
    //Post private message to the server
    postPrivateMessage = async () => {
       const { replyTo, subject, message } = this.state;
@@ -82,8 +76,6 @@ class SendPrivateMessage extends React.Component {
       }
       return (
          <div className="send-pm">
-            {/* Render sender's username if this is a reply */}
-            <div className="send-pm__reply-username">{this.renderReplyUsername()}</div>
             {/* Subject */}
             <input
                type="text"
@@ -97,12 +89,12 @@ class SendPrivateMessage extends React.Component {
                className="send-pm__message"
                value={this.state.message}
                onChange={e => this.setState({ message: e.target.value })}
-               placeholder={!isOwner ? `Send a message @${ownerUsername}` : 'Message'}
+               placeholder={!replyTo ? `Send a message @${ownerUsername}` : `Reply a message @${replyTo.fromUsername}`}
             />
             {/* Send button */}
             <div className="send-pm__button-container">
                <div onClick={this.postPrivateMessage} className="send-pm__send-button">
-                  Send
+                  Send !
                </div>
             </div>
          </div>

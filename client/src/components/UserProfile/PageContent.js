@@ -24,22 +24,34 @@ class PageContent extends React.Component {
    }
    //Render posts created by this User
    renderPosts(posts) {
-      return posts.map(post => (
-         <div key={post._id}>
-            {/* If user clicks on the title of this post, redirect to this post's show page */}
-            <h3 onClick={() => this.props.redirectToMainPost(post)} className="page-content__post-title">
-               {post.title}
-            </h3>
-            <p>{post.content.substring(0, 100)}</p>
-            <div>
-               <span>Votes {post.vote.count} </span>
-               {/* Date */}
-               <Moment fromNow>{post.created}</Moment>
+      return posts
+         .map(post => (
+            <div key={post._id} className="page-content__post">
+               <div className="page-content__post-header">
+                  {/* Post title */}
+                  {/* If user clicks on the title of this post, redirect to this post's show page */}
+                  <h3 className="page-content__post-title" onClick={() => this.props.redirectToMainPost(post)}>
+                     {post.title}
+                  </h3>
+                  {/* Edit button (If current user is the owner) */}
+                  {this.renderEditButton(post)}
+               </div>
+               {/* Post content */}
+               <p className="page-content__post-content">{post.content.substring(0, 200)}...</p>
+               <div className="page-content__post-metadata">
+                  {/* Date */}
+                  <Moment format="DD MMM 'YY" className="page-content__post-date">
+                     {post.created}
+                  </Moment>
+                  {/* Vote */}
+                  <div className="page-content__post-vote">
+                     {this.manageVoteIcon(post)}
+                     {post.vote.count}
+                  </div>
+               </div>
             </div>
-            {/* Edit button (If current user is the owner) */}
-            {this.renderEditButton(post)}
-         </div>
-      ));
+         ))
+         .reverse();
    }
    //Render edit button for posts if user is owner
    renderEditButton(post) {
@@ -47,9 +59,17 @@ class PageContent extends React.Component {
       if (!currentUser || post.author.id !== currentUser.id) {
          return null;
       }
-      return <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${post._id}`)} />;
+      return (
+         <i className="fas fa-edit page-content__post-edit" onClick={() => history.push(`/edit-post/${post._id}`)} />
+      );
    }
-
+   manageVoteIcon(post) {
+      return post.vote.count >= 0 ? (
+         <i className="fas fa-caret-up page-content__post-vote-icon" />
+      ) : (
+         <i className="fas fa-caret-down page-content__post-vote-icon" />
+      );
+   }
    renderMessagesPage() {
       const { replyTo } = this.state;
       const {

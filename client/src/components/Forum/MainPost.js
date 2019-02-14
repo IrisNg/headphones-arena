@@ -93,7 +93,7 @@ class MainPost extends React.Component {
             <div className="main-post__category">{category}</div>
             <div className="main-post__container">
                {/* Date */}
-               <Moment format="D MMM YYYY" withTitle className="main-post__date">
+               <Moment format="DD MMM YYYY" withTitle className="main-post__date">
                   {created}
                </Moment>
                <div className="main-post__body">

@@ -9,7 +9,7 @@ import './Dashboard.css';
 
 class Dashboard extends React.Component {
    state = {
-      page: 'ratings',
+      page: 'posts',
       isOwner: null,
       userId: ''
    };
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
       //This checks if the currently displayed profile data's id is the same as the id in the url params
       if (prevState.userId !== nextProps.match.params.id) {
          nextProps.fetchUserProfile(nextProps.match.params.id);
-         return { isOwner: null, page: 'ratings' };
+         return { isOwner: null, page: 'posts' };
       }
       return null;
    }
@@ -63,7 +63,7 @@ class Dashboard extends React.Component {
                {/* Date since user joined the forum */}
                <div className="dashboard__date">
                   <span className="dashboard__stats-label">JOINED</span>
-                  <Moment fromNow>{created}</Moment>
+                  <Moment format="DD MMM 'YY">{created}</Moment>
                </div>
                {/* Number of posts */}
                <div>

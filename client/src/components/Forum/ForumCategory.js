@@ -36,9 +36,9 @@ class ForumCategory extends React.Component {
    };
    manageVoteIcon(post) {
       return post.vote.count >= 0 ? (
-         <i className="fas fa-angle-up forum-category__post-vote-icon" />
+         <i className="fas fa-caret-up forum-category__post-vote-icon" />
       ) : (
-         <i className="fas fa-angle-down forum-category__post-vote-icon" />
+         <i className="fas fa-caret-down forum-category__post-vote-icon" />
       );
    }
    render() {

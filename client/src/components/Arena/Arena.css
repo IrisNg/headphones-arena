@@ -161,8 +161,8 @@
 
 .selected-headphone__page {
     display: inline-block;
-    width: .45rem;
-    height: 1rem;
+    width: 7px;
+    height: 16px;
     margin: 0 .3rem;
     border: 1.2px solid black;
     box-sizing: border-box;
@@ -176,14 +176,14 @@
 }
 
 .selected-headphone__page.--active-page {
-    width: .45rem;
-    height: 1.3rem;
+    width: 7px;
+    height: 21px;
     background-color: black;
 }
 
 .selected-headphone__rating {
     width: calc(100% - 2rem);
-    height: .4rem;
+    height: 6px;
     transform: skew(-25deg);
     border: 1px solid black;
 }

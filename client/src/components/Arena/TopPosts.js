@@ -20,13 +20,13 @@ class TopPosts extends React.Component {
                   {this.manageVoteIcon(post)}
                   {post.vote.count}
                </div>
-               <Moment fromNow>{post.created}</Moment>
+               <Moment format="DD MMM 'YY">{post.created}</Moment>
             </div>
          </div>
       ));
    }
    manageVoteIcon(post) {
-      return post.vote.count >= 0 ? <i className="fas fa-angle-up" /> : <i className="fas fa-angle-down" />;
+      return post.vote.count >= 0 ? <i className="fas fa-caret-up" /> : <i className="fas fa-caret-down" />;
    }
    render() {
       var { topPosts } = this.props;

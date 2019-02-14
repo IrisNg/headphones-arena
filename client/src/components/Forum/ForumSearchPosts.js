@@ -38,9 +38,9 @@ class ForumSearchPosts extends React.Component {
    }
    manageVoteIcon(post) {
       return post.vote.count >= 0 ? (
-         <i className="fas fa-angle-up forum-search__post-vote-icon" />
+         <i className="fas fa-caret-up forum-search__post-vote-icon" />
       ) : (
-         <i className="fas fa-angle-down forum-search__post-vote-icon" />
+         <i className="fas fa-caret-down forum-search__post-vote-icon" />
       );
    }
    render() {

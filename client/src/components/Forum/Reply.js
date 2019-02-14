@@ -127,7 +127,7 @@ class Reply extends React.Component {
       return (
          <div className="reply">
             {/* Date */}
-            <Moment format="D MMM YYYY" withTitle className="reply__date">
+            <Moment format="DD MMM YYYY" withTitle className="reply__date">
                {created}
             </Moment>
             <div className="reply__body">

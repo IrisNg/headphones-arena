@@ -123,7 +123,7 @@ class TagSystem extends React.Component {
                onClick={() => this.selectTagLine(taggedHeadphoneName)}
             >
                <div>
-                  <div className="tag-system__tagged-headphone">{taggedHeadphoneName} :</div>
+                  <div className="tag-system__tagged-headphone">{taggedHeadphoneName}:</div>
                   {/* Display the tags */}
                   <div className="tag-system__tags">{this.renderTagsInEachTagLine(taggedHeadphoneName)}</div>
                   <i

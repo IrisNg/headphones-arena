@@ -62,7 +62,6 @@ class ReplyCreate extends React.Component {
          }
          //Refetch post thread data
          this.props.fetchPost(this.props.mainPostId);
-         this.props.addGlobalMessage('Successfully added your Reply. Thanks for sharing!');
          //Turn off this interface afterwards
          this.props.turnOffReplyCreate();
       } catch (err) {

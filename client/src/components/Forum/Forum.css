@@ -487,6 +487,8 @@
         grid-area: 4/2/-2 / span 1;
         grid-template-rows: repeat(8, 13rem);
         grid-template-columns: 13rem;
+        background: none;
+
     }
     /* Categories */
     .forum-category-comparison, .forum-category-recommendation {

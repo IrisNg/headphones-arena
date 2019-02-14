@@ -152,7 +152,10 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
       const response = await axios.put(`/posts/${id}`, updateObj);
       console.log(response);
       await dispatch(fetchPost(mainPostId));
-      await dispatch(addGlobalMessage('Your Post has been updated successfully!'));
+      //Display global message if this is a post update and not a vote
+      if (!updateObj.body.vote) {
+         await dispatch(addGlobalMessage('Your Post has been updated successfully!'));
+      }
       dispatch({ type: 'UPDATED_POST' });
    } catch (err) {
       dispatch(addGlobalMessage(err.response.data));

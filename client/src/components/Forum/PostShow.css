@@ -554,7 +554,6 @@
         grid-template-areas: ". date . ." ". body . edit-button" ". tag-container . ." ". reply-create . .";
     }
     .main-post__date, .reply__date {
-        padding: 0 1.45rem 0 0;
         justify-self: end;
         writing-mode: horizontal-tb;
     }
@@ -599,7 +598,7 @@
         height: calc(100% - 1px);
     }
     .reply {
-        margin-top: 2.3rem;
+        margin-top: 2rem;
         padding-left: .6rem;
     }
     .reply__buttons>.vote i {
@@ -615,9 +614,6 @@
     }
     .main-post__title span {
         font-size: 2rem;
-    }
-    .main-post__date, .reply__date {
-        padding: 0 1.05rem 0 0;
     }
     .main-post__author, .reply__author {
         padding: .5em 1.1em .6em 1.1em;

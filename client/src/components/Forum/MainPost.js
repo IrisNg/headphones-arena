@@ -77,9 +77,6 @@ class MainPost extends React.Component {
       //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
       this.setState({ renderReplyCreate: false });
    };
-   manageReplyCreateButton() {
-      return this.state.renderReplyCreate ? { display: 'none' } : null;
-   }
 
    render() {
       if (!this.props.data) {
@@ -119,12 +116,7 @@ class MainPost extends React.Component {
                <div className="main-post__edit-button">{this.renderEditButton()}</div>
             </div>
             {/* Create Reply Button  */}
-            <div
-               //Make this button disappear after ReplyCreate component appear
-               style={this.manageReplyCreateButton()}
-               onClick={() => this.setState({ renderReplyCreate: true })}
-               className="main-post__create-reply-button"
-            >
+            <div onClick={() => this.setState({ renderReplyCreate: true })} className="main-post__create-reply-button">
                <i className="far fa-comment-alt" />
             </div>
             {/* Vote */}

@@ -30,7 +30,9 @@ class GlobalMessage extends React.Component {
       }
       return (
          <div className="global-message">
-            <div className="global-message__message">{globalMessage}</div>
+            <div className="global-message__message" onClick={() => this.props.addGlobalMessage('')}>
+               {globalMessage}
+            </div>
          </div>
       );
    }

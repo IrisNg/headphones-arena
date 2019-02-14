@@ -16,7 +16,7 @@ class PostDelete extends React.Component {
          const response = await axios.delete(`/posts/${postId}`);
          console.log(response);
          this.props.addGlobalMessage('Post. Erased. Beep.');
-         history.push(`/show-post/${postId}`);
+         history.go(-2);
       } catch (err) {
          this.props.addGlobalMessage(err.response.data);
       }

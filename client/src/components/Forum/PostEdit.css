@@ -68,7 +68,9 @@
 }
 
 /* Tag System */
-
+.post-edit .tag-system__search-input {
+    padding: .1rem .8rem .1rem 0;
+}
 .post-edit .tag-system__search-input::placeholder {
     font-size: .9rem;
     font-weight: 400;
@@ -212,9 +214,6 @@
     }
     .post-edit__form {
         margin: 2.6rem 10vw 2.5rem 10vw;
-    }
-    .post-edit .tag-system__search-input, .post-edit__input-content::placeholder {
-        text-align: center;
     }
     .post-edit__input-content {
         height: 14rem;

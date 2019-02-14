@@ -97,6 +97,7 @@
     height: 100%;
     outline: none;
     resize: none;
+    font-family: inherit;
     border: none;
     background: none;
     box-sizing: border-box;
@@ -110,6 +111,7 @@
     border: none;
     box-sizing: border-box;
     background: none;
+    font-family: inherit;
     font-weight: 700;
     font-size: .7rem;
 }

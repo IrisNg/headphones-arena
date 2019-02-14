@@ -9,7 +9,7 @@ import './Dashboard.css';
 
 class Dashboard extends React.Component {
    state = {
-      page: 'posts',
+      page: 'ratings',
       isOwner: null,
       userId: ''
    };
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
       //This checks if the currently displayed profile data's id is the same as the id in the url params
       if (prevState.userId !== nextProps.match.params.id) {
          nextProps.fetchUserProfile(nextProps.match.params.id);
-         return { isOwner: null, page: 'posts' };
+         return { isOwner: null, page: 'ratings' };
       }
       return null;
    }
@@ -61,17 +61,19 @@ class Dashboard extends React.Component {
                {/* Username */}
                <h1 className="dashboard__username">{username}</h1>
                {/* Date since user joined the forum */}
-               <div className="dashboard__date">
+               <div className="dashboard__item">
                   <span className="dashboard__stats-label">JOINED</span>
-                  <Moment format="DD MMM 'YY">{created}</Moment>
+                  <Moment format="DD MMM YY" className="dashboard__date">
+                     {created}
+                  </Moment>
                </div>
                {/* Number of posts */}
-               <div>
+               <div className="dashboard__item">
                   <span className="dashboard__stats-label">NO. OF POSTS</span>
                   {posts.length}
                </div>
                {/* Number of headphones */}
-               <div>
+               <div className="dashboard__item">
                   <span className="dashboard__stats-label">NO. OF HEADPHONES</span>
                   {headphones.length}
                </div>
@@ -92,6 +94,7 @@ class Dashboard extends React.Component {
                userId={this.state.userId}
             />
             <div className="dashboard__vertical-line" />
+            <div className="dashboard__horizontal-line" />
             <LiveChat />
          </div>
       );

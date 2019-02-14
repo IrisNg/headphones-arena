@@ -4,20 +4,25 @@
     bottom: -4px;
 }
 
+.dashboard .live-chat {
+    border-width: 3px;
+}
+
 /* Dashboard */
 
 .dashboard {
     width: calc(100% - 11% - 3px);
     height: 100vh;
     display: grid;
-    grid-template-rows: calc(25vh - 2.5rem) 5rem 2rem 4fr 1fr;
-    grid-template-columns: 3.5rem calc(50% - 3.5rem - 2.5rem) 5rem 1.5fr 1fr;
-    grid-template-areas: ". . . . ." ". stats avatar username username" ". . . . ." ". page-selectors page-selectors page-content ." ". . . . .";
+    grid-template-rows: 1fr 6rem 3rem 1.5fr 1fr;
+    grid-template-columns: 3.5rem calc(50% - 3.5rem - 1.3rem) 6rem 19.5rem 1fr;
+    grid-template-areas: ". . . . ." ". stats avatar username username" ". . . . ." ". page-selectors page-selectors page-content ." ". . . page-content .";
 }
 
 .dashboard__stats {
+    width: max-content;
     grid-area: stats;
-    padding: 1rem;
+    justify-self: end;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,48 +32,65 @@
 
 .dashboard__username {
     margin: 0;
+    padding-right: 1.4rem;
+}
+
+.dashboard__item {
+    padding-right: 1.4rem;
+    padding-left: .8rem;
+    background-color: white;
+}
+
+.dashboard__stats-label {
+    display: inline-block;
+    padding-right: .6rem;
+    line-height: 1.05rem;
 }
 
 .dashboard__date {
     text-transform: uppercase;
 }
 
-.dashboard__stats-label {
-    display: inline-block;
-    margin-right: 1rem;
-}
-
 .dashboard__avatar {
     grid-area: avatar;
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid black;
+    width: 6rem;
+    height: 6rem;
+    border: 3px solid black;
     box-sizing: border-box;
 }
 
 .dashboard__title {
+    width: max-content;
     grid-area: username;
-    margin: 0;
-    padding: 1rem;
+    padding: .4rem .8rem .4rem 1.4rem;
     align-self: center;
-    font-size: 2rem;
+    font-size: 2.3rem;
     font-weight: 900;
+    background-color: white;
 }
 
 .dashboard__vertical-line {
     grid-area: 1/ 1/ -1 /span 1;
-    border-right: 2px solid black;
+    border-right: 3px solid black;
+}
+
+.dashboard__horizontal-line {
+    grid-area: 2/ 2/ span 1 / -1;
+    width: calc(100% + 3px);
+    height: calc(50% - 1.5px);
+    position: relative;
+    z-index: -1;
+    border-bottom: 3px solid black;
 }
 
 /* PageSelectors */
 
 .dashboard>.page-selectors {
     grid-area: page-selectors;
-    margin: 1rem 0;
-    padding-right: 1.5rem;
+    padding-right: calc(1.75rem - 2px);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-end;
 }
 
@@ -85,29 +107,35 @@
 }
 
 .page-selectors__button {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
     font-weight: 900;
     border: 3px solid black;
+    background-color: white;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.page-selectors__button:not(.page-selectors__button--active):hover {
+    background-color: #f6cb01;
 }
 
 .page-selectors__button--active {
     background-color: black;
     color: white;
+    cursor: default;
 }
 
 /* PageContent */
 
 .dashboard>.page-content {
     grid-area: page-content;
-    margin: 1rem;
-    padding: 1.5rem;
+    margin: 0 0 1.3rem 0;
+    padding: 1.5rem 1.4rem;
     overflow: auto;
     border: 2px solid black;
 }
@@ -135,110 +163,6 @@
     background-color: #3d3d3d;
 }
 
-/* PageContent - messages */
-
-.page-content__message {
-    margin: 0 .7rem 1.7rem .7rem;
-}
-
-.send-pm~.page-content__messages>div.page-content__message:nth-of-type(1) {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-}
-
-.page-content__messages>div.page-content__message:nth-last-of-type(1) {
-    margin-bottom: 0;
-}
-
-.page-content__message-subject {
-    margin: 0 0 .4rem 0;
-    text-align: justify;
-    font-size: .95rem;
-}
-
-.page-content__message-content {
-    margin: 0 0 .4rem 0;
-    text-align: justify;
-    font-size: .9rem;
-    line-height: 1.15rem;
-}
-
-.page-content__message-metadata {
-    display: flex;
-    align-items: center;
-}
-
-.page-content__message-username {
-    margin: 0 .8rem 0 0;
-    text-underline-position: under;
-    cursor: pointer;
-}
-
-.page-content__message-username:hover {
-    transform-origin: 0% 100%;
-    transform: scale(1.1);
-    text-decoration: underline;
-}
-
-.page-content__message-reply {
-    font-size: .8rem;
-    cursor: pointer;
-}
-
-.page-content__message-reply:hover {
-    transform: scale(1.3);
-    font-weight: 900;
-    color: #164499;
-}
-
-/* SendPrivateMessage */
-
-.send-pm {
-    margin-top: 1.6rem;
-    padding: 0 .6rem;
-}
-
-.send-pm__subject {
-    width: 100%;
-    padding: .2rem .1rem;
-    font-family: inherit;
-    outline: none;
-    border: none;
-    border-bottom: 1.5px solid black;
-    box-sizing: border-box;
-}
-
-.send-pm__message {
-    width: 100%;
-    height: 12rem;
-    margin-top: .65rem;
-    padding: .5rem;
-    font-family: inherit;
-    border: 1.5px solid black;
-    outline: none;
-    resize: none;
-    box-sizing: border-box;
-}
-
-.send-pm__button-container {
-    margin: .3rem 0 .5rem 0;
-    display: flex;
-}
-
-.send-pm__send-button {
-    width: 100%;
-    text-align: center;
-    font-size: .9rem;
-    font-weight: 700;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-}
-
-.send-pm__send-button:hover {
-    color: #f6cb01;
-}
-
 /* AvatarUpload */
 
 .avatar-upload__label {
@@ -258,8 +182,7 @@
     box-sizing: border-box;
 }
 
-.avatar-upload__input:hover,
-.avatar-upload__input:focus {
+.avatar-upload__input:hover, .avatar-upload__input:focus {
     border-width: 1.5px;
 }
 
@@ -282,7 +205,7 @@
     color: #f6cb01;
 }
 
-/* PersonalHeadphones */
+/* PersonalHeadphones - Ratings*/
 
 .personal-headphones {
     margin-top: 1.6rem;
@@ -313,9 +236,7 @@
     font-weight: 400;
 }
 
-.personal-headphones__search-input--active,
-.personal-headphones__search-input:hover,
-.personal-headphones__search-input:focus {
+.personal-headphones__search-input--active, .personal-headphones__search-input:hover, .personal-headphones__search-input:focus {
     border-color: black;
 }
 
@@ -499,4 +420,108 @@
 .page-content__post-vote-icon {
     margin-left: .7rem;
     margin-right: .15rem;
+}
+
+/* PageContent - messages */
+
+.page-content__message {
+    margin: 0 .7rem 1.7rem .7rem;
+}
+
+.send-pm~.page-content__messages>div.page-content__message:nth-of-type(1) {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.page-content__messages>div.page-content__message:nth-last-of-type(1) {
+    margin-bottom: 0;
+}
+
+.page-content__message-subject {
+    margin: 0 0 .4rem 0;
+    text-align: justify;
+    font-size: .95rem;
+}
+
+.page-content__message-content {
+    margin: 0 0 .4rem 0;
+    text-align: justify;
+    font-size: .9rem;
+    line-height: 1.15rem;
+}
+
+.page-content__message-metadata {
+    display: flex;
+    align-items: center;
+}
+
+.page-content__message-username {
+    margin: 0 .8rem 0 0;
+    text-underline-position: under;
+    cursor: pointer;
+}
+
+.page-content__message-username:hover {
+    transform-origin: 0% 100%;
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+.page-content__message-reply {
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.page-content__message-reply:hover {
+    transform: scale(1.3);
+    font-weight: 900;
+    color: #164499;
+}
+
+/* SendPrivateMessage */
+
+.send-pm {
+    margin-top: 1.6rem;
+    padding: 0 .6rem;
+}
+
+.send-pm__subject {
+    width: 100%;
+    padding: .2rem .1rem;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    border-bottom: 1.5px solid black;
+    box-sizing: border-box;
+}
+
+.send-pm__message {
+    width: 100%;
+    height: 12rem;
+    margin-top: .65rem;
+    padding: .5rem;
+    font-family: inherit;
+    border: 1.5px solid black;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.send-pm__button-container {
+    margin: .3rem 0 .5rem 0;
+    display: flex;
+}
+
+.send-pm__send-button {
+    width: 100%;
+    text-align: center;
+    font-size: .9rem;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.send-pm__send-button:hover {
+    color: #f6cb01;
 }

@@ -192,6 +192,10 @@ export const fetchVideos = () => async dispatch => {
    });
    dispatch({ type: 'FETCHED_VIDEOS', payload: videoList });
 };
+//Called by Video component
+export const featureVideo = video => {
+   return { type: 'FEATURED_VIDEO', payload: video };
+};
 //UserProfile
 //Called by Dashboard component
 export const fetchUserProfile = userId => async dispatch => {

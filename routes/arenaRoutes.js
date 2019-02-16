@@ -2,14 +2,12 @@ var express = require('express'),
    router = express.Router(),
    Headphone = require('../models/Headphone'),
    Post = require('../models/Post'),
-   request = require('request'),
-   iconv = require('iconv-lite'),
    middleware = require('../middleware'),
-   //SEED. PLEASE REMOVE
+   //Seed file
    headphoneSeed = require('../seeds/headphoneSeed.js');
 
 // ARENA
-//index page
+//Index page
 router.get('/headphones', (req, res) => {
    Headphone.find({}, (err, foundHeadphones) => {
       if (err) {
@@ -29,7 +27,7 @@ router.get('/headphones', (req, res) => {
       }
    });
 });
-//show headphone page
+//Show headphone 
 router.get('/headphones/:id', (req, res) => {
    Headphone.findById(req.params.id, (err, foundHeadphone) => {
       if (err) {
@@ -39,24 +37,6 @@ router.get('/headphones/:id', (req, res) => {
       }
    });
 });
-// router.post('/arena/pricefind', function(req, res) {
-//    // var url = req.body.amazonLink;
-//    var url = 'https://www.amazon.com/dp/B0798TVDVJ';
-//    request({ url: url, encoding: null }, function(error, response, body) {
-//       if (!error && response.statusCode == 200) {
-//          var encoding = 'ISO-8859-1';
-//          var content = iconv.decode(body, encoding);
-//          // content2 = iconv.encode(content, 'utf-8');
-//          console.log(content);
-//       }
-//    });
-//    // console.log(body);
-//    // const regex = /<span id="priceblock_ourprice" .*>.*<\/span>/;
-//    // var match = regex.exec(body);
-//    // console.log(match);
-//    // }
-//    // });
-// });
 //Find the top posts related to the selected headphone
 router.post('/posts/top', (req, res) => {
    var brandAndModel = req.body.brandAndModel;
@@ -115,7 +95,7 @@ router.post('/headphones/seed', (req, res) => {
       });
    });
 });
-//update headphone page
+//Update headphone page
 router.put('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, updatedHeadphone) => {
       if (err) {
@@ -125,7 +105,7 @@ router.put('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
       }
    });
 });
-//delete headphone page
+//Delete headphone page
 router.delete('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.findByIdAndRemove(req.params.id, err => {
       if (err) {

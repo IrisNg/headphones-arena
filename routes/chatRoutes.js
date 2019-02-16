@@ -3,7 +3,7 @@ var express = require('express'),
    Chat = require('../models/Chat');
 
 // LIVE-CHAT
-//get all chat messages
+//Get latest chat messages
 router.get('/chat', function(req, res) {
    Chat.find({})
       .sort({ created: -1 })
@@ -18,7 +18,7 @@ router.get('/chat', function(req, res) {
       });
 });
 
-//create chat-message page
+//Create chat-message 
 router.post('/chat', function(req, res) {
    Chat.create(req.body, function(err, createdMessage) {
       if (err) {

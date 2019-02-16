@@ -6,7 +6,7 @@ var express = require('express'),
    middleware = require('../middleware');
 
 // FORUM
-//Find categories posts upon forum page's initial loadup
+//Get categories posts upon forum page's initial loadup
 router.get('/posts', (req, res) => {
    (async () => {
       //Find a mixture of both latest posts and hottest posts (posts with highest votes)
@@ -50,7 +50,7 @@ function findCategoryPosts(category) {
          });
    });
 }
-//Find search posts when user enters search term in forum page
+//Search for posts when user enters search term in forum page
 router.post('/posts/search', (req, res) => {
    var term = req.body.term;
    //Formulating Regular Expression to search for posts (using MongoDB)
@@ -67,7 +67,6 @@ router.post('/posts/search', (req, res) => {
    prepRegExp = prepRegExp.replace(/\+/g, '\\+');
    //Churn out the regular expression and flag it to be case insensitive
    var regExp = new RegExp(prepRegExp, 'i');
-   // console.log(regExp);
 
    //Use the regular expression to search for post titles or posts with tagged headphones that matches the search term
    //Must be main post
@@ -88,7 +87,7 @@ router.post('/posts/search', (req, res) => {
       });
 });
 
-//create forum-post page
+//Create forum-post page
 router.post('/posts', middleware.isLoggedIn, (req, res) => {
    (async () => {
       //Create new post in the database
@@ -192,7 +191,7 @@ router.get('/posts/:id', (req, res) => {
       });
 });
 
-//update forum-post page
+//Update forum-post page
 router.put('/posts/:id', middleware.checkPostOwnership, (req, res) => {
    Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, (err, updatedPost) => {
       if (err) {

@@ -5,6 +5,7 @@
 }
 
 .dashboard .live-chat {
+    width: 11%;
     border-width: 3px;
 }
 
@@ -14,9 +15,9 @@
     width: calc(100% - 11% - 3px);
     height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 6rem 3rem 1.5fr 1fr;
+    grid-template-rows: .8fr 6rem 3rem 1.45fr 1fr;
     grid-template-columns: 3.5rem calc(50% - 3.5rem - 1.3rem) 6rem 19.5rem 1fr;
-    grid-template-areas: ". . . . ." ". stats avatar username username" ". . . . ." ". page-selectors page-selectors page-content ." ". . . page-content .";
+    grid-template-areas: ". . . . ." ". stats avatar title title" ". . . . ." ". page-selectors page-selectors page-content ." ". . . page-content .";
 }
 
 .dashboard__stats {
@@ -45,6 +46,8 @@
     display: inline-block;
     padding-right: .6rem;
     line-height: 1.05rem;
+    font-style: italic;
+    font-weight: 300;
 }
 
 .dashboard__date {
@@ -61,7 +64,8 @@
 
 .dashboard__title {
     width: max-content;
-    grid-area: username;
+    grid-area: title;
+    margin: 0;
     padding: .4rem .8rem .4rem 1.4rem;
     align-self: center;
     font-size: 2.3rem;
@@ -429,7 +433,7 @@
 }
 
 .send-pm~.page-content__messages>div.page-content__message:nth-of-type(1) {
-    margin-top: 1.5rem;
+    margin-top: 1.3rem;
     padding-top: 1.5rem;
 }
 
@@ -524,4 +528,170 @@
 
 .send-pm__send-button:hover {
     color: #f6cb01;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    .dashboard .live-chat {
+        width: 12%;
+    }
+    .dashboard {
+        width: calc(100% - 12% - 3px);
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    .dashboard .live-chat {
+        width: 17%;
+    }
+    .dashboard {
+        width: calc(100% - 17% - 3px);
+        grid-template-rows: .8fr 5rem auto 1.45fr 1fr;
+        grid-template-columns: 3.5rem 1fr 5rem 1fr;
+        grid-template-areas: ". . . ." ". stats avatar title" ". page-selectors page-selectors page-selectors" ". page-content page-content page-content" ". page-content page-content page-content";
+    }
+    .dashboard__username {
+        padding-right: 1rem;
+    }
+    .dashboard__item {
+        padding-right: 1rem;
+        padding-left: .5rem;
+    }
+    .dashboard__avatar {
+        width: 5rem;
+        height: 5rem;
+    }
+    .dashboard__title {
+        padding: .4rem .5rem .4rem 1rem;
+        font-size: 2.1rem;
+    }
+    .dashboard>.page-selectors {
+        padding: 2.5rem 0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .page-selectors__label {
+        margin: 0 .5rem 0 0;
+    }
+    .page-selectors__button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.3rem;
+    }
+    .dashboard>.page-content {
+        justify-self: center;
+        width: 18rem;
+        padding: 1.5rem 1.1rem;
+        box-sizing: border-box;
+    }
+    .page-content__page-title {
+        font-size: 1rem;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    .dashboard .live-chat {
+        grid-area: live-chat;
+        width: 18rem;
+        justify-self: center;
+        box-sizing: border-box;
+    }
+    .dashboard .chat-message {
+        padding: 0 1.1rem;
+    }
+    .dashboard {
+        width: 100%;
+        margin-top: 3rem;
+        grid-template-rows: 11.5vh 5rem auto auto auto;
+        grid-template-columns: 1fr 5rem 1fr;
+        grid-template-areas: ". . ." "stats avatar title" "page-selectors page-selectors page-selectors" "page-content page-content page-content" "live-chat live-chat live-chat";
+    }
+    .dashboard__username {
+        padding-right: .5rem;
+        font-size: 1.5rem;
+    }
+    .dashboard__item {
+        padding-right: .5rem;
+    }
+    .dashboard__title {
+        padding: .4rem .5rem;
+        font-size: 1.7rem;
+    }
+    .dashboard__vertical-line {
+        display: none;
+    }
+    .dashboard__horizontal-line {
+        grid-area: 2/ 1/ span 1 / -1;
+    }
+    .page-selectors__label {
+        margin: 0 .3rem 0 0;
+        font-size: 1.1rem;
+    }
+    .dashboard>.page-content {
+        height: 30rem;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .dashboard .live-chat {
+        display: none;
+    }
+    .dashboard {
+        grid-template-rows: 3rem 4.5rem auto 1fr;
+        grid-template-columns: 1fr 4.5rem 1fr;
+        grid-template-areas: ". . ." "stats avatar title" "page-selectors page-selectors page-selectors" "page-content page-content page-content";
+    }
+    .dashboard__stats {
+        font-size: .7rem;
+    }
+    .dashboard__username {
+        font-size: 1.2rem;
+    }
+    .dashboard__stats-label {
+        padding-right: .4rem;
+        line-height: .95rem;
+    }
+    .dashboard__avatar {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+    .dashboard__title {
+        font-size: 1.2rem;
+    }
+    .page-selectors__label {
+        margin: 0 0 0 .2rem;
+        order: 1;
+        font-size: .95rem;
+        letter-spacing: 0;
+    }
+    .page-selectors__button {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1rem;
+    }
+    .dashboard>.page-content {
+        width: 85%;
+        height: fit-content;
+        padding: .7rem .7rem 1.5rem .7rem;
+        overflow: visible;
+        border: none;
+    }
+    .page-content::-webkit-scrollbar {
+        width: 4px;
+    }
+    .page-content::-webkit-scrollbar-track {
+        border: none;
+        background-color: #e9e9e9;
+    }
+    .page-content::-webkit-scrollbar-thumb {
+        background-color: black;
+    }
 }

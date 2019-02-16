@@ -1,65 +1,33 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
+import { fetchVideos } from '../../actions';
+import ListOfVideos from './ListOfVideos';
 
 class Blacksmith extends React.Component {
    state = {
-      favouriteVideos: []
+      selectedVideo: null
    };
    componentDidMount() {
-      this.fetchYoutubeChannelDetails();
+      this.props.fetchVideos();
    }
-   fetchYoutubeChannelDetails = async () => {
-      const channelId = 'UC3XdYJjWliOdKuZMNaTiP8Q';
-      const apiKey = 'AIzaSyCLlmdalbMWnp18MSFZllI7h2r71NNq010';
-      const response = await axios.get(
-         `https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails&id=${channelId}&key=${apiKey}`
-      );
-      var favoritesPlaylistId = response.data.items[0].contentDetails.relatedPlaylists.favorites;
-      if (!favoritesPlaylistId) {
-         favoritesPlaylistId = response.data.items[0].contentDetails.relatedPlaylists.likes;
-      }
-      // console.log(response);
-      // console.log(response.data.items[0].contentDetails.relatedPlaylists.favorites);
-      const response2 = await axios.get(
-         `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${favoritesPlaylistId}&key=${apiKey}`
-      );
-      const fetchedVideos = response2.data.items;
-      console.log(fetchedVideos);
-      const favoriteVideos = fetchedVideos.map(item => {
-         const { thumbnails, title, description, resourceId } = item.snippet;
-         return {
-            thumbnail: thumbnails.medium.url,
-            title,
-            description,
-            videoId: resourceId.videoId
-         };
-      });
-      this.setState({ favoriteVideos });
-      console.log(favoriteVideos);
-   };
 
-   listOfVideos = () => {
-      if (!this.state.favoriteVideos) {
-         return null;
-      }
-      // console.log('biop');
-      return this.state.favoriteVideos.map(video => {
-         const videoSrc = `https://www.youtube.com/embed/${video.videoId}`;
-         console.log('biiop');
-         return (
-            <div key={video.videoId}>
-               <img src={video.thumbnail} alt={video.title} />
-               <div>{video.title}</div>
-               <div>{video.description}</div>
-               <iframe src={videoSrc} title={video.title} />
-            </div>
-         );
+   renderListOfVideos = () => {
+      const { videos } = this.props;
+      return videos.map(video => {
+         return <ListOfVideos key={video.videoId} video={video} />;
       });
    };
    // AIzaSyCLlmdalbMWnp18MSFZllI7h2r71NNq010
    render() {
-      return <div>{this.listOfVideos()}</div>;
+      return <div>{this.renderListOfVideos()}</div>;
    }
 }
+const mapStateToProps = state => {
+   return { videos: state.listOfVideos };
+};
 
-export default Blacksmith;
+export default connect(
+   mapStateToProps,
+   { fetchVideos }
+)(BlackSmith);

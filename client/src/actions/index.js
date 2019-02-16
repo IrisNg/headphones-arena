@@ -161,6 +161,37 @@ export const updatePost = (id, updateObj, mainPostId) => async dispatch => {
       dispatch(addGlobalMessage(err.response.data));
    }
 };
+//Blacksmith
+//Called by Blacksmith component
+export const fetchVideos = () => async dispatch => {
+   const channelId = 'UC3XdYJjWliOdKuZMNaTiP8Q';
+   const apiKey = 'AIzaSyCLlmdalbMWnp18MSFZllI7h2r71NNq010';
+   //Get playlists of a specific Youtube channel
+   const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails&id=${channelId}&key=${apiKey}`
+   );
+   var playlistId = response.data.items[0].contentDetails.relatedPlaylists.favorites;
+   //If 'favourite' playlist does not exist, use the 'likes' playlist instead
+   if (!playlistId) {
+      playlistId = response.data.items[0].contentDetails.relatedPlaylists.likes;
+   }
+   //Get videos from the 'favourite' || 'likes' playlist
+   const response2 = await axios.get(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=${apiKey}`
+   );
+   const fetchedVideos = response2.data.items;
+   //Extract only the essential data from the response
+   const videoList = fetchedVideos.map(item => {
+      const { thumbnails, title, description, resourceId } = item.snippet;
+      return {
+         thumbnail: thumbnails.medium.url,
+         title,
+         description,
+         videoId: resourceId.videoId
+      };
+   });
+   dispatch({ type: 'FETCHED_VIDEOS', payload: videoList });
+};
 //UserProfile
 //Called by Dashboard component
 export const fetchUserProfile = userId => async dispatch => {

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { headphoneListReducer, selectedHeadphoneReducer, topPostsReducer, fullHeadphoneReducer } from './arenaReducers';
 import { forumPostsReducer, forumSearchTermReducer, searchPostsReducer, postReducer } from './forumReducers';
+import { videoListReducer } from './blacksmithReducers';
 import { userProfileReducer } from './userProfileReducers';
 import { currentUserReducer, askLoginReducer } from './authenticationReducers';
 import { globalMessageReducer } from './globalMessageReducers';
@@ -14,6 +15,7 @@ export default combineReducers({
    forumSearchTerm: forumSearchTermReducer,
    forumSearchPosts: searchPostsReducer,
    post: postReducer,
+   listOfVideos: videoListReducer,
    userProfile: userProfileReducer,
    currentUser: currentUserReducer,
    loginIsActive: askLoginReducer,

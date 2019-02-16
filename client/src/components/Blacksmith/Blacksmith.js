@@ -30,4 +30,4 @@ const mapStateToProps = state => {
 export default connect(
    mapStateToProps,
    { fetchVideos }
-)(BlackSmith);
+)(Blacksmith);

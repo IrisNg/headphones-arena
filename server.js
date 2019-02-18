@@ -14,7 +14,6 @@ var userRoutes = require('./routes/userRoutes'),
    chatRoutes = require('./routes/chatRoutes'),
    arenaRoutes = require('./routes/arenaRoutes'),
    forumRoutes = require('./routes/forumRoutes'),
-   blacksmithRoutes = require('./routes/blacksmithRoutes'),
    userProfileRoutes = require('./routes/userProfileRoutes');
 
 //-- SETUP : REQUIRING MODELS
@@ -38,7 +37,6 @@ app.use(userRoutes);
 app.use(chatRoutes);
 app.use(arenaRoutes);
 app.use(forumRoutes);
-app.use(blacksmithRoutes);
 app.use(userProfileRoutes);
 
 // Serve static assets if in production

@@ -53,7 +53,14 @@
     background-color: rgba(192, 6, 3, .8);
     box-sizing: border-box;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+.navigation-bar__page-name span {
+    line-height: .8rem;
+}
+
 .navigation-bar__page-name::selection {
     background: none;
 }

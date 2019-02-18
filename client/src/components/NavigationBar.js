@@ -35,6 +35,12 @@ class NavigationBar extends React.Component {
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
    }
+   manageBlacksmithClass() {
+      var { currentLocation } = this.state;
+      return currentLocation === '/blacksmith' || currentLocation === '/'
+         ? 'navigation-icon--active'
+         : 'navigation-icon--inactive';
+   }
    manageAccountClass() {
       var { currentLocation } = this.state;
       return ['/user'].some(path => currentLocation.includes(path) || currentLocation === '/')
@@ -58,11 +64,22 @@ class NavigationBar extends React.Component {
                <img src="https://i.imgur.com/sVQQml8.jpg" alt="To Forum Page" />
                <div className="navigation-bar__page-name">FORUM</div>
             </div>
+            {/* To Blacksmith page */}
+            <div
+               className={`navigation-bar__icon ${this.manageBlacksmithClass()}`}
+               onClick={() => history.push('/blacksmith')}
+            >
+               <img src="https://i.imgur.com/6tiPqif.png" alt="To Blacksmith Page" />
+               <div className="navigation-bar__page-name">
+                  <span>BLACK SMITH</span>
+               </div>
+            </div>
             {/* To Login page or user's dashboard */}
             <div className={`navigation-bar__icon ${this.manageAccountClass()}`} onClick={this.onAccountIconClick}>
                <img src="https://i.imgur.com/c34xhYu.jpg" alt="To Login Page or Profile Page" />
                <div className="navigation-bar__page-name">{this.renderLoginOrAccount()}</div>
             </div>
+
             {/* Logout button */}
             {user ? (
                <div className="navigation-bar__logout">

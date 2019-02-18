@@ -1,21 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const FeaturedVideo = ({ featuredVideo }) => {
    if (!featuredVideo) {
       return <div />;
    }
-   var videoSrc = `https://www.youtube.com/embed/${featuredVideo.videoId}`;
-   console.log(videoSrc);
+   const videoSrc = `https://www.youtube.com/embed/${featuredVideo.videoId}`;
    return (
-      <div>
-         <iframe src={videoSrc} title={featuredVideo.title} />
+      <div className="featured-video">
+         <h3 className="featured-video__title">{featuredVideo.title}</h3>
+         <iframe
+            src={videoSrc}
+            title={featuredVideo.title}
+            allowfullscreen="allowfullscreen"
+            className="featured-video__player"
+         />
       </div>
    );
 };
 
-const mapStateToProps = state => {
-   return { featuredVideo: state.featuredVideo };
-};
-
-export default connect(mapStateToProps)(FeaturedVideo);
+export default FeaturedVideo;

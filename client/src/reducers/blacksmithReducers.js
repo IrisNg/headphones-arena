@@ -1,4 +1,4 @@
-export const videoListReducer = (state = [], action) => {
+export const videoListReducer = (state = null, action) => {
    switch (action.type) {
       case 'FETCHED_VIDEOS':
          return action.payload;

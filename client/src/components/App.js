@@ -38,9 +38,6 @@ class App extends React.Component {
                   <Route path="/edit-post/:id" component={PostEdit} />
                   <Route path="/delete-post/:id" component={PostDelete} />
                   <Route path="/blacksmith" component={Blacksmith} />
-                  {/* <Route path="/mods/new" component={ModCreate} />
-               <Route path="/mods/:id" exact component={ModShow} /> */}
-                  {/* <Route path="/mods/:id/edit" exact component={ModEdit} /> */}
                   <Route path="/user/:id" component={Dashboard} />
                </Switch>
                <NavigationBar />

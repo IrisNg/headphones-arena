@@ -121,7 +121,7 @@
     text-decoration: underline;
 }
 
-.delete-confirmation {
+.headphone-delete__confirmation {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -132,7 +132,7 @@
     font-size: 1rem;
 }
 
-.delete-confirmation__box {
+.headphone-delete__confirmation-box {
     padding: 1rem;
     flex-basis: 20%;
     height: 20%;
@@ -145,22 +145,22 @@
     text-align: center;
 }
 
-.delete-confirmation__box-buttons {
+.headphone-delete__confirmation-buttons {
     width: 100%;
     display:flex;
     justify-content: space-evenly;
 }
-.delete-confirmation__box-buttons div {
+.headphone-delete__confirmation-buttons div {
     padding: .2rem .4rem;
     background-color: #c00603;
     border: 1px solid black;
     color: white;
     cursor: pointer;
 } 
-.delete-confirmation__box-buttons div:nth-of-type(2){
+.headphone-delete__confirmation-buttons div:nth-of-type(2){
     background-color: #f6cb01;
 
 }
-.delete-confirmation__box-buttons div:hover {
+.headphone-delete__confirmation-buttons div:hover {
     text-decoration: underline;
 }

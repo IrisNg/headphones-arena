@@ -29,8 +29,8 @@
 
 .navigation-icon--inactive, .navigation-bar__logout {
     z-index: 5;
-    transform: translateX(-15rem);
-    transition: transform .7s;
+    transform: translateX(-20rem);
+    transition: transform .9s;
 }
 
 .navigation-bar:hover .navigation-icon--inactive, .navigation-bar:hover .navigation-bar__logout {
@@ -143,6 +143,8 @@
     }
     :not(.landing)~.navigation-bar .navigation-bar__line {
         visibility: visible;
+        background-color:black;
+
     }
 }
 

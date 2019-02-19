@@ -26,10 +26,10 @@ class HeadphoneDelete extends React.Component {
          return null;
       }
       return (
-         <div className="delete-confirmation">
-            <div className="delete-confirmation__box">
+         <div className="headphone-delete__confirmation">
+            <div className="headphone-delete__confirmation-box">
                <h5>Are you sure you want to delete this Headphone Entry?</h5>
-               <div className="delete-confirmation__box-buttons">
+               <div className="headphone-delete__confirmation-buttons">
                   <div onClick={this.delete}>Accept</div>
                   <div onClick={() => this.setState({ confirmationIsActive: false })}>Oopsie, go back</div>
                </div>

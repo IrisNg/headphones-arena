@@ -6,10 +6,6 @@ import history from '../../history';
 import './PostDelete.css';
 
 class PostDelete extends React.Component {
-   state = {
-      isActive: false
-   };
-
    delete = async () => {
       var postId = this.props.match.params.id;
       try {
@@ -24,12 +20,12 @@ class PostDelete extends React.Component {
 
    render() {
       return (
-         <div className="delete-confirmation">
-            <div className="delete-confirmation__box">
-               <h5>Are you sure you want to delete this Post?</h5>
-               <div className="delete-confirmation__box-buttons">
-                  <button onClick={this.delete}>Accept</button>
-                  <button onClick={() => history.goBack()}>Oopsie, go back</button>
+         <div className="post-delete">
+            <div className="post-delete__box">
+               <h5 className="post-delete__message">Are you VERY sure you want to delete this Post?</h5>
+               <div className="post-delete__buttons">
+                  <div onClick={this.delete}>I'M SURE!</div>
+                  <div onClick={() => history.goBack()}>NOPE</div>
                </div>
             </div>
          </div>

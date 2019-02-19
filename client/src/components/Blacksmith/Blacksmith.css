@@ -9,30 +9,56 @@
 .blacksmith .live-chat {
     width: 11%;
     border-width: 3px;
+    background-color: white;
 }
 
 /* Blacksmith */
 
 .blacksmith {
-    width: calc(100% - 11% - 3px - 3.5rem);
+    width: calc(100% - 11% - 3px);
     height: 100vh;
-    margin-left: 3.5rem;
+    display: grid;
+    grid-template-rows: auto minmax(auto, 4rem) auto;
+    grid-template-columns: 3.5rem 1fr;
+    grid-template-areas: ". videos" "youtube-button page-title" ". featured-video";
+    justify-items: center;
+}
+
+.blacksmith__youtube-button {
+    grid-area: youtube-button;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    font-size: 3rem;
+    text-align: center;
+    background-color: black;
+    cursor: pointer;
+}
+
+.blacksmith__youtube-button i {
+    transform: scale(1.2, .7);
+    color: white;
+}
+
+.blacksmith__youtube-button:hover {
+    background-color: #c00603;
 }
 
 .blacksmith__page-title {
+    grid-area: 2 / 1 /span 1 / -1;
     width: 100%;
-    margin: .9rem 0 2.3rem 0;
-    padding: .95rem 0;
+    padding: .95rem 0 .95rem 3.5rem;
     text-align: center;
     font-size: 1.4rem;
     font-weight: 900;
     letter-spacing: .8rem;
+    text-indent: .8rem;
     border-top: 3px solid black;
     border-bottom: 3px solid black;
+    box-sizing: border-box;
 }
 
 .blacksmith__vertical-line {
@@ -41,15 +67,17 @@
     height: 100%;
     top: 0;
     left: 0;
+    z-index: -1;
     border-right: 3px solid black;
     box-sizing: border-box;
 }
 
-
 /* Video */
 
 .blacksmith__videos {
+    grid-area: videos;
     width: 100%;
+    margin-bottom: .9rem;
     padding: 0 3.5rem;
     display: flex;
     justify-content: space-around;
@@ -99,10 +127,10 @@
 
 /* FeaturedVideo */
 
-
 .blacksmith .featured-video {
+    grid-area: featured-video;
     width: 700px;
-    margin-bottom: .7rem;
+    margin: 2.3rem 0 .7rem 0;
     text-align: center;
 }
 

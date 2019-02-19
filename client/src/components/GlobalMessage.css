@@ -16,7 +16,7 @@
     background-color: white;
     border: 2px solid black;
     box-shadow: 4px 4px black;
-    animation: slide-in 15s ease-in-out both;
+    /* animation: slide-in 15s ease-in-out both; */
 }
 
 .arena~.global-message, .forum~.global-message {
@@ -29,7 +29,8 @@
     margin-left: -3px;
 }
 
-.post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message {
+.post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
+.blacksmith~.global-message {
     width: calc(89% - 3.5rem);
     margin-left: 3.5rem;
 }
@@ -55,7 +56,8 @@
         width: 88%;
         margin-left: 0;
     }
-    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message {
+    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
+    .blacksmith~.global-message {
         width: calc(88% - 3.5rem);
     }
 }
@@ -68,8 +70,10 @@
     .post-show~.global-message {
         width: 83%;
     }
-    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message {
+    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
+    .blacksmith~.global-message {
         width: calc(83% - 3.5rem);
+
     }
 }
 
@@ -85,11 +89,12 @@
     .post-show~.global-message {
         width: 100%;
     }
-    .post-create~.global-message, .post-edit~.global-message {
+    .post-create~.global-message, .post-edit~.global-message,
+    .blacksmith~.global-message {
         width: calc(100% - 3rem);
         margin-left: 3rem;
     }
-    .dashboard~.global-message {
+    .dashboard~.global-message{
         width: 100%;
         margin-left: 0;
     }
@@ -99,5 +104,9 @@
     .arena~.global-message {
         width: 77%;
         margin-left: 23%;
+    }
+    .blacksmith~.global-message {
+        width: 100%;
+        margin-left: 0;
     }
 }

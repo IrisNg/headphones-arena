@@ -12,7 +12,7 @@ class GlobalMessage extends React.Component {
       if (this.props.globalMessage !== this.state.currentMessage) {
          //If there is a new message then invoke count-down timer to automatically remove it from screen later
          if (this.props.globalMessage) {
-            this.removeMessageAfterTimeOut();
+            // this.removeMessageAfterTimeOut();
          }
          //Update the new message to the component state
          //Or empty the state after timeout completes

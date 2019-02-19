@@ -87,7 +87,7 @@ router.post('/user-profile/:id/message', middleware.isLoggedIn, (req, res) => {
    //Find the recipient's user profile and push the message in
    UserProfile.findOne({ userId: req.body.toUserId }, (err, foundProfile) => {
       if (err) {
-         console.log(err);
+         res.status(400).json('Something went wrong, your private message could not be sent to the user');
       } else {
          foundProfile.privateMessages.push(req.body.body);
          foundProfile.save(err => {

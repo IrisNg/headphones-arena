@@ -81,7 +81,6 @@ export const redirectToMainPost = post => async dispatch => {
          dispatch(addGlobalMessage(err.response.data));
       }
    }
-   console.log('dispatched!');
    dispatch({ type: 'REDIRECTED_TO_MAIN_POST' });
 };
 
@@ -184,11 +183,10 @@ export const fetchVideos = () => async dispatch => {
       const fetchedVideos = response2.data.items;
       //Extract only the essential data from the response
       const videoList = fetchedVideos.map(item => {
-         const { thumbnails, title, description, resourceId } = item.snippet;
+         const { thumbnails, title, resourceId } = item.snippet;
          return {
             thumbnail: thumbnails.medium.url,
             title,
-            description,
             videoId: resourceId.videoId
          };
       });

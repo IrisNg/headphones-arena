@@ -4,7 +4,7 @@
 
 .landing~.navigation-bar {
     width: 9rem;
-    height: 11.5rem;
+    height: 15rem;
     bottom: 0;
     left: 2.5rem;
     flex-direction: column;
@@ -12,8 +12,17 @@
 }
 
 .landing~.navigation-bar .navigation-bar__icon {
-    margin-bottom: .8rem;
+    margin-bottom: .75rem;
     border: 1px solid white;
+    box-shadow: 4px 4px 4px black;
+}
+
+.landing~.navigation-bar:hover .navigation-bar__icon {
+    box-shadow: 4px 4px 4px black;
+}
+
+.landing~.navigation-bar .navigation-bar__icon:hover {
+    border-color: #f6cb01;
 }
 
 .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
@@ -22,17 +31,19 @@
     line-height: 3rem;
 }
 
-.landing~.navigation-bar:hover .navigation-bar__icon {
-    box-shadow: none;
-}
-
 .landing~.navigation-bar .navigation-bar__page-name {
-    font-size: 1rem;
-    background-color: rgba(0, 0, 0, 0);
+    width: 8rem;
+    transform: translateX(3.6rem);
+    text-align: left;
+    font-size: .85rem;
+    letter-spacing: .06rem;
+    background-color: transparent;
+    text-shadow: 2px 2px 3px black;
+    color: #f6cb01;
 }
 
-.landing~.navigation-bar .navigation-bar__icon:hover .navigation-bar__page-name {
-    transform: translateX(3.5rem);
+.landing~.navigation-bar .navigation-bar__page-name span {
+    word-spacing: -.25em;
 }
 
 .landing {
@@ -82,14 +93,7 @@
 
 @media screen and (max-width: 767px) {
     .landing~.navigation-bar {
-        bottom: -.5rem;
         left: 1rem;
-        height: 12.5rem;
-    }
-    .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
-        height: 3rem;
-        width: 3rem;
-        line-height: 3rem;
     }
     .landing {
         background: radial-gradient(ellipse at center, transparent 22%, black), url("https://www.hdwallpaper.nu/wp-content/uploads/2015/04/262614.jpg") bottom 81% left 27%/cover no-repeat;
@@ -100,6 +104,7 @@
         line-height: 6rem;
     }
 }
+
 @media only screen and (max-width: 581px) {
     .landing__website-title {
         padding-right: 1rem;
@@ -119,5 +124,5 @@
         padding-right: .6rem;
         font-size: 4.5rem;
         line-height: 4rem;
-        letter-spacing: .25rem;    }
+    }
 }

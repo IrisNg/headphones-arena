@@ -49,9 +49,10 @@ class Blacksmith extends React.Component {
       const { featuredVideo } = this.props;
       return (
          <div className="blacksmith">
-            <FeaturedVideo featuredVideo={featuredVideo} />
             {/* <div className="blacksmith__horizontal-line" /> */}
             <div className="blacksmith__videos">{this.renderListOfVideos()}</div>
+            <div className="blacksmith__page-title">BLACKSMITH</div>
+            <FeaturedVideo featuredVideo={featuredVideo} />
             <div className="blacksmith__vertical-line" />
             <LiveChat />
          </div>

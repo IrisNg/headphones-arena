@@ -44,12 +44,6 @@ class App extends React.Component {
                <CheckAuth />
                <Login />
                <GlobalMessage />
-               {/* <div className="forum-lines">
-                  <div />
-                  <div />
-                  <div />
-                  <div />
-               </div> */}
             </div>
          </Router>
       );

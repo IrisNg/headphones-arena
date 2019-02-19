@@ -122,7 +122,6 @@ class Reply extends React.Component {
       if (!this.props.data) {
          return <div />;
       }
-      console.log(this.props);
       var { created, content, author, vote, _id } = this.props.data;
       return (
          <div className="reply">

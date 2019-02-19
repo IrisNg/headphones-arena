@@ -44,7 +44,6 @@ function findCategoryPosts(category) {
                });
                //Combine the latest and hottest posts into one array
                results = results.concat(foundPosts.splice(0, 4));
-               // console.log(results);
                resolve(results);
             }
          });

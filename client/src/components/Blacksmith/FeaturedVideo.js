@@ -7,7 +7,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
    const videoSrc = `https://www.youtube.com/embed/${featuredVideo.videoId}`;
    return (
       <div className="featured-video">
-         <h3 className="featured-video__title">{featuredVideo.title}</h3>
+            <h3 className="featured-video__title">{featuredVideo.title}</h3>
          <iframe
             src={videoSrc}
             title={featuredVideo.title}

@@ -43,13 +43,15 @@ class Forum extends React.Component {
                {/* Budget Recommendation category */}
                <ForumCategory posts={recommendation} category={'recommendation'} searchActive={searchTerm} />
                {/* Category names */}
-               <ForumStyling searchTerm={searchTerm} />
+               <ForumStyling />
                <LiveChat />
             </div>
             {/* Button to redirect to PostCreate */}
             <div className="forum__add-post-button" onClick={() => history.push('/create-post')}>
                +
             </div>
+            <div className="forum__nav-bar-line" />
+            <div className="forum__horizontal-lines" />
          </div>
       );
    }

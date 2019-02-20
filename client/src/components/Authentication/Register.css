@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(227, 227, 227, .7);
 }
 
 .register__contents {
@@ -110,13 +110,13 @@
 .register__alternatives-login:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #164499;
+    color: #263248;
 }
 
 .register__alternatives-refuse:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #c00603;
+    color: #c73226;
 }
 
 .register__continuous-line {

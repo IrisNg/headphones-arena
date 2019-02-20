@@ -1,0 +1,541 @@
+$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
+
+/* NavigationBar */
+
+.forum~.navigation-bar {
+    bottom: -4px;
+}
+
+/* Forum */
+
+.forum {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr;
+    color: map-get($colors, darkest);
+}
+
+.forum-contents {
+    display: grid;
+    grid-template-rows: 27% 7.6% 27% auto;
+    grid-template-columns: repeat(4, 28vh);
+    grid-template-areas: "search-bar search-bar search-bar search-bar" ". . . ." "comparison title title recommendation" "comparison review general recommendation";
+    grid-gap: 1vh;
+    justify-content: center;
+}
+
+.forum-contents__page-title {
+    grid-area: title;
+    margin: 0;
+    padding-left: .5rem;
+    justify-self: center;
+    align-self: center;
+    font-family: 'bebas_neuebold';
+    font-size: 7rem;
+    letter-spacing: .5rem;
+    line-height: 5rem;
+    background-color: map-get($colors, lightest);
+    color: map-get($colors, light);
+}
+
+/* ForumSearch */
+
+.forum-search {
+    grid-area: search-bar;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.forum-search__input {
+    width: calc(50% + 1.2vh);
+    margin: 0;
+    margin-bottom: calc((1rem - 3px) /2);
+    padding: .2em 1em;
+    border: none;
+    border-bottom: 4px solid map-get($colors, dark);
+    background: none;
+    font-family: inherit;
+    font-size: 1.3rem;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+}
+
+.forum-search__icon {
+    position: absolute;
+    bottom: 1.1rem;
+    z-index: -1;
+    color: map-get($colors, light);
+    cursor: pointer;
+}
+
+.forum-search__input:hover {
+    border-color: map-get($colors, mid);
+}
+
+.forum-search__input::selection {
+    background: map-get($colors, mid);
+    color: white;
+}
+
+.forum-search__box {
+    width: 1rem;
+    height: 1rem;
+    background: map-get($colors, dark);
+}
+
+.forum-search__box:nth-of-type(1) {
+    order: -1;
+}
+
+.forum-search__input:hover~.forum-search__box {
+    background-color: map-get($colors, mid);
+}
+
+/* ForumSearchPosts */
+
+.forum-search-posts {
+    grid-area: 3/1/span 2 / span 4;
+    display: grid;
+    grid-template-rows: repeat(2, 27vh);
+    grid-template-columns: repeat(4, 1fr);
+    grid-row-gap: 1vh;
+    grid-column-gap: 1vh;
+    background-color: map-get($colors, lightest);
+}
+
+.forum-search__post-vote {
+    margin: 0 .5rem;
+}
+
+.forum-search__post-vote-icon, .forum-category__post-vote-icon {
+    margin-right: .15rem;
+}
+
+.forum-search__post-reply-icon {
+    margin-right: .25rem;
+    transform: scaleX(-1);
+    font-size: .7rem;
+}
+
+/* ForumCategory */
+
+.forum-category-comparison {
+    grid-area: 3/1/-1 / span 1;
+}
+
+.forum-category-recommendation {
+    grid-area: 3/4/-1 / span 1;
+}
+
+.forum-category-comparison, .forum-category-recommendation {
+    padding-bottom: 3.5rem;
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    grid-template-columns: 100%;
+    grid-row-gap: 1vh;
+}
+
+.forum-category-review {
+    grid-area: 4/2/-1 / span 1;
+}
+
+.forum-category-general {
+    grid-area: 4/3/-1 / span 1;
+}
+
+.forum-category-review, .forum-category-general {
+    padding-bottom: 3.5rem;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 100%;
+    grid-row-gap: 1vh;
+}
+
+.forum-category__post, .forum-search__post {
+    height: 27vh;
+    padding: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid map-get($colors, darkest);
+    background-color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.forum-category__post:hover, .forum-search__post:hover {
+    transform: scale(.95);
+    box-shadow: 3.5px 3.5px black;
+}
+
+.forum-category__post-container, .forum-search__post-container {
+    height: calc(100% - 1.2rem);
+    overflow: hidden;
+}
+
+.forum-category__post-title, .forum-search__post-title {
+    margin: 0;
+    font-size: .9em;
+    text-align: justify;
+    line-height: 1rem;
+    cursor: pointer;
+}
+
+.forum-category__post-content, .forum-search__post-content {
+    margin: .2em 0;
+    text-align: justify;
+    font-size: .8em;
+    line-height: 1rem;
+}
+
+.forum-category__post-metadata, .forum-search__post-metadata {
+    display: flex;
+    justify-content: space-between;
+    font-size: .75rem;
+}
+
+.forum-category__post-date, .forum-search__post-date {
+    color: #4d4d4d;
+}
+
+.forum__category-names {
+    position: fixed;
+    width: 100vw;
+    height: 3.5rem;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    background-color: map-get($colors, lightest);
+}
+
+.forum__category-names h2 {
+    width: 28vh;
+    margin: 0 .5vh;
+    padding: .5rem 0 .7rem 0;
+    align-self: flex-end;
+    text-align: center;
+    font-size: 1rem;
+    border-top: 2px solid map-get($colors, darkest);
+}
+
+.forum__add-post-button {
+    position: fixed;
+    width: 3.5rem;
+    height: 3.5rem;
+    top: 50vh;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 3.5rem;
+    color: white;
+    background-color: map-get($colors, dark);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.forum__add-post-button:hover {
+    background-color: map-get($colors, mid);
+}
+
+.forum__nav-bar-line {
+    position: fixed;
+    width: 3.5rem;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-right: 2px solid map-get($colors, darkest);
+    box-sizing: border-box;
+}
+
+.forum__horizontal-lines {
+    position: fixed;
+    width: 100vw;
+    height: 3.5rem;
+    top: 50vh;
+    left: 0;
+    z-index: -5;
+    border-top: 2px solid map-get($colors, darkest);
+    border-bottom: 2px solid map-get($colors, darkest);
+    box-sizing: border-box;
+}
+
+.forum__name {
+    display: none;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    /* LiveChat */
+    .forum .live-chat {
+        width: 12%;
+    }
+    /* Forum */
+    .forum {
+        grid-template-columns: 3.5rem 1fr 13%;
+    }
+    .forum-contents {
+        grid-area: 1/2/-1/span 1;
+        grid-template-rows: 27% 6.5% 28% auto;
+        grid-template-columns: repeat(4, 24.5vh);
+    }
+    .forum-contents__page-title {
+        font-size: 6rem;
+        line-height: 5rem;
+    }
+    /* SearchPosts */
+    .forum-search-posts {
+        grid-template-rows: repeat(2, 28vh);
+    }
+    /* Category Posts */
+    .forum-category__post, .forum-search__post {
+        height: 28vh;
+    }
+    /* Category Names */
+    .forum__category-names {
+        width: calc(100vw - 3.5rem - 13vw - 2px);
+        margin-left: 3.5rem;
+    }
+    .forum__category-names h2 {
+        width: 24.5vh;
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    /* LiveChat */
+    .forum .live-chat {
+        width: 17%;
+    }
+    /* Forum */
+    .forum {
+        grid-template-columns: 3.5rem 1fr 17%;
+    }
+    .forum-contents {
+        grid-template-rows: 27% 7.5% 27% auto auto;
+        grid-template-columns: 1fr repeat(2, 27vh) 1fr;
+        grid-template-areas: "search-bar search-bar search-bar search-bar" ". . . ." ". title title ." "comparison-name comparison recommendation recommendation-name" "review-name review general general-name";
+    }
+    .forum-contents__page-title {
+        font-size: 5rem;
+        line-height: 4rem;
+    }
+    /* Search Bar */
+    .forum-search__input {
+        margin-bottom: calc((.8rem - 4px) /2);
+        font-size: 1rem;
+    }
+    .forum-search__box {
+        width: .8rem;
+        height: .8rem;
+    }
+    /* Search Posts */
+    .forum-search-posts {
+        grid-area: 4/2/-1 / span 2;
+        grid-template-rows: repeat(4, 27vh);
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .forum-category__post, .forum-search__post {
+        height: 27vh;
+    }
+    .forum-search-posts>div:nth-last-of-type(1) {
+        margin-bottom: 3.5rem;
+    }
+    /* Category Posts */
+    .forum-category-comparison {
+        grid-area: comparison;
+    }
+    .forum-category-recommendation {
+        grid-area: recommendation;
+    }
+    .forum-category-review {
+        grid-area: review;
+    }
+    .forum-category-general {
+        grid-area: general;
+    }
+    .forum-category-comparison, .forum-category-recommendation {
+        grid-template-rows: repeat(4, 1fr);
+    }
+    .forum-category-review, .forum-category-general {
+        grid-template-rows: repeat(4, 1fr);
+    }
+    .forum-category .forum-category__post:nth-of-type(n+5) {
+        display: none;
+    }
+    /* Category Names */
+    .forum-styling {
+        grid-area: 4 / 1 / span 2 / -1;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 54.5vh 1fr;
+        grid-template-areas: "comparison-name . recommendation-name" "review-name . general-name";
+        grid-gap: 1vh;
+        position:relative;
+        z-index: -1;
+    }
+    .forum-search-posts~.forum-styling {
+        display:none;
+    }
+    .forum__name {
+        display: block;
+    }
+    .forum__name--comparison {
+        grid-area: comparison-name;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+    .forum__name--recommendation {
+        grid-area: recommendation-name;
+        display: flex;
+        align-items: flex-start;
+    }
+    .forum__name--review {
+        grid-area: review-name;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+    .forum__name--general {
+        grid-area: general-name;
+        display: flex;
+        align-items: flex-start;
+    }
+    .forum__name h5 {
+        margin: 0;
+        padding-top: .5em;
+        writing-mode: vertical-rl;
+        font-size: .75rem;
+        letter-spacing: .04rem;
+    }
+    .forum__name--comparison h5, .forum__name--review h5 {
+        padding-bottom: .5em;
+        transform: rotateZ(180deg);
+    }
+    .forum__category-names {
+        display: none;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    /* LiveChat */
+    .forum .live-chat {
+        grid-area: live-chat;
+        width: 67%;
+        justify-self: center;
+    }
+    /* Forum */
+    .forum {
+        grid-template-columns: 3rem calc(100vw - 3rem);
+    }
+    .forum-contents {
+        margin-top: -2.1rem;
+        grid-template-rows: 31.5% 3% 27% auto auto auto;
+        grid-template-columns: 1fr repeat(2, 13rem) 1fr;
+        grid-template-areas: "search-bar search-bar search-bar search-bar" ". . . ." ". title title ." "comparison-name comparison recommendation recommendation-name" "review-name review general general-name" ". live-chat live-chat .";
+    }
+    .forum-contents__page-title {
+        font-size: 4.5rem;
+        line-height: 4rem;
+    }
+    /* SearchPosts */
+    .forum-search-posts {
+        grid-area: 4/2/-2 / span 2;
+    }
+    .forum-category__post, .forum-search__post {
+        height: 13rem;
+    }
+    .forum__add-post-button {
+        width: 3rem;
+        top: calc(50vh - 1.2rem);
+    }
+    
+.forum__nav-bar-line {
+    width: 3rem;
+}
+.forum__horizontal-lines {
+    top: calc(50vh - 1.2rem);
+
+    }
+    /* Category Names */
+    .forum-styling {
+        grid-template-columns: 1fr 54vh 1fr;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 581px) {
+    /* LiveChat */
+    .forum .live-chat {
+        width: 100%;
+    }
+    .forum-contents {
+        grid-template-rows: 32% 0% 35% auto auto auto auto auto;
+        grid-template-columns: 1fr 13rem 1fr;
+        grid-template-areas: "search-bar search-bar search-bar" ". . ." "title title title" ". comparison comparison-name" ". recommendation recommendation-name" ". review review-name" ". general general-name" ". live-chat .";
+    }
+    .forum-contents__page-title {
+        font-size: 4rem;
+        line-height: 3rem;
+    }
+    /* SearchPosts */
+    .forum-search-posts {
+        grid-area: 4/2/-2 / span 1;
+        grid-template-rows: repeat(8, 13rem);
+        grid-template-columns: 13rem;
+        background: none;
+
+    }
+    /* Categories */
+    .forum-category-comparison, .forum-category-recommendation {
+        grid-template-rows: repeat(3, 1fr);
+    }
+    .forum-category-review, .forum-category-general {
+        grid-template-rows: repeat(3, 1fr);
+    }
+    .forum-category .forum-category__post:nth-of-type(n+4) {
+        display: none;
+    }
+    /* Misc */
+    .forum__add-post-button {
+        height: 3rem;
+        top: calc(50vh - .6rem);
+        font-size: 3rem;
+    }
+    .forum__horizontal-lines {
+        height: 3rem;
+        top: calc(50vh - .6rem);
+    
+        }
+    
+    /* Category Names */
+    .forum-styling {
+        grid-area: 4 / 2 / span 4 / -1;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 13rem min-content;
+        grid-template-areas: ". comparison-name" ". recommendation-name" ". review-name" ". general-name";
+        grid-column-gap: .1em;
+    }
+    .forum__name--comparison, .forum__name--review {
+        justify-content: flex-start;
+    }
+    .forum__name--comparison h5, .forum__name--review h5 {
+        transform: rotateZ(0);
+    }
+}

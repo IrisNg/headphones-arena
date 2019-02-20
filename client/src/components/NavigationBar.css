@@ -38,7 +38,7 @@
 }
 
 .navigation-bar:hover .navigation-bar__icon, .navigation-bar:hover .navigation-bar__logout {
-    box-shadow: 2px 2px #c00603;
+    box-shadow: 2px 2px #c73226;
 }
 
 .navigation-bar__page-name {
@@ -50,7 +50,7 @@
     transition: opacity .2s ease-in, transform .4s ease-in;
     opacity: 0;
     text-align: center;
-    background-color: rgba(192, 6, 3, .8);
+    background-color: rgba(199, 50, 38, .8);
     box-sizing: border-box;
     color: white;
 }
@@ -93,7 +93,7 @@
         background-color: black;
     }
     :not(.landing)~.navigation-bar .navigation-bar__icon {
-        width: max-content;
+        width: 6rem;
         margin-right: 0;
     }
     :not(.landing)~.navigation-bar .logout__button {
@@ -127,6 +127,9 @@
 /* Phones */
 
 @media only screen and (max-width: 481px) {
+    :not(.landing)~.navigation-bar .navigation-bar__icon {
+        width: 3rem;
+    }
     :not(.landing)~.navigation-bar .navigation-bar__page-name {
         transform: translateX(0);
         text-align: center;

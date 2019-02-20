@@ -44,7 +44,7 @@
 .headphone-edit__existing-name {
     margin-bottom: .5rem;
     padding: .2rem .5rem;
-    background-color: #164499;
+    background-color: #7e8aa2;
     box-shadow: 3px 3px black;
     color: white;
     cursor: pointer;
@@ -108,9 +108,8 @@
 
 .headphone-delete__button, .headphone-edit__submit-button {
     padding: .3rem 1.5rem;
-    background-color: #c00603;
+    background-color: #c73226;
     border: 1px solid black;
-    color: white;
     cursor: pointer;
 }
 .headphone-edit__submit-button{
@@ -152,7 +151,7 @@
 }
 .headphone-delete__confirmation-buttons div {
     padding: .2rem .4rem;
-    background-color: #c00603;
+    background-color: #c73226;
     border: 1px solid black;
     color: white;
     cursor: pointer;

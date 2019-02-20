@@ -1,3 +1,4 @@
+
 .login {
     position: fixed;
     width: 100vw;
@@ -8,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(227, 227, 227, .7);
 }
 
 .login__contents {
@@ -114,13 +115,13 @@
 .login__alternatives-register:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #164499;
+    color: #263248;
 }
 
 .login__alternatives-refuse:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #c00603;
+    color: #c73226;
 }
 
 .login__continuous-line {

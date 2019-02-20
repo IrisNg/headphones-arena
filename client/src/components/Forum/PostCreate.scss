@@ -1,0 +1,321 @@
+$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
+$mid-light: lighten(map-get($colors, lightest), 9%);
+/* LiveChat */
+
+.post-create .live-chat {
+    width: 11%;
+    border-width: 3px;
+}
+
+/* CSS Variables */
+
+:root {
+    --create-container: 35rem;
+    --create-label-spacing: .04rem;
+}
+
+/* PostCreate */
+
+.post-create {
+    width: calc(100% - 11%);
+    height: 100%;
+    display: grid;
+    grid-template-rows: 16.6vh minmax(3.5rem, auto) auto;
+    grid-template-columns: 3.5rem auto;
+    grid-template-areas: ". title" "back-icon title" ". form";
+}
+
+/* Page Title */
+
+.post-create__page-title {
+    grid-area: title;
+    margin: calc(16.6vh - 2rem) 1.5rem .15em 1.5rem;
+    padding: 0 .2em;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 900;
+    background-color: map-get($colors, lightest);
+    color: map-get($colors, light);
+}
+
+/* Back Icon */
+
+.post-create__back-icon {
+    grid-area: back-icon;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    background-color: map-get($colors, dark);
+    color: white;
+    cursor: pointer;
+}
+
+.post-create__back-icon:hover {
+    background-color: map-get($colors, mid);
+    color:white;
+}
+
+/* Form */
+
+.post-create__form {
+    grid-area: form;
+    margin: 4rem calc((100% - var(--create-container)) / 2);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    background-color: $mid-light;
+
+}
+
+/* Title */
+
+.post-create__label-title {
+    margin: 2rem 2rem .8rem 2rem;
+    letter-spacing: var(--create-label-spacing);
+    font-weight: 900;
+}
+
+.post-create__input-title {
+    margin: 0 2rem 1.5rem 2rem;
+    padding: .15rem 0;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    border: none;
+    border-bottom: 1.5px solid black;
+    outline: none;
+    background-color: $mid-light;
+
+}
+
+.post-create__input-title::placeholder {
+    font-weight: 400;
+}
+
+/* Categories */
+
+.post-create__label-category {
+    margin: .8rem 2rem;
+    letter-spacing: var(--create-label-spacing);
+    font-weight: 900;
+}
+
+.post-create__categories {
+    margin: 0 2rem 1.5rem 2rem;
+}
+
+.post-create__categories-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    font-size: .95rem;
+    border: .5px solid black;
+}
+
+.post-create__category {
+    padding: .2rem 0;
+    text-align: center;
+    border-right: .5px solid black;
+    cursor: pointer;
+}
+
+.post-create__categories div.post-create__category:nth-last-of-type(1) {
+    border-right: none;
+}
+
+.post-create__category:hover {
+    font-weight: 700;
+    background-color: map-get($colors, light);
+    color: white;
+}
+
+.post-create__category--active {
+    font-weight: 700;
+    background-color: black;
+    color: #f6cb01;
+}
+
+/* Tag System */
+
+.post-create .tag-system__search-input::placeholder {
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+/* Content */
+
+.post-create__input-content {
+    width: 100%;
+    height: 10rem;
+    padding: 1.5rem 2rem;
+    font-size: 1rem;
+    font-family: inherit;
+    background: none;
+    outline: none;
+    resize: none;
+    border: none;
+    box-sizing: border-box;
+}
+.post-create__input-content::selection {
+    background-color: #f6cb01;
+
+}
+/* Submit button */
+
+.post-create__button-container {
+    margin: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-create__submit-button {
+    padding: .3rem 1rem;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.post-create__submit-button:hover {
+    background-color: black;
+    color: #f6cb01;
+}
+
+/* Useless lines */
+
+.post-create__horizontal-lines {
+    grid-column: 1/-1;
+    grid-row: 2/span 1;
+    height: 100%;
+    position: relative;
+    z-index: -1;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+}
+
+.post-create__vertical-line {
+    position: fixed;
+    height: 100vh;
+    width: 3.5rem;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    border-right: 3px solid black;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    .post-create .live-chat {
+        width: 12%;
+    }
+    .post-create {
+        width: calc(100% - 12%);
+    }
+    .post-create__page-title {
+        font-size: 3.6rem;
+    }
+    .post-create__input-content {
+        height: 11rem;
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    .post-create .live-chat {
+        width: 17%;
+    }
+    :root {
+        --create-container: 30rem;
+    }
+    .post-create {
+        width: calc(100% - 17%);
+    }
+    .post-create__page-title {
+        font-size: 3.4rem;
+    }
+    .post-create__form {
+        margin: 3.5rem calc((100% - var(--create-container)) / 2);
+        margin-bottom: 3rem;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    .post-create .live-chat {
+        display: none;
+    }
+    .post-create {
+        width: 100%;
+        margin-top: .5rem;
+        grid-template-rows: 16.6vh minmax(3.3rem, auto) auto;
+        grid-template-columns: calc(3rem - 3px) auto;
+    }
+    .post-create__page-title {
+        margin: calc(16.6vh - 1.5rem) .5rem .15em .5rem;
+        font-size: 3rem;
+    }
+    .post-create__form {
+        margin: 3.3rem 12vw 3rem 12vw;
+    }
+    .post-create__input-title {
+        margin: 0 2rem 1rem 2rem;
+    }
+    .post-create__categories-container {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+    }
+    .post-create__category {
+        flex-grow: 1;
+        margin: .15rem;
+        border: .5px solid black;
+    }
+    .post-create__categories div.post-create__category:nth-last-of-type(1) {
+        border-right: .5px solid black;
+    }
+    .post-create__input-content {
+        height: 13rem;
+    }
+    .post-create__vertical-line {
+        width: 3rem;
+        box-sizing: border-box;
+    }
+}
+
+@media only screen and (max-width: 581px) {
+    .post-create__page-title {
+        margin: calc(16.6vh - 1.3rem) 5px .15em 5px;
+        padding: 0 5px;
+        font-size: 2.8rem;
+    }
+    .post-create__form {
+        margin: 2.6rem 10vw 2.5rem 10vw;
+    }
+    .post-create__label-title, .post-create__input-title, .post-create__label-category, .post-create .tag-system__search-input, .post-create__input-content::placeholder {
+        text-align: center;
+    }
+    .post-create__input-content {
+        height: 14rem;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .post-create__page-title {
+        margin: calc(16.6vh - 1.1rem) .1rem .15em .1rem;
+        font-size: 2.4rem;
+    }
+    .post-create__form {
+        margin: 2.6rem 5vw 3rem 5vw;
+    }
+}

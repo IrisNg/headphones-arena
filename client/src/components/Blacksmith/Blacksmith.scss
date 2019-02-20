@@ -1,0 +1,280 @@
+ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
+
+/* NavigationBar */
+
+.blacksmith~.navigation-bar {
+    bottom: -4px;
+}
+
+/* LiveChat */
+
+.blacksmith .live-chat {
+    width: 11%;
+    border-width: 3px;
+    background-color: map-get($colors, lightest);
+}
+
+/* Blacksmith */
+
+.blacksmith {
+    width: calc(100% - 11% - 3px);
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr max-content 1fr minmax(auto, 4rem) 1fr max-content;
+    grid-template-columns: 3.5rem 1fr;
+    grid-template-areas: ". . " ". videos" ". . " "youtube-button page-title" ". . " ". featured-video";
+    justify-items: center;
+    color: map-get($colors, darkest);
+}
+
+.blacksmith__youtube-button {
+    grid-area: youtube-button;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    font-size: 3rem;
+    text-align: center;
+    background-color: map-get($colors, dark);
+    cursor: pointer;
+}
+
+.blacksmith__youtube-button i {
+    transform: scale(1.2, .7);
+    color: white;
+}
+
+.blacksmith__youtube-button:hover {
+    background-color: map-get($colors, mid);
+}
+
+.blacksmith__page-title {
+    grid-area: 4 / 1 /span 1 / -1;
+    width: 100%;
+    padding: .95rem 0 .95rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: .8rem;
+    text-indent: .8rem;
+    border-top: 3px solid map-get($colors, darkest);
+    border-bottom: 3px solid map-get($colors, darkest);
+    background-color: rgba(255,255,255, .7);
+    color: map-get($colors, light);
+    box-sizing: border-box;
+}
+
+.blacksmith__vertical-line {
+    position: fixed;
+    width: 3.5rem;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-right: 3px solid map-get($colors, darkest);
+    box-sizing: border-box;
+}
+
+/* Video */
+
+.blacksmith__videos {
+    grid-area: videos;
+    width: 100%;
+    height: 100%;
+    padding: 0 8vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.blacksmith .video {
+    width: 10rem;
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: .7;
+    text-align: center;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
+}
+
+.blacksmith .video:hover {
+    opacity: 1;
+}
+
+.video__title {
+    height: 2.9em;
+    margin: 0 0 .3rem 0;
+    padding: .3em 1em;
+    overflow: hidden;
+    font-size: .7rem;
+    line-height: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: .02rem;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.video__thumbnail {
+    width: 100%;
+    height: 5.5rem;
+    object-fit: cover;
+    filter: grayscale(60%);
+    box-sizing: border-box;
+}
+
+/* FeaturedVideo */
+
+.blacksmith .featured-video {
+    grid-area: featured-video;
+    width: 700px;
+    margin: 0 0 .7rem 0;
+    text-align: center;
+}
+
+.featured-video__title {
+    margin: 0 0 2px 0;
+    padding: .6rem 1rem;
+    text-transform: uppercase;
+    font-size: .85rem;
+    letter-spacing: .05rem;
+    background-color: map-get($colors, dark);
+    color: white;
+}
+
+.featured-video__player {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.5%;
+}
+
+.featured-video__player iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    .blacksmith .live-chat {
+        width: 12%;
+    }
+    .blacksmith {
+        width: calc(100% - 12% - 3px);
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    .blacksmith .live-chat {
+        width: 17%;
+    }
+    .blacksmith {
+        width: calc(100% - 17% - 3px);
+    }
+    .blacksmith__videos {
+        padding: 0;
+    }
+    .blacksmith .video {
+        width: 22%;
+    }
+    .blacksmith .featured-video {
+        width: 100%;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    .blacksmith .live-chat {
+        grid-area: live-chat;
+        width: 18rem;
+        justify-self: center;
+        background-color: white;
+        box-sizing: border-box;
+    }
+    .blacksmith {
+        width: 100vw;
+        height: auto;
+        margin-top: 3rem;
+        grid-template-rows: .6rem max-content .6rem minmax(auto, 3.5rem) 5vh max-content auto;
+        grid-template-columns: 3rem 1fr;
+        grid-template-areas: ". . " ". videos" ". . " "youtube-button page-title" ". . " ". featured-video" ". live-chat";
+    }
+    .blacksmith__page-title {
+        padding: .95rem 0 .95rem 3rem;
+        font-size: 1.2rem;
+    }
+    .blacksmith__vertical-line {
+        width: 3rem;
+    }
+    .blacksmith__videos {
+        justify-self: center;
+        width: calc(100vw - 5rem);
+        justify-content: flex-start;
+        overflow: auto;
+    }
+    .blacksmith__videos::-webkit-scrollbar {
+        display: none;
+    }
+    .blacksmith .video {
+        width: 11rem;
+        flex-shrink: 0;
+        transform: scale(.9);
+        border: none;
+        background: none;
+        box-shadow: none;
+    }
+    .video__title {
+        height: 2.8em;
+    }
+    .video__thumbnail {
+        border: 1px solid black;
+    }
+    .blacksmith .featured-video {
+        border-bottom: 2px solid black;
+    }
+    .featured-video__title {
+        margin-bottom: 0;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .blacksmith .live-chat {
+        width: 300px;
+    }
+    .blacksmith {
+        grid-template-rows: 1.5rem max-content 1.5rem minmax(auto, 3.5rem) 2.5rem max-content auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: " . " " videos" " . " " page-title" " . " " featured-video" " live-chat";
+    }
+    .blacksmith__youtube-button {
+        display: none;
+    }
+    .blacksmith__page-title {
+        padding: 0;
+    }
+    .blacksmith__vertical-line {
+        display: none;
+    }
+    .blacksmith__videos {
+        width: calc(100vw - 2rem);
+    }
+}

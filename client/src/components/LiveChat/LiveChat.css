@@ -10,7 +10,8 @@
     justify-content: flex-end;
     overflow: hidden;
     z-index: 5;
-    border-left: 2px solid black;
+    border-left: 2px solid #0a111f;
+    color: #0a111f;
 }
 
 .live-chat__title {
@@ -22,7 +23,7 @@
     text-align: center;
     font-weight: 900;
     font-size: 1rem;
-    background-color: black;
+    background-color: #0a111f;
     color: white;
 }
 
@@ -56,14 +57,14 @@
 .chat-message__tag {
     display: inline-block;
     padding: 0 .2rem;
-    background-color: black;
+    background-color: #0a111f;
     color: white;
-    box-shadow: 1px 1px black;
+    box-shadow: 1px 1px #0a111f;
     cursor: pointer;
 }
 
 .chat-message__tag:hover {
-    background-color: #c00603;
+    background-color: #c73226;
     transform: translateX(-.2rem);
 }
 
@@ -72,11 +73,12 @@
 .chat-input {
     margin-top: .8rem;
     padding: .7rem;
-    border-top: 2px solid black;
+    border-top: 2px solid #0a111f;
 }
 
 .chat-input:hover {
-    background-color: #f6cb01;
+    background-color: #c73226;
+    color: white;
 }
 
 .chat-input__fields {
@@ -102,6 +104,7 @@
     background: none;
     box-sizing: border-box;
     cursor: pointer;
+    color: inherit;
 }
 
 .chat-input__author {
@@ -114,10 +117,11 @@
     font-family: inherit;
     font-weight: 700;
     font-size: .7rem;
+    color: inherit;
 }
 
 .chat-input__author:hover {
-    background-color: lightgrey;
+    background-color: rgb(59, 59, 59);
 }
 
 .chat-input__button {
@@ -134,7 +138,7 @@
     .live-chat {
         position: relative;
         margin: 3.5rem 0;
-        border: 2px solid black;
+        border: 2px solid #0a111f;
         background-color: white;
     }
     .live-chat__title {

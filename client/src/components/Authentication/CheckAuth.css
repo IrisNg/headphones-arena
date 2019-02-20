@@ -19,9 +19,9 @@
     .check-auth {
         width: calc(100vw - 3.5rem);
         height: 2rem;
-        top: 1.8rem;
-        left: 3rem;
-        margin-left: .3rem;
+        top: 3.5rem;
+        left: 0;
+        margin-left: .1rem;
         text-align: left;
     }
     .navigation-bar:hover~.check-auth {

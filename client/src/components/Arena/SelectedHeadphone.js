@@ -33,10 +33,10 @@ class SelectedHeadphone extends React.Component {
       if (average === 0) {
          return `white`;
       } else if (average === 10) {
-         return `black`;
+         return `#263248`;
       }
       //Display rating in percentage like a health bar
-      return `linear-gradient(to right, black ${average * 10}%, white ${average * 10}%)`;
+      return `linear-gradient(to right, #263248 ${average * 10}%, white ${average * 10}%)`;
    }
    calculateAverageRating(headphone) {
       var average;

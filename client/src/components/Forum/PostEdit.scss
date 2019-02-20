@@ -1,0 +1,243 @@
+$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
+$mid-light: lighten(map-get($colors, lightest), 9%);
+
+/* LiveChat */
+
+.post-edit .live-chat {
+    width: 11%;
+    border-width: 3px;
+}
+
+/* CSS Variables */
+
+:root {
+    --create-container: 35rem;
+    --create-label-spacing: .04rem;
+}
+
+/* PostCreate */
+
+.post-edit {
+    width: calc(100% - 11%);
+    height: 100%;
+    display: grid;
+    grid-template-rows: 16.6vh minmax(3.5rem, auto) auto;
+    grid-template-columns: 3.5rem auto;
+    grid-template-areas: ". title" "back-icon title" ". form";
+}
+
+/* Page Title */
+
+.post-edit__page-title {
+    grid-area: title;
+    margin: calc(16.6vh - 2.2rem) 1.5rem .15em 1.5rem;
+    padding: 0 .2em;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 900;
+    background-color: map-get($colors, lightest);
+    color: map-get($colors, light);
+}
+
+/* Back Icon */
+
+.post-edit__back-icon {
+    grid-area: back-icon;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    background-color: map-get($colors, dark);
+    color: white;
+    cursor: pointer;
+}
+
+.post-edit__back-icon:hover {
+    background-color: map-get($colors, mid);
+}
+
+/* Form */
+
+.post-edit__form {
+    grid-area: form;
+    margin: 4rem calc((100% - var(--create-container)) / 2);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    background-color: $mid-light;
+
+}
+
+/* Tag System */
+.post-edit .tag-system__search-input {
+    padding: .1rem .8rem .1rem 0;
+}
+.post-edit .tag-system__search-input::placeholder {
+    font-size: .9rem;
+    font-weight: 400;
+}
+
+/* Content */
+
+.post-edit__input-content {
+    width: 100%;
+    height: 10rem;
+    padding: 1.5rem 2rem;
+    font-size: 1rem;
+    font-family: inherit;
+    background: none;
+    outline: none;
+    resize: none;
+    border: none;
+    box-sizing: border-box;
+}
+.post-edit__input-content::selection {
+
+    background-color: #f6cb01;
+
+}
+/* Update and Delete buttons */
+
+.post-edit__button-container {
+    margin: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-edit__update-button,
+.post-edit__delete-button {
+    padding: .3rem 1rem;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.post-edit__update-button:hover {
+    background-color: black;
+    color: #f6cb01;
+}
+.post-edit__delete-button:hover{
+    background-color: black;
+    color: map-get($colors, mid);
+}
+
+/* Useless lines */
+
+.post-edit__horizontal-lines {
+    grid-column: 1/-1;
+    grid-row: 2/span 1;
+    height: 100%;
+    position: relative;
+    z-index: -1;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+}
+
+.post-edit__vertical-line {
+    position: fixed;
+    height: 100vh;
+    width: 3.5rem;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    border-right: 3px solid black;
+}
+
+/* Normal Laptops */
+
+@media screen and (max-width: 1280px) {
+    .post-edit .live-chat {
+        width: 12%;
+    }
+    .post-edit {
+        width: calc(100% - 12%);
+    }
+    .post-edit__page-title {
+        font-size: 3.6rem;
+    }
+    .post-edit__input-content {
+        height: 11rem;
+    }
+}
+
+/* Small Laptops */
+
+@media screen and (max-width: 1024px) {
+    .post-edit .live-chat {
+        width: 17%;
+    }
+    :root {
+        --create-container: 30rem;
+    }
+    .post-edit {
+        width: calc(100% - 17%);
+    }
+    .post-edit__page-title {
+        font-size: 3.4rem;
+    }
+    .post-edit__form {
+        margin: 3.5rem calc((100% - var(--create-container)) / 2);
+        margin-bottom: 3rem;
+    }
+}
+
+/* Tablet */
+
+@media only screen and (max-width: 767px) {
+    .post-edit .live-chat {
+        display: none;
+    }
+    .post-edit {
+        width: 100%;
+        margin-top: .5rem;
+        grid-template-rows: 16.6vh minmax(3.3rem, auto) auto;
+        grid-template-columns: calc(3rem - 3px) auto;
+    }
+    .post-edit__page-title {
+        margin: calc(16.6vh - 1.5rem) .5rem .15em .5rem;
+        font-size: 3rem;
+    }
+    .post-edit__form {
+        margin: 3.3rem 12vw 3rem 12vw;
+    }
+
+    .post-edit__input-content {
+        height: 13rem;
+    }
+    .post-edit__vertical-line {
+        width: 3rem;
+        box-sizing: border-box;
+    }
+}
+
+@media only screen and (max-width: 581px) {
+    .post-edit__page-title {
+        margin: calc(16.6vh - 1.3rem) 5px .15em 5px;
+        padding: 0 5px;
+        font-size: 2.8rem;
+    }
+    .post-edit__form {
+        margin: 2.6rem 10vw 2.5rem 10vw;
+    }
+    .post-edit__input-content {
+        height: 14rem;
+    }
+}
+
+/* Phones */
+
+@media only screen and (max-width: 481px) {
+    .post-edit__page-title {
+        margin: calc(16.6vh - 1.1rem) .1rem .15em .1rem;
+        font-size: 2.4rem;
+    }
+    .post-edit__form {
+        margin: 2.6rem 5vw 3rem 5vw;
+    }
+}

@@ -1,3 +1,5 @@
+
+
 .headphone-create~.navigation-bar .navigation-icon--inactive {
     transform: translateX(0);
 }
@@ -46,11 +48,11 @@
     padding: .2rem 1.5rem;
     background-color: #f6cb01;
     border: 1px solid black;
-    color: white;
-cursor: pointer;
+    cursor: pointer;
 }
 .headphone-create__edit-button{
-    background-color: #164499;
+    background-color: #7e8aa2;
+    color: white;
 
 }
 .headphone-create__edit-button:hover,

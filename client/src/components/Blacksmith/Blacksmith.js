@@ -64,8 +64,8 @@ class Blacksmith extends React.Component {
             <div className="blacksmith__page-title">BLACKSMITH</div>
             {/* Video player */}
             <FeaturedVideo featuredVideo={featuredVideo} />
-            <div className="blacksmith__vertical-line" />
             <LiveChat />
+            <div className="blacksmith__vertical-line" />
          </div>
       );
    }

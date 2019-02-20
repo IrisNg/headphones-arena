@@ -7,6 +7,7 @@ import LiveChat from '../LiveChat/LiveChat';
 import './Blacksmith.css';
 
 class Blacksmith extends React.Component {
+   //Fetch Youtube videos from Youtube channel using Youtube API
    componentDidMount() {
       this.props.fetchVideos();
    }
@@ -30,6 +31,7 @@ class Blacksmith extends React.Component {
          return <Video key={video.videoId} video={video} />;
       });
    };
+   //Randomly pick four videos' thumbnails
    pickFourRandomVideos() {
       const { videos, featuredVideo } = this.props;
       //Generate four random index numbers
@@ -49,14 +51,18 @@ class Blacksmith extends React.Component {
       const { featuredVideo } = this.props;
       return (
          <div className="blacksmith">
+            {/* Thumbnails */}
             <div className="blacksmith__videos">{this.renderListOfVideos()}</div>
+            {/* Open official youtube channel as a new tab when user clicks on this button */}
             <div
                className="blacksmith__youtube-button"
                onClick={() => window.open('https://www.youtube.com/channel/UCNlglDSoE8oSUgxqhSnDdXw/videos')}
             >
                <i className="fas fa-caret-right" />
             </div>
+            {/* Page title */}
             <div className="blacksmith__page-title">BLACKSMITH</div>
+            {/* Video player */}
             <FeaturedVideo featuredVideo={featuredVideo} />
             <div className="blacksmith__vertical-line" />
             <LiveChat />

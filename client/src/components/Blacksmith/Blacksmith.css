@@ -243,11 +243,12 @@
 
 @media only screen and (max-width: 481px) {
     .blacksmith .live-chat {
-        width: calc(100% - 4rem);
+        width: 340px;
     }
     .blacksmith {
         grid-template-rows: 1.5rem max-content 1.5rem minmax(auto, 3.5rem) 2.5rem max-content auto;
         grid-template-columns: 1fr;
+        grid-template-areas: " . " " videos" " . " " page-title" " . " " featured-video" " live-chat";
     }
     .blacksmith__youtube-button {
         display: none;

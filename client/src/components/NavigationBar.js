@@ -86,7 +86,6 @@ class NavigationBar extends React.Component {
                   <Logout />
                </div>
             ) : null}
-            <div className="navigation-bar__line" />
          </div>
       );
    }

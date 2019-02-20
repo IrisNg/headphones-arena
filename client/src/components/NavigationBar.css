@@ -44,15 +44,15 @@
 .navigation-bar__page-name {
     position: absolute;
     top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: opacity .2s ease-in, transform .4s ease-in;
     opacity: 0;
     text-align: center;
     background-color: rgba(192, 6, 3, .8);
     box-sizing: border-box;
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .navigation-bar__page-name span {
@@ -68,13 +68,13 @@
 }
 
 .navigation-bar__logout .logout__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: black;
     color: white;
     box-sizing: border-box;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .navigation-bar__logout .logout__button:hover {
@@ -115,12 +115,12 @@
     :not(.landing)~.navigation-bar .navigation-bar__page-name {
         transform: translateX(3rem);
         opacity: 1;
-        background: none;
         text-align: left;
+        background: none;
     }
     .navigation-bar__page-name span {
-        display: inline-block;
         width: max-content;
+        display: inline-block;
     }
 }
 
@@ -129,8 +129,8 @@
 @media only screen and (max-width: 481px) {
     :not(.landing)~.navigation-bar .navigation-bar__page-name {
         transform: translateX(0);
-        background-color: rgba(0, 0, 0, .7);
         text-align: center;
+        background-color: rgba(0, 0, 0, .7);
     }
     .navigation-bar__page-name span {
         width: 100%;

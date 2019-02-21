@@ -56,12 +56,12 @@ class NavigationBar extends React.Component {
          <div className="navigation-bar">
             {/* To Arena page */}
             <div className={`navigation-bar__icon ${this.manageArenaClass()}`} onClick={() => history.push('/arena')}>
-               <img src="https://i.imgur.com/SZVF3SA.jpg" alt="To Arena Page" />
+               <img src="https://i.imgur.com/xSYiXBc.png" alt="To Arena Page" />
                <div className="navigation-bar__page-name">ARENA</div>
             </div>
             {/* To Forum page */}
             <div className={`navigation-bar__icon ${this.manageForumClass()}`} onClick={() => history.push('/forum')}>
-               <img src="https://i.imgur.com/sVQQml8.jpg" alt="To Forum Page" />
+               <img src="https://i.imgur.com/wl1LP0w.png" alt="To Forum Page" />
                <div className="navigation-bar__page-name">FORUM</div>
             </div>
             {/* To Blacksmith page */}
@@ -69,14 +69,14 @@ class NavigationBar extends React.Component {
                className={`navigation-bar__icon ${this.manageBlacksmithClass()}`}
                onClick={() => history.push('/blacksmith')}
             >
-               <img src="https://i.imgur.com/6tiPqif.png" alt="To Blacksmith Page" />
+               <img src="https://i.imgur.com/KH7ovQc.png" alt="To Blacksmith Page" />
                <div className="navigation-bar__page-name">
                   <span>BLACK SMITH</span>
                </div>
             </div>
             {/* To Login page or user's dashboard */}
             <div className={`navigation-bar__icon ${this.manageAccountClass()}`} onClick={this.onAccountIconClick}>
-               <img src="https://i.imgur.com/c34xhYu.jpg" alt="To Login Page or Profile Page" />
+               <img src="https://i.imgur.com/YTMJ8tm.png" alt="To Login Page or Profile Page" />
                <div className="navigation-bar__page-name">{this.renderLoginOrAccount()}</div>
             </div>
 

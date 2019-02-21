@@ -85,11 +85,12 @@ $yellow: #f2b134;
     grid-area: selected-list;
     align-self: center;
     justify-self: center;
-    padding: .05rem 1.5rem .05rem 1.9rem;
+    padding: .05rem 1.5rem .05rem 1.5rem;
     font-weight: 900;
     font-size: 1.2rem;
     text-align: center;
     letter-spacing: .3rem;
+    text-indent: .3rem;
     background-color: map-get($colors, dark);
     color: white;
 }
@@ -423,7 +424,8 @@ $yellow: #f2b134;
         grid-column-gap: 0;
     }
     .selected-list__empty {
-        margin: 1px 2.5rem 0 2.5rem;
+        margin: 1px 0 0 -3rem;
+        padding: .05rem .5rem .05rem .5rem;
         line-height: 1.3rem;
         font-size: 1.1rem;
     }

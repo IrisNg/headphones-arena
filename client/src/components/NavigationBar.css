@@ -90,7 +90,7 @@
         top: 0;
         left: 0;
         justify-content: space-between;
-        background-color: black;
+        background-color: #162947;
     }
     :not(.landing)~.navigation-bar .navigation-bar__icon {
         width: 7.2rem;
@@ -133,7 +133,7 @@
     :not(.landing)~.navigation-bar .navigation-bar__page-name {
         transform: translateX(0);
         text-align: center;
-        background-color: rgba(0, 0, 0, .7);
+        background-color: rgba(22, 41, 71, .7);
     }
     .navigation-bar__page-name span {
         width: 100%;

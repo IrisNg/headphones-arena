@@ -1,5 +1,6 @@
-$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
-
+$colors: (darkest : #112f41, dark:#1c3359, mid: #bf4035, light:#c9463d, lightest: #e3e3e3);
+$yellow: #f2b134;
+$light-white: lighten(map-get($colors, lightest), 8%);
 :root {
     --show-gutter: 22vw;
 }
@@ -36,8 +37,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     width: calc(100% - 3px);
     height: 100%;
     min-height: 100vh;
-    border-left: 3px solid black;
-    border-right: 3px solid black;
+    border-left: 3px solid map-get($colors, darkest);
+    border-right: 3px solid map-get($colors, darkest);
 }
 
 /* MainPost */
@@ -48,6 +49,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     grid-template-rows: 16.6vh fit-content(3.5rem) auto;
     grid-template-columns: calc(3.5rem - 3px) auto 3.5rem;
     grid-template-areas: ". category ." "reply-button main-title vote" ". main-content main-content";
+    color: map-get($colors, darkest);
 }
 
 /* Category */
@@ -63,6 +65,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     text-align: right;
     font-size: .95rem;
     font-style: italic;
+    color: map-get($colors, darkest);
 }
 
 /* Main title */
@@ -97,7 +100,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 /* Date */
 
-.main-post__date, .reply__date {
+.main-post__date,
+.reply__date {
     grid-area: date;
     padding: .5em 0 0 .3em;
     justify-self: start;
@@ -106,30 +110,33 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     font-size: .8rem;
     font-weight: 400;
     letter-spacing: .08em;
-    color: #393939;
+    color: map-get($colors, darkest);
 }
 
-.main-post__body, .reply__body {
+.main-post__body,
+.reply__body {
     width: 100%;
     grid-area: body;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid map-get($colors, darkest);
     box-sizing: border-box;
-    background-color: lighten(map-get($colors, lightest), 7%);
+    background-color: $light-white;
 }
 
 /* Author */
 
-.main-post__author, .reply__author {
+.main-post__author,
+.reply__author {
     padding: .5em 1.45em .6em 1.4em;
     display: flex;
     align-items: center;
-    background-color: black;
+    background-color: map-get($colors, darkest);
     color: white;
 }
 
-.main-post__avatar, .reply__avatar {
+.main-post__avatar,
+.reply__avatar {
     width: 2em;
     height: 2em;
     margin-right: .6rem;
@@ -138,28 +145,32 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     cursor: pointer;
 }
 
-.main-post__avatar:hover, .reply__avatar:hover {
+.main-post__avatar:hover,
+.reply__avatar:hover {
     transform: scale(1.2);
     border: 2px solid map-get($colors, light);
 }
 
-.main-post__username, .reply__username {
+.main-post__username,
+.reply__username {
     margin: 0;
     font-size: 1.2rem;
     letter-spacing: .03rem;
     cursor: pointer;
 }
 
-.main-post__username:hover, .reply__username:hover {
+.main-post__username:hover,
+.reply__username:hover {
     transform: scale(1.05);
     text-decoration: underline;
     letter-spacing: .05em;
-    color: #f6cb01;
+    color: $yellow;
 }
 
 /* Content */
 
-.main-post__content, .reply__content {
+.main-post__content,
+.reply__content {
     margin: 0;
     padding: 1em 1.5em 1.1em 1.5em;
     text-align: justify;
@@ -169,26 +180,31 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 /* Tags */
 
-.main-post__tag-container, .reply__tag-container {
+.main-post__tag-container,
+.reply__tag-container {
     grid-area: tag-container;
-    width:100%;
+    width: 100%;
     box-sizing: border-box;
-    background-color: lighten(map-get($colors, lightest), 7%);
 }
 
-.main-post__tag-container>div.main-post__tag-item:nth-of-type(n+2), .reply__tag-container>div.reply__tag-item:nth-of-type(n+2) {
+.main-post__tag-container>div.main-post__tag-item:nth-of-type(n+2),
+.reply__tag-container>div.reply__tag-item:nth-of-type(n+2) {
     border-top: none;
 }
 
-.main-post__tag-item, .reply__tag-item {
-    border: 1px solid black;
+.main-post__tag-item,
+.reply__tag-item {
+    background-color: $light-white;
+    border: 1px solid map-get($colors, darkest);
 }
 
-.main-post__tag-container>div.main-post__tag-item:nth-of-type(1), .reply__tag-container>div.reply__tag-item:nth-of-type(1) {
+.main-post__tag-container>div.main-post__tag-item:nth-of-type(1),
+.reply__tag-container>div.reply__tag-item:nth-of-type(1) {
     border-top: none;
 }
 
-.main-post__tagged-headphone, .reply__tagged-headphone {
+.main-post__tagged-headphone,
+.reply__tagged-headphone {
     margin: 0;
     padding: 1em 1.5em .8em 1.5em;
     text-decoration: underline;
@@ -197,32 +213,36 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     cursor: pointer;
 }
 
-.main-post__tagged-headphone:hover, .reply__tagged-headphone:hover {
+.main-post__tagged-headphone:hover,
+.reply__tagged-headphone:hover {
     padding-bottom: calc(.8em - 5px);
-    border-bottom: 5px solid #f6cb01;
-    background-color: black;
+    border-bottom: 5px solid $yellow;
+    background-color: map-get($colors, darkest);
     color: white;
 }
 
-.main-post__tags, .reply__tags {
+.main-post__tags,
+.reply__tags {
     padding: 1em 1em;
     display: flex;
     flex-wrap: wrap;
     background-color: darken(map-get($colors, lightest), 10%);
 }
 
-.main-post__tag, .reply__tag {
+.main-post__tag,
+.reply__tag {
     margin: .2em;
     padding: .2em .6em;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid map-get($colors, darkest);
     font-size: .7rem;
     letter-spacing: .02em;
 }
 
 /* ReplyCreate form */
 
-.main-post__container .reply-create, .reply>.reply-create {
+.main-post__container .reply-create,
+.reply>.reply-create {
     grid-area: reply-create;
 }
 
@@ -232,10 +252,11 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     grid-area: edit-button;
     padding-left: 9px;
     cursor: pointer;
+    color: map-get($colors, dark);
 }
 
-.main-post__edit-button:hover {
-    color: map-get($colors, mid);
+.main-post__edit-button i:hover {
+    color: $yellow;
 }
 
 /* Create reply button */
@@ -254,7 +275,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 }
 
 .main-post__create-reply-button:hover {
-    background-color: map-get($colors, mid);
+    background-color: $yellow;
 }
 
 /* vote */
@@ -274,7 +295,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 }
 
 .main-post>div.vote:hover {
-    background-color: map-get($colors, mid);
+    background-color: $yellow;
 }
 
 .main-post>.vote i {
@@ -282,11 +303,15 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 }
 
 .main-post>.vote i:hover {
-    transform: scale(1.3);
+    transform: scale(1.5);
 }
 
 .vote--active {
-    color: #f6cb01;
+    color: $yellow;
+}
+
+.main-post>div.vote:hover .vote--active {
+    color: map-get($colors, darkest);
 }
 
 .main-post__horizontal-line-1 {
@@ -294,8 +319,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     grid-row: 2/span 1;
     position: relative;
     z-index: -1;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-top: 2px solid map-get($colors, darkest);
+    border-bottom: 2px solid map-get($colors, darkest);
 }
 
 /* Reply */
@@ -316,7 +341,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     grid-template-rows: auto auto auto auto;
     grid-template-columns: auto var(--show-gutter) 3.5rem;
     grid-template-areas: "body date buttons" "tag-container . buttons" "reply-create . ." "sub-replies sub-replies sub-replies";
-    border-left: 1px solid rgba(0, 0, 0, 1);
+    border-left: 1px solid map-get($colors, darkest);
+    color: map-get($colors, darkest);
 }
 
 /* Tier 1 replies */
@@ -360,26 +386,28 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 .reply__create-reply-button {
     margin-bottom: .5rem;
+    color: map-get($colors, mid);
     cursor: pointer;
 }
 
 .reply__create-reply-button:hover {
     transform: scale(1.4);
     font-weight: 900;
-    color: map-get($colors, mid);
+    color: $yellow;
 }
 
 /* Edit button */
 
 .reply__edit-button {
     padding-left: 2px;
+    color: map-get($colors, dark);
     cursor: pointer;
 }
 
 .reply__edit-button:hover {
     transform: scale(1.4);
     font-weight: 900;
-    color: map-get($colors, mid);
+    color: $yellow;
 }
 
 /* Recursive replies */
@@ -393,9 +421,9 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 .reply-create {
     margin-top: -2px;
     width: 100%;
-    border: 2px solid black;
+    border: 2px solid map-get($colors, darkest);
     box-sizing: border-box;
-    background-color: lighten(map-get($colors, lightest), 7%);
+    background-color: $light-white;
 }
 
 .reply-create__content {
@@ -408,6 +436,11 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     border: none;
     background: none;
     box-sizing: border-box;
+    color: map-get($colors, darkest);
+}
+
+.reply-create__content::selection {
+    background-color: $yellow;
 }
 
 .reply-create__buttons {
@@ -418,19 +451,20 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     font-weight: 900;
 }
 
-.reply-create__submit-button, .reply-create__refuse-button {
+.reply-create__submit-button,
+.reply-create__refuse-button {
     padding: 1em 2em;
     cursor: pointer;
 }
 
 .reply-create__submit-button:hover {
-    color: #f6cb01;
-    background-color: black;
+    color: $yellow;
+    background-color: map-get($colors, darkest);
 }
 
 .reply-create__refuse-button:hover {
-    color: map-get($colors, mid);
-    background-color: black;
+    color: map-get($colors, light);
+    background-color: map-get($colors, darkest);
 }
 
 /* Normal Laptops */
@@ -456,7 +490,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     .reply>.reply__buttons {
         padding-left: 4.5px;
     }
-    .reply__buttons>.vote, .reply__create-reply-button {
+    .reply__buttons>.vote,
+    .reply__create-reply-button {
         margin-bottom: .8rem;
     }
 }
@@ -516,18 +551,17 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     .main-post__title span {
         font-size: 2.8rem;
     }
-    
-.main-post__container {
-   
-    grid-template-columns: var(--show-gutter) auto var(--show-gutter) calc(3rem + 2.5px);
-}
+    .main-post__container {
+        grid-template-columns: var(--show-gutter) auto var(--show-gutter) calc(3rem + 2.5px);
+    }
     .main-post>.vote {
         margin-left: 4px;
     }
     .reply {
         grid-template-columns: auto var(--show-gutter) calc(3rem + 1.5px);
     }
-    .reply__buttons>.vote, .reply__create-reply-button {
+    .reply__buttons>.vote,
+    .reply__create-reply-button {
         margin-bottom: 1rem;
     }
 }
@@ -554,7 +588,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
         grid-template-rows: auto auto auto auto;
         grid-template-areas: ". date . ." ". body . edit-button" ". tag-container . ." ". reply-create . .";
     }
-    .main-post__date, .reply__date {
+    .main-post__date,
+    .reply__date {
         justify-self: end;
         writing-mode: horizontal-tb;
     }
@@ -589,10 +624,12 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     .main-post__container {
         margin-top: 3rem;
     }
-    .main-post__author, .reply__author {
+    .main-post__author,
+    .reply__author {
         padding: .3em 1.45em .4em 1.4em;
     }
-    .main-post__content, .reply__content {
+    .main-post__content,
+    .reply__content {
         font-size: .9rem;
     }
     .main-post__create-reply-button {
@@ -616,16 +653,20 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     .main-post__title span {
         font-size: 2rem;
     }
-    .main-post__author, .reply__author {
+    .main-post__author,
+    .reply__author {
         padding: .5em 1.1em .6em 1.1em;
     }
-    .main-post__content, .reply__content {
+    .main-post__content,
+    .reply__content {
         padding: 1em 1.1em 1.1em 1.1em;
     }
-    .main-post__tagged-headphone, .reply__tagged-headphone {
+    .main-post__tagged-headphone,
+    .reply__tagged-headphone {
         padding: 1em 1.1em .8em 1.1em;
     }
-    .main-post__tags, .reply__tags {
+    .main-post__tags,
+    .reply__tags {
         padding: 1em .8em;
     }
 }

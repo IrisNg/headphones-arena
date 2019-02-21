@@ -1,4 +1,3 @@
-
 .login {
     position: fixed;
     width: 100vw;
@@ -10,6 +9,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(227, 227, 227, .7);
+    color: #112f41;
 }
 
 .login__contents {
@@ -20,7 +20,7 @@
     grid-template-columns: 1fr 60% 1fr;
     grid-column-gap: .9em;
     background-color: white;
-    border: 4px solid black;
+    border: 4px solid #112f41;
     box-sizing: border-box;
     animation: slide-in-login 12s both;
 }
@@ -38,6 +38,7 @@
         transform: translateY(0);
     }
 }
+
 .login__form {
     grid-area: 2/2 /-1 / span 1;
     align-self: start;
@@ -56,7 +57,7 @@
     font-size: 1.1rem;
     font-weight: 900;
     letter-spacing: .05em;
-    background-color: black;
+    background-color: #112f41;
     color: white;
 }
 
@@ -71,29 +72,29 @@
     text-align: center;
     font-size: .9rem;
     border: none;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #112f41;
     outline: none;
 }
 
 .login__form-input:hover {
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .login__form-input::selection {
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .login__form-button {
     width: 100%;
     padding: .05em 0;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #112f41;
     cursor: pointer;
 }
 
 .login__form-button:hover {
     font-weight: 700;
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .login__alternatives {
@@ -115,27 +116,27 @@
 .login__alternatives-register:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #263248;
+    color: #d8920e;
 }
 
 .login__alternatives-refuse:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #c73226;
+    color: #a5362e;
 }
 
 .login__continuous-line {
     width: 100%;
     grid-area: 1/ 1/span 1/-1;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #112f41;
 }
 
 .login__vertical-line {
     grid-area: 1/ 1/ -1 /span 1;
-    border-right: 2px solid black;
+    border-right: 2px solid #112f41;
 }
 
 .login__vertical-line-2 {
     grid-area: 1/ 3/ -1 /span 1;
-    border-left: 2px solid black;
+    border-left: 2px solid #112f41;
 }

@@ -38,7 +38,7 @@
 }
 
 .navigation-bar:hover .navigation-bar__icon, .navigation-bar:hover .navigation-bar__logout {
-    box-shadow: 2px 2px #c73226;
+    box-shadow: 2px 2px #c9463d;
 }
 
 .navigation-bar__page-name {
@@ -50,7 +50,7 @@
     transition: opacity .2s ease-in, transform .4s ease-in;
     opacity: 0;
     text-align: center;
-    background-color: rgba(199, 50, 38, .8);
+    background-color: rgba(201, 70, 61, .8);
     box-sizing: border-box;
     color: white;
 }
@@ -93,7 +93,7 @@
         background-color: black;
     }
     :not(.landing)~.navigation-bar .navigation-bar__icon {
-        width: 6rem;
+        width: 7.2rem;
         margin-right: 0;
     }
     :not(.landing)~.navigation-bar .logout__button {

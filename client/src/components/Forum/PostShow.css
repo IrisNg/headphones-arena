@@ -27,8 +27,8 @@
   width: calc(100% - 3px);
   height: 100%;
   min-height: 100vh;
-  border-left: 3px solid black;
-  border-right: 3px solid black; }
+  border-left: 3px solid #112f41;
+  border-right: 3px solid #112f41; }
 
 /* MainPost */
 .main-post {
@@ -36,7 +36,8 @@
   display: grid;
   grid-template-rows: 16.6vh fit-content(3.5rem) auto;
   grid-template-columns: calc(3.5rem - 3px) auto 3.5rem;
-  grid-template-areas: ". category ." "reply-button main-title vote" ". main-content main-content"; }
+  grid-template-areas: ". category ." "reply-button main-title vote" ". main-content main-content";
+  color: #112f41; }
 
 /* Category */
 .main-post__category {
@@ -49,7 +50,8 @@
   justify-content: flex-end;
   text-align: right;
   font-size: .95rem;
-  font-style: italic; }
+  font-style: italic;
+  color: #112f41; }
 
 /* Main title */
 .main-post__title {
@@ -66,7 +68,7 @@
   font-size: 4rem;
   font-weight: 900;
   background-color: #e3e3e3;
-  color: #7e8aa2; }
+  color: #c9463d; }
 
 .main-post__container {
   margin-top: 4.5rem;
@@ -78,7 +80,8 @@
   justify-items: center; }
 
 /* Date */
-.main-post__date, .reply__date {
+.main-post__date,
+.reply__date {
   grid-area: date;
   padding: .5em 0 0 .3em;
   justify-self: start;
@@ -87,26 +90,29 @@
   font-size: .8rem;
   font-weight: 400;
   letter-spacing: .08em;
-  color: #393939; }
+  color: #112f41; }
 
-.main-post__body, .reply__body {
+.main-post__body,
+.reply__body {
   width: 100%;
   grid-area: body;
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
+  border: 2px solid #112f41;
   box-sizing: border-box;
-  background-color: whitesmoke; }
+  background-color: #f7f7f7; }
 
 /* Author */
-.main-post__author, .reply__author {
+.main-post__author,
+.reply__author {
   padding: .5em 1.45em .6em 1.4em;
   display: flex;
   align-items: center;
-  background-color: black;
+  background-color: #112f41;
   color: white; }
 
-.main-post__avatar, .reply__avatar {
+.main-post__avatar,
+.reply__avatar {
   width: 2em;
   height: 2em;
   margin-right: .6rem;
@@ -114,24 +120,28 @@
   box-sizing: border-box;
   cursor: pointer; }
 
-.main-post__avatar:hover, .reply__avatar:hover {
+.main-post__avatar:hover,
+.reply__avatar:hover {
   transform: scale(1.2);
-  border: 2px solid #7e8aa2; }
+  border: 2px solid #c9463d; }
 
-.main-post__username, .reply__username {
+.main-post__username,
+.reply__username {
   margin: 0;
   font-size: 1.2rem;
   letter-spacing: .03rem;
   cursor: pointer; }
 
-.main-post__username:hover, .reply__username:hover {
+.main-post__username:hover,
+.reply__username:hover {
   transform: scale(1.05);
   text-decoration: underline;
   letter-spacing: .05em;
-  color: #f6cb01; }
+  color: #f2b134; }
 
 /* Content */
-.main-post__content, .reply__content {
+.main-post__content,
+.reply__content {
   margin: 0;
   padding: 1em 1.5em 1.1em 1.5em;
   text-align: justify;
@@ -139,22 +149,27 @@
   line-height: 1.4em; }
 
 /* Tags */
-.main-post__tag-container, .reply__tag-container {
+.main-post__tag-container,
+.reply__tag-container {
   grid-area: tag-container;
   width: 100%;
-  box-sizing: border-box;
-  background-color: whitesmoke; }
+  box-sizing: border-box; }
 
-.main-post__tag-container > div.main-post__tag-item:nth-of-type(n+2), .reply__tag-container > div.reply__tag-item:nth-of-type(n+2) {
+.main-post__tag-container > div.main-post__tag-item:nth-of-type(n+2),
+.reply__tag-container > div.reply__tag-item:nth-of-type(n+2) {
   border-top: none; }
 
-.main-post__tag-item, .reply__tag-item {
-  border: 1px solid black; }
+.main-post__tag-item,
+.reply__tag-item {
+  background-color: #f7f7f7;
+  border: 1px solid #112f41; }
 
-.main-post__tag-container > div.main-post__tag-item:nth-of-type(1), .reply__tag-container > div.reply__tag-item:nth-of-type(1) {
+.main-post__tag-container > div.main-post__tag-item:nth-of-type(1),
+.reply__tag-container > div.reply__tag-item:nth-of-type(1) {
   border-top: none; }
 
-.main-post__tagged-headphone, .reply__tagged-headphone {
+.main-post__tagged-headphone,
+.reply__tagged-headphone {
   margin: 0;
   padding: 1em 1.5em .8em 1.5em;
   text-decoration: underline;
@@ -162,38 +177,43 @@
   letter-spacing: .04em;
   cursor: pointer; }
 
-.main-post__tagged-headphone:hover, .reply__tagged-headphone:hover {
+.main-post__tagged-headphone:hover,
+.reply__tagged-headphone:hover {
   padding-bottom: calc(.8em - 5px);
-  border-bottom: 5px solid #f6cb01;
-  background-color: black;
+  border-bottom: 5px solid #f2b134;
+  background-color: #112f41;
   color: white; }
 
-.main-post__tags, .reply__tags {
+.main-post__tags,
+.reply__tags {
   padding: 1em 1em;
   display: flex;
   flex-wrap: wrap;
   background-color: #cacaca; }
 
-.main-post__tag, .reply__tag {
+.main-post__tag,
+.reply__tag {
   margin: .2em;
   padding: .2em .6em;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #112f41;
   font-size: .7rem;
   letter-spacing: .02em; }
 
 /* ReplyCreate form */
-.main-post__container .reply-create, .reply > .reply-create {
+.main-post__container .reply-create,
+.reply > .reply-create {
   grid-area: reply-create; }
 
 /* Edit button */
 .main-post__edit-button {
   grid-area: edit-button;
   padding-left: 9px;
-  cursor: pointer; }
+  cursor: pointer;
+  color: #1c3359; }
 
-.main-post__edit-button:hover {
-  color: #c73226; }
+.main-post__edit-button i:hover {
+  color: #f2b134; }
 
 /* Create reply button */
 .main-post__create-reply-button {
@@ -202,14 +222,14 @@
   justify-content: center;
   align-items: center;
   transform: scaleX(-1);
-  background-color: #263248;
+  background-color: #1c3359;
   color: white;
   font-size: 1.2rem;
   font-weight: 900;
   cursor: pointer; }
 
 .main-post__create-reply-button:hover {
-  background-color: #c73226; }
+  background-color: #f2b134; }
 
 /* vote */
 .main-post > .vote {
@@ -219,31 +239,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #263248;
+  background-color: #1c3359;
   color: white;
   font-size: .85rem;
   font-weight: 700;
   cursor: pointer; }
 
 .main-post > div.vote:hover {
-  background-color: #c73226; }
+  background-color: #f2b134; }
 
 .main-post > .vote i {
   font-size: 1.2rem; }
 
 .main-post > .vote i:hover {
-  transform: scale(1.3); }
+  transform: scale(1.5); }
 
 .vote--active {
-  color: #f6cb01; }
+  color: #f2b134; }
+
+.main-post > div.vote:hover .vote--active {
+  color: #112f41; }
 
 .main-post__horizontal-line-1 {
   grid-column: 1/-1;
   grid-row: 2/span 1;
   position: relative;
   z-index: -1;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black; }
+  border-top: 2px solid #112f41;
+  border-bottom: 2px solid #112f41; }
 
 /* Reply */
 /* All replies */
@@ -259,7 +282,8 @@
   grid-template-rows: auto auto auto auto;
   grid-template-columns: auto var(--show-gutter) 3.5rem;
   grid-template-areas: "body date buttons" "tag-container . buttons" "reply-create . ." "sub-replies sub-replies sub-replies";
-  border-left: 1px solid black; }
+  border-left: 1px solid #112f41;
+  color: #112f41; }
 
 /* Tier 1 replies */
 .post-show__replies > .reply {
@@ -293,22 +317,24 @@
 /* Create reply button */
 .reply__create-reply-button {
   margin-bottom: .5rem;
+  color: #bf4035;
   cursor: pointer; }
 
 .reply__create-reply-button:hover {
   transform: scale(1.4);
   font-weight: 900;
-  color: #c73226; }
+  color: #f2b134; }
 
 /* Edit button */
 .reply__edit-button {
   padding-left: 2px;
+  color: #1c3359;
   cursor: pointer; }
 
 .reply__edit-button:hover {
   transform: scale(1.4);
   font-weight: 900;
-  color: #c73226; }
+  color: #f2b134; }
 
 /* Recursive replies */
 .reply__sub-replies {
@@ -318,9 +344,9 @@
 .reply-create {
   margin-top: -2px;
   width: 100%;
-  border: 2px solid black;
+  border: 2px solid #112f41;
   box-sizing: border-box;
-  background-color: whitesmoke; }
+  background-color: #f7f7f7; }
 
 .reply-create__content {
   width: 100%;
@@ -331,7 +357,11 @@
   font-family: inherit;
   border: none;
   background: none;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  color: #112f41; }
+
+.reply-create__content::selection {
+  background-color: #f2b134; }
 
 .reply-create__buttons {
   display: flex;
@@ -340,17 +370,18 @@
   font-size: .8rem;
   font-weight: 900; }
 
-.reply-create__submit-button, .reply-create__refuse-button {
+.reply-create__submit-button,
+.reply-create__refuse-button {
   padding: 1em 2em;
   cursor: pointer; }
 
 .reply-create__submit-button:hover {
-  color: #f6cb01;
-  background-color: black; }
+  color: #f2b134;
+  background-color: #112f41; }
 
 .reply-create__refuse-button:hover {
-  color: #c73226;
-  background-color: black; }
+  color: #c9463d;
+  background-color: #112f41; }
 
 /* Normal Laptops */
 @media screen and (max-width: 1280px) {
@@ -374,7 +405,8 @@
   .reply > .reply__buttons {
     padding-left: 4.5px; }
 
-  .reply__buttons > .vote, .reply__create-reply-button {
+  .reply__buttons > .vote,
+  .reply__create-reply-button {
     margin-bottom: .8rem; } }
 /* Small Laptops */
 @media screen and (max-width: 1024px) {
@@ -435,7 +467,8 @@
   .reply {
     grid-template-columns: auto var(--show-gutter) calc(3rem + 1.5px); }
 
-  .reply__buttons > .vote, .reply__create-reply-button {
+  .reply__buttons > .vote,
+  .reply__create-reply-button {
     margin-bottom: 1rem; } }
 @media only screen and (max-width: 667px) {
   :root {
@@ -459,7 +492,8 @@
     grid-template-rows: auto auto auto auto;
     grid-template-areas: ". date . ." ". body . edit-button" ". tag-container . ." ". reply-create . ."; }
 
-  .main-post__date, .reply__date {
+  .main-post__date,
+  .reply__date {
     justify-self: end;
     writing-mode: horizontal-tb; }
 
@@ -491,10 +525,12 @@
   .main-post__container {
     margin-top: 3rem; }
 
-  .main-post__author, .reply__author {
+  .main-post__author,
+  .reply__author {
     padding: .3em 1.45em .4em 1.4em; }
 
-  .main-post__content, .reply__content {
+  .main-post__content,
+  .reply__content {
     font-size: .9rem; }
 
   .main-post__create-reply-button {
@@ -514,16 +550,20 @@
   .main-post__title span {
     font-size: 2rem; }
 
-  .main-post__author, .reply__author {
+  .main-post__author,
+  .reply__author {
     padding: .5em 1.1em .6em 1.1em; }
 
-  .main-post__content, .reply__content {
+  .main-post__content,
+  .reply__content {
     padding: 1em 1.1em 1.1em 1.1em; }
 
-  .main-post__tagged-headphone, .reply__tagged-headphone {
+  .main-post__tagged-headphone,
+  .reply__tagged-headphone {
     padding: 1em 1.1em .8em 1.1em; }
 
-  .main-post__tags, .reply__tags {
+  .main-post__tags,
+  .reply__tags {
     padding: 1em .8em; } }
 
-/*# sourceMappingURL=PostShow.css.map */
+/*# sourceMappingURL=Postshow.css.map */

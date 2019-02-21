@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(227, 227, 227, .7);
+    color: #3e1940;
 }
 
 .register__contents {
@@ -15,7 +16,7 @@
     grid-template-columns: 1fr 60% 1fr;
     grid-column-gap: .9em;
     background-color: white;
-    border: 4px solid black;
+    border: 4px solid #3e1940;
     box-sizing: border-box;
     animation: slide-in-register 12s both;
 }
@@ -33,6 +34,7 @@
         transform: translateX(0);
     }
 }
+
 .register__form {
     grid-area: 2/2 /-1 / span 1;
     align-self: start;
@@ -51,7 +53,7 @@
     font-size: 1.1rem;
     font-weight: 900;
     letter-spacing: .05em;
-    background-color: black;
+    background-color: #3e1940;
     color: white;
 }
 
@@ -66,29 +68,29 @@
     text-align: center;
     font-size: .9rem;
     border: none;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #3e1940;
     outline: none;
 }
 
 .register__form-input:hover {
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .register__form-input::selection {
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .register__form-button {
     width: 100%;
     padding: .05em 0;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #3e1940;
     cursor: pointer;
 }
 
 .register__form-button:hover {
     font-weight: 700;
-    background-color: #f6cb01;
+    background-color: #f3b747;
 }
 
 .register__alternatives {
@@ -110,27 +112,27 @@
 .register__alternatives-login:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #263248;
+    color: #d8920e;
 }
 
 .register__alternatives-refuse:hover {
     text-decoration: underline;
     font-weight: 700;
-    color: #c73226;
+    color: #3e1940;
 }
 
 .register__continuous-line {
     width: 100%;
     grid-area: 1/ 1/span 1/-1;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #3e1940;
 }
 
 .register__vertical-line {
     grid-area: 1/ 1/ -1 /span 1;
-    border-right: 2px solid black;
+    border-right: 2px solid #3e1940;
 }
 
 .register__vertical-line-2 {
     grid-area: 1/ 3/ -1 /span 1;
-    border-left: 2px solid black;
+    border-left: 2px solid #3e1940;
 }

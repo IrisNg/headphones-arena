@@ -1,5 +1,5 @@
-$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
-
+$colors: (darkest: #112f41, dark:#1c3359, mid: #a5362e, light:#c9463d, lightest: #e3e3e3);
+$yellow: #f2b134;
 /* NavigationBar */
 
 .arena~.navigation-bar {
@@ -61,7 +61,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 .headphone:hover {
     text-align: right;
-    background-color: map-get($colors, light);
+    background-color: $yellow;
     color: white;
 }
 
@@ -90,7 +90,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     font-size: 1.2rem;
     text-align: center;
     letter-spacing: .3rem;
-    background-color: map-get($colors, darkest);
+    background-color: map-get($colors, dark);
     color: white;
 }
 
@@ -98,9 +98,10 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 .selected-headphone {
     position: relative;
-    margin-top: 3.5rem;
+    margin-top: calc(3.5rem - 7px);
     border: 2px solid map-get($colors, darkest);
-    background-color: white;
+    border-top-width: 8px;
+    background-color: rgb(250, 250, 250);
 }
 
 .selected-headphone__loading {
@@ -153,6 +154,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
 }
 
 .selected-headphone__thumbnail {
@@ -160,7 +162,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 }
 
 .selected-headphone img {
-    width: 95%;
+    width: 90%;
 }
 
 .selected-headphone__page {
@@ -174,16 +176,16 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     cursor: pointer;
 }
 
-.selected-headphone__page:hover {
-    background-color: map-get($colors, light);
+.selected-headphone__page:not(.--active-page):hover {
+    background-color: $yellow;
     border: none;
 }
 
 .selected-headphone__page.--active-page {
     width: 7px;
     height: 21px;
-    background-color: map-get($colors, mid);
-    border-color: map-get($colors, mid);
+    background-color: $yellow;
+    border-color: map-get($colors, dark);
 }
 
 .selected-headphone__rating {
@@ -211,8 +213,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 .selected-headphone__amazon:hover {
     margin-top: .4rem;
     animation: bounce 1s .2s 1;
-    background-color: map-get($colors, mid);
-    color: white;
+    font-weight: 700;
+    background-color: $yellow;
     border: none;
 }
 
@@ -247,6 +249,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     padding: .8rem 0 1.2rem 0;
     line-height: 1.3rem;
     font-size: .85rem;
+    background-color: rgb(250, 250, 250);
 }
 
 .overview__description {
@@ -271,7 +274,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     padding: .15rem .4rem;
     line-height: .9rem;
     text-transform: uppercase;
-    border: .5px solid rgba(0, 0, 0, .7);
+    border: .5px solid map-get($colors, darkest);
+    ;
     box-shadow: 2px 2px map-get($colors, darkest);
 }
 
@@ -280,7 +284,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     padding: .15rem .4rem;
     vertical-align: middle;
     text-transform: uppercase;
-    border: .5px solid rgba(0, 0, 0, .7);
+    border: .5px solid map-get($colors, darkest);
     box-shadow: 2px 2px map-get($colors, darkest);
 }
 
@@ -297,6 +301,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     grid-template-columns: auto auto;
     font-size: .85rem;
     line-height: 1.3rem;
+    background-color: rgb(250, 250, 250);
 }
 
 .specification div:nth-child(odd) {
@@ -315,6 +320,7 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     padding: 1.2rem .6rem;
     font-size: .85rem;
     line-height: 1.3rem;
+    background-color: rgb(250, 250, 250);
 }
 
 .top-posts h4 {
@@ -459,13 +465,17 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
         width: 1.65rem;
     }
     .headphone-list {
-        padding-left: 2.7rem;
+        padding-left: 3rem;
     }
     .headphone {
         font-size: .85rem;
+        background: linear-gradient(to right, map-get($colors, lightest) 66%, transparent 66%)
+    }
+    .headphone:hover {
+        background: $yellow;
     }
     .selected-list {
-        margin-left: 0;
+        margin-left: 7%;
         grid-template-columns: repeat(auto-fit, 14rem);
     }
     .selected-list__empty {
@@ -479,6 +489,6 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     }
     .arena .live-chat {
         width: 14rem;
-        margin-left: 0;
+        margin-left: 7%;
     }
 }

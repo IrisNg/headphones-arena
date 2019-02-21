@@ -13,11 +13,11 @@ class ForumSearch extends React.Component {
       }
       switch (element) {
          case 'box':
-            return { backgroundColor: '#c00603' };
+            return { backgroundColor: '#a5362e' };
          case 'icon':
             return { display: 'none' };
          case 'input':
-            return { borderColor: '#c00603' };
+            return { borderColor: '#a5362e' };
          default:
             return null;
       }

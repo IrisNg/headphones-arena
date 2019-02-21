@@ -2,13 +2,13 @@
 .tag-system__search-bar {
   padding: 1rem 2rem;
   position: relative;
-  background-color: black;
+  background-color: #112f41;
   color: white; }
 
 .tag-system__search-input {
   width: 100%;
   padding: .15rem 0;
-  font-size: .85rem;
+  font-size: .95rem;
   font-weight: 700;
   background: none;
   color: white;
@@ -17,18 +17,25 @@
   outline: none;
   box-sizing: border-box; }
 
+.tag-system__search-input::placeholder {
+  color: white; }
+
 .tag-system__search-icon {
   position: absolute;
   right: 2rem;
-  top: 1.1rem;
+  top: 1.3rem;
   font-size: .7rem; }
 
-.tag-system__search-bar:hover .tag-system__search-input, .tag-system__search-input:focus {
-  border-color: #f6cb01;
-  color: #f6cb01; }
+.tag-system__search-bar:hover .tag-system__search-input,
+.tag-system__search-input:focus {
+  border-color: #f9b73c;
+  color: #f9b73c; }
 
-.tag-system__search-bar:hover .tag-system__search-icon, .tag-system__search-input:focus ~ .tag-system__search-icon, .tag-system__search-bar:hover .tag-system__search-input::placeholder, .tag-system__search-input:focus::placeholder {
-  color: #f6cb01; }
+.tag-system__search-bar:hover .tag-system__search-icon,
+.tag-system__search-input:focus ~ .tag-system__search-icon,
+.tag-system__search-bar:hover .tag-system__search-input::placeholder,
+.tag-system__search-input:focus::placeholder {
+  color: #f9b73c; }
 
 /* Search match */
 .tag-system__search-matches {
@@ -36,8 +43,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  border-bottom: 2px solid black;
-  background-color: whitesmoke; }
+  border-bottom: 2px solid #112f41;
+  background-color: #f7f7f7; }
 
 .tag-system__search-match {
   margin: .2em;
@@ -46,36 +53,37 @@
   font-size: .8rem;
   font-weight: 700;
   text-decoration: underline;
+  text-underline-position: under;
   letter-spacing: .02em;
   cursor: pointer; }
 
 .tag-system__search-match:hover {
   font-weight: 900;
-  background-color: #f6cb01; }
+  background-color: #f9b73c; }
 
 /* Tag line */
 .tag-system__tag-lines {
   width: calc(100% - 1px);
   margin: auto;
-  background-color: whitesmoke;
+  background-color: #f7f7f7;
   box-sizing: border-box; }
 
 .tag-system__tag-line {
-  padding: .9rem .8rem;
-  padding-top: calc(.9rem - 4px);
-  border-top: 4px solid whitesmoke;
+  padding: 1.1rem .8rem;
+  padding-top: calc(1.1rem - 4px);
+  border-top: 4px solid #f7f7f7;
   box-sizing: border-box;
   cursor: pointer; }
 
 .tag-system__tag-line.tag-line--active {
   font-weight: 900;
-  background-color: #f6cb01;
-  border-top: 4px solid #f6cb01;
+  background-color: #f9b73c;
+  border-top: 4px solid #f9b73c;
   box-sizing: border-box;
   cursor: auto; }
 
 .tag-system__tag-line:not(.tag-line--active):hover {
-  border-top: 4px solid #c73226; }
+  border-top: 4px solid #a5362e; }
 
 .tag-system__tag-line:not(.tag-line--active):hover > div > .tag-system__tagged-headphone {
   font-weight: 900; }
@@ -116,8 +124,8 @@
   position: relative;
   font-size: .75rem;
   letter-spacing: .02em;
-  border: 1px solid black;
-  background-color: whitesmoke; }
+  border: 1px solid #112f41;
+  background-color: white; }
 
 .tag-system__tag-removal-icon {
   position: absolute;
@@ -139,11 +147,11 @@
 
 /* Tag criteria */
 .tag-system__criterias {
-  padding: 1rem .5rem;
+  padding: 1.1rem .5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: black;
+  background-color: #112f41;
   font-size: .8rem; }
 
 .tag-system__criteria {
@@ -153,18 +161,19 @@
   color: white;
   cursor: pointer; }
 
-.tag-system__criteria:hover, .tag-system__criteria.criteria--active {
+.tag-system__criteria:hover,
+.tag-system__criteria.criteria--active {
   text-underline-position: under;
   text-decoration: underline;
   font-weight: 900;
-  background-color: #f6cb01;
-  color: black; }
+  background-color: #f9b73c;
+  color: #112f41; }
 
 /* Selectable tags */
 .tag-system__selectable-tags {
   width: 100%;
   margin: auto;
-  padding: .8rem .5rem;
+  padding: 1.1rem .5rem;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -172,7 +181,6 @@
   text-align: center;
   font-size: .8rem;
   background-color: #cacaca;
-  border-bottom: 2px solid black;
   box-sizing: border-box; }
 
 .tag-system__selectable-tags:after {
@@ -192,11 +200,11 @@
   line-height: 1.1rem;
   letter-spacing: .02rem;
   font-weight: 700;
-  background-color: whitesmoke;
-  border: 2px solid whitesmoke;
+  background-color: #f7f7f7;
+  border: 2px solid #f7f7f7;
   cursor: pointer; }
 
 .tag-system__selectable-tag:hover {
-  border-color: black; }
+  border-color: #112f41; }
 
 /*# sourceMappingURL=TagSystem.css.map */

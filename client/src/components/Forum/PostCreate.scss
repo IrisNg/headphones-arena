@@ -1,5 +1,6 @@
-$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
-$mid-light: lighten(map-get($colors, lightest), 9%);
+$colors: (darkest : #112f41, dark:#1c3359, mid: #bf4035, light:#c9463d, lightest: #e3e3e3);
+$yellow: #f9b73c;
+$mid-light: lighten(map-get($colors, lightest), 8%);
 /* LiveChat */
 
 .post-create .live-chat {
@@ -23,6 +24,7 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     grid-template-rows: 16.6vh minmax(3.5rem, auto) auto;
     grid-template-columns: 3.5rem auto;
     grid-template-areas: ". title" "back-icon title" ". form";
+    color: map-get($colors, darkest);
 }
 
 /* Page Title */
@@ -57,7 +59,6 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
 
 .post-create__back-icon:hover {
     background-color: map-get($colors, mid);
-    color:white;
 }
 
 /* Form */
@@ -68,9 +69,8 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid map-get($colors, darkest);
     background-color: $mid-light;
-
 }
 
 /* Title */
@@ -86,12 +86,14 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     padding: .15rem 0;
     font-size: 1rem;
     font-family: inherit;
-    font-weight: 700;
     border: none;
-    border-bottom: 1.5px solid black;
+    border-bottom: 1.5px solid map-get($colors, darkest);
     outline: none;
     background-color: $mid-light;
+}
 
+.post-create__input-title::selection {
+    background-color: $yellow;
 }
 
 .post-create__input-title::placeholder {
@@ -115,13 +117,13 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     display: grid;
     grid-template-columns: repeat(4, auto);
     font-size: .95rem;
-    border: .5px solid black;
+    border: .5px solid map-get($colors, darkest);
 }
 
 .post-create__category {
     padding: .2rem 0;
     text-align: center;
-    border-right: .5px solid black;
+    border-right: .5px solid map-get($colors, darkest);
     cursor: pointer;
 }
 
@@ -129,16 +131,15 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     border-right: none;
 }
 
-.post-create__category:hover {
+.post-create__category:not(.post-create__category--active):hover {
     font-weight: 700;
-    background-color: map-get($colors, light);
-    color: white;
+    background-color: $yellow;
 }
 
 .post-create__category--active {
     font-weight: 700;
-    background-color: black;
-    color: #f6cb01;
+    background-color: map-get($colors, darkest);
+    color: $yellow;
 }
 
 /* Tag System */
@@ -162,10 +163,11 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     border: none;
     box-sizing: border-box;
 }
-.post-create__input-content::selection {
-    background-color: #f6cb01;
 
+.post-create__input-content::selection {
+    background-color: $yellow;
 }
+
 /* Submit button */
 
 .post-create__button-container {
@@ -182,8 +184,8 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
 }
 
 .post-create__submit-button:hover {
-    background-color: black;
-    color: #f6cb01;
+    background-color: map-get($colors, darkest);
+    color: $yellow;
 }
 
 /* Useless lines */
@@ -194,8 +196,8 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     height: 100%;
     position: relative;
     z-index: -1;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-top: 2px solid map-get($colors, darkest);
+    border-bottom: 2px solid map-get($colors, darkest);
     box-sizing: border-box;
 }
 
@@ -206,7 +208,7 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     left: 0;
     top: 0;
     z-index: -1;
-    border-right: 3px solid black;
+    border-right: 3px solid map-get($colors, darkest);
 }
 
 /* Normal Laptops */
@@ -277,10 +279,10 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     .post-create__category {
         flex-grow: 1;
         margin: .15rem;
-        border: .5px solid black;
+        border: .5px solid map-get($colors, darkest);
     }
     .post-create__categories div.post-create__category:nth-last-of-type(1) {
-        border-right: .5px solid black;
+        border-right: .5px solid map-get($colors, darkest);
     }
     .post-create__input-content {
         height: 13rem;
@@ -300,7 +302,11 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     .post-create__form {
         margin: 2.6rem 10vw 2.5rem 10vw;
     }
-    .post-create__label-title, .post-create__input-title, .post-create__label-category, .post-create .tag-system__search-input, .post-create__input-content::placeholder {
+    .post-create__label-title,
+    .post-create__input-title,
+    .post-create__label-category,
+    .post-create .tag-system__search-input,
+    .post-create__input-content::placeholder {
         text-align: center;
     }
     .post-create__input-content {

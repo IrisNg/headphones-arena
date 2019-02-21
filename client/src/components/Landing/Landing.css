@@ -22,7 +22,7 @@
 }
 
 .landing~.navigation-bar .navigation-bar__icon:hover {
-    border-color: #f6cb01;
+    border-color: #f2b134;
 }
 
 .landing~.navigation-bar .navigation-bar__icon, .landing~.navigation-bar .navigation-bar__icon img, .landing~.navigation-bar .navigation-bar__page-name {
@@ -39,7 +39,7 @@
     letter-spacing: .06rem;
     background-color: transparent;
     text-shadow: 2px 2px 3px black;
-    color: #f6cb01;
+    color: #f2b134;
 }
 
 .landing~.navigation-bar .navigation-bar__page-name span {

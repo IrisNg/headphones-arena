@@ -1,6 +1,6 @@
-$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
-$mid-light: lighten(map-get($colors, lightest), 9%);
-
+$colors: (darkest : #112f41, dark:#1c3359, mid: #bf4035, light:#c9463d, lightest: #e3e3e3);
+$yellow: #f9b73c;
+$mid-light: lighten(map-get($colors, lightest), 8%);
 /* LiveChat */
 
 .post-edit .live-chat {
@@ -24,6 +24,7 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     grid-template-rows: 16.6vh minmax(3.5rem, auto) auto;
     grid-template-columns: 3.5rem auto;
     grid-template-areas: ". title" "back-icon title" ". form";
+    color: map-get($colors, darkest);
 }
 
 /* Page Title */
@@ -68,15 +69,16 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid map-get($colors, darkest);
     background-color: $mid-light;
-
 }
 
 /* Tag System */
+
 .post-edit .tag-system__search-input {
     padding: .1rem .8rem .1rem 0;
 }
+
 .post-edit .tag-system__search-input::placeholder {
     font-size: .9rem;
     font-weight: 400;
@@ -94,13 +96,15 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     outline: none;
     resize: none;
     border: none;
+    color: inherit;
     box-sizing: border-box;
+    border-top: 2px solid map-get($colors, darkest);
 }
+
 .post-edit__input-content::selection {
-
-    background-color: #f6cb01;
-
+    background-color: $yellow;
 }
+
 /* Update and Delete buttons */
 
 .post-edit__button-container {
@@ -113,17 +117,18 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
 .post-edit__delete-button {
     padding: .3rem 1rem;
     font-size: 1rem;
-    font-weight: 900;
+    font-weight: 700;
     cursor: pointer;
 }
 
 .post-edit__update-button:hover {
-    background-color: black;
-    color: #f6cb01;
+    background-color: map-get($colors, darkest);
+    color: $yellow;
 }
-.post-edit__delete-button:hover{
-    background-color: black;
-    color: map-get($colors, mid);
+
+.post-edit__delete-button:hover {
+    background-color: map-get($colors, darkest);
+    color: map-get($colors, light);
 }
 
 /* Useless lines */
@@ -134,8 +139,8 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     height: 100%;
     position: relative;
     z-index: -1;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-top: 2px solid map-get($colors, darkest);
+    border-bottom: 2px solid map-get($colors, darkest);
     box-sizing: border-box;
 }
 
@@ -146,7 +151,7 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     left: 0;
     top: 0;
     z-index: -1;
-    border-right: 3px solid black;
+    border-right: 3px solid map-get($colors, darkest);
 }
 
 /* Normal Laptops */
@@ -206,7 +211,6 @@ $mid-light: lighten(map-get($colors, lightest), 9%);
     .post-edit__form {
         margin: 3.3rem 12vw 3rem 12vw;
     }
-
     .post-edit__input-content {
         height: 13rem;
     }

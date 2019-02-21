@@ -1,18 +1,20 @@
-$colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: #e3e3e3);
-
+$colors: (darkest : #112f41, dark:#1c3359, mid: #a5362e, light:#c9463d, lightest: #e3e3e3);
+$yellow: #f9b73c;
+$light-white: lighten(map-get($colors, lightest), 8%);
+$darker-white: darken(map-get($colors, lightest), 10%);
 /* Search bar */
 
 .tag-system__search-bar {
     padding: 1rem 2rem;
     position: relative;
-    background-color: black;
+    background-color: map-get($colors, darkest);
     color: white;
 }
 
 .tag-system__search-input {
     width: 100%;
     padding: .15rem 0;
-    font-size: .85rem;
+    font-size: .95rem;
     font-weight: 700;
     background: none;
     color: white;
@@ -22,20 +24,28 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     box-sizing: border-box;
 }
 
+.tag-system__search-input::placeholder {
+    color: white;
+}
+
 .tag-system__search-icon {
     position: absolute;
     right: 2rem;
-    top: 1.1rem;
+    top: 1.3rem;
     font-size: .7rem;
 }
 
-.tag-system__search-bar:hover .tag-system__search-input, .tag-system__search-input:focus {
-    border-color: #f6cb01;
-    color: #f6cb01;
+.tag-system__search-bar:hover .tag-system__search-input,
+.tag-system__search-input:focus {
+    border-color: $yellow;
+    color: $yellow;
 }
 
-.tag-system__search-bar:hover .tag-system__search-icon, .tag-system__search-input:focus~.tag-system__search-icon, .tag-system__search-bar:hover .tag-system__search-input::placeholder, .tag-system__search-input:focus::placeholder {
-    color: #f6cb01;
+.tag-system__search-bar:hover .tag-system__search-icon,
+.tag-system__search-input:focus~.tag-system__search-icon,
+.tag-system__search-bar:hover .tag-system__search-input::placeholder,
+.tag-system__search-input:focus::placeholder {
+    color: $yellow;
 }
 
 /* Search match */
@@ -45,8 +55,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-bottom: 2px solid black;
-    background-color: lighten(map-get($colors, lightest), 7%);
+    border-bottom: 2px solid map-get($colors, darkest);
+    background-color: $light-white;
 }
 
 .tag-system__search-match {
@@ -56,13 +66,14 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     font-size: .8rem;
     font-weight: 700;
     text-decoration: underline;
+    text-underline-position: under;
     letter-spacing: .02em;
     cursor: pointer;
 }
 
 .tag-system__search-match:hover {
     font-weight: 900;
-    background-color: #f6cb01;
+    background-color: $yellow;
 }
 
 /* Tag line */
@@ -70,22 +81,22 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 .tag-system__tag-lines {
     width: calc(100% - 1px);
     margin: auto;
-    background-color: lighten(map-get($colors, lightest), 7%);
+    background-color: $light-white;
     box-sizing: border-box;
 }
 
 .tag-system__tag-line {
-    padding: .9rem .8rem;
-    padding-top: calc(.9rem - 4px);
-    border-top: 4px solid lighten(map-get($colors, lightest), 7%);
+    padding: 1.1rem .8rem;
+    padding-top: calc(1.1rem - 4px);
+    border-top: 4px solid $light-white;
     box-sizing: border-box;
     cursor: pointer;
 }
 
 .tag-system__tag-line.tag-line--active {
     font-weight: 900;
-    background-color: #f6cb01;
-    border-top: 4px solid #f6cb01;
+    background-color: $yellow;
+    border-top: 4px solid $yellow;
     box-sizing: border-box;
     cursor: auto;
 }
@@ -109,7 +120,6 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 
 .tag-system__tagged-headphone {
     grid-area: tagged-headphone;
-    
     font-size: .9rem;
 }
 
@@ -140,8 +150,8 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     position: relative;
     font-size: .75rem;
     letter-spacing: .02em;
-    border: 1px solid black;
-    background-color: lighten(map-get($colors, lightest), 7%);
+    border: 1px solid map-get($colors, darkest);
+    background-color: white;
 }
 
 .tag-system__tag-removal-icon {
@@ -164,13 +174,15 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
 .tag-system__tag:hover>.tag-system__tag-removal-icon {
     z-index: 1;
 }
+
 /* Tag criteria */
+
 .tag-system__criterias {
-    padding: 1rem .5rem;
+    padding: 1.1rem .5rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: black;
+    background-color: map-get($colors, darkest);
     font-size: .8rem;
 }
 
@@ -182,26 +194,28 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     cursor: pointer;
 }
 
-.tag-system__criteria:hover, .tag-system__criteria.criteria--active {
+.tag-system__criteria:hover,
+.tag-system__criteria.criteria--active {
     text-underline-position: under;
     text-decoration: underline;
     font-weight: 900;
-    background-color: #f6cb01;
-    color: black;
+    background-color: $yellow;
+    color: map-get($colors, darkest);
 }
+
 /* Selectable tags */
+
 .tag-system__selectable-tags {
     width: 100%;
     margin: auto;
-    padding: .8rem .5rem;
+    padding: 1.1rem .5rem;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
     font-size: .8rem;
-    background-color: darken(map-get($colors, lightest), 10%);
-    border-bottom: 2px solid black;
+    background-color: $darker-white;
     box-sizing: border-box;
 }
 
@@ -223,11 +237,11 @@ $colors: (darkest:#0a111f, dark:#263248, mid: #c73226, light:#7e8aa2, lightest: 
     line-height: 1.1rem;
     letter-spacing: .02rem;
     font-weight: 700;
-    background-color: lighten(map-get($colors, lightest), 7%);
-    border: 2px solid lighten(map-get($colors, lightest), 7%);
+    background-color: $light-white;
+    border: 2px solid $light-white;
     cursor: pointer;
 }
 
 .tag-system__selectable-tag:hover {
-    border-color: black;
+    border-color: map-get($colors, darkest);
 }

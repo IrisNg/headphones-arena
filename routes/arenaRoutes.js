@@ -27,7 +27,7 @@ router.get('/headphones', (req, res) => {
       }
    });
 });
-//Show headphone 
+//Show headphone
 router.get('/headphones/:id', (req, res) => {
    Headphone.findById(req.params.id, (err, foundHeadphone) => {
       if (err) {
@@ -73,6 +73,18 @@ router.post('/posts/top', (req, res) => {
          }
       });
 });
+// //Or seed headphone entries from file
+// router.post('/headphones/seed', (req, res) => {
+//    headphoneSeed.forEach(headphone => {
+//       Headphone.create(headphone, (err, createdHeadphone) => {
+//          if (err) {
+//             console.log(err);
+//          } else {
+//             console.log(createdHeadphone);
+//          }
+//       });
+//    });
+// });
 //Create headphone page
 router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.create(req.body, function(err, createdHeadphone) {
@@ -83,18 +95,7 @@ router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
       }
    });
 });
-//Or seed headphone entries from file
-router.post('/headphones/seed', (req, res) => {
-   headphoneSeed.forEach(headphone => {
-      Headphone.create(headphone, (err, createdHeadphone) => {
-         if (err) {
-            console.log(err);
-         } else {
-            console.log(createdHeadphone);
-         }
-      });
-   });
-});
+
 //Update headphone page
 router.put('/headphones/:id', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, updatedHeadphone) => {

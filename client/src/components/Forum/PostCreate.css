@@ -15,7 +15,8 @@
   display: grid;
   grid-template-rows: 16.6vh minmax(3.5rem, auto) auto;
   grid-template-columns: 3.5rem auto;
-  grid-template-areas: ". title" "back-icon title" ". form"; }
+  grid-template-areas: ". title" "back-icon title" ". form";
+  color: #112f41; }
 
 /* Page Title */
 .post-create__page-title {
@@ -29,7 +30,7 @@
   font-size: 4rem;
   font-weight: 900;
   background-color: #e3e3e3;
-  color: #7e8aa2; }
+  color: #c9463d; }
 
 /* Back Icon */
 .post-create__back-icon {
@@ -39,13 +40,12 @@
   justify-content: center;
   text-align: center;
   font-size: 2rem;
-  background-color: #263248;
+  background-color: #1c3359;
   color: white;
   cursor: pointer; }
 
 .post-create__back-icon:hover {
-  background-color: #c73226;
-  color: white; }
+  background-color: #bf4035; }
 
 /* Form */
 .post-create__form {
@@ -54,8 +54,8 @@
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
-  background-color: #fafafa; }
+  border: 2px solid #112f41;
+  background-color: #f7f7f7; }
 
 /* Title */
 .post-create__label-title {
@@ -68,11 +68,13 @@
   padding: .15rem 0;
   font-size: 1rem;
   font-family: inherit;
-  font-weight: 700;
   border: none;
-  border-bottom: 1.5px solid black;
+  border-bottom: 1.5px solid #112f41;
   outline: none;
-  background-color: #fafafa; }
+  background-color: #f7f7f7; }
+
+.post-create__input-title::selection {
+  background-color: #f9b73c; }
 
 .post-create__input-title::placeholder {
   font-weight: 400; }
@@ -91,26 +93,25 @@
   display: grid;
   grid-template-columns: repeat(4, auto);
   font-size: .95rem;
-  border: .5px solid black; }
+  border: 0.5px solid #112f41; }
 
 .post-create__category {
   padding: .2rem 0;
   text-align: center;
-  border-right: .5px solid black;
+  border-right: 0.5px solid #112f41;
   cursor: pointer; }
 
 .post-create__categories div.post-create__category:nth-last-of-type(1) {
   border-right: none; }
 
-.post-create__category:hover {
+.post-create__category:not(.post-create__category--active):hover {
   font-weight: 700;
-  background-color: #7e8aa2;
-  color: white; }
+  background-color: #f9b73c; }
 
 .post-create__category--active {
   font-weight: 700;
-  background-color: black;
-  color: #f6cb01; }
+  background-color: #112f41;
+  color: #f9b73c; }
 
 /* Tag System */
 .post-create .tag-system__search-input::placeholder {
@@ -131,7 +132,7 @@
   box-sizing: border-box; }
 
 .post-create__input-content::selection {
-  background-color: #f6cb01; }
+  background-color: #f9b73c; }
 
 /* Submit button */
 .post-create__button-container {
@@ -146,8 +147,8 @@
   cursor: pointer; }
 
 .post-create__submit-button:hover {
-  background-color: black;
-  color: #f6cb01; }
+  background-color: #112f41;
+  color: #f9b73c; }
 
 /* Useless lines */
 .post-create__horizontal-lines {
@@ -156,8 +157,8 @@
   height: 100%;
   position: relative;
   z-index: -1;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid #112f41;
+  border-bottom: 2px solid #112f41;
   box-sizing: border-box; }
 
 .post-create__vertical-line {
@@ -167,7 +168,7 @@
   left: 0;
   top: 0;
   z-index: -1;
-  border-right: 3px solid black; }
+  border-right: 3px solid #112f41; }
 
 /* Normal Laptops */
 @media screen and (max-width: 1280px) {
@@ -228,10 +229,10 @@
   .post-create__category {
     flex-grow: 1;
     margin: .15rem;
-    border: .5px solid black; }
+    border: 0.5px solid #112f41; }
 
   .post-create__categories div.post-create__category:nth-last-of-type(1) {
-    border-right: .5px solid black; }
+    border-right: 0.5px solid #112f41; }
 
   .post-create__input-content {
     height: 13rem; }
@@ -248,7 +249,11 @@
   .post-create__form {
     margin: 2.6rem 10vw 2.5rem 10vw; }
 
-  .post-create__label-title, .post-create__input-title, .post-create__label-category, .post-create .tag-system__search-input, .post-create__input-content::placeholder {
+  .post-create__label-title,
+  .post-create__input-title,
+  .post-create__label-category,
+  .post-create .tag-system__search-input,
+  .post-create__input-content::placeholder {
     text-align: center; }
 
   .post-create__input-content {

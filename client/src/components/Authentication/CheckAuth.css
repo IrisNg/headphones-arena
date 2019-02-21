@@ -9,7 +9,7 @@
     font-size: .75rem;
     font-weight: 700;
     text-align: center;
-    color: black;
+    color: #112f41;
     box-sizing: border-box;
 }
 
@@ -19,12 +19,8 @@
     .check-auth {
         width: calc(100vw - 3.5rem);
         height: 2rem;
-        top: 3.5rem;
+        top: 3.4rem;
         left: 0;
-        margin-left: .1rem;
         text-align: left;
-    }
-    .navigation-bar:hover~.check-auth {
-        display: none;
     }
 }

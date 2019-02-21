@@ -1,13 +1,12 @@
-
 html {
     font-size: 16px;
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
     background-color: #e3e3e3;
 }
+
 body {
     margin: 0;
-
 }
 
 body::-webkit-scrollbar {
@@ -15,14 +14,14 @@ body::-webkit-scrollbar {
     background-color: white;
 }
 
-
 body::-webkit-scrollbar-thumb {
-    background-color:#3d3d3d;
+    background-color: #112f41;
 }
 
 * {
     box-sizing: content-box;
 }
+
 /* Normal Laptops */
 
 @media screen and (max-width: 1280px) {
@@ -47,13 +46,11 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
-
 @media only screen and (max-width: 581px) {
     html {
         font-size: 17px;
     }
 }
-
 
 /* Phones */
 

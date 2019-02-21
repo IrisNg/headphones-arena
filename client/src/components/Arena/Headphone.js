@@ -8,7 +8,7 @@ class Headphone extends React.Component {
       // Apply the following style only to the first headphone of the list
       return firstHeadphone === headphone.brandAndModel
          ? {
-              borderLeft: '6px solid #c73226',
+              borderLeft: '6px solid #c9463d',
               marginLeft: 'calc(-.3rem - 6px)',
               paddingLeft: '.3rem',
               boxSizing: 'border-box'

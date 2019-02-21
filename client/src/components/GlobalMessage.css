@@ -13,9 +13,9 @@
     max-width: 30vw;
     padding: .7rem 2rem;
     text-align: center;
-    background-color: white;
-    border: 2px solid black;
-    box-shadow: 4px 4px black;
+    background-color: #fafafa;
+    border: 2px solid #112f41;
+    box-shadow: 4px 4px #112f41;
     animation: slide-in 15s ease-in-out both;
 }
 
@@ -29,8 +29,7 @@
     margin-left: -3px;
 }
 
-.post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
-.blacksmith~.global-message {
+.post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message, .blacksmith~.global-message {
     width: calc(89% - 3.5rem);
     margin-left: 3.5rem;
 }
@@ -56,8 +55,7 @@
         width: 88%;
         margin-left: 0;
     }
-    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
-    .blacksmith~.global-message {
+    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message, .blacksmith~.global-message {
         width: calc(88% - 3.5rem);
     }
 }
@@ -70,10 +68,8 @@
     .post-show~.global-message {
         width: 83%;
     }
-    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message,
-    .blacksmith~.global-message {
+    .post-create~.global-message, .post-edit~.global-message, .dashboard~.global-message, .blacksmith~.global-message {
         width: calc(83% - 3.5rem);
-
     }
 }
 
@@ -89,12 +85,11 @@
     .post-show~.global-message {
         width: 100%;
     }
-    .post-create~.global-message, .post-edit~.global-message,
-    .blacksmith~.global-message {
+    .post-create~.global-message, .post-edit~.global-message, .blacksmith~.global-message {
         width: calc(100% - 3rem);
         margin-left: 3rem;
     }
-    .dashboard~.global-message{
+    .dashboard~.global-message {
         width: 100%;
         margin-left: 0;
     }

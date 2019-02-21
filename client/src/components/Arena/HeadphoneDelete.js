@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addGlobalMessage } from '../../actions';
+import { addGlobalMessage, fetchListOfHeadphones } from '../../actions';
 import history from '../../history';
 
 class HeadphoneDelete extends React.Component {
@@ -13,8 +13,8 @@ class HeadphoneDelete extends React.Component {
       try {
          const response = await axios.delete(`/headphones/${this.props.id}`);
          console.log(response.data);
+         this.props.fetchListOfHeadphones();
          this.props.addGlobalMessage('Headphone entry successfully erased.');
-
          history.push('/create-headphone');
       } catch (err) {
          this.props.addGlobalMessage(err.response.data);
@@ -50,5 +50,5 @@ class HeadphoneDelete extends React.Component {
 }
 export default connect(
    null,
-   { addGlobalMessage }
+   { addGlobalMessage, fetchListOfHeadphones }
 )(HeadphoneDelete);

@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #112f41;
 }
 
 .post-delete__box {
@@ -14,10 +15,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 4px solid black;
+    border: 4px solid #112f41;
     text-align: justify;
     box-sizing: border-box;
-    background-color: rgb(250,250,250);
+    background-color: rgb(250, 250, 250);
 }
 
 .post-delete__message {
@@ -44,11 +45,11 @@
 }
 
 .post-delete__buttons div:hover {
-    background-color: #c73226;
+    background-color: #bf4035;
     color: white;
 }
 
 .post-delete__buttons div:nth-of-type(2):hover {
-    background: black;
+    background: #e89b0d;
     color: white;
 }

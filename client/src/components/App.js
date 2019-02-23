@@ -38,7 +38,7 @@ class App extends React.Component {
                   <Route path="/edit-post/:id" component={PostEdit} />
                   <Route path="/delete-post/:id" component={PostDelete} />
                   <Route path="/blacksmith" component={Blacksmith} />
-                  <Route path="/user/:id" component={Dashboard} />
+                  <Route path="/dashboard/:id" component={Dashboard} />
                </Switch>
                <NavigationBar />
                <CheckAuth />

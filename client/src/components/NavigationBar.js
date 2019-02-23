@@ -20,7 +20,7 @@ class NavigationBar extends React.Component {
       if (!user) {
          this.props.askLogin(true);
       } else {
-         history.push(`/user/${user.id}`);
+         history.push(`/dashboard/${user.id}`);
       }
    };
    manageArenaClass() {

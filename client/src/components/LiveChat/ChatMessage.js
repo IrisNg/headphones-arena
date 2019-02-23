@@ -49,7 +49,7 @@ class ChatMessage extends React.Component {
             {/* Author */}
             <h6
                className="chat-message__author"
-               onClick={() => (author.id ? history.push(`/user/${author.id}`) : null)}
+               onClick={() => (author.id ? history.push(`/dashboard/${author.id}`) : null)}
             >
                {author.username}
             </h6>

@@ -82,7 +82,7 @@ $light-white: lighten(map-get($colors, lightest), 8%);
 
 .main-post__title span {
     padding: 0 .2em;
-    font-size: 4rem;
+    font-size: 3.6rem;
     font-weight: 900;
     background-color: map-get($colors, lightest);
     color: map-get($colors, light);

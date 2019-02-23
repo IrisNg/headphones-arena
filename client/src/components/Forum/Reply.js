@@ -14,7 +14,12 @@ class Reply extends React.Component {
          id
       } = this.props.data.author;
       return picture ? (
-         <img className="reply__avatar" src={picture} alt="user avatar" onClick={() => history.push(`/user/${id}`)} />
+         <img
+            className="reply__avatar"
+            src={picture}
+            alt="user avatar"
+            onClick={() => history.push(`/dashboard/${id}`)}
+         />
       ) : null;
    }
    //Render tags selected by the author of this reply
@@ -134,7 +139,7 @@ class Reply extends React.Component {
                   {/* Author Avatar */}
                   {this.renderAvatar()}
                   {/* Author Username */}
-                  <h4 className="reply__username" onClick={() => history.push(`/user/${author.id}`)}>
+                  <h4 className="reply__username" onClick={() => history.push(`/dashboard/${author.id}`)}>
                      {author.username}
                   </h4>
                </div>

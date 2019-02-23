@@ -110,7 +110,7 @@ class PageContent extends React.Component {
                      <h5
                         className="page-content__message-username"
                         onClick={() => {
-                           history.push(`/user/${message.fromUserId}`);
+                           history.push(`/dashboard/${message.fromUserId}`);
                         }}
                      >
                         From {message.fromUsername}

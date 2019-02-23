@@ -69,6 +69,7 @@
     font-size: .9rem;
     border: none;
     border-bottom: 3px solid #3e1940;
+    background-color: transparent;
     outline: none;
 }
 

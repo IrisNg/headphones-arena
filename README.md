@@ -38,7 +38,7 @@ A website dedicated to comparing Headphones objectively and subjectively
 * Passport (Local)
 * Mongo DB
 
-## Important files
+## Important Files
 
 * REACT - REDUX 
   - App component (including paths for React-Router) - /client/src/components/App.js

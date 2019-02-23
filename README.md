@@ -1,6 +1,6 @@
 # Headphones Arena
 
-A website dedicated to compare Headphones objectively and subjectively
+A website dedicated to comparing Headphones objectively and subjectively
 
 
 ## Features

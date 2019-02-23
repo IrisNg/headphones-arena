@@ -77,12 +77,12 @@
     background-color: #f3b747;
 }
 
-.login__form-input:-webkit-autofill {
+.register__form-input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.login__form-input:-webkit-autofill:active, .login__form-input:-webkit-autofill:focus, .login__form-input:-webkit-autofill:hover {
-    background-color: #f3b747;
+.register__form-input:-webkit-autofill:active, .register__form-input:-webkit-autofill:focus, .register__form-input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 30px #f3b747 inset !important;
 }
 
 .register__form-input::selection {

@@ -86,7 +86,7 @@
 }
 
 .login__form-input:-webkit-autofill:active, .login__form-input:-webkit-autofill:focus, .login__form-input:-webkit-autofill:hover {
-    background-color: #f3b747;
+    -webkit-box-shadow: 0 0 0 30px #f3b747 inset !important;
 }
 
 .login__form-input::selection {

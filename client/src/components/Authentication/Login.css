@@ -77,14 +77,15 @@
     outline: none;
 }
 
-.login__form-input:-webkit-autofill,
-.login__form-input:-webkit-autofill:hover, 
-.login__form-input:-webkit-autofill:focus, 
-.login__form-input:-webkit-autofill:active  {
+.login__form-input:hover {
+    background-color: #f3b747;
+}
+
+.login__form-input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.login__form-input:hover {
+.login__form-input:-webkit-autofill:active, .login__form-input:-webkit-autofill:focus, .login__form-input:-webkit-autofill:hover {
     background-color: #f3b747;
 }
 

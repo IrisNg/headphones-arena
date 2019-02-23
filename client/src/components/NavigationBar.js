@@ -43,7 +43,7 @@ class NavigationBar extends React.Component {
    }
    manageAccountClass() {
       var { currentLocation } = this.state;
-      return ['/user'].some(path => currentLocation.includes(path) || currentLocation === '/')
+      return ['/dashboard'].some(path => currentLocation.includes(path) || currentLocation === '/')
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
    }

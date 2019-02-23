@@ -72,6 +72,12 @@
     background-color: white;
     outline: none;
 }
+.register__form-input:-webkit-autofill,
+.register__form-input:-webkit-autofill:hover, 
+.register__form-input:-webkit-autofill:focus, 
+.register__form-input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 
 .register__form-input:hover {
     background-color: #f3b747;

@@ -61,7 +61,25 @@ If you believe in word-of-mouth,
 
 ## Struggle Zones (AKA challenges that made me got smacked around by the technologies I used)
 
-* 
+* react router param changes but component does not remount, have to manually reset component state
+* async await and promises on the backend so as to perform multiple asynchronous CRUD operations (in one route) with nested forloops in each operation 
+* importance of deep copying using map method so as to not mutate arrays and objects in react props when they are assigned to component state or passed further down as props to children components
+* lifecycle methods - componentWillUnmount to clear timers and getDerivedStateFromProps to update component state after receiving a certain prop value
+* redux thunk - asynchronously dispatch action only after response from server is fetched, also chaining multiple action creators within an action creator. Using getState to refer to redux state in action creator
+* Restful routes - planning client-side react router's routes to not conflict with the server-side AJAX routes else json from server side will be sent instead of the index.html from react to the browser
+* History object with plain Router in react router to navigate between pages, so that the user can be redirected back or to a new url. Also history.listen() to listen for url changes in static default components which render on every page
+* CSS flexbox and grid - use flex box for one direction alignment and grid for more complex alignment. Good for web responsiveness. CSS grid requires html/JSX elements to be structured a certain way as it is not applied to non-direct children. Nesting of grids and flexboxes are also useful.
+* CSS animation - for smoother and more organic user experience
+* Overflow scrolling
+* Regular Expression for searches on React side and for mongoDB Find operation, its fun! (but slow)
+* Passport local authentication method - using req.user to check authentication status
+* Error handling from server side to client side - using try and catch blocks + GlobalMessage 
+* Fiddling with youtube API
+* SASS variables - have not experimented with inheritance, nested rules, mixins yet
+* avoid mapping the same key-values from redux state multiple times between sibling components, it will cause same-props naming conflict. Instead, map the key value once to the parent component and pass it down as props to the children.
+* Axios - fetch data from server without causing page reload on single page application like this one.
+* Pulling documents or arrays from mongoDB is an art ($set, $or, $and, $pull).
+
 
 ## Installation Instructions
 

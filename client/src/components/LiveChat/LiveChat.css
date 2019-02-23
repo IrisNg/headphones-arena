@@ -106,6 +106,10 @@
     color: inherit;
 }
 
+.chat-input__message::-webkit-scrollbar {
+    display: none;
+}
+
 .chat-input__author {
     grid-area: author;
     width: 100%;

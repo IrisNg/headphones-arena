@@ -73,18 +73,18 @@ router.post('/posts/top', (req, res) => {
          }
       });
 });
-// //Or seed headphone entries from file
-// router.post('/headphones/seed', (req, res) => {
-//    headphoneSeed.forEach(headphone => {
-//       Headphone.create(headphone, (err, createdHeadphone) => {
-//          if (err) {
-//             console.log(err);
-//          } else {
-//             console.log(createdHeadphone);
-//          }
-//       });
-//    });
-// });
+//Or seed headphone entries from file
+router.post('/headphones/seed', (req, res) => {
+   headphoneSeed.forEach(headphone => {
+      Headphone.create(headphone, (err, createdHeadphone) => {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(createdHeadphone);
+         }
+      });
+   });
+});
 //Create headphone page
 router.post('/headphones', middleware.checkIfAdminstrator, (req, res) => {
    Headphone.create(req.body, function(err, createdHeadphone) {

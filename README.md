@@ -1,6 +1,12 @@
 # Headphones Arena
 
-A website dedicated to compare Headphones objectively and subjectively
+A Website Dedicated to Headphones Comparison 
+
+Objective Side
+This website has gathered all those hard facts for you to crunch data efficiently.
+
+Subjective Side
+If you believe in word-of-mouth,
 
 
 ## Features
@@ -38,7 +44,7 @@ A website dedicated to compare Headphones objectively and subjectively
 * Passport (Local)
 * Mongo DB
 
-## Important files
+## Important Files
 
 * REACT - REDUX 
   - App component (including paths for React-Router) - /client/src/components/App.js

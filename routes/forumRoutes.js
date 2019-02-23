@@ -191,7 +191,7 @@ router.get('/posts/:id', (req, res) => {
 });
 
 //Update forum-post page
-router.put('/posts/:id', middleware.checkPostOwnership, (req, res) => {
+router.put('/posts/:id', middleware.isLoggedIn, (req, res) => {
    Post.findByIdAndUpdate(req.params.id, { $set: req.body.body }, (err, updatedPost) => {
       if (err) {
          res.status(400).json('Something went wrong while trying to update your post. Are you sure your post exists?');

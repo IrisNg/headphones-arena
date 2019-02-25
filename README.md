@@ -156,21 +156,3 @@ npm run dev
 
 Created by Iris Ng. 
 Feel free to hit me up with those bug reports or places where my code can use some improvement :) thanks!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-

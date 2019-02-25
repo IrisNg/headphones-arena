@@ -39,6 +39,7 @@ To bring back the fun in discovering Headphones, this website cuts to the chase 
 * Redux
 * Redux-thunk
 * React-router
+* Javascript
 * CSS - CSS Flexbox, CSS Grid, Animation (pure CSS, no library)
 * SASS variables
 * Regular Expression

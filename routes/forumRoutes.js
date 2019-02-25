@@ -31,19 +31,37 @@ function findCategoryPosts(category) {
       Post.find({ category: category })
          //Latest post comes first
          .sort({ created: -1 })
-         .limit(20)
+         .limit(50)
          .exec((err, foundPosts) => {
             if (err) {
                reject('Top categorized posts are not found');
             } else {
+               var results = [];
                //Take some of the latest posts
-               var results = foundPosts.splice(0, 3);
-               //Resort remaining posts by vote popularity
+               while (results.length < 3 && foundPosts.length > 0) {
+                  if (results.every(post => post.title !== foundPosts[0].title)) {
+                     //Add next post to results if posts in results are not of the same thread as the next post
+                     const nextPost = foundPosts.shift();
+                     results.push(nextPost);
+                  } else {
+                     //Discard the next post if a post with the same title is already included in results
+                     foundPosts.shift();
+                  }
+               }
+               //Re-sort remaining posts by vote popularity
                foundPosts.sort((a, b) => {
                   return b.vote.count - a.vote.count;
                });
-               //Combine the latest and hottest posts into one array
-               results = results.concat(foundPosts.splice(0, 4));
+
+               //Take some of the most up-voted posts
+               while (results.length < 7 && foundPosts.length > 0) {
+                  if (results.every(post => post.title !== foundPosts[0].title)) {
+                     const nextPost = foundPosts.shift();
+                     results.push(nextPost);
+                  } else {
+                     foundPosts.shift();
+                  }
+               }
                resolve(results);
             }
          });

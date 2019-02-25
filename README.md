@@ -1,13 +1,17 @@
 # Headphones Arena
 
-A Website Dedicated to Headphones Comparison 
+**A Website Dedicated to Headphones Comparison** 
 
-Objective Side
-This website has gathered all those hard facts for you to crunch data efficiently.
+A picture is worth a thousand words, but is a thousand words sufficient to describe a good sounding pair of headphones?
 
-Subjective Side
-If you believe in word-of-mouth,
+As a fellow Audiophile with shallow pockets, I have always relied on word-of-mouth (AKA intensive research) to discover great sounding headphones at an affordable price. Specifications always sound good on paper (duh!), but do not always deliver a performing pair of headphones. Scouring the internet for crumbs of reviews is just part of the daily grind. When everyone has a different pair of ears, that is a lot of words we Audiophiles have to process to come to a decision.
 
+To bring back the fun in discovering Headphones, this website cuts to the chase by gathering hard facts and subjectivities in one place:
+* Shortening words by Tagging Keywords - Tag System ( A superpower to use less words but write more helpful reviews)
+* Reducing words to numbers - Rating System
+* Gathering all the words in one place - Forum
+* Receive enlightening words in real-time - Live Chat
+* Receive enlightening words (introvert version) - Private Messaging
 
 ## Features
 
@@ -99,7 +103,7 @@ If you believe in word-of-mouth,
 ## Installation Instructions
 
 ### Prerequisites
-Make sure you have **[Node.JS](https://nodejs.org/en/), [Postman](https://www.getpostman.com/) and [Mongo DB](https://www.mongodb.com/)** installed locally, [SASS](https://sass-lang.com/) is optional
+Make sure you have **[Node.JS](https://nodejs.org/en/), [Postman](https://www.getpostman.com/) and [Mongo DB](https://www.mongodb.com/)** installed locally, [SASS](https://sass-lang.com/) is optional, [Redux DevTools](https://github.com/reduxjs/redux-devtools) is plenty helpful but optional also.
 
 ### Dependencies
     #### Server-side : 

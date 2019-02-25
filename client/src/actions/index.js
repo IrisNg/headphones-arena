@@ -89,6 +89,7 @@ export const redirectToMainPost = post => async dispatch => {
 export const fetchForumHomePosts = () => async dispatch => {
    try {
       const response = await axios.get('/posts');
+      console.log(response.data);
       dispatch({ type: 'FETCHED_FORUM_POSTS', payload: response.data });
    } catch (err) {
       dispatch(addGlobalMessage(err.response.data));

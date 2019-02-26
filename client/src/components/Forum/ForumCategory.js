@@ -10,7 +10,9 @@ class ForumCategory extends React.Component {
          return null;
       }
       if (category === 'review' || category === 'general') {
-         posts = posts.slice(0, posts.length - 1);
+         if (posts.length > 6) {
+            posts = posts.slice(0, posts.length - 1);
+         }
       }
       return posts.map(post => (
          // If user clicks on the title of this post, redirect to this post's show page

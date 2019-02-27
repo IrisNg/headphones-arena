@@ -211,7 +211,8 @@ $yellow: #f2b134;
     margin-right: .5rem;
 }
 
-.selected-headphone__amazon:hover {
+.selected-headphone__amazon:hover,
+.selected-headphone__amazon i:hover {
     margin-top: .4rem;
     animation: bounce 1s .2s 1;
     font-weight: 700;

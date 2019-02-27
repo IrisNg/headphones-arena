@@ -194,7 +194,10 @@ router.get('/posts/:id', (req, res) => {
          path: 'replies author.profile',
          populate: {
             path: 'replies author.profile',
-            populate: { path: 'replies author.profile', populate: { path: 'replies author.profile' } }
+            populate: {
+               path: 'replies author.profile',
+               populate: { path: 'replies author.profile', populate: { path: 'author.profile' } }
+            }
          }
       })
       .exec((err, foundPost) => {

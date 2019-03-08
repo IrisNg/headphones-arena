@@ -16,7 +16,6 @@ import PostDelete from './Forum/PostDelete';
 import Blacksmith from './Blacksmith/Blacksmith';
 import Dashboard from './UserProfile/Dashboard';
 
-// delete
 import Login from './Authentication/Login';
 import CheckAuth from './Authentication/CheckAuth';
 

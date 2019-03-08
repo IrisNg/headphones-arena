@@ -191,11 +191,11 @@
     90% {
     transform: translateY(0); }
   15% {
-    transform: translateY(-3.5rem); }
+    transform: translateY(-1rem); }
   45% {
-    transform: translateY(-1.5rem); }
+    transform: translateY(-.5rem); }
   75% {
-    transform: translateY(-0.5rem); } }
+    transform: translateY(-0.2rem); } }
 .selected-headphone__name {
   margin: 0;
   padding: .4rem .8rem;

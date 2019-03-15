@@ -9,22 +9,15 @@ class Reply extends React.Component {
       renderReplyCreate: false
    };
    renderAvatar() {
-      var {
+      const {
          profile: { picture },
          id
       } = this.props.data.author;
-      return picture ? (
-         <img
-            className="reply__avatar"
-            src={picture}
-            alt="user avatar"
-            onClick={() => history.push(`/dashboard/${id}`)}
-         />
-      ) : null;
+      return picture ? <img className="reply__avatar" src={picture} alt="user avatar" onClick={() => history.push(`/dashboard/${id}`)} /> : null;
    }
    //Render tags selected by the author of this reply
    renderTags = () => {
-      var { data } = this.props;
+      const { data } = this.props;
       if (data.tag.length === 0) {
          return null;
       }
@@ -54,7 +47,7 @@ class Reply extends React.Component {
    };
    //Render replies to this reply
    renderReplies = () => {
-      var { data, selectHeadphoneUsingNameOnly } = this.props;
+      const { data, selectHeadphoneUsingNameOnly } = this.props;
       if (data.replies.length === 0) {
          return null;
       }
@@ -97,7 +90,7 @@ class Reply extends React.Component {
       if (!this.state.renderReplyCreate) {
          return null;
       }
-      var { _id, title, category } = this.props.data;
+      const { _id, title, category } = this.props.data;
       return (
          <ReplyCreate
             idToReplyTo={_id}
@@ -113,7 +106,7 @@ class Reply extends React.Component {
       this.setState({ renderReplyCreate: false });
    };
    renderEditButton = () => {
-      var {
+      const {
          data: { author, _id },
          currentUser
       } = this.props;
@@ -127,7 +120,7 @@ class Reply extends React.Component {
       if (!this.props.data) {
          return <div />;
       }
-      var { created, content, author, vote, _id } = this.props.data;
+      const { created, content, author, vote, _id } = this.props.data;
       return (
          <div className="reply">
             {/* Date */}

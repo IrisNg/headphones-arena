@@ -13,9 +13,9 @@ class ChatMessage extends React.Component {
       if (this.props.headphoneNamesWithRegex && !this.state.tags) {
          //Automatically identify any mention of headphone names in the chat message and turn it into a clickable tag
          //When user clicks on this tag, this headphone will be added into the list of selected headphones for detailed comparison at the /arena page
-         var allTags = [];
+         const allTags = [];
          this.props.headphoneNamesWithRegex.forEach(headphone => {
-            var match = headphone.regex.exec(this.props.message.message);
+            const match = headphone.regex.exec(this.props.message.message);
             if (match) {
                allTags.push({
                   term: match[0],
@@ -41,7 +41,7 @@ class ChatMessage extends React.Component {
       });
    };
    render() {
-      var {
+      const {
          message: { author, message, created }
       } = this.props;
       return (

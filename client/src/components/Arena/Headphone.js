@@ -4,7 +4,7 @@ import { selectHeadphone } from '../../actions';
 
 class Headphone extends React.Component {
    manageFirstHeadphoneStyle() {
-      var { headphone, firstHeadphone } = this.props;
+      const { headphone, firstHeadphone } = this.props;
       // Apply the following style only to the first headphone of the list
       return firstHeadphone === headphone.brandAndModel
          ? {
@@ -16,7 +16,7 @@ class Headphone extends React.Component {
          : null;
    }
    render() {
-      var { headphone, selectHeadphone } = this.props;
+      const { headphone, selectHeadphone } = this.props;
       return (
          <div className="headphone" style={this.manageFirstHeadphoneStyle()} onClick={() => selectHeadphone(headphone)}>
             <div>

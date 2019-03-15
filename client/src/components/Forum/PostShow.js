@@ -13,7 +13,7 @@ class PostShow extends React.Component {
    }
    //Render replies of this thread
    renderReplies = () => {
-      var { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
+      const { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
       if (!post) {
          return null;
       } else if (post.replies.length === 0) {
@@ -33,7 +33,7 @@ class PostShow extends React.Component {
    };
 
    render() {
-      var { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
+      const { post, currentUser, selectHeadphoneUsingNameOnly } = this.props;
       if (!post || post._id !== this.props.match.params.id) {
          return <div />;
       }

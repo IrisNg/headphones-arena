@@ -9,22 +9,15 @@ class MainPost extends React.Component {
       renderReplyCreate: false
    };
    renderAvatar() {
-      var {
+      const {
          profile: { picture },
          id
       } = this.props.data.author;
-      return picture ? (
-         <img
-            className="reply__avatar"
-            src={picture}
-            alt="user avatar"
-            onClick={() => history.push(`/dashboard/${id}`)}
-         />
-      ) : null;
+      return picture ? <img className="reply__avatar" src={picture} alt="user avatar" onClick={() => history.push(`/dashboard/${id}`)} /> : null;
    }
    //Render tags selected by the author of this post
    renderTags = () => {
-      var {
+      const {
          data: { tag }
       } = this.props;
       if (tag.length === 0) {
@@ -56,27 +49,17 @@ class MainPost extends React.Component {
       });
    };
    renderEditButton() {
-      var { author, _id } = this.props.data;
-      var { currentUser } = this.props;
-      return currentUser && author.id === currentUser.id ? (
-         <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${_id}`)} />
-      ) : null;
+      const { author, _id } = this.props.data;
+      const { currentUser } = this.props;
+      return currentUser && author.id === currentUser.id ? <i className="fas fa-edit" onClick={() => history.push(`/edit-post/${_id}`)} /> : null;
    }
    //Render the create reply form
    renderReplyCreate() {
       if (!this.state.renderReplyCreate) {
          return null;
       }
-      var { _id, title, category } = this.props.data;
-      return (
-         <ReplyCreate
-            idToReplyTo={_id}
-            title={title}
-            category={category}
-            turnOffReplyCreate={this.turnOffReplyCreate}
-            mainPostId={_id}
-         />
-      );
+      const { _id, title, category } = this.props.data;
+      return <ReplyCreate idToReplyTo={_id} title={title} category={category} turnOffReplyCreate={this.turnOffReplyCreate} mainPostId={_id} />;
    }
    turnOffReplyCreate = () => {
       //Callback to be passed as a prop to ReplyCreate component to turn off its display after reply has been created
@@ -87,7 +70,7 @@ class MainPost extends React.Component {
       if (!this.props.data) {
          return <div>Loading</div>;
       }
-      var { title, created, content, author, vote, _id, category } = this.props.data;
+      const { title, created, content, author, vote, _id, category } = this.props.data;
       return (
          <div className="main-post">
             {/* Title */}

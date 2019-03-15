@@ -5,7 +5,7 @@ import { fetchTopPosts, redirectToMainPost } from '../../actions';
 
 class TopPosts extends React.Component {
    componentDidMount() {
-      var { brandAndModel, model } = this.props.headphone;
+      const { brandAndModel, model } = this.props.headphone;
       this.props.fetchTopPosts({ brandAndModel, model });
    }
    renderTopPosts(posts) {
@@ -29,7 +29,7 @@ class TopPosts extends React.Component {
       return post.vote.count >= 0 ? <i className="fas fa-caret-up" /> : <i className="fas fa-caret-down" />;
    }
    render() {
-      var { topPosts } = this.props;
+      const { topPosts } = this.props;
       if (!topPosts) {
          return <div />;
       }
@@ -41,7 +41,7 @@ class TopPosts extends React.Component {
    }
 }
 const mapStateToProps = (state, ownProps) => {
-   var entry = state.topPosts.find(entry => entry.headphone === ownProps.headphone.brandAndModel);
+   const entry = state.topPosts.find(entry => entry.headphone === ownProps.headphone.brandAndModel);
    return { topPosts: entry ? entry.topPosts : null };
 };
 export default connect(

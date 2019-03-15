@@ -23,7 +23,7 @@ class ForumSearch extends React.Component {
       }
    }
    render() {
-      var { searchTerm } = this.props;
+      const { searchTerm } = this.props;
       return (
          <div className="forum-search">
             <i className="fas fa-search forum-search__icon" style={this.manageSearchStyle('icon')} />

@@ -25,11 +25,11 @@ router.put('/user-profile/:id', middleware.checkUserProfileOwnership, (req, res)
       //If this is a request to update headphones rating
       if (req.body.headphones) {
          //Remove previous ratings made by this user in the headphones database
-         var removedRatings = await removePreviousRatingsFromHeadphones(req);
+         const removedRatings = await removePreviousRatingsFromHeadphones(req);
          console.log(removedRatings);
          if (req.body.headphones.length > 0) {
             //Add new ratings made by this user to the headphones database
-            var addedRatings = await addNewRatingsToHeadphones(req);
+            const addedRatings = await addNewRatingsToHeadphones(req);
             console.log(addedRatings);
          }
       }
@@ -50,14 +50,9 @@ function updateProfile(req) {
 //Remove all rating entries made by this user in all headphone documents
 function removePreviousRatingsFromHeadphones(req) {
    return new Promise((resolve, reject) => {
-      Headphone.update(
-         {},
-         { $pull: { ratings: { profileId: req.params.id } } },
-         { multi: true },
-         (err, updatedHeadphone) => {
-            err ? reject('Failed to update your headphone ratings') : resolve(updatedHeadphone);
-         }
-      );
+      Headphone.update({}, { $pull: { ratings: { profileId: req.params.id } } }, { multi: true }, (err, updatedHeadphone) => {
+         err ? reject('Failed to update your headphone ratings') : resolve(updatedHeadphone);
+      });
    });
 }
 //Add new rating entries from this user into the related headphone documents

@@ -14,7 +14,7 @@ class SelectedHeadphone extends React.Component {
       this.props.fetchFullHeadphone(this.props.headphone._id);
    }
    renderCurrentPage(fullHeadphone) {
-      var { page } = this.state;
+      const { page } = this.state;
       if (page === 1) {
          //Page 1 - overview
          return <Overview headphone={fullHeadphone} />;
@@ -29,7 +29,7 @@ class SelectedHeadphone extends React.Component {
    renderRating() {
       const { fullHeadphone } = this.props;
       //Calculate the average rating first
-      var average = this.calculateAverageRating(fullHeadphone);
+      const average = this.calculateAverageRating(fullHeadphone);
       if (average === 0) {
          return `white`;
       } else if (average === 10) {
@@ -66,7 +66,7 @@ class SelectedHeadphone extends React.Component {
             </div>
          );
       }
-      var { fullHeadphone, headphone, removeHeadphone } = this.props;
+      const { fullHeadphone, headphone, removeHeadphone } = this.props;
       return (
          <div className="selected-headphone">
             {/* Closing button */}
@@ -118,7 +118,7 @@ class SelectedHeadphone extends React.Component {
    }
 }
 const mapStateToProps = (state, ownProps) => {
-   var fullHeadphone = state.fullHeadphones.find(entry => entry._id === ownProps.headphone._id);
+   const fullHeadphone = state.fullHeadphones.find(entry => entry._id === ownProps.headphone._id);
    return { fullHeadphone };
 };
 

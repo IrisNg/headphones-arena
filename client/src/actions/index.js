@@ -6,7 +6,7 @@ import history from '../history';
 //Each headphone entry is a partial object containing only {brand, model, brandAndModel, _id}
 export const fetchListOfHeadphones = () => async dispatch => {
    try {
-      var response = await axios.get('/headphones');
+      const response = await axios.get('/headphones');
       dispatch({ type: 'FETCHED_LIST_OF_HEADPHONES', payload: response.data });
    } catch (err) {
       dispatch(addGlobalMessage(err.response.data));
@@ -16,7 +16,7 @@ export const fetchListOfHeadphones = () => async dispatch => {
 //Fetch full headphone entry
 export const fetchFullHeadphone = id => async dispatch => {
    try {
-      var response = await axios.get(`/headphones/${id}`);
+      const response = await axios.get(`/headphones/${id}`);
       dispatch({ type: 'FETCHED_FULL_HEADPHONE', payload: response.data });
    } catch (err) {
       dispatch(addGlobalMessage(err.response.data));
@@ -127,7 +127,7 @@ export const fetchSearchPosts = searchTerm => async (dispatch, getState) => {
    var populatedPosts = [];
    unpopulatedSearchPosts.forEach(async post => {
       try {
-         var populatedResponse = await axios.get(`/posts/${post._id}`);
+         const populatedResponse = await axios.get(`/posts/${post._id}`);
          populatedPosts = [...populatedPosts, populatedResponse.data];
          if (populatedPosts.length === unpopulatedSearchPosts.length) {
             dispatch({ type: 'FETCHED_SEARCH_POSTS', payload: populatedPosts });

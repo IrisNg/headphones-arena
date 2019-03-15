@@ -5,7 +5,7 @@ import history from '../../history';
 
 class ForumSearchPosts extends React.Component {
    renderSearchPosts() {
-      var { searchPosts } = this.props;
+      const { searchPosts } = this.props;
       return searchPosts.map(post => (
          // If user clicks on this post, redirect to this post's show page
          <div key={post._id} className="forum-search__post" onClick={() => history.push(`/show-post/${post._id}`)}>
@@ -44,7 +44,7 @@ class ForumSearchPosts extends React.Component {
       );
    }
    render() {
-      var { searchPosts, searchActive } = this.props;
+      const { searchPosts, searchActive } = this.props;
       if (!searchActive || !searchPosts) {
          return <div />;
       }

@@ -17,7 +17,7 @@ class Forum extends React.Component {
       if (!this.props.forumPosts) {
          return <div />;
       }
-      var {
+      const {
          forumPosts: { comparison, recommendation, review, general },
          searchTerm
       } = this.props;

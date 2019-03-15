@@ -11,9 +11,7 @@ var express = require('express'),
 router.get('/headphones', (req, res) => {
    Headphone.find({}, (err, foundHeadphones) => {
       if (err) {
-         res.status(400).json(
-            'Essential list of headphones is missing, something is wrong with the server, please try again later.'
-         );
+         res.status(400).json('Essential list of headphones is missing, something is wrong with the server, please try again later.');
       } else {
          var foundHeadphonesNames = foundHeadphones.map(headphone => {
             return {
@@ -42,14 +40,14 @@ router.post('/posts/top', (req, res) => {
    var brandAndModel = req.body.brandAndModel;
    var model = req.body.model;
    //Separate the alternative naming from the brandAndModel and model
-   var alternative = /\((.*)\)/.exec(model);
+   const alternative = /\((.*)\)/.exec(model);
    brandAndModel = brandAndModel.replace(/\s\(.*\)/g, '');
    model = model.replace(/\s\(.*\)/g, '');
    //Formulating Regular Expression to search for posts (using MongoDB)
    //Post matches if it contains all of the words from the brandAndModel, regardless of the letters/words in between
-   var allWords = brandAndModel.split(' ').join('.*');
+   const allWords = brandAndModel.split(' ').join('.*');
    //Post matches if it contains all of the words from the model, regardless of the whitespaces in between
-   var allModelWords = model.split(' ').join('\\s*');
+   const allModelWords = model.split(' ').join('\\s*');
    //Post also matches if it contains the entire string from the brandAndModel or model
    if (alternative) {
       var requirements = `(${allWords}|${brandAndModel}|${allModelWords}|${alternative[1]})`;
@@ -57,7 +55,7 @@ router.post('/posts/top', (req, res) => {
       var requirements = `(${allWords}|${brandAndModel}|${allModelWords})`;
    }
    //Churn out the regular expression and flag it to be case insensitive
-   var regExp = new RegExp(requirements, 'i');
+   const regExp = new RegExp(requirements, 'i');
 
    //Use the regular expression to search for post titles/content or posts with tagged headphones that matches the search term
    Post.find({

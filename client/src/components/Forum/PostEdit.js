@@ -23,7 +23,7 @@ class PostEdit extends React.Component {
    static getDerivedStateFromProps(nextProps, prevState) {
       if (nextProps.post && nextProps.post._id !== prevState.postId) {
          //DO NOT REFERENCE ARRAY FROM PROPS
-         var notReferencedArr = nextProps.post.tag.map(entry => {
+         const notReferencedArr = nextProps.post.tag.map(entry => {
             return { brandAndModel: entry.brandAndModel, tags: [...entry.tags] };
          });
          return {
@@ -43,13 +43,13 @@ class PostEdit extends React.Component {
    };
    onSubmitClick = event => {
       event.preventDefault();
-      var { currentUser, post, addGlobalMessage, updatePost } = this.props;
+      const { currentUser, post, addGlobalMessage, updatePost } = this.props;
       if (currentUser.id !== post.author.id) {
          //Display this message if current user is NOT the owner of this post
          addGlobalMessage("You wish you were the author of this post, but you are not. So you can't edit this post.");
       } else {
          //Format object to send to the server
-         var updateObj = {
+         const updateObj = {
             prevTags: this.state.prevTags,
             body: {
                tag: this.state.outputTags,
@@ -73,12 +73,12 @@ class PostEdit extends React.Component {
          //Note: this has to come before adding new tags (because $pull in mongodb will wipe ALL tag objects with the specified post id, not just one)
          //So if you add new tags first, then remove, it will wipe the added new tags too
          if (updateObj.prevTags.length > 0) {
-            var response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
+            const response1 = await axios.put(`/posts/${this.props.post._id}/removetags`, updateObj);
             console.log(response1);
          }
          if (updateObj.body.tag.length > 0) {
             //Add new tags to newly tagged headphones
-            var response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
+            const response2 = await axios.put(`/posts/${this.props.post._id}/addtags`, updateObj);
             console.log(response2);
          }
          this.props.addGlobalMessage('Post update completed!');
@@ -97,7 +97,7 @@ class PostEdit extends React.Component {
       history.goBack();
    }
    render() {
-      var { post } = this.props;
+      const { post } = this.props;
       return (
          <div className="post-edit">
             {/* Page Title */}
@@ -106,11 +106,7 @@ class PostEdit extends React.Component {
             <i className="fas fa-angle-left post-edit__back-icon" onClick={this.onRefuse} />
             <form className="post-edit__form">
                {/* Tagging Mechanism */}
-               <TagSystem
-                  previousTags={post ? post.tag : null}
-                  compileTags={this.retrieveTagsFromTagSystem}
-                  id={post ? post._id : null}
-               />
+               <TagSystem previousTags={post ? post.tag : null} compileTags={this.retrieveTagsFromTagSystem} id={post ? post._id : null} />
                {/* Post Contents */}
                <textarea
                   onChange={e => this.setState({ content: e.target.value })}
@@ -124,10 +120,7 @@ class PostEdit extends React.Component {
                      UPDATE!
                   </div>
                   {/* Delete button */}
-                  <div
-                     className="post-edit__delete-button"
-                     onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}
-                  >
+                  <div className="post-edit__delete-button" onClick={() => history.push(`/delete-post/${this.props.match.params.id}`)}>
                      DELETE
                   </div>
                </div>

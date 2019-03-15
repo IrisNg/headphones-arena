@@ -24,7 +24,7 @@ class GlobalMessage extends React.Component {
       setTimeout(() => this.props.addGlobalMessage(''), 15000);
    };
    render() {
-      var { globalMessage } = this.props;
+      const { globalMessage } = this.props;
       if (!globalMessage) {
          return <div />;
       }

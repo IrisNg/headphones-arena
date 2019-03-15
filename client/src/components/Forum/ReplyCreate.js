@@ -41,7 +41,7 @@ class ReplyCreate extends React.Component {
 
    postToServer = async () => {
       //Format object to be posted to the database
-      var replyObj = {
+      const replyObj = {
          idToReplyTo: this.state.idToReplyTo,
          body: {
             isMainPost: false,

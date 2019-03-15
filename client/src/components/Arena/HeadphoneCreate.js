@@ -90,8 +90,8 @@ class HeadphoneCreate extends React.Component {
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
    //Not sure about the performance though...
    mapStateKeysToJSX() {
-      var allInputs = [];
-      for (var key in this.state) {
+      const allInputs = [];
+      for (let key in this.state) {
          if (key !== 'officialDescription') {
             allInputs.push(
                <div key={key} className="headphone-create__field">

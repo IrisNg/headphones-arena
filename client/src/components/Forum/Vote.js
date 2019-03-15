@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { updatePost, askLogin } from '../../actions';
 
 class Vote extends React.Component {
-  
    onVoteClick = voteNature => {
-      var { currentUser, vote } = this.props;
+      const { currentUser, vote } = this.props;
       //Allow voting only if user is logged in
       if (!currentUser) {
          this.props.askLogin(true);
@@ -47,7 +46,7 @@ class Vote extends React.Component {
             }
          }
          //Format object to send to the server
-         var updateObj = {
+         const updateObj = {
             body: {
                vote: {
                   count,
@@ -61,26 +60,20 @@ class Vote extends React.Component {
       }
    };
    manageUpVoteIconStyle() {
-      var { vote, currentUser } = this.props;
+      const { vote, currentUser } = this.props;
       return currentUser && vote.upVote.includes(currentUser.id) ? 'vote--active' : null;
    }
    manageDownVoteIconStyle() {
-      var { vote, currentUser } = this.props;
+      const { vote, currentUser } = this.props;
       return currentUser && vote.downVote.includes(currentUser.id) ? 'vote--active' : null;
    }
    render() {
-      var { vote } = this.props;
+      const { vote } = this.props;
       return (
          <div className="vote">
-            <i
-               className={`fas fa-caret-up ${this.manageUpVoteIconStyle()}`}
-               onClick={() => this.onVoteClick('upvote')}
-            />
+            <i className={`fas fa-caret-up ${this.manageUpVoteIconStyle()}`} onClick={() => this.onVoteClick('upvote')} />
             {vote.count}
-            <i
-               className={`fas fa-caret-down ${this.manageDownVoteIconStyle()}`}
-               onClick={() => this.onVoteClick('downvote')}
-            />
+            <i className={`fas fa-caret-down ${this.manageDownVoteIconStyle()}`} onClick={() => this.onVoteClick('downvote')} />
          </div>
       );
    }

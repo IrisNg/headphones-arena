@@ -16,7 +16,7 @@ class NavigationBar extends React.Component {
       });
    }
    onAccountIconClick = () => {
-      var { user } = this.props;
+      const { user } = this.props;
       if (!user) {
          this.props.askLogin(true);
       } else {
@@ -24,23 +24,23 @@ class NavigationBar extends React.Component {
       }
    };
    manageArenaClass() {
-      var { currentLocation } = this.state;
+      const { currentLocation } = this.state;
       return ['/arena', '-headphone'].some(path => currentLocation.includes(path) || currentLocation === '/')
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
    }
    manageForumClass() {
-      var { currentLocation } = this.state;
+      const { currentLocation } = this.state;
       return ['/forum', '-post'].some(path => currentLocation.includes(path) || currentLocation === '/')
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
    }
    manageBlacksmithClass() {
-      var { currentLocation } = this.state;
+      const { currentLocation } = this.state;
       return currentLocation === '/blacksmith' || currentLocation === '/' ? 'navigation-icon--active' : 'navigation-icon--inactive';
    }
    manageAccountClass() {
-      var { currentLocation } = this.state;
+      const { currentLocation } = this.state;
       return ['/dashboard'].some(path => currentLocation.includes(path) || currentLocation === '/')
          ? 'navigation-icon--active'
          : 'navigation-icon--inactive';
@@ -49,7 +49,7 @@ class NavigationBar extends React.Component {
       return this.props.user ? 'ACCOUNT' : 'LOGIN';
    }
    render() {
-      var { user } = this.props;
+      const { user } = this.props;
       return (
          <div className="navigation-bar">
             {/* To Arena page */}

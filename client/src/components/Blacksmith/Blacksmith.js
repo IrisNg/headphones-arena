@@ -16,7 +16,7 @@ class Blacksmith extends React.Component {
       const { featuredVideo, videos } = this.props;
       //Randomly feature a video when the page first loads
       if (!featuredVideo && videos) {
-         var randomIndex = Math.floor(Math.random() * videos.length) + 0;
+         const randomIndex = Math.floor(Math.random() * videos.length) + 0;
          this.props.featureVideo(videos[randomIndex]);
       }
    }
@@ -35,17 +35,15 @@ class Blacksmith extends React.Component {
    pickFourRandomVideos() {
       const { videos, featuredVideo } = this.props;
       //Generate four random index numbers
-      var fourRandomIndex = [];
+      const fourRandomIndex = [];
       while (fourRandomIndex.length < 4) {
-         var randomIndex = Math.floor(Math.random() * videos.length) + 0;
+         let randomIndex = Math.floor(Math.random() * videos.length) + 0;
          if (!fourRandomIndex.includes(randomIndex)) {
             fourRandomIndex.push(randomIndex);
          }
       }
       //Use videos with index matching the randomly generated ones && which are not the featured video
-      return videos.filter(
-         (video, index) => fourRandomIndex.includes(index) && video.videoId !== featuredVideo.videoId
-      );
+      return videos.filter((video, index) => fourRandomIndex.includes(index) && video.videoId !== featuredVideo.videoId);
    }
    render() {
       const { featuredVideo } = this.props;

@@ -41,7 +41,7 @@ class PostCreate extends React.Component {
 
    postToServer = async () => {
       //Format object to be posted to the database
-      var postObj = {
+      const postObj = {
          body: {
             isMainPost: true,
             title: this.state.title,

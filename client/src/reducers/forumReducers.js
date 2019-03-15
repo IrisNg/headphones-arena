@@ -20,7 +20,7 @@ export const searchPostsReducer = (state = null, action) => {
          return action.payload;
       case 'FETCHED_SEARCH_POSTS':
          //Calculate the total number of replies for each search post and add that as a property to each search post's object
-         var postsWithRepliesCount = action.payload.map(post => {
+         const postsWithRepliesCount = action.payload.map(post => {
             var totalReplies = 0;
             if (post.replies) {
                post.replies.forEach(reply1 => {

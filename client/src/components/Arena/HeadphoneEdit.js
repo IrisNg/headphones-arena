@@ -38,11 +38,7 @@ class HeadphoneEdit extends React.Component {
          return null;
       }
       return this.props.listOfHeadphones.map(headphone => (
-         <span
-            key={headphone._id}
-            className="headphone-edit__existing-name"
-            onClick={() => this.fetchHeadphoneEntry(headphone._id)}
-         >
+         <span key={headphone._id} className="headphone-edit__existing-name" onClick={() => this.fetchHeadphoneEntry(headphone._id)}>
             {headphone.brandAndModel}
          </span>
       ));
@@ -71,8 +67,8 @@ class HeadphoneEdit extends React.Component {
    //This function maps every input field(State keys) we have into JSX - so that we don't have to do it one by one
    //Not sure about the performance though...
    mapStateKeysToJSX() {
-      var allInputs = [];
-      for (var key in this.state) {
+      const allInputs = [];
+      for (let key in this.state) {
          if (key !== '_id') {
             if (key !== 'officialDescription') {
                allInputs.push(

@@ -38,13 +38,13 @@ class PersonalHeadphones extends React.Component {
    //Search for headphone names in the database that are close to the search term inputted by the user
    searchForHeadphones = searchTerm => {
       //Remove spaces from search term inputted by the user
-      var removeSpace = searchTerm.replace(/\s/g, '');
+      const removeSpace = searchTerm.replace(/\s/g, '');
       //Preparing the search term to be converted to regular expression
       //Giving allowance for stray spaces and stray letters (i.e just check whether the headphone's name contains every letter from the search term)
-      var regExpPrepare = removeSpace.split('').join('.*');
+      const regExpPrepare = removeSpace.split('').join('.*');
 
       //Convert to regular expression
-      var regExp = new RegExp(regExpPrepare, 'i');
+      const regExp = new RegExp(regExpPrepare, 'i');
       //Find headphones whose name contains every letter in the search term
       var searchMatches = this.props.listOfHeadphones.filter(headphone => {
          return regExp.test(headphone.brandAndModel);
@@ -71,11 +71,7 @@ class PersonalHeadphones extends React.Component {
       //Render headphone suggestion buttons
       return this.state.searchMatches.map(match => {
          return (
-            <div
-               key={match.brandAndModel}
-               onClick={() => this.addTaggedHeadphone(match.brandAndModel)}
-               className="personal-headphones__search-match"
-            >
+            <div key={match.brandAndModel} onClick={() => this.addTaggedHeadphone(match.brandAndModel)} className="personal-headphones__search-match">
                {match.brandAndModel}
             </div>
          );
@@ -97,9 +93,7 @@ class PersonalHeadphones extends React.Component {
       );
    };
    removeTaggedHeadphone = headphoneName => {
-      var remainingTaggedHeadphones = this.state.taggedHeadphones.filter(
-         headphone => headphone.brandAndModel !== headphoneName
-      );
+      const remainingTaggedHeadphones = this.state.taggedHeadphones.filter(headphone => headphone.brandAndModel !== headphoneName);
       this.setState({ taggedHeadphones: remainingTaggedHeadphones }, () => {
          //Update removal of tagged headphone to server
          this.props.updateHeadphoneRating(this.props.profileId, {
@@ -110,16 +104,11 @@ class PersonalHeadphones extends React.Component {
    renderTaggedHeadphones = () => {
       //Display tagged headphones
       //Sort by alphabetical order - retain same order even after rating modification
-      var sortedTaggedHeadphones = [...this.state.taggedHeadphones].sort((a, b) =>
-         a.brandAndModel < b.brandAndModel ? -1 : 1
-      );
+      const sortedTaggedHeadphones = [...this.state.taggedHeadphones].sort((a, b) => (a.brandAndModel < b.brandAndModel ? -1 : 1));
       return sortedTaggedHeadphones.map(taggedHeadphone => {
-         var { brandAndModel, rating } = taggedHeadphone;
+         const { brandAndModel, rating } = taggedHeadphone;
          return (
-            <div
-               className={`personal-headphones__tagged-headphone ${this.manageTaggedHeadphoneClass()}`}
-               key={brandAndModel}
-            >
+            <div className={`personal-headphones__tagged-headphone ${this.manageTaggedHeadphoneClass()}`} key={brandAndModel}>
                {/* If user clicks on the name of this tagged headphone, add this headphone to the list of selected headphones in /arena page */}
                <div
                   className="personal-headphones__headphone-name"
@@ -132,9 +121,7 @@ class PersonalHeadphones extends React.Component {
                <div className="personal-headphones__icons">
                   {/* 5 Hearts rating system for each headphone */}
                   <i
-                     onClick={() =>
-                        rating === 1 ? this.onHeartClick(brandAndModel, 0) : this.onHeartClick(brandAndModel, 1)
-                     }
+                     onClick={() => (rating === 1 ? this.onHeartClick(brandAndModel, 0) : this.onHeartClick(brandAndModel, 1))}
                      className={this.manageHeartClass(0, rating)}
                   />
                   <i onClick={() => this.onHeartClick(brandAndModel, 2)} className={this.manageHeartClass(1, rating)} />
@@ -143,10 +130,7 @@ class PersonalHeadphones extends React.Component {
                   <i onClick={() => this.onHeartClick(brandAndModel, 5)} className={this.manageHeartClass(4, rating)} />
                   {/* Button to untag headphone */}
                   {this.props.isOwner ? (
-                     <i
-                        className="fas fa-times personal-headphones__close-icon"
-                        onClick={() => this.removeTaggedHeadphone(brandAndModel)}
-                     />
+                     <i className="fas fa-times personal-headphones__close-icon" onClick={() => this.removeTaggedHeadphone(brandAndModel)} />
                   ) : null}
                </div>
             </div>
@@ -159,9 +143,7 @@ class PersonalHeadphones extends React.Component {
          //Find this headphone's entry
          var currentEntry = this.state.taggedHeadphones.find(entry => entry.brandAndModel === headphoneName);
          //Find the remaining non-relevant headphone entries
-         var allEntriesExceptCurrent = this.state.taggedHeadphones.filter(
-            entry => entry.brandAndModel !== headphoneName
-         );
+         const allEntriesExceptCurrent = this.state.taggedHeadphones.filter(entry => entry.brandAndModel !== headphoneName);
          //Modify the rating for this headphone
          currentEntry.rating = rating;
          //Update state then callback and update rating to server

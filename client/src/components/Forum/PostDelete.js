@@ -7,7 +7,7 @@ import './PostDelete.css';
 
 class PostDelete extends React.Component {
    delete = async () => {
-      var postId = this.props.match.params.id;
+      const postId = this.props.match.params.id;
       try {
          const response = await axios.delete(`/posts/${postId}`);
          console.log(response);

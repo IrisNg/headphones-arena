@@ -15,7 +15,7 @@ router.get('/posts', (req, res) => {
       const recommendation = await findCategoryPosts('Recommendation');
       const review = await findCategoryPosts('Review');
       const general = await findCategoryPosts('General');
-      var response = { comparison, recommendation, review, general };
+      const response = { comparison, recommendation, review, general };
       return response;
    })()
       .then(response => {
@@ -36,7 +36,7 @@ function findCategoryPosts(category) {
             if (err) {
                reject('Top categorized posts are not found');
             } else {
-               var results = [];
+               const results = [];
                //Take some of the latest posts
                while (results.length < 3 && foundPosts.length > 0) {
                   if (results.every(post => post.title !== foundPosts[0].title)) {
@@ -69,13 +69,13 @@ function findCategoryPosts(category) {
 }
 //Search for posts when user enters search term in forum page
 router.post('/posts/search', (req, res) => {
-   var term = req.body.term;
+   const term = req.body.term;
    //Formulating Regular Expression to search for posts (using MongoDB)
    //Post matches if it contains all of the letters from the search term
-   var removeSpace = term.replace(/\s/g, '');
+   const removeSpace = term.replace(/\s/g, '');
    var prepRegExp = removeSpace.split('').join('.*');
    //Post matches if it contains any word from the search term
-   var termSplit = term.split(' ').join('|');
+   const termSplit = term.split(' ').join('|');
    //Post also matches if it contains the entire string from the search term
    prepRegExp = `(${prepRegExp}|${termSplit}|${term})`;
    //Escaping all the literal characters in the inputted search term
@@ -83,15 +83,12 @@ router.post('/posts/search', (req, res) => {
    prepRegExp = prepRegExp.replace(/\?/g, '\\?');
    prepRegExp = prepRegExp.replace(/\+/g, '\\+');
    //Churn out the regular expression and flag it to be case insensitive
-   var regExp = new RegExp(prepRegExp, 'i');
+   const regExp = new RegExp(prepRegExp, 'i');
 
    //Use the regular expression to search for post titles or posts with tagged headphones that matches the search term
    //Must be main post
    Post.find({
-      $and: [
-         { isMainPost: true },
-         { $or: [{ title: { $regex: regExp } }, { 'tag.brandAndModel': { $regex: regExp } }] }
-      ]
+      $and: [{ isMainPost: true }, { $or: [{ title: { $regex: regExp } }, { 'tag.brandAndModel': { $regex: regExp } }] }]
    })
       .sort({ created: -1 })
       .limit(8)
@@ -171,9 +168,7 @@ function pushReplyIntoParent(createdPost, req) {
       //Find the parent post/reply of this reply
       Post.findById(req.body.idToReplyTo, (err, foundPost) => {
          if (err) {
-            reject(
-               'The parent of your newly created post could not be found, please report to your nearest information counter for assistance'
-            );
+            reject('The parent of your newly created post could not be found, please report to your nearest information counter for assistance');
          } else {
             //Push the created reply into the parent post/reply
             foundPost.replies.push(createdPost);
@@ -266,9 +261,7 @@ router.put('/posts/:id/addtags', middleware.isLoggedIn, (req, res) => {
       if (entry.tags.length > 0) {
          Headphone.findOne({ brandAndModel: entry.brandAndModel }, (err, foundHeadphone) => {
             if (err) {
-               res.status(400).json(
-                  'Failed to find the headphone you have tagged, please refrain from tagging obsolete headphones'
-               );
+               res.status(400).json('Failed to find the headphone you have tagged, please refrain from tagging obsolete headphones');
             } else {
                //Push in the tags related to the headphone
                foundHeadphone.tags.push({ postId: req.params.id, tags: entry.tags });
@@ -285,17 +278,13 @@ router.put('/posts/:id/addtags', middleware.isLoggedIn, (req, res) => {
 //Remove previous tags from edited post in the respective headphones
 router.put('/posts/:id/removetags', middleware.isLoggedIn, (req, res) => {
    //Find the headphones tagged previously and remove the previous tags
-   for (var i = 0; i < req.body.prevTags.length; i++) {
+   for (let i = 0; i < req.body.prevTags.length; i++) {
       //Remove the object with the previous tags that can be identified with the post's id
-      Headphone.update(
-         { brandAndModel: req.body.prevTags[i].brandAndModel },
-         { $pull: { tags: { postId: req.params.id } } },
-         (err, updatedHeadphone) => {
-            if (err) {
-               res.status(400).json('Could not remove records of your previous tags from this post');
-            }
+      Headphone.update({ brandAndModel: req.body.prevTags[i].brandAndModel }, { $pull: { tags: { postId: req.params.id } } }, err => {
+         if (err) {
+            res.status(400).json('Could not remove records of your previous tags from this post');
          }
-      );
+      });
       if (i === req.body.prevTags.length - 1) {
          //Send a response to client side when done so as to trigger the next request to add in the new tags
          res.json('Removal Done!');

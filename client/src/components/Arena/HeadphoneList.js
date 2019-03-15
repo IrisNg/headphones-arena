@@ -36,9 +36,9 @@ class HeadphoneList extends React.Component {
    //This will move the first headphone of every cycle to the last position
    //Creating an animation effect
    shiftHeadphonesAtInterval = () => {
-      var currentList = [...this.state.sequencedList];
-      var previousFirst = currentList.shift();
-      var newList = [...currentList, previousFirst];
+      const currentList = [...this.state.sequencedList];
+      const previousFirst = currentList.shift();
+      const newList = [...currentList, previousFirst];
       this.setState({ sequencedList: newList });
    };
    renderListOfHeadphones() {
@@ -52,15 +52,11 @@ class HeadphoneList extends React.Component {
    }
 
    render() {
-      var { listOfHeadphones } = this.props;
+      const { listOfHeadphones } = this.props;
       if (!listOfHeadphones) {
          return (
             <div className="headphone-list__loading">
-               <img
-                  className="loading-image"
-                  src="https://cdn.dribbble.com/users/924068/screenshots/3757746/dribbble.gif"
-                  alt="loading"
-               />
+               <img className="loading-image" src="https://cdn.dribbble.com/users/924068/screenshots/3757746/dribbble.gif" alt="loading" />
             </div>
          );
       }

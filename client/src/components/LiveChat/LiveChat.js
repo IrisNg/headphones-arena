@@ -39,7 +39,7 @@ class LiveChat extends React.Component {
       }
    };
    renderChatMessages() {
-      var { messages } = this.state;
+      const { messages } = this.state;
       if (!messages) {
          return null;
       }
@@ -57,15 +57,15 @@ class LiveChat extends React.Component {
       if (!this.props.headphones) {
          return null;
       }
-      var headphoneNamesWithRegex = this.props.headphones.map(headphone => {
+      const headphoneNamesWithRegex = this.props.headphones.map(headphone => {
          //Formulating Regular Expression
          var model = headphone.model;
          //Separate the alternative naming from model
-         var alternative = /\((.*)\)/.exec(model);
+         const alternative = /\((.*)\)/.exec(model);
          model = model.replace(/\s\(.*\)/g, '');
          model = model.replace(/(-|\s)/g, '');
          //Phrase matches if it contains all of the words from the model, regardless of the whitespaces in between
-         var allModelWords = model.split('').join('.?');
+         const allModelWords = model.split('').join('.?');
          //Phrase also matches if it contains the exact string from the model or alternative naming
          if (alternative) {
             var requirement = `(${allModelWords}|${alternative[1]})`;
@@ -73,7 +73,7 @@ class LiveChat extends React.Component {
             var requirement2 = `(${allModelWords})`;
          }
          //Churn out the regular expression and flag it to be case insensitive
-         var regExp = new RegExp(requirement ? requirement : requirement2, 'i');
+         const regExp = new RegExp(requirement ? requirement : requirement2, 'i');
          return { regex: regExp, entry: headphone };
       });
       this.setState({ headphoneNamesWithRegex });

@@ -1,494 +1,499 @@
-$colors: (darkest: #112f41, dark:#1c3359, mid: #a5362e, light:#c9463d, lightest: #e3e3e3);
+$colors: (
+   darkest: #112f41,
+   dark: #1c3359,
+   mid: #a5362e,
+   light: #c9463d,
+   lightest: #e3e3e3
+);
 $yellow: #f2b134;
 /* NavigationBar */
 
-.arena~.navigation-bar {
-    bottom: -2px;
+.arena ~ .navigation-bar {
+   bottom: -2px;
 }
 
 /* Arena */
 
 .arena {
-    height: max-content;
-    display: grid;
-    grid-template-columns: 11% 78% 11%;
-    grid-template-rows: 50vh auto;
-    grid-template-areas: "headphone-list selected-list live-chat" "headphone-list selected-list live-chat";
-    color: map-get($colors, darkest);
+   height: max-content;
+   display: grid;
+   grid-template-columns: 11% 78% 11%;
+   grid-template-rows: 50vh auto;
+   grid-template-areas: 'headphone-list selected-list live-chat' 'headphone-list selected-list live-chat';
+   color: map-get($colors, darkest);
 }
 
 .arena__horizontal-line {
-    height: 50vh;
-    width: 100%;
-    grid-column: 1 / -1;
-    grid-row: 1/ span 1;
-    border-bottom: 2px solid map-get($colors, darkest);
+   height: 50vh;
+   width: 100%;
+   grid-column: 1 / -1;
+   grid-row: 1 / span 1;
+   border-bottom: 2px solid map-get($colors, darkest);
 }
 
 .arena__nav-bar-line {
-    position: fixed;
-    width: 3.5rem;
-    height: 100%;
-    box-sizing: border-box;
-    border-right: 3px solid map-get($colors, darkest);
+   position: fixed;
+   width: 3.5rem;
+   height: 100%;
+   box-sizing: border-box;
+   border-right: 3px solid map-get($colors, darkest);
 }
 
 /* HeadphoneList */
 
 .headphone-list {
-    grid-area: headphone-list;
-    height: calc(100vh - 3.5rem);
-    padding-bottom: 3.5rem;
-    padding-left: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    color: map-get($colors, darkest);
-    font-weight: 900;
+   grid-area: headphone-list;
+   height: calc(100vh - 3.5rem);
+   padding-bottom: 3.5rem;
+   padding-left: 2.5rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   position: relative;
+   z-index: 2;
+   color: map-get($colors, darkest);
+   font-weight: 900;
 }
 
 /* Headphone */
 
 .headphone {
-    margin: .2rem 0;
-    padding: 0 .3rem;
-    background-color: map-get($colors, lightest);
-    font-size: medium;
-    width: fit-content;
+   margin: 0.2rem 0;
+   padding: 0 0.3rem;
+   background-color: map-get($colors, lightest);
+   font-size: medium;
+   width: fit-content;
 }
 
 .headphone:hover {
-    text-align: right;
-    background-color: $yellow;
-    color: white;
+   text-align: right;
+   background-color: $yellow;
+   color: white;
 }
 
 .headphone__brand,
 .headphone__model {
-    cursor: pointer;
+   cursor: pointer;
 }
 
 /* SelectedList */
 
 .selected-list {
-    grid-area: selected-list;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 22%);
-    grid-column-gap: 3%;
-    justify-content: center;
-    text-align: center;
+   grid-area: selected-list;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 22%);
+   grid-column-gap: 3%;
+   justify-content: center;
+   text-align: center;
 }
 
 .selected-list__empty {
-    grid-area: selected-list;
-    align-self: center;
-    justify-self: center;
-    padding: .05rem 1.5rem .05rem 1.5rem;
-    font-weight: 900;
-    font-size: 1.2rem;
-    text-align: center;
-    letter-spacing: .3rem;
-    text-indent: .3rem;
-    background-color: map-get($colors, dark);
-    color: white;
+   grid-area: selected-list;
+   align-self: center;
+   justify-self: center;
+   padding: 0.05rem 1.5rem 0.05rem 1.5rem;
+   font-weight: 900;
+   font-size: 1.2rem;
+   text-align: center;
+   letter-spacing: 0.3rem;
+   text-indent: 0.3rem;
+   background-color: map-get($colors, dark);
+   color: white;
 }
 
 /* SelectedHeadphone */
 
 .selected-headphone {
-    position: relative;
-    margin-top: calc(3.5rem - 7px);
-    border: 2px solid map-get($colors, darkest);
-    border-top-width: 8px;
-    background-color: rgb(250, 250, 250);
+   position: relative;
+   margin-top: calc(3.5rem - 7px);
+   border: 2px solid map-get($colors, darkest);
+   border-top-width: 8px;
+   background-color: rgb(250, 250, 250);
 }
 
 .selected-headphone__loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
-.selected-headphone~.selected-headphone~.selected-headphone~.selected-headphone__loading {
-    display: none;
+.selected-headphone ~ .selected-headphone ~ .selected-headphone ~ .selected-headphone__loading {
+   display: none;
 }
 
 .loading-image {
-    width: 4rem;
+   width: 4rem;
 }
 
 .selected-headphone:nth-of-type(4) {
-    display: none;
+   display: none;
 }
 
 .selected-headphone__close-button {
-    position: absolute;
-    top: calc(-2rem - .4rem);
-    left: -2px;
-    width: calc(100% + 4px);
-    height: 2rem;
-    opacity: 0;
-    transition: opacity .3s ease-in;
-    line-height: 2rem;
-    font-size: 1rem;
-    font-weight: 900;
-    background-color: map-get($colors, darkest);
-    color: white;
-    cursor: pointer;
-    font-family: "Tahoma";
+   position: absolute;
+   top: calc(-2rem - 0.4rem);
+   left: -2px;
+   width: calc(100% + 4px);
+   height: 2rem;
+   opacity: 0;
+   transition: opacity 0.3s ease-in;
+   line-height: 2rem;
+   font-size: 1rem;
+   font-weight: 900;
+   background-color: map-get($colors, darkest);
+   color: white;
+   cursor: pointer;
+   font-family: 'Tahoma';
 }
 
 .selected-headphone:hover .selected-headphone__close-button {
-    opacity: 1;
+   opacity: 1;
 }
 
 .selected-headphone__close-button:hover {
-    background-color: map-get($colors, mid);
+   background-color: map-get($colors, mid);
 }
 
 .selected-headphone__essential {
-    height: calc(50vh - 3.5rem - 1.6rem - 1.5px);
-    padding: .8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
+   height: calc(50vh - 3.5rem - 1.6rem - 1.5px);
+   padding: 0.8rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+   background-color: white;
 }
 
 .selected-headphone__thumbnail {
-    padding: .4rem 3%;
+   padding: 0.4rem 3%;
 }
 
 .selected-headphone img {
-    width: 90%;
+   width: 90%;
 }
 
 .selected-headphone__page {
-    display: inline-block;
-    width: 7px;
-    height: 16px;
-    margin: 0 .3rem;
-    border: 1.2px solid map-get($colors, dark);
-    box-sizing: border-box;
-    vertical-align: middle;
-    cursor: pointer;
+   display: inline-block;
+   width: 7px;
+   height: 16px;
+   margin: 0 0.3rem;
+   border: 1.2px solid map-get($colors, dark);
+   box-sizing: border-box;
+   vertical-align: middle;
+   cursor: pointer;
 }
 
 .selected-headphone__page:not(.--active-page):hover {
-    background-color: $yellow;
-    border: none;
+   background-color: $yellow;
+   border: none;
 }
 
 .selected-headphone__page.--active-page {
-    width: 7px;
-    height: 21px;
-    background-color: $yellow;
-    border-color: map-get($colors, dark);
+   width: 7px;
+   height: 21px;
+   background-color: $yellow;
+   border-color: map-get($colors, dark);
 }
 
 .selected-headphone__rating {
-    width: calc(100% - 2rem);
-    height: 6px;
-    transform: skew(-25deg);
-    border: 1px solid map-get($colors, darkest);
+   width: calc(100% - 2rem);
+   height: 6px;
+   transform: skew(-25deg);
+   border: 1px solid map-get($colors, darkest);
 }
 
 .selected-headphone__amazon {
-    width: calc(100% - 2rem);
-    padding: .1rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid map-get($colors, darkest);
-    font-size: .9rem;
-    cursor: pointer;
+   width: calc(100% - 2rem);
+   padding: 0.1rem 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: 1px solid map-get($colors, darkest);
+   font-size: 0.9rem;
+   cursor: pointer;
 }
 
 .selected-headphone__amazon i {
-    margin-right: .5rem;
+   margin-right: 0.5rem;
 }
 
 .selected-headphone__amazon:hover,
 .selected-headphone__amazon i:hover {
-    margin-top: .4rem;
-    animation: bounce 1s .2s 1;
-    font-weight: 700;
-    background-color: $yellow;
-    border: none;
+   margin-top: 0.4rem;
+   animation: bounce 1s 0.2s 1;
+   font-weight: 700;
+   background-color: $yellow;
+   border: none;
 }
 
 @keyframes bounce {
-    0%,
-    30%,
-    60%,
-    90% {
-        transform: translateY(0);
-    }
-    15% {
-        transform: translateY(-1rem);
-    }
-    45% {
-        transform: translateY(-.5rem);
-    }
-    75% {
-        transform: translateY(-.2rem);
-    }
+   0%,
+   30%,
+   60%,
+   90% {
+      transform: translateY(0);
+   }
+   15% {
+      transform: translateY(-1rem);
+   }
+   45% {
+      transform: translateY(-0.5rem);
+   }
+   75% {
+      transform: translateY(-0.2rem);
+   }
 }
 
 .selected-headphone__name {
-    margin: 0;
-    padding: .4rem .8rem;
-    background-color: map-get($colors, light);
-    color: white;
+   margin: 0;
+   padding: 0.4rem 0.8rem;
+   background-color: map-get($colors, light);
+   color: white;
 }
 
 /* Overview */
 
 .overview {
-    padding: .8rem 0 1.2rem 0;
-    line-height: 1.3rem;
-    font-size: .85rem;
+   padding: 0.8rem 0 1.2rem 0;
+   line-height: 1.3rem;
+   font-size: 0.85rem;
 }
 
 .overview__description {
-    margin: 0;
-    padding: 0 1.2rem;
-    text-align: justify;
+   margin: 0;
+   padding: 0 1.2rem;
+   text-align: justify;
 }
 
 .overview__tags {
-    margin-bottom: 1.2rem;
-    padding-bottom: .9rem;
-    font-size: .75rem;
-    font-weight: 700;
-    letter-spacing: .01rem;
-    color: map-get($colors, darkest);
-    border-bottom: 2px solid map-get($colors, darkest);
+   margin-bottom: 1.2rem;
+   padding-bottom: 0.9rem;
+   font-size: 0.75rem;
+   font-weight: 700;
+   letter-spacing: 0.01rem;
+   color: map-get($colors, darkest);
+   border-bottom: 2px solid map-get($colors, darkest);
 }
 
 .overview__tag--div {
-    display: inline-block;
-    margin: .2rem .2rem;
-    padding: .15rem .4rem;
-    line-height: .9rem;
-    text-transform: uppercase;
-    border: .5px solid map-get($colors, darkest);
-    ;
-    box-shadow: 2px 2px map-get($colors, darkest);
+   display: inline-block;
+   margin: 0.2rem 0.2rem;
+   padding: 0.15rem 0.4rem;
+   line-height: 0.9rem;
+   text-transform: uppercase;
+   border: 0.5px solid map-get($colors, darkest);
+   box-shadow: 2px 2px map-get($colors, darkest);
 }
 
 .overview__tag--span {
-    display: inline;
-    padding: .15rem .4rem;
-    vertical-align: middle;
-    text-transform: uppercase;
-    border: .5px solid map-get($colors, darkest);
-    box-shadow: 2px 2px map-get($colors, darkest);
+   display: inline;
+   padding: 0.15rem 0.4rem;
+   vertical-align: middle;
+   text-transform: uppercase;
+   border: 0.5px solid map-get($colors, darkest);
+   box-shadow: 2px 2px map-get($colors, darkest);
 }
 
 .overview__tag--span-div {
-    line-height: 1.65rem;
-    margin: 0 .2rem;
+   line-height: 1.65rem;
+   margin: 0 0.2rem;
 }
 
 /* Specification */
 
 .specification {
-    padding: 1.2rem .6rem;
-    display: grid;
-    grid-template-columns: auto auto;
-    font-size: .85rem;
-    line-height: 1.3rem;
+   padding: 1.2rem 0.6rem;
+   display: grid;
+   grid-template-columns: auto auto;
+   font-size: 0.85rem;
+   line-height: 1.3rem;
 }
 
 .specification div:nth-child(odd) {
-    padding-right: .5rem;
-    text-align: right;
-    font-weight: 700;
+   padding-right: 0.5rem;
+   text-align: right;
+   font-weight: 700;
 }
 
 .specification div:nth-child(even) {
-    text-align: left;
+   text-align: left;
 }
 
 /* TopPosts */
 
 .top-posts {
-    padding: 1.2rem .6rem;
-    font-size: .85rem;
-    line-height: 1.3rem;
+   padding: 1.2rem 0.6rem;
+   font-size: 0.85rem;
+   line-height: 1.3rem;
 }
 
 .top-posts h4 {
-    margin: .2rem 0 1rem 0;
-    padding: .15rem 0;
-    border-top: 1px solid map-get($colors, darkest);
-    border-bottom: 1px solid map-get($colors, darkest);
+   margin: 0.2rem 0 1rem 0;
+   padding: 0.15rem 0;
+   border-top: 1px solid map-get($colors, darkest);
+   border-bottom: 1px solid map-get($colors, darkest);
 }
 
 .top-posts__post {
-    padding: .4rem .6rem;
-    font-size: .8rem;
-    cursor: pointer;
+   padding: 0.4rem 0.6rem;
+   font-size: 0.8rem;
+   cursor: pointer;
 }
 
 .top-posts__post:hover {
-    transform: scale(.95);
-    border: 1px solid map-get($colors, darkest);
-    box-shadow: 3px 3px map-get($colors, darkest);
+   transform: scale(0.95);
+   border: 1px solid map-get($colors, darkest);
+   box-shadow: 3px 3px map-get($colors, darkest);
 }
 
 .top-posts__title {
-    text-align: left;
-    font-weight: 700;
+   text-align: left;
+   font-weight: 700;
 }
 
 .top-posts__content {
-    text-align: justify;
+   text-align: justify;
 }
 
 .top-posts__date {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: right;
-    font-weight: 300;
-    font-size: .65rem;
-    line-height: .9rem;
-    color: #4d4d4d;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   text-align: right;
+   font-weight: 300;
+   font-size: 0.65rem;
+   line-height: 0.9rem;
+   color: #4d4d4d;
 }
 
 /* Normal Laptops */
 
 @media screen and (max-width: 1280px) {
-    .arena {
-        grid-template-columns: 12% 76% 12%;
-    }
-    .selected-list {
-        grid-template-columns: repeat(auto-fit, 26%);
-        grid-column-gap: 3%;
-    }
-    .arena .live-chat {
-        width: 12%;
-    }
+   .arena {
+      grid-template-columns: 12% 76% 12%;
+   }
+   .selected-list {
+      grid-template-columns: repeat(auto-fit, 26%);
+      grid-column-gap: 3%;
+   }
+   .arena .live-chat {
+      width: 12%;
+   }
 }
 
 /* Small Laptops */
 
 @media screen and (max-width: 1024px) {
-    .arena {
-        grid-template-columns: 17% 66% 17%;
-    }
-    .selected-list {
-        grid-template-columns: repeat(auto-fit, 38%);
-        grid-column-gap: 6%;
-    }
-    .selected-headphone:nth-of-type(4) {
-        display: block;
-    }
-    .selected-headphone~.selected-headphone~.selected-headphone~.selected-headphone__loading {
-        display: block;
-    }
-    .arena .live-chat {
-        width: 17%;
-    }
+   .arena {
+      grid-template-columns: 17% 66% 17%;
+   }
+   .selected-list {
+      grid-template-columns: repeat(auto-fit, 38%);
+      grid-column-gap: 6%;
+   }
+   .selected-headphone:nth-of-type(4) {
+      display: block;
+   }
+   .selected-headphone ~ .selected-headphone ~ .selected-headphone ~ .selected-headphone__loading {
+      display: block;
+   }
+   .arena .live-chat {
+      width: 17%;
+   }
 }
 
 /* Tablet */
 
 @media only screen and (max-width: 767px) {
-    .arena {
-        padding-top: 3rem;
-        grid-template-rows: 100vh auto auto;
-        grid-template-columns: 25% auto;
-        grid-template-areas: "headphone-list selected-list" "headphone-list selected-list" "headphone-list live-chat";
-        justify-items: center;
-    }
-    .arena__nav-bar-line {
-        width: 1.7rem;
-    }
-    .headphone-list {
-        padding-left: .75rem;
-    }
-    .headphone {
-        font-size: .9rem;
-    }
-    .selected-list {
-        margin-left: -3rem;
-        grid-template-columns: repeat(auto-fit, 18rem);
-        grid-column-gap: 0;
-    }
-    .selected-list__empty {
-        margin: 1px 0 0 -3rem;
-        padding: .05rem .5rem .05rem .5rem;
-        line-height: 1.3rem;
-        font-size: 1.1rem;
-    }
-    .selected-headphone:nth-of-type(4) {
-        display: none;
-    }
-    .selected-headphone~.selected-headphone~.selected-headphone~.selected-headphone__loading {
-        display: none;
-    }
-    .selected-headphone__close-button {
-        opacity: 1;
-        height: 1.5rem;
-        top: calc(-1.5rem - .4rem);
-        line-height: 1.5rem;
-        font-size: .9rem;
-    }
-    .selected-headphone img {
-        width: 100%;
-        max-height: 200px;
-        max-width: 200px;
-    }
-    .overview {
-        font-size: .88rem;
-    }
-    .arena .live-chat {
-        width: 18rem;
-        margin-left: -3rem;
-        grid-area: live-chat;
-    }
+   .arena {
+      padding-top: 3rem;
+      grid-template-rows: 100vh auto auto;
+      grid-template-columns: 25% auto;
+      grid-template-areas: 'headphone-list selected-list' 'headphone-list selected-list' 'headphone-list live-chat';
+      justify-items: center;
+   }
+   .arena__nav-bar-line {
+      width: 1.7rem;
+   }
+   .headphone-list {
+      padding-left: 0.75rem;
+   }
+   .headphone {
+      font-size: 0.9rem;
+   }
+   .selected-list {
+      margin-left: -3rem;
+      grid-template-columns: repeat(auto-fit, 18rem);
+      grid-column-gap: 0;
+   }
+   .selected-list__empty {
+      margin: 1px 0 0 -3rem;
+      padding: 0.05rem 0.5rem 0.05rem 0.5rem;
+      line-height: 1.3rem;
+      font-size: 1.1rem;
+   }
+   .selected-headphone:nth-of-type(4) {
+      display: none;
+   }
+   .selected-headphone ~ .selected-headphone ~ .selected-headphone ~ .selected-headphone__loading {
+      display: none;
+   }
+   .selected-headphone__close-button {
+      opacity: 1;
+      height: 1.5rem;
+      top: calc(-1.5rem - 0.4rem);
+      line-height: 1.5rem;
+      font-size: 0.9rem;
+   }
+   .selected-headphone img {
+      width: 100%;
+      max-height: 200px;
+      max-width: 200px;
+   }
+   .overview {
+      font-size: 0.88rem;
+   }
+   .arena .live-chat {
+      width: 18rem;
+      margin-left: -3rem;
+      grid-area: live-chat;
+   }
 }
 
 /* Phones */
 
 @media only screen and (max-width: 481px) {
-    .arena {
-        grid-template-columns: 23% 77%;
-    }
-    .arena__nav-bar-line {
-        width: 1.65rem;
-    }
-    .headphone-list {
-        padding-left: 3rem;
-    }
-    .headphone {
-        font-size: .85rem;
-        background: linear-gradient(to right, map-get($colors, lightest) 66%, transparent 66%)
-    }
-    .headphone:hover {
-        background: $yellow;
-    }
-    .selected-list {
-        margin-left: 7%;
-        grid-template-columns: repeat(auto-fit, 14rem);
-    }
-    .selected-list__empty {
-        margin: 1px 4rem 0 4rem;
-        padding: .2rem .3rem;
-        font-size: 1rem;
-        line-height: 1.2rem;
-    }
-    .selected-headphone img {
-        width: 85%;
-    }
-    .arena .live-chat {
-        width: 14rem;
-        margin-left: 7%;
-    }
+   .arena {
+      grid-template-columns: 23% 77%;
+   }
+   .arena__nav-bar-line {
+      width: 1.65rem;
+   }
+   .headphone-list {
+      padding-left: 3rem;
+   }
+   .headphone {
+      font-size: 0.85rem;
+      background: linear-gradient(to right, map-get($colors, lightest) 66%, transparent 66%);
+   }
+   .headphone:hover {
+      background: $yellow;
+   }
+   .selected-list {
+      margin-left: 7%;
+      grid-template-columns: repeat(auto-fit, 14rem);
+   }
+   .selected-list__empty {
+      margin: 1px 4rem 0 4rem;
+      padding: 0.2rem 0.3rem;
+      font-size: 1rem;
+      line-height: 1.2rem;
+   }
+   .selected-headphone img {
+      width: 85%;
+   }
+   .arena .live-chat {
+      width: 14rem;
+      margin-left: 7%;
+   }
 }

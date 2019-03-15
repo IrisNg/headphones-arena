@@ -2,7 +2,7 @@ var Post = require('../models/Post'),
    UserProfile = require('../models/UserProfile'),
    User = require('../models/User');
 
-var middlewareObj = {};
+const middlewareObj = {};
 
 //Check authentication
 middlewareObj.isLoggedIn = function(req, res, next) {

@@ -37,9 +37,7 @@ class NavigationBar extends React.Component {
    }
    manageBlacksmithClass() {
       var { currentLocation } = this.state;
-      return currentLocation === '/blacksmith' || currentLocation === '/'
-         ? 'navigation-icon--active'
-         : 'navigation-icon--inactive';
+      return currentLocation === '/blacksmith' || currentLocation === '/' ? 'navigation-icon--active' : 'navigation-icon--inactive';
    }
    manageAccountClass() {
       var { currentLocation } = this.state;
@@ -65,10 +63,7 @@ class NavigationBar extends React.Component {
                <div className="navigation-bar__page-name">FORUM</div>
             </div>
             {/* To Blacksmith page */}
-            <div
-               className={`navigation-bar__icon ${this.manageBlacksmithClass()}`}
-               onClick={() => history.push('/blacksmith')}
-            >
+            <div className={`navigation-bar__icon ${this.manageBlacksmithClass()}`} onClick={() => history.push('/blacksmith')}>
                <img src="https://i.imgur.com/KH7ovQc.png" alt="To Blacksmith Page" />
                <div className="navigation-bar__page-name">
                   <span>BLACK SMITH</span>

@@ -7,6 +7,15 @@ html {
 
 body {
     margin: 0;
+
+    visibility: hidden;
+    background-color: black;
+}
+
+body.loaded {
+  visibility: visible;
+
+  background-color: #e3e3e3;
 }
 
 body::-webkit-scrollbar {

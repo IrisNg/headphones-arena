@@ -16,3 +16,6 @@ ReactDOM.render(
    </Provider>,
    document.querySelector('#root')
 );
+
+
+document.querySelector('body').classList.add('loaded')

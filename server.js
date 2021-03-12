@@ -7,7 +7,7 @@ var express = require('express'),
   LocalStrategy = require('passport-local'),
   session = require('express-session'),
   port = process.env.PORT || 5000,
-   url = process.env.MONGODB_URI || 'mongodb://localhost:27017/headphones_arena_app';
+   url = process.env.DATABASEURL || 'mongodb://localhost:27017/headphones_arena_app';
 
 //-- SETUP : REQUIRING ROUTES
 var userRoutes = require('./routes/userRoutes'),
